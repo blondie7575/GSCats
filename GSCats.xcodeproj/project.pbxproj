@@ -6,10 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		70E9D85F1F2BD95400555C19 /* equates.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = equates.s; sourceTree = "<group>"; };
+		70E9D8601F2BD95400555C19 /* graphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = graphics.s; sourceTree = "<group>"; };
+		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
+		70E9D8621F2BD95400555C19 /* macros.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = macros.s; sourceTree = "<group>"; };
+		70E9D8631F2BD95400555C19 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		70E9D8541F2BD8EF00555C19 = {
 			isa = PBXGroup;
 			children = (
+				70E9D85F1F2BD95400555C19 /* equates.s */,
+				70E9D8601F2BD95400555C19 /* graphics.s */,
+				70E9D8621F2BD95400555C19 /* macros.s */,
+				70E9D8611F2BD95400555C19 /* gscats.s */,
+				70E9D8631F2BD95400555C19 /* Makefile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,6 +197,7 @@
 				70E9D85E1F2BD8EF00555C19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
