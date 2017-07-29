@@ -1,43 +1,113 @@
+.macro OP8
+	.i8
+	.a8
+.endmacro
+
+
+.macro OP16
+	.i16
+	.a16
+.endmacro
+
+
+.macro BITS8
+	sep #%00110000
+	OP8
+.endmacro
+
+
+.macro BITS16
+	rep #%00110000
+	OP16
+.endmacro
+
+
+.macro DBR bankNum
+	BITS8
+	lda bankNum
+	pha
+	plb
+	BITS16
+.endmacro
+
+
+.macro SYNCDBR
+	phk
+	plb
+.endmacro
+
+
 .macro EMULATION
 	sec		; Enable 8-bit mode
 	xce
-	.i8
-	.a8
+	OP8
 .endmacro
 
 
 .macro NATIVE
 	clc				; Enable 16-bit mode
 	xce
-	rep	#$30
-	.i16
-	.a16
+	BITS16
 .endmacro
 
+
 .macro SHRVIDEO
-	sep #$30
-	.i8
-	.a8
+	BITS8
 	lda NEWVIDEO
 	ora	#%11000001
 	sta NEWVIDEO
-	rep	#$30
-	.i16
-	.a16
+	BITS16
 .endmacro
 
+
 .macro CLASSICVIDEO
-	sep #$30
-	.i8
-	.a8
+	BITS8
 	lda NEWVIDEO
 	and #%00111111
 	sta NEWVIDEO
-	rep	#$30
-	.i16
-	.a16
+	BITS16
 .endmacro
 
+
+.macro FASTGRAPHICS
+	sei
+	sep #%00100000	; 16-bit A only, to preserve X/Y
+	.a8
+
+	lda SHADOW
+	sta shadowRegister
+	lda #0
+	sta SHADOW
+
+	lda STACKCTL
+	sta stackRegister
+	ora #$30
+	sta STACKCTL
+
+	rep #%00100000
+	.a16
+	tsc
+	sta stackPtr
+.endmacro
+
+
+.macro SLOWGRAPHICS
+	sep #%00100000	; 16-bit A only, to preserve X/Y
+	.a8
+
+	lda shadowRegister
+	sta SHADOW
+
+	lda stackRegister
+	sta STACKCTL
+
+	rep #%00100000
+	.a16
+	lda stackPtr
+	tcs
+
+	cli
+.endmacro
 
 
 

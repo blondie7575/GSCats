@@ -1,19 +1,31 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; colorFill
-; Fills the screen with a color (or two). Not very fast.
+; Fills the screen with a color (or two). Pretty fast, but not fastest possible
 ; A 4:4:4:4 = Palette entries
+;
+; Trashes Y
 
 colorFill:
-	phx
-	ldx #32000
+	FASTGRAPHICS
+
+	lda #$9d00-1	; Point stack to end of VRAM
+	tcs
+
+	ldy #200
 
 colorFillLoop:
-	sta $e11ffe,x
-	dex
-	dex
-	bne colorFillLoop
-	plx
+	; 80 PHXs, for 1 line
+	; We could do the entire screen with PHXs, but this is a
+	; balance between speed and super-verbose code
+	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
+	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
+	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
+	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
 
+	dey
+	bne colorFillLoop
+
+	SLOWGRAPHICS
 	rts
 
 
@@ -30,7 +42,7 @@ initSCBs:
 initSCBsLoop:
 	dex
 	dex
-	sta $e19cfe,x
+	sta $e19d00,x
 	bne initSCBsLoop
 	rts
 
@@ -87,8 +99,19 @@ setPaletteLoop:
 	iny
 	inx
 	inx
-	cmp #16
+	cpx #32
 	bne setPaletteLoop
 
 	RESTORE_XY
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; caches
+shadowRegister:
+	.byte 0
+stackRegister:
+	.byte 0
+stackPtr:
+	.word 0
+

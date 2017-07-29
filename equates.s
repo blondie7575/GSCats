@@ -1,10 +1,12 @@
-TEXTCOLOR		= $c022
-NEWVIDEO		= $c029
-BORDERCOLOR		= $c034
-CLOCKCTL		= $c034
+TEXTCOLOR		= $e0c022
+NEWVIDEO		= $e0c029
+BORDERCOLOR		= $e0c034
+CLOCKCTL		= $e0c034
+SHADOW			= $e0c035
+STACKCTL		= $e0c068
+KBD				= $e0c000
+KBDSTROBE		= $e0c010
 COUT			= $fded
-KBD				= $c000
-KBDSTROBE		= $c010
 
 
 ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)

@@ -11,7 +11,7 @@
 
 CL65=cl65
 AC=AppleCommander.jar
-ADDR=6000
+ADDR=800
 
 PGM=gscats
 
