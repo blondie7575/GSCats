@@ -1,6 +1,5 @@
 ;
-;  gsshr
-;  GS sample application
+;  gscats
 ;
 ;  Created by Quinn Dunki on 7/9/17
 ;
@@ -8,43 +7,7 @@
 
 .include "macros.s"
 .include "equates.s"
-
-
-.org $800
-
-main:
-	NATIVE
-
-mainCopyStart:
-	ldx #0
-	lda #mainBank2
-	sta mainCopyDest+1
-
-mainCopyLoop:
-	lda mainBank2,x
-
-mainCopyDest:
-	sta $020800,x
-	inx
-	cpx #endMainBank2-mainBank2
-	bne mainCopyLoop
-
-	lda #returnToProDOS
-	sta proDOSLongJump
-	lda #mainBank2
-	sta mainLongJump
-	jml (mainLongJump)
-
-returnToProDOS:
-	SYNCDBR
-	EMULATION
-	rts
-
-mainLongJump:
-	.byte 00,08,02
-proDOSLongJump:
-	.byte 00,00,00
-
+.include "loader.s"
 
 mainBank2:
 	SYNCDBR
@@ -54,6 +17,7 @@ mainBank2:
 	sta TEXTCOLOR
 	BITS16
 
+	; Set up SCBs
 	jsr initSCBs
 	SHRVIDEO
 
@@ -62,8 +26,11 @@ mainBank2:
 	lda #0
 	jsr setPalette
 	
-	ldx #$1111
+	ldx #$2222
 	jsr colorFill
+
+	jsr generateTerrain
+	jsr renderTerrainColumns
 
 	jsr kbdWait
 	CLASSICVIDEO
@@ -91,12 +58,12 @@ kbdWaitLoop:
 
 
 basePalette:
-	.word $0F00,$00F0,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	.word $0000,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 
 
 .include "graphics.s"
-
-
+.include "terrain.s"
+.include "trigTables.s"
 endMainBank2:
 
 

@@ -110,6 +110,12 @@
 .endmacro
 
 
+.macro LOADPARAM24 bankNumDoubled,addr16
+	lda #bankNumDoubled
+	sta PARAM24+1
+	lda #addr16
+	sta PARAM24
+.endmacro
 
 ;;;;;;;;;;
 ; Stack Macros

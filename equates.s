@@ -19,3 +19,4 @@ PARAML1			= $08
 SCRATCH0		= $19
 SCRATCH1		= $1a
 SCRATCHL		= $19		; 16-bit version of scratch
+PARAM24			= $67		; 24-bit param (This is almost certainly messing up AppleSoft, but meh)
