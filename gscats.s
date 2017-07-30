@@ -30,36 +30,82 @@ mainBank2:
 	jsr colorFill
 
 	jsr generateTerrain
+
+mainGameLoop:
+	ldy mapScrollPos
 	jsr renderTerrainColumns
 
-	jsr kbdWait
-	CLASSICVIDEO
+	jsr kbdScan
 
+	lda quitRequested
+	beq mainGameLoop
+
+
+	CLASSICVIDEO
 	jml (proDOSLongJump)
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; kbdWait
-; Waits for a keystroke
+; kbdScan
+; Processes keyboard input
 ;
-kbdWait:
+; Trashes A
+;
+
+kbdScan:
 	EMULATION
 
-kbdWaitLoop:
+kbdScanLoop:
 	lda KBD
-	bpl kbdWaitLoop
+	bpl kbdScanLoop
 	sta KBDSTROBE
 
+	cmp #(8 + $80)
+	beq kbdScanLeftArrow
+
+	cmp #(21 + $80)
+	beq kbdScanRightArrow
+
+	cmp #(32 + $80)
+	beq kbdScanSpace
 	NATIVE
+
+kbdScanDone:
 	rts
+
+kbdScanLeftArrow:
+	NATIVE
+	lda mapScrollPos
+	beq kbdScanDone
+	dec
+	sta mapScrollPos
+	bra kbdScanDone
+
+kbdScanRightArrow:
+	NATIVE
+	lda mapScrollPos
+	cmp #TERRAINWIDTH/4-80
+	beq kbdScanDone
+	inc
+	sta mapScrollPos
+	bra kbdScanDone
+
+kbdScanSpace:
+	NATIVE
+	lda #1
+	sta quitRequested
+	bra kbdScanDone
 
 
 
 
 basePalette:
 	.word $0000,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
-
+mapScrollPos:	; 4-pixel columns
+	.word $0000
+quitRequested:
+	.word $0000
 
 .include "graphics.s"
 .include "terrain.s"

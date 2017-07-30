@@ -5,8 +5,8 @@
 ;
 
 
-TERRAINWIDTH = 320		; In pixels
-MAXTERRAINHEIGHT = 80	; In pixels
+TERRAINWIDTH = 640		; In pixels
+MAXTERRAINHEIGHT = 128	; In pixels
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainColumn
@@ -30,15 +30,23 @@ renderTerrainColumn:
 	sta renderTerrainColumnSMC+1
 	pha		; Cache 16-bit VRAM pointer on the stack
 
-	lda terrainData,y
+	lda terrainData,y		; Cache terrain height on the stack
 	and #$00ff
-	tax
-	inx		; Prevent x from going negative upon entry to loop
+	sta renderTerrainColumnHeight
+	ldx #0
 
 renderTerrainColumnLoop:
-	dex
+	inx
+	cpx #MAXTERRAINHEIGHT
 	beq renderTerrainColumnDone
+	cpx renderTerrainColumnHeight
+	bpl renderTerrainColumnBlack
+
 	lda #$1111
+	bra renderTerrainColumnSMC
+
+renderTerrainColumnBlack:
+	lda #$0000
 
 renderTerrainColumnSMC:
 	sta $e19c60
@@ -53,23 +61,32 @@ renderTerrainColumnDone:
 	pla
 	rts
 
-
+renderTerrainColumnHeight:
+	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainColumns
 ;
 ; This is not fast- probably only useful for debugging
 ;
+; Y = Start column
+;
+; Trashes all registers
+;
 
 renderTerrainColumns:
 	LOADPARAM24 $e1e1,$9c60
-	ldy #0
+	tya
+	clc
+	adc #80
+	sta SCRATCHL
 
 renderTerrainColumnsLoop:
 	jsr renderTerrainColumn
 	iny
-	cpy #TERRAINWIDTH/4
+	cpy SCRATCHL
 	beq renderTerrainColumnsDone
+
 	inc PARAM24
 	inc PARAM24
 	bra renderTerrainColumnsLoop
@@ -109,6 +126,6 @@ generateTerrainLoop:
 ; Terrain data, stored as height values 4 pixels wide
 
 terrainData:
-	.repeat TERRAINWIDTH/4
+	.repeat TERRAINWIDTH/2
 	.byte 0
 	.endrepeat
