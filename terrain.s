@@ -33,6 +33,7 @@ renderTerrainColumn:
 	lda terrainData,y
 	and #$00ff
 	tax
+	inx		; Prevent x from going negative upon entry to loop
 
 renderTerrainColumnLoop:
 	dex
@@ -86,9 +87,17 @@ generateTerrain:
 	ldy #0
 	lda #terrainData
 	sta SCRATCHL
-	lda #MAXTERRAINHEIGHT
 
 generateTerrainLoop:
+
+	phy
+	tya		; Pull an interesting value out of the sine table
+	and #$00ff
+	tay
+	lda sineTable,y
+	and #$7f7f
+	ply
+
 	sta (SCRATCHL),y
 	iny
 	cpy #TERRAINWIDTH/4
