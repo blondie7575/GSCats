@@ -96,10 +96,91 @@ renderTerrainColumnsDone:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderTerrain
+;
+; No stack operations permitted here!
+;
+renderTerrain:
+	FASTGRAPHICS
+
+	lda #$9d00-1	; Point stack to end of VRAM
+	tcs
+
+	jmp renderSpanChain
+
+renderSpanChainComplete:
+
+	SLOWGRAPHICS
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderSpanChain
+;
+; Trashes all registers
+; No stack operations permitted here!
+;
+
+renderSpanChain:
+	stz spanChainIndex
+
+renderSpanChainLoop:
+	ldx spanChainIndex
+	ldy spanChain+2,x
+	lda spanChain,x
+	beq renderSpanChainComplete
+	dec
+	asl
+	tax
+	jmp (renderSpamJumpTable,x)
+
+renderSpanComplete:
+	inc spanChainIndex
+	inc spanChainIndex
+	inc spanChainIndex
+	inc spanChainIndex
+	bra renderSpanChainLoop
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderSpan
+;
+; No stack operations permitted here!
+;
+;
+;renderSpan:
+;	ldy spanParams+2
+;	lda spanParams
+;	dec
+;	asl
+;	tax
+;	jmp (renderSpamJumpTable,x)
+
+
+
+
+spanChain:
+	.word 20,$1111		; Length,Colors
+	.word 40,$0000		; Length,Colors
+	.word 10,$1111		; Length,Colors
+	.word 2,$0000		; Length,Colors
+	.word 1,$1111		; Length,Colors
+	.word 0,0		; Length,Colors
+	.word 0,0		; Length,Colors
+	.word 0,0		; Length,Colors
+	.word 0,0		; Length,Colors
+	.word 0,0		; Length,Colors
+	.word 0
+
+spanChainIndex:
+	.word 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
 ;
 ; Trashes A and Y
 ;
+
 generateTerrain:
 	ldy #0
 	lda #terrainData
@@ -122,6 +203,8 @@ generateTerrainLoop:
 
 	rts
 
+
+.include "spanRender.s"
 
 ; Terrain data, stored as height values 4 pixels wide
 

@@ -33,7 +33,9 @@ mainBank2:
 
 mainGameLoop:
 	ldy mapScrollPos
-	jsr renderTerrainColumns
+;	jsr renderTerrainColumns
+
+	jsr renderTerrain
 
 	jsr kbdScan
 

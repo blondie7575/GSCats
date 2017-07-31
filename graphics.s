@@ -2,6 +2,7 @@
 ; colorFill
 ; Fills the screen with a color (or two). Pretty fast, but not fastest possible
 ; A 4:4:4:4 = Palette entries
+; X = Color to fill (doubled)
 ;
 ; Trashes Y
 
