@@ -79,17 +79,17 @@ kbdScanDone:
 kbdScanLeftArrow:
 	NATIVE
 	lda mapScrollPos
+	cmp #TERRAINWIDTH/4-80
 	beq kbdScanDone
-	dec
+	inc
 	sta mapScrollPos
 	bra kbdScanDone
 
 kbdScanRightArrow:
 	NATIVE
 	lda mapScrollPos
-	cmp #TERRAINWIDTH/4-80
 	beq kbdScanDone
-	inc
+	dec
 	sta mapScrollPos
 	bra kbdScanDone
 
@@ -103,9 +103,9 @@ kbdScanSpace:
 
 
 basePalette:
-	.word $0000,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
-mapScrollPos:	; 4-pixel columns
-	.word $0000
+	.word $0800,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+mapScrollPos:	; 4-pixel columns distance from right terrain edge
+	.word 80
 quitRequested:
 	.word $0000
 

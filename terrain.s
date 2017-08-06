@@ -101,12 +101,13 @@ renderTerrainColumnsDone:
 ; No stack operations permitted here!
 ;
 renderTerrain:
+	sty <MAPSCROLLPOS
 	FASTGRAPHICS
 
 	lda #$9d00-1	; Point stack to end of VRAM
 	tcs
 
-	jmp renderSpanChain
+	jmp renderClippedSpanChain
 
 renderSpanChainComplete:
 
@@ -132,9 +133,9 @@ renderSpanChainLoop:
 	dec
 	asl
 	tax
-	jmp (renderSpamJumpTable,x)
+	jmp (renderSpanJumpTable,x)
 
-renderSpanComplete:
+;renderSpanComplete:
 	inc spanChainIndex
 	inc spanChainIndex
 	inc spanChainIndex
@@ -143,34 +144,105 @@ renderSpanComplete:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderSpan
+; renderClippedSpanChain
 ;
 ; No stack operations permitted here!
 ;
 ;
-;renderSpan:
-;	ldy spanParams+2
-;	lda spanParams
-;	dec
-;	asl
-;	tax
-;	jmp (renderSpamJumpTable,x)
+renderClippedSpanChain:
+
+	; Prepare our state
+	lda #80
+	sta <XLEFT
+	lda #$1111
+	sta <CURRMAPPIXELS
+	ldy #spanChainEnd-spanChain-2
+	lda <MAPSCROLLPOS
+	sta <RIGHTEDGE
+	lda #renderClippedSpanChainRenderNext
+	sta renderSpanComplete+1
+
+	; Find right edge of screen within span chains
+renderClippedSpanChainLoop:
+
+	lda spanChain,y		; 5
+	sec					; 2
+	sbc <RIGHTEDGE		; 3
+	bmi renderClippedSpanChainNextSpan	; 2/3
+	beq renderClippedSpanChainNextSpan	; 2/3
+
+renderClippedSpanChainLoop2:
+	cmp <XLEFT			; 3
+	bcs renderClippedSpanChainLastSpan	; 2/3
+
+	; Render this span
+	ldx spanColors,y	; 4
+	stx <CURRMAPPIXELS	; 3
+
+	asl					; 2
+	tax					; 2
+	jmp (renderSpanJumpTable,x)	; 6
+
+renderSpanComplete:
+	; This is modified to redirect return from the
+	; unrolled span rendering blocks
+	jmp renderClippedSpanChainRenderNext	; 3
+
+
+renderClippedSpanChainRenderNext:
+
+	; Track remaining words until left edge
+	lsr					; 2
+	eor #$ffff			; 2
+	inc					; 2
+	clc					; 2
+	adc <XLEFT			; 3
+	sta <XLEFT			; 3
+	dey					; 2
+	dey					; 2
+
+	; For mid-stream spans, bypass the right-edge clipping code
+	lda spanChain,y		; 5
+	bra renderClippedSpanChainLoop2	; 3
+
+renderClippedSpanChainNextSpan:
+	; Track remaining distance from right edge and
+	; continue searching for visible right edge
+	eor #$ffff			; 2
+	inc					; 2
+	sta <RIGHTEDGE		; 3
+	dey					; 2
+	dey					; 2
+	bra renderClippedSpanChainLoop	; 3
+
+renderClippedSpanChainLastSpan:
+
+	; Render visible portion of last visible span
+	ldx spanColors,y	; 4
+	stx <CURRMAPPIXELS	; 3
+
+	lda <XLEFT			; 3
+	asl					; 2
+	tax					; 2
+
+	lda #renderSpanChainComplete
+	sta renderSpanComplete+1
+	jmp (renderSpanJumpTable,x)	; 6
 
 
 
+; Clipping state in zero page. All distances in words (4 px)
+MAPSCROLLPOS	= $06	; Right edge of visible region
+XLEFT			= $08	; Remaining horizontal distance to render
+RIGHTEDGE		= $19	; Distance from right edge of terrain to right edge of visible region
+CURRMAPPIXELS	= $67	; 4 pixels being rendered right now
 
 spanChain:
-	.word 20,$1111		; Length,Colors
-	.word 40,$0000		; Length,Colors
-	.word 10,$1111		; Length,Colors
-	.word 2,$0000		; Length,Colors
-	.word 1,$1111		; Length,Colors
-	.word 0,0		; Length,Colors
-	.word 0,0		; Length,Colors
-	.word 0,0		; Length,Colors
-	.word 0,0		; Length,Colors
-	.word 0,0		; Length,Colors
-	.word 0
+	.word 20,40,10,5,5,5,5,10,40,20
+spanChainEnd:
+	
+spanColors:
+	.word $1111,$0000,$1111,$0000,$1111,$0000,$1111,$0000,$1111,$0000
 
 spanChainIndex:
 	.word 0
