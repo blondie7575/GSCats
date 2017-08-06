@@ -51,7 +51,7 @@ renderTerrainDone:
 renderClippedSpanChain:
 
 	; Prepare our state
-	; = 24 cycles per row + 80 cycles for actual pixels
+	; = 23 cycles per row + 80 cycles for actual pixels
 	lda #80					; 2
 	sta <XLEFT				; 3
 	lda #$1111				; 2
@@ -66,7 +66,7 @@ renderClippedSpanChain:
 	; = 27 cycles per skipped span
 renderClippedSpanChainLoop:
 
-	lda spanChain,y		; 5
+	lda spanChain,y		; 4
 	sec					; 2
 	sbc <RIGHTEDGE		; 3
 	bmi renderClippedSpanChainNextSpan	; 2/3
