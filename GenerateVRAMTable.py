@@ -6,7 +6,7 @@ import sys
 def main(argv):
 
 	# Prologue
-	print ("vramRowEnds:",end="")
+	print ("vramRowEndsMinusOne:",end="")
 	v = 0x20a0
 	rowCount = 19
 	
@@ -16,7 +16,7 @@ def main(argv):
 			print ("\n\t.word ", end="")
 			rowCount=0
 		
-		print ("$%x" % v, end="")
+		print ("$%x" % (v-1), end="")
 		if (rowCount<19):
 			print (",", end="")
 		v += 160
