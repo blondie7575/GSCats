@@ -6,7 +6,7 @@
 
 
 TERRAINWIDTH = 640		; In pixels
-MAXTERRAINHEIGHT = 128	; In pixels
+MAXTERRAINHEIGHT = 100	; In pixels
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainColumn
@@ -101,16 +101,31 @@ renderTerrainColumnsDone:
 ; No stack operations permitted here!
 ;
 renderTerrain:
+	lda #199
+	sta spanChainIndex
 	sty <MAPSCROLLPOS
+
 	FASTGRAPHICS
 
-	lda #$9d00-1	; Point stack to end of VRAM
+renderTerrainLoop:
+	lda spanChainIndex
+	asl
+	tay
+	lda vramRowEnds,y ;$9d00-1	; Point stack to end of VRAM row
+	dec
 	tcs
 
 	jmp renderClippedSpanChain
 
 renderSpanChainComplete:
+	lda spanChainIndex
+	dec
+	cmp #200-MAXTERRAINHEIGHT
+	beq renderTerrainDone
+	sta spanChainIndex
+	bra renderTerrainLoop
 
+renderTerrainDone:
 	SLOWGRAPHICS
 	rts
 

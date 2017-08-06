@@ -1,8 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
-import sys,os,png
-import argparse
-
+import sys
 
 def main(argv):
 

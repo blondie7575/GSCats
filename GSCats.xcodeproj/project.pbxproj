@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		700C39C51F2E5CA800C24F9C /* trigtables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = trigtables.s; sourceTree = "<group>"; };
+		700C39C51F2E5CA800C24F9C /* tables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tables.s; sourceTree = "<group>"; };
+		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
 		706DF1651F2D4A8100AA6680 /* terrain.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain.s; sourceTree = "<group>"; };
 		7088096C1F2EA4B200D4C950 /* spanRender.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = spanRender.s; sourceTree = "<group>"; };
@@ -29,10 +30,11 @@
 				706DF1641F2D39F700AA6680 /* loader.s */,
 				706DF1651F2D4A8100AA6680 /* terrain.s */,
 				7088096C1F2EA4B200D4C950 /* spanRender.s */,
-				700C39C51F2E5CA800C24F9C /* trigtables.s */,
+				700C39C51F2E5CA800C24F9C /* tables.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
+				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 			);
 			sourceTree = "<group>";
 		};

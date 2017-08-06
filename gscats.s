@@ -82,6 +82,7 @@ kbdScanLeftArrow:
 	cmp #TERRAINWIDTH/4-80
 	beq kbdScanDone
 	inc
+	inc
 	sta mapScrollPos
 	bra kbdScanDone
 
@@ -89,6 +90,7 @@ kbdScanRightArrow:
 	NATIVE
 	lda mapScrollPos
 	beq kbdScanDone
+	dec
 	dec
 	sta mapScrollPos
 	bra kbdScanDone
@@ -111,7 +113,7 @@ quitRequested:
 
 .include "graphics.s"
 .include "terrain.s"
-.include "trigTables.s"
+.include "tables.s"
 endMainBank2:
 
 
