@@ -30,6 +30,7 @@ mainBank2:
 	jsr colorFill
 
 	jsr generateTerrain
+	jsr computeScrollClipBoundaries
 
 mainGameLoop:
 	ldy mapScrollPos
@@ -107,7 +108,7 @@ kbdScanSpace:
 basePalette:
 	.word $0800,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 mapScrollPos:	; 4-pixel columns distance from right terrain edge
-	.word 80
+	.word 0
 quitRequested:
 	.word $0000
 

@@ -13,6 +13,9 @@ MAXTERRAINHEIGHT = 100	; In pixels
 ;
 ; No stack operations permitted here!
 ;
+; Initial implementation: 535 cycles per row
+; Current implementation: 443 cycles per row
+;
 renderTerrain:
 	lda #199*2
 	sta <ROWINDEX
@@ -62,15 +65,14 @@ renderClippedSpanChain:
 	lda #renderClippedSpanChainRenderNext	; 2
 	sta renderSpanComplete+1		; 4
 
-	; Find right edge of screen within span chains
-	; = 27 cycles per skipped span
+	; Look up right edge clipping data from precalculated table
+	; = 15 cycles per row
 renderClippedSpanChainLoop:
-
-	lda spanChain,y		; 4
-	sec					; 2
-	sbc <RIGHTEDGE		; 3
-	bmi renderClippedSpanChainNextSpan	; 2/3
-	beq renderClippedSpanChainNextSpan	; 2/3
+	lda <MAPSCROLLPOS		; 3
+	asl						; 2
+	tax						; 2
+	ldy scrollClipIndices,x	; 4
+	lda	scrollClipIndices+2,x ; 4
 
 renderClippedSpanChainLoop2:
 	; Now render spans until left edge of screen
@@ -91,7 +93,6 @@ renderSpanComplete:
 	; unrolled span rendering blocks
 	jmp renderClippedSpanChainRenderNext	; 3
 
-
 renderClippedSpanChainRenderNext:
 	; Track remaining words until left edge
 	; = 26 cycles per span rendered
@@ -107,16 +108,6 @@ renderClippedSpanChainRenderNext:
 	; For mid-stream spans, bypass the right-edge clipping code
 	lda spanChain,y		; 5
 	bra renderClippedSpanChainLoop2	; 3
-
-renderClippedSpanChainNextSpan:
-	; Track remaining distance from right edge and
-	; continue searching for visible right edge
-	eor #$ffff			; 2
-	inc					; 2
-	sta <RIGHTEDGE		; 3
-	dey					; 2
-	dey					; 2
-	bra renderClippedSpanChainLoop	; 3
 
 renderClippedSpanChainLastSpan:
 	; Render visible portion of last visible span
@@ -150,6 +141,75 @@ spanColors:
 
 spanChainIndex:
 	.word 0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; computeScrollClipBoundaries
+;
+; Generates a table of the clipped span indices for the right edge
+; at every possible scroll position
+;
+computeScrollClipBoundaries:
+	SAVE_AXY
+
+	lda #0
+	sta <MAPSCROLLPOS
+
+computeScrollClipBoundariesOuterLoop:
+	; Prepare our state
+	lda #80					; 2
+	sta <XLEFT				; 3
+	ldy #spanChainEnd-spanChain-2	; 2
+	lda <MAPSCROLLPOS				; 3
+	sta <RIGHTEDGE					; 3
+
+	; Find right edge of screen within span chains
+computeScrollClipBoundariesInnerLoop:
+
+	lda spanChain,y		; 4
+	sec					; 2
+	sbc <RIGHTEDGE		; 3
+	bmi computeScrollClipBoundariesNextSpan	; 2/3
+	beq computeScrollClipBoundariesNextSpan	; 2/3
+
+	; Y now contains the pointer to span that will be clipped at this scroll position
+	; A now contains remaining words of clipped span to render
+	; Write these values into our tuple data structure
+	pha
+	ldx <MAPSCROLLPOS
+	txa
+	asl
+	tax
+	tya
+    sta scrollClipIndices,x
+	inx
+	inx
+	pla
+	sta scrollClipIndices,x
+
+	; On to the next scroll position
+	lda <MAPSCROLLPOS
+	inc
+	inc
+	cmp #(TERRAINWIDTH-320)/4+2
+	beq computeScrollClipBoundariesDone
+	sta <MAPSCROLLPOS
+	bra computeScrollClipBoundariesOuterLoop
+
+computeScrollClipBoundariesNextSpan:
+	; Track remaining distance from right edge and
+	; continue searching for visible right edge
+	eor #$ffff			; 2
+	inc					; 2
+	sta <RIGHTEDGE		; 3
+	dey					; 2
+	dey					; 2
+	bra computeScrollClipBoundariesInnerLoop	; 3
+
+computeScrollClipBoundariesDone:
+	RESTORE_AXY
+	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
@@ -186,9 +246,14 @@ generateTerrainLoop:
 
 terrainData:
 	.repeat TERRAINWIDTH/2
-	.byte 0
+	.word 0
 	.endrepeat
 
+scrollClipIndices:
+	; Tuples: (Clipped span, Words to Render)
+	.repeat (TERRAINWIDTH-320)/4+2	; Always scroll by two words
+	.word 0
+	.endrepeat
 
 .if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
