@@ -63,14 +63,24 @@ renderClippedSpanChain:
 	sta renderSpanComplete+1		; 4
 
 	; Find right edge of screen within span chains
-	; = 27 cycles per skipped span
+	; = 26 cycles per skipped span
 renderClippedSpanChainLoop:
 
 	lda spanChain,y		; 4
 	sec					; 2
 	sbc <RIGHTEDGE		; 3
-	bmi renderClippedSpanChainNextSpan	; 2/3
-	beq renderClippedSpanChainNextSpan	; 2/3
+	beq renderClippedSpanChainNextSpan		; 2
+	bpl renderClippedSpanChainLoop2			; 2
+
+renderClippedSpanChainNextSpan:
+	; Track remaining distance from right edge and
+	; continue searching for visible right edge
+	eor #$ffff			; 2
+	inc					; 2
+	sta <RIGHTEDGE		; 3
+	dey					; 2
+	dey					; 2
+	bra renderClippedSpanChainLoop	; 3
 
 renderClippedSpanChainLoop2:
 	; Now render spans until left edge of screen
@@ -106,16 +116,6 @@ renderClippedSpanChainRenderNext:
 	; For mid-stream spans, bypass the right-edge clipping code
 	lda spanChain,y		; 5
 	bra renderClippedSpanChainLoop2	; 3
-
-renderClippedSpanChainNextSpan:
-	; Track remaining distance from right edge and
-	; continue searching for visible right edge
-	eor #$ffff			; 2
-	inc					; 2
-	sta <RIGHTEDGE		; 3
-	dey					; 2
-	dey					; 2
-	bra renderClippedSpanChainLoop	; 3
 
 renderClippedSpanChainLastSpan:
 	; Render visible portion of last visible span
