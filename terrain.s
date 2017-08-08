@@ -52,7 +52,7 @@ renderClippedSpanChain:
 
 	; Prepare our state
 	; = 23 cycles per row + 80 cycles for actual pixels
-	lda #-80					; 2
+	lda #80					; 2
 	sta <XLEFT				; 3
 	lda #$1111				; 2
 	sta <CURRMAPPIXELS		; 3
@@ -75,13 +75,8 @@ renderClippedSpanChainLoop:
 renderClippedSpanChainLoop2:
 	; Now render spans until left edge of screen
 	; = 28 cycles per span rendered
-	;cmp <XLEFT			; 3
-	tax					; 2
-	clc					; 2
-	adc <XLEFT			; 3
-	bpl renderClippedSpanChainLastSpan	; 2/3
-	sta <XLEFT			; 3
-	txa					; 2   14
+	cmp <XLEFT			; 3
+	bcs renderClippedSpanChainLastSpan	; 2/3
 
 	; Render this span
 	ldx spanColors,y	; 4
@@ -90,6 +85,28 @@ renderClippedSpanChainLoop2:
 	asl					; 2
 	tax					; 2
 	jmp (renderSpanJumpTable,x)	; 6   (jmp back = 6)
+
+renderSpanComplete:
+	; This is modified to redirect return from the
+	; unrolled span rendering blocks
+	jmp renderClippedSpanChainRenderNext	; 3
+
+
+renderClippedSpanChainRenderNext:
+	; Track remaining words until left edge
+	; = 26 cycles per span rendered
+	lsr					; 2
+	eor #$ffff			; 2
+	inc					; 2
+	clc					; 2
+	adc <XLEFT			; 3
+	sta <XLEFT			; 3
+	dey					; 2
+	dey					; 2
+
+	; For mid-stream spans, bypass the right-edge clipping code
+	lda spanChain,y		; 5
+	bra renderClippedSpanChainLoop2	; 3
 
 renderClippedSpanChainNextSpan:
 	; Track remaining distance from right edge and
@@ -101,37 +118,13 @@ renderClippedSpanChainNextSpan:
 	dey					; 2
 	bra renderClippedSpanChainLoop	; 3
 
-
-renderSpanComplete:
-	; This is modified to redirect return from the
-	; unrolled span rendering blocks
-	jmp renderClippedSpanChainRenderNext	; 3
-
-
-renderClippedSpanChainRenderNext:
-	; Track remaining words until left edge
-	; = 26 cycles per span rendered
-;	lsr					; 2
-;	eor #$ffff			; 2
-;	inc					; 2
-;	clc					; 2
-;	adc <XLEFT			; 3
-;	sta <XLEFT			; 3
-
-	dey					; 2
-	dey					; 2
-
-	; For mid-stream spans, bypass the right-edge clipping code
-	lda spanChain,y		; 5
-	bra renderClippedSpanChainLoop2	; 3
-
 renderClippedSpanChainLastSpan:
 	; Render visible portion of last visible span
 	; = 26 cycles per row
 	ldx spanColors,y	; 4
 	stx <CURRMAPPIXELS	; 3
-brk
-;	lda <XLEFT			; 3
+
+	lda <XLEFT			; 3
 	asl					; 2
 	tax					; 2
 
