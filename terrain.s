@@ -94,11 +94,10 @@ renderSpanComplete:
 
 renderClippedSpanChainRenderNext:
 	; Track remaining words until left edge
-	; = 26 cycles per span rendered
+	; = 24 cycles per span rendered
 	lsr					; 2
 	eor #$ffff			; 2
 	inc					; 2
-	clc					; 2
 	adc <XLEFT			; 3
 	sta <XLEFT			; 3
 	dey					; 2
