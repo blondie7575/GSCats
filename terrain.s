@@ -13,6 +13,8 @@ MAXTERRAINHEIGHT = 100	; In pixels
 ;
 ; No stack operations permitted here!
 ;
+; Current implementation: 525 cycles per row
+;
 renderTerrain:
 	lda #199*2
 	sta <ROWINDEX
@@ -28,7 +30,7 @@ renderTerrainLoop:
 
 	jmp renderClippedSpanChain	; 3
 
-renderSpanChainComplete:
+renderSpanCompleteAlt:
 	lda <ROWINDEX			; 3
 	dec						; 2
 	dec						; 2
@@ -51,19 +53,15 @@ renderTerrainDone:
 renderClippedSpanChain:
 
 	; Prepare our state
-	; = 23 cycles per row + 80 cycles for actual pixels
+	; = 13 cycles per row + 80 cycles for actual pixels
 	lda #80					; 2
 	sta <XLEFT				; 3
-	lda #$1111				; 2
-	sta <CURRMAPPIXELS		; 3
 	ldy #spanChainEnd-spanChain-2	; 2
 	lda <MAPSCROLLPOS				; 3
 	sta <RIGHTEDGE					; 3
-	lda #renderClippedSpanChainRenderNext	; 2
-	sta renderSpanComplete+1		; 4
 
 	; Find right edge of screen within span chains
-	; = 26 cycles per skipped span
+	; = 27 cycles per skipped span
 renderClippedSpanChainLoop:
 
 	lda spanChain,y		; 4
@@ -84,9 +82,9 @@ renderClippedSpanChainNextSpan:
 
 renderClippedSpanChainLoop2:
 	; Now render spans until left edge of screen
-	; = 28 cycles per span rendered
+	; = 25 cycles per span rendered
 	cmp <XLEFT			; 3
-	bcs renderClippedSpanChainLastSpan	; 2/3
+	bcs renderClippedSpanChainLastSpan	; 2
 
 	; Render this span
 	ldx spanColors,y	; 4
@@ -94,15 +92,9 @@ renderClippedSpanChainLoop2:
 
 	asl					; 2
 	tax					; 2
-	jmp (renderSpanJumpTable,x)	; 6   (jmp back = 6)
+	jmp (renderSpanJumpTable,x)	; 6   (jmp back = 3)
 
 renderSpanComplete:
-	; This is modified to redirect return from the
-	; unrolled span rendering blocks
-	jmp renderClippedSpanChainRenderNext	; 3
-
-
-renderClippedSpanChainRenderNext:
 	; Track remaining words until left edge
 	; = 24 cycles per span rendered
 	lsr					; 2
@@ -119,7 +111,7 @@ renderClippedSpanChainRenderNext:
 
 renderClippedSpanChainLastSpan:
 	; Render visible portion of last visible span
-	; = 26 cycles per row
+	; = 23 cycles per row
 	ldx spanColors,y	; 4
 	stx <CURRMAPPIXELS	; 3
 
@@ -127,9 +119,7 @@ renderClippedSpanChainLastSpan:
 	asl					; 2
 	tax					; 2
 
-	lda #renderSpanChainComplete	; 2
-	sta renderSpanComplete+1	; 4
-	jmp (renderSpanJumpTable,x)	; 6
+	jmp (renderSpanJumpTableAlt,x)	; 6	(jmp back = 3)
 
 
 
