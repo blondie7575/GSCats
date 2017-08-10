@@ -6,7 +6,7 @@
 
 
 TERRAINWIDTH = 640		; In pixels
-MAXTERRAINHEIGHT = 100	; In pixels
+MAXTERRAINHEIGHT = 20	; In pixels
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain

@@ -32,9 +32,35 @@ mainBank2:
 	jsr generateTerrain
 
 mainGameLoop:
-	ldy mapScrollPos
-;	jsr renderTerrainColumns
 
+	jsr syncVBL
+
+;	ldx #$2222
+;	jsr bottomFill
+
+;	ldx #$1111
+;	jsr bottomFill
+
+	lda scrollV
+	bmi negV
+
+	clc
+	lda mapScrollPos
+	adc scrollV
+	cmp #TERRAINWIDTH/4-80
+	beq reverseScroll
+	sta mapScrollPos
+	bra render
+
+negV:
+	clc
+	lda mapScrollPos
+	adc scrollV
+	beq reverseScroll
+	sta mapScrollPos
+
+render:
+	tay
 	jsr renderTerrain
 
 	jsr kbdScan
@@ -46,7 +72,15 @@ mainGameLoop:
 	CLASSICVIDEO
 	jml (proDOSLongJump)
 
+reverseScroll:
+	lda scrollV
+	eor #$ffff
+	inc
+	sta scrollV
+	jmp mainGameLoop
 
+scrollV:
+	.word 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; kbdScan
@@ -60,7 +94,7 @@ kbdScan:
 
 kbdScanLoop:
 	lda KBD
-	bpl kbdScanLoop
+	bpl kbdScanDone
 	sta KBDSTROBE
 
 	cmp #(8 + $80)
@@ -71,9 +105,9 @@ kbdScanLoop:
 
 	cmp #(32 + $80)
 	beq kbdScanSpace
-	NATIVE
 
 kbdScanDone:
+	NATIVE
 	rts
 
 kbdScanLeftArrow:
@@ -105,9 +139,9 @@ kbdScanSpace:
 
 
 basePalette:
-	.word $0800,$0080,$0000,$000F,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	.word $0800,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 mapScrollPos:	; 4-pixel columns distance from right terrain edge
-	.word 80
+	.word 79
 quitRequested:
 	.word $0000
 
