@@ -6,138 +6,224 @@
 
 
 TERRAINWIDTH = 640		; In pixels
-MAXTERRAINHEIGHT = 20	; In pixels
+MAXTERRAINHEIGHT = 100	; In pixels
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
 ;
 ; No stack operations permitted here!
 ;
-; Current implementation: 525 cycles per row
+; Current implementation: X cycles per row
+; Trashes all registers
 ;
 renderTerrain:
-	lda #199*2
-	sta <ROWINDEX
-	sty <MAPSCROLLPOS
-
 	FASTGRAPHICS
-
-renderTerrainLoop:
-	; = 29 cycles per row
-	ldy <ROWINDEX		; 3
-	lda vramRowEndsMinusOne,y	; 4   Point stack to end of VRAM row
+	ldy #MAXTERRAINHEIGHT
+	lda #$9cff			; 4   Point stack to end of VRAM
 	tcs					; 2
 
-	jmp renderClippedSpanChain	; 3
+	sec
+	lda #compiledTerrainEnd-80
+	sbc mapScrollPos
+	sta PARAML0
 
-renderSpanCompleteAlt:
-	lda <ROWINDEX			; 3
-	dec						; 2
-	dec						; 2
-	cmp #(200-MAXTERRAINHEIGHT)*2	; 2
-	beq renderTerrainDone	; 2/3
-	sta <ROWINDEX			; 3
-	bra renderTerrainLoop	; 2/3
+renderTerrainLoop:
+	lda #$0000		; Background
+	ldx #$1111		; Foreground
+	jmp (PARAML0)
 
-renderTerrainDone:
+renderRowComplete:
+	lda PARAML0
+	sec
+	sbc #TERRAINWIDTH/4
+	sta PARAML0
+	dey
+	bne renderTerrainLoop
+
 	SLOWGRAPHICS
 	rts
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderClippedSpanChain
-;
-; No stack operations permitted here!
-;
-;
-renderClippedSpanChain:
-
-	; Prepare our state
-	; = 13 cycles per row + 80 cycles for actual pixels
-	lda #80					; 2
-	sta <XLEFT				; 3
-	ldy #spanChainEnd-spanChain-2	; 2
-	lda <MAPSCROLLPOS				; 3
-	sta <RIGHTEDGE					; 3
-
-	; Find right edge of screen within span chains
-	; = 27 cycles per skipped span
-renderClippedSpanChainLoop:
-
-	lda spanChain,y		; 4
-	sec					; 2
-	sbc <RIGHTEDGE		; 3
-	beq renderClippedSpanChainNextSpan		; 2
-	bpl renderClippedSpanChainLoop2			; 2
-
-renderClippedSpanChainNextSpan:
-	; Track remaining distance from right edge and
-	; continue searching for visible right edge
-	eor #$ffff			; 2
-	inc					; 2
-	sta <RIGHTEDGE		; 3
-	dey					; 2
-	dey					; 2
-	bra renderClippedSpanChainLoop	; 3
-
-renderClippedSpanChainLoop2:
-	; Now render spans until left edge of screen
-	; = 25 cycles per span rendered
-	cmp <XLEFT			; 3
-	bcs renderClippedSpanChainLastSpan	; 2
-
-	; Render this span
-	ldx spanColors,y	; 4
-	stx <CURRMAPPIXELS	; 3
-
-	asl					; 2
-	tax					; 2
-	jmp (renderSpanJumpTable,x)	; 6   (jmp back = 3)
-
+renderSpanCompleteAlt:
 renderSpanComplete:
-	; Track remaining words until left edge
-	; = 24 cycles per span rendered
-	lsr					; 2
-	eor #$ffff			; 2
-	inc					; 2
-	adc <XLEFT			; 3
-	sta <XLEFT			; 3
-	dey					; 2
-	dey					; 2
-
-	; For mid-stream spans, bypass the right-edge clipping code
-	lda spanChain,y		; 5
-	bra renderClippedSpanChainLoop2	; 3
-
-renderClippedSpanChainLastSpan:
-	; Render visible portion of last visible span
-	; = 23 cycles per row
-	ldx spanColors,y	; 4
-	stx <CURRMAPPIXELS	; 3
-
-	lda <XLEFT			; 3
-	asl					; 2
-	tax					; 2
-
-	jmp (renderSpanJumpTableAlt,x)	; 6	(jmp back = 3)
+	rts
+CURRMAPPIXELS = $06
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; clipTerrain
+;
+;
+clipTerrain:
+	SAVE_AXY
 
-; Clipping state in zero page. All distances in words (4 px)
-MAPSCROLLPOS	= $06	; Right edge of visible region
-XLEFT			= $08	; Remaining horizontal distance to render
-RIGHTEDGE		= $19	; Distance from right edge of terrain to right edge of visible region
-CURRMAPPIXELS	= $67	; 4 pixels being rendered right now
-ROWINDEX		= $69	; Index of row being rendered
+	sec
+	lda #((TERRAINWIDTH/4)*MAXTERRAINHEIGHT)
+	sbc mapScrollPos
+	tay
+	ldx #MAXTERRAINHEIGHT
 
-spanChain:
-	.word 20,40,10,5,5,5,5,10,40,20
-spanChainEnd:
-	
-spanColors:
-	.word $1111,$0000,$1111,$0000,$1111,$0000,$1111,$0000,$1111,$0000
+clipTerrainLoop:
+	clc		; Compute buffer to for saved data
+	txa
+	asl
+	asl
+	adc #clippedTerrainData-4
+	sta PARAML0
 
-spanChainIndex:
+	lda	compiledTerrain,y
+	sta (PARAML0)	; Preserve data we're overwriting
+	inc PARAML0
+	inc PARAML0
+
+	and #$ff00
+	ora #$004c	; jmp in low byte
+	sta compiledTerrain,y
+	iny
+
+	lda	compiledTerrain,y
+	sta (PARAML0)	; Preserve data we're overwriting
+
+	lda #renderRowComplete
+	sta compiledTerrain,y
+
+	tya
+	sec
+	sbc #TERRAINWIDTH/4+1
+	tay
+
+	dex
+	bne clipTerrainLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unclipTerrain
+;
+;
+unclipTerrain:
+	SAVE_AXY
+
+	sec
+	lda #((TERRAINWIDTH/4)*MAXTERRAINHEIGHT)
+	sbc mapScrollPos
+	tay
+	ldx #MAXTERRAINHEIGHT
+
+unclipTerrainLoop:
+	clc		; Compute buffer that saved data is in
+	txa
+	asl
+	asl
+	adc #clippedTerrainData-4
+	sta PARAML0
+
+	lda	(PARAML0)
+	sta compiledTerrain,y
+	inc PARAML0
+	inc PARAML0
+	iny
+
+	lda	(PARAML0)
+	sta compiledTerrain,y
+
+	tya
+	sec
+	sbc #TERRAINWIDTH/4+1
+	tay
+
+	dex
+	bne unclipTerrainLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; compileTerrain
+;
+;
+;
+compileTerrain:
+	SAVE_AY
+
+	ldy #MAXTERRAINHEIGHT-1
+	lda #compiledTerrain
+	sta PARAML0
+
+compileTerrainLoop:
+	sty PARAML1
+	jsr compileTerrainRow
+	dey
+	bmi compileTerrainDone
+
+	clc
+	lda #TERRAINWIDTH/4
+	adc PARAML0
+	sta PARAML0
+
+	bra compileTerrainLoop
+
+compileTerrainDone:
+	RESTORE_AY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; compileTerrainRow
+;
+; PARAML0 = Start of compiled row data
+; PARAML1 = Row index
+;
+compileTerrainRow:
+	SAVE_AXY
+	ldy #0
+	ldx #0
+
+compileTerrainColumnLoop:
+	stz compileTerrainOpcode
+
+	; Right half
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumnBGRight
+	beq compileTerrainColumnBGRight
+	lda #$00da
+compileTerrainColumnLeft:
+	sta compileTerrainOpcode
+	inx
+	inx
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumnBGLeft
+	beq compileTerrainColumnBGLeft
+	lda compileTerrainOpcode
+	ora #$da00
+
+compileTerrainColumnStore:
+	sta (PARAML0),y
+	inx
+	inx
+	iny
+	iny
+	cpy #TERRAINWIDTH/4
+	bne compileTerrainColumnLoop
+
+	RESTORE_AXY
+	rts
+
+compileTerrainColumnBGRight:
+	lda #$0048
+	bra compileTerrainColumnLeft
+
+compileTerrainColumnBGLeft:
+	lda compileTerrainOpcode
+	ora #$4800
+	bra compileTerrainColumnStore
+
+compileTerrainOpcode:
 	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -158,12 +244,17 @@ generateTerrainLoop:
 	and #$00ff
 	tay
 	lda sineTable,y
-	and #$7f7f
+	and #$004f
 	ply
 
 	sta (SCRATCHL),y
+	sec
+	lda #MAXTERRAINHEIGHT
+	sbc (SCRATCHL),y
+	sta (SCRATCHL),y
 	iny
-	cpy #TERRAINWIDTH/4
+	iny
+	cpy #TERRAINWIDTH/2
 	bne generateTerrainLoop
 
 	rts
@@ -174,125 +265,24 @@ generateTerrainLoop:
 ; Terrain data, stored as height values 4 pixels wide
 
 terrainData:
+	.word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+	.word 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
+	.word 40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21
+	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,80
+	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+
 	.repeat TERRAINWIDTH/2
-	.byte 0
+	.word 0
 	.endrepeat
 
+compiledTerrain:
+	.repeat TERRAINWIDTH/4 * MAXTERRAINHEIGHT
+	.byte 0
+	.endrepeat
+compiledTerrainEnd:
 
-.if 0
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderSpanChain
-;
-; Trashes all registers
-; No stack operations permitted here!
-; This is fast, but doesn't support scrolling, so probably not useful
-;
-
-renderSpanChain:
-	stz spanChainIndex
-
-renderSpanChainLoop:
-	ldx spanChainIndex
-	ldy spanChain+2,x
-	lda spanChain,x
-	beq renderSpanChainComplete
-	dec
-	asl
-	tax
-	jmp (renderSpanJumpTable,x)
-
-;renderSpanComplete:
-	inc spanChainIndex
-	inc spanChainIndex
-	inc spanChainIndex
-	inc spanChainIndex
-	bra renderSpanChainLoop
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainColumn
-;
-; This is not fast- probably only useful for debugging
-;
-; Y = Index into height data
-; PARAM24 = 24-bit pointer to bottom of column in VRAM
-;
-; Trashes A and X
-
-renderTerrainColumn:
-	phy
-	BITS8
-	lda PARAM24+2
-	sta renderTerrainColumnSMC+3
-	BITS16
-	ply
-
-	lda PARAM24
-	sta renderTerrainColumnSMC+1
-	pha		; Cache 16-bit VRAM pointer on the stack
-
-	lda terrainData,y		; Cache terrain height on the stack
-	and #$00ff
-	sta renderTerrainColumnHeight
-	ldx #0
-
-renderTerrainColumnLoop:
-	inx
-	cpx #MAXTERRAINHEIGHT
-	beq renderTerrainColumnDone
-	cpx renderTerrainColumnHeight
-	bpl renderTerrainColumnBlack
-
-	lda #$1111
-	bra renderTerrainColumnSMC
-
-renderTerrainColumnBlack:
-	lda #$0000
-
-renderTerrainColumnSMC:
-	sta $e19c60
-	pla
-	sec
-	sbc #160
-	sta renderTerrainColumnSMC+1
-	pha
-	bra renderTerrainColumnLoop
-
-renderTerrainColumnDone:
-	pla
-	rts
-
-renderTerrainColumnHeight:
-	.word 0
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainColumns
-;
-; This is not fast- probably only useful for debugging
-;
-; Y = Start column
-;
-; Trashes all registers
-;
-
-renderTerrainColumns:
-	LOADPARAM24 $e1e1,$9c60
-	tya
-	clc
-	adc #80
-	sta SCRATCHL
-
-renderTerrainColumnsLoop:
-	jsr renderTerrainColumn
-	iny
-	cpy SCRATCHL
-	beq renderTerrainColumnsDone
-
-	inc PARAM24
-	inc PARAM24
-	bra renderTerrainColumnsLoop
-
-renderTerrainColumnsDone:
-	rts
-.endif
+clippedTerrainData:
+	.repeat MAXTERRAINHEIGHT
+	.byte 0,0,0,0	; xx,jmp,addr
+	.endrepeat
 

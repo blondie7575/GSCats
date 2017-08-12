@@ -38,6 +38,7 @@ mainCopyDest:
 	sta proDOSLongJump
 	lda #mainBank2
 	sta mainLongJump
+
 	jml (mainLongJump)
 
 returnToProDOS:
