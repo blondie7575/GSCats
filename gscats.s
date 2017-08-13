@@ -29,6 +29,10 @@ mainBank2:
 	ldx #$2222
 	jsr colorFill
 
+	ldx #2560
+	lda #string
+	jsr DrawString
+
 	jsr generateTerrain
 	jsr compileTerrain
 	jsr clipTerrain
@@ -148,15 +152,19 @@ kbdScanSpace:
 
 
 basePalette:
-	.word $0800,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	.word $0000,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 mapScrollPos:	; 4-pixel columns distance from right terrain edge
 	.word 0
 quitRequested:
 	.word $0000
 mapScrollRequested:
 	.word $FFFF
+string:
+	pstring "HELLO WORLD"
+
 
 .include "graphics.s"
+.include "font.s"
 .include "terrain.s"
 .include "tables.s"
 endMainBank2:

@@ -118,6 +118,15 @@
 .endmacro
 
 
+.macro  pstring Arg
+	.byte   .strlen(Arg), Arg
+.endmacro
+
+
+.macro  qbyte Arg
+	.dbyt   Arg>>16,Arg&$0000ffff
+.endmacro
+
 ;;;;;;;;;;
 ; Stack Macros
 
