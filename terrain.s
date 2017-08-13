@@ -47,11 +47,6 @@ renderRowComplete:
 	rts
 
 
-renderSpanCompleteAlt:
-renderSpanComplete:
-	rts
-CURRMAPPIXELS = $06
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
@@ -229,6 +224,8 @@ compileTerrainColumnBGLeft:
 compileTerrainOpcode:
 	.word 0
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
 ;
@@ -276,8 +273,6 @@ generateTerrainLoop:
 
 	rts
 
-
-.include "spanRender.s"
 
 ; Terrain data, stored as height values 4 pixels wide
 
