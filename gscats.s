@@ -38,7 +38,7 @@ mainBank2:
 
 mainGameLoop:
 
-;	jsr syncVBL
+	jsr syncVBL
 
 ;	lda scrollV
 ;	bmi negV
@@ -119,19 +119,21 @@ kbdScanDone:
 	NATIVE
 	rts
 
-kbdScanLeftArrow:
+kbdScanRightArrow:
 	NATIVE
 	lda mapScrollPos
 	cmp #VISIBLETERRAINWIDTH-VISIBLETERRAINWINDOW
 	beq kbdScanDone
 	inc
+	inc
 	sta mapScrollRequested
 	rts
 
-kbdScanRightArrow:
+kbdScanLeftArrow:
 	NATIVE
 	lda mapScrollPos
 	beq kbdScanDone
+	dec
 	dec
 	sta mapScrollRequested
 	rts
