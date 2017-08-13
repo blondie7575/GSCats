@@ -232,31 +232,45 @@ compileTerrainOpcode:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
 ;
-; Trashes A and Y
+; Trashes everything
 ;
 
 generateTerrain:
 	ldy #0
+	ldx #0
 	lda #terrainData
 	sta SCRATCHL
 
 generateTerrainLoop:
 
-	phy
-	tya		; Pull an interesting value out of the sine table
-	and #$00ff
-	tay
-	lda sineTable,y
-	and #$004f
-	ply
+	lda sineTable,x
+
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+
+	lsr
+	lsr
+
+	clc
+	adc #30
 
 	sta (SCRATCHL),y
-	sec
-	lda #MAXTERRAINHEIGHT
-	sbc (SCRATCHL),y
-	sta (SCRATCHL),y
 	iny
 	iny
+
+	inx
+	inx
+	inx
+	txa
+	and #$00ff
+	tax
+
 	cpy #TERRAINWIDTH/2
 	bne generateTerrainLoop
 
@@ -268,16 +282,16 @@ generateTerrainLoop:
 ; Terrain data, stored as height values 4 pixels wide
 
 terrainData:
-	.word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
-	.word 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
-	.word 40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21
-	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,80
-	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,80
+;	.word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+;	.word 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
+;	.word 40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21
+;	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,80
+;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,80
 
-	.repeat TERRAINWIDTH/2
+	.repeat TERRAINWIDTH/4  ; VISIBLETERRAINWIDTH
 	.word 0
 	.endrepeat
 

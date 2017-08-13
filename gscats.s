@@ -29,7 +29,7 @@ mainBank2:
 	ldx #$2222
 	jsr colorFill
 
-;	jsr generateTerrain
+	jsr generateTerrain
 	jsr compileTerrain
 	jsr clipTerrain
 

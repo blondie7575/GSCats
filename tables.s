@@ -30,7 +30,7 @@ sineTable:
 	.byte $26, $28, $2B, $2D, $2F, $32, $34, $37
 	.byte $39, $3C, $3F, $41, $44, $47, $4A, $4D
 	.byte $4F, $52, $55, $58, $5B, $5E, $61, $64
-	.byte $67, $6A, $6D, $70, $74, $77, $7A, $7D
+	.byte $67, $6A, $6D, $70, $74, $77, $7A, $7D, $80 ; One byte wrap for easier 16-byte sampling
 
 vramRowEndsMinusOne:
 	.word $209f,$213f,$21df,$227f,$231f,$23bf,$245f,$24ff,$259f,$263f,$26df,$277f,$281f,$28bf,$295f,$29ff,$2a9f,$2b3f,$2bdf,$2c7f
