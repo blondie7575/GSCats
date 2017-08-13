@@ -7,6 +7,9 @@
 
 TERRAINWIDTH = 640		; In pixels
 MAXTERRAINHEIGHT = 100	; In pixels
+COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
+VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
+VISIBLETERRAINWINDOW = 80				; In words
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
@@ -23,7 +26,7 @@ renderTerrain:
 	tcs					; 2
 
 	sec
-	lda #compiledTerrainEnd-80
+	lda #compiledTerrainEnd-VISIBLETERRAINWINDOW-3
 	sbc mapScrollPos
 	sta PARAML0
 
@@ -35,7 +38,7 @@ renderTerrainLoop:
 renderRowComplete:
 	lda PARAML0
 	sec
-	sbc #TERRAINWIDTH/4
+	sbc #COMPILEDTERRAINROW
 	sta PARAML0
 	dey
 	bne renderTerrainLoop
@@ -58,7 +61,7 @@ clipTerrain:
 	SAVE_AXY
 
 	sec
-	lda #((TERRAINWIDTH/4)*MAXTERRAINHEIGHT)
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
 	sbc mapScrollPos
 	tay
 	ldx #MAXTERRAINHEIGHT
@@ -89,7 +92,7 @@ clipTerrainLoop:
 
 	tya
 	sec
-	sbc #TERRAINWIDTH/4+1
+	sbc #COMPILEDTERRAINROW+1
 	tay
 
 	dex
@@ -107,7 +110,7 @@ unclipTerrain:
 	SAVE_AXY
 
 	sec
-	lda #((TERRAINWIDTH/4)*MAXTERRAINHEIGHT)
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
 	sbc mapScrollPos
 	tay
 	ldx #MAXTERRAINHEIGHT
@@ -131,7 +134,7 @@ unclipTerrainLoop:
 
 	tya
 	sec
-	sbc #TERRAINWIDTH/4+1
+	sbc #COMPILEDTERRAINROW+1
 	tay
 
 	dex
@@ -160,7 +163,7 @@ compileTerrainLoop:
 	bmi compileTerrainDone
 
 	clc
-	lda #TERRAINWIDTH/4
+	lda #COMPILEDTERRAINROW
 	adc PARAML0
 	sta PARAML0
 
@@ -208,7 +211,7 @@ compileTerrainColumnStore:
 	inx
 	iny
 	iny
-	cpy #TERRAINWIDTH/4
+	cpy #VISIBLETERRAINWIDTH
 	bne compileTerrainColumnLoop
 
 	RESTORE_AXY
@@ -268,15 +271,18 @@ terrainData:
 	.word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
 	.word 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
 	.word 40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21
-	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,80
-	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,80
+	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,80
 
 	.repeat TERRAINWIDTH/2
 	.word 0
 	.endrepeat
 
 compiledTerrain:
-	.repeat TERRAINWIDTH/4 * MAXTERRAINHEIGHT
+	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
 	.byte 0
 	.endrepeat
 compiledTerrainEnd:
