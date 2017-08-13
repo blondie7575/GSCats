@@ -37,8 +37,6 @@ mainBank2:
 	jsr compileTerrain
 	jsr clipTerrain
 
-;	jsr unclipTerrain
-;	jsr clipTerrain
 
 mainGameLoop:
 
@@ -70,6 +68,10 @@ render:
 	lda mapScrollRequested
 	bpl scrollMap
 
+	lda #gameobjectData
+	sta PARAML0
+	jsr renderGameobject
+
 	lda quitRequested
 	beq mainGameLoop
 
@@ -79,7 +81,12 @@ quit:
 
 scrollMap:
 	jsr unclipTerrain
+
 	sta mapScrollPos
+	asl
+	asl
+	sta leftScreenEdge
+
 	jsr clipTerrain
 	lda #$ffff
 	sta mapScrollRequested
@@ -153,8 +160,6 @@ kbdScanSpace:
 
 basePalette:
 	.word $0000,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
-mapScrollPos:	; 4-pixel columns distance from right terrain edge
-	.word 0
 quitRequested:
 	.word $0000
 mapScrollRequested:
@@ -162,10 +167,18 @@ mapScrollRequested:
 string:
 	pstring "HELLO WORLD"
 
+; Position of map viewing window. Can be visualized in two ways:
+; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen
+; b) Word-distance from left edge of logical terrain to left edge of visible screen
+mapScrollPos:
+	.word 0
+leftScreenEdge:
+	.word 0		; In pixels
 
 .include "graphics.s"
 .include "font.s"
 .include "terrain.s"
+.include "gameobject.s"
 .include "tables.s"
 endMainBank2:
 

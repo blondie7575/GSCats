@@ -7,7 +7,7 @@ STACKCTL		= $e0c068
 KBD				= $e0c000
 KBDSTROBE		= $e0c010
 COUT			= $fded
-
+VRAM			= $e12000
 
 ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)
 PARAM0			= $06

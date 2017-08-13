@@ -13,7 +13,8 @@
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
 		706DF1651F2D4A8100AA6680 /* terrain.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain.s; sourceTree = "<group>"; };
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
-		7099E3841F41022100182A82 /* player.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = player.s; sourceTree = "<group>"; };
+		7099E3841F41022100182A82 /* gameobject.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gameobject.s; sourceTree = "<group>"; };
+		7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMYOffset.py; sourceTree = "<group>"; };
 		70E9D85F1F2BD95400555C19 /* equates.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = equates.s; sourceTree = "<group>"; };
 		70E9D8601F2BD95400555C19 /* graphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = graphics.s; sourceTree = "<group>"; };
 		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
@@ -28,7 +29,7 @@
 				70E9D85F1F2BD95400555C19 /* equates.s */,
 				70E9D8601F2BD95400555C19 /* graphics.s */,
 				70E9D8621F2BD95400555C19 /* macros.s */,
-				7099E3841F41022100182A82 /* player.s */,
+				7099E3841F41022100182A82 /* gameobject.s */,
 				706DF1641F2D39F700AA6680 /* loader.s */,
 				700FFAFB1F40F3BF00A442DE /* font.s */,
 				706DF1651F2D4A8100AA6680 /* terrain.s */,
@@ -37,6 +38,7 @@
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
+				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,
 			);
 			sourceTree = "<group>";
 		};
