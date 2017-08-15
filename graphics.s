@@ -112,7 +112,6 @@ setPaletteColor:
 ; PARAML0 = Pointer to 32 color bytes
 ; A = Palette index
 ;
-
 setPalette:
 	SAVE_XY
 
@@ -136,6 +135,23 @@ setPaletteLoop:
 	bne setPaletteLoop
 
 	RESTORE_XY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; drawNumber
+;
+; A = Number to render
+; X = VRAM position to render at
+;
+; Trashes PARAML0
+;
+drawNumber:
+	sta PARAML0
+	jsr intToString
+	lda #intToStringResult
+
+	jsr DrawString
 	rts
 
 

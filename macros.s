@@ -180,3 +180,14 @@
 	plx
 .endmacro
 
+
+.macro SAVE_P0				; Saves PARAML0
+	lda PARAML0
+	pha
+.endmacro
+
+
+.macro RESTORE_P0			; Restores PARAML0
+	pla
+	sta PARAML0
+.endmacro

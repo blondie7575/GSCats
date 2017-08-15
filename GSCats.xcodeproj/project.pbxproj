@@ -20,6 +20,8 @@
 		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
 		70E9D8621F2BD95400555C19 /* macros.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = macros.s; sourceTree = "<group>"; };
 		70E9D8631F2BD95400555C19 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		70F0869F1F413A89002446C3 /* player.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = player.s; sourceTree = "<group>"; };
+		70F086A01F4230CB002446C3 /* utility.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = utility.s; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -33,7 +35,9 @@
 				706DF1641F2D39F700AA6680 /* loader.s */,
 				700FFAFB1F40F3BF00A442DE /* font.s */,
 				706DF1651F2D4A8100AA6680 /* terrain.s */,
+				70F086A01F4230CB002446C3 /* utility.s */,
 				700C39C51F2E5CA800C24F9C /* tables.s */,
+				70F0869F1F413A89002446C3 /* player.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,

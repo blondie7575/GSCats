@@ -29,14 +29,12 @@ mainBank2:
 	ldx #$2222
 	jsr colorFill
 
-	ldx #2560
-	lda #string
-	jsr DrawString
-
 	jsr generateTerrain
 	jsr compileTerrain
 	jsr clipTerrain
 
+	ldy #0
+	jsr renderPlayerHeader
 
 mainGameLoop:
 
@@ -164,8 +162,7 @@ quitRequested:
 	.word $0000
 mapScrollRequested:
 	.word $FFFF
-string:
-	pstring "HELLO WORLD"
+
 
 ; Position of map viewing window. Can be visualized in two ways:
 ; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen
@@ -179,6 +176,8 @@ leftScreenEdge:
 .include "font.s"
 .include "terrain.s"
 .include "gameobject.s"
+.include "player.s"
+.include "utility.s"
 .include "tables.s"
 endMainBank2:
 
