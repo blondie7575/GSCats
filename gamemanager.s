@@ -103,75 +103,6 @@ changeAngle:
 	rts
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; kbdScan
-; Processes keyboard input
-;
-; Trashes A
-;
-
-kbdScan:
-	EMULATION
-
-kbdScanLoop:
-	lda KBD
-	bpl kbdScanDone
-	sta KBDSTROBE
-
-	cmp #(8 + $80)
-	beq kbdScanLeftArrow
-	cmp #(21 + $80)
-	beq kbdScanRightArrow
-	cmp #(' ' + $80)
-	beq kbdScanSpace
-	cmp #('a' + $80)
-	beq kbdScanA
-	cmp #('z' + $80)
-	beq kbdScanZ
-
-kbdScanDone:
-	NATIVE
-	rts
-
-kbdScanRightArrow:
-	NATIVE
-	lda mapScrollPos
-	cmp #VISIBLETERRAINWIDTH-VISIBLETERRAINWINDOW
-	beq kbdScanDone
-	inc
-	inc
-	sta mapScrollRequested
-	rts
-
-kbdScanLeftArrow:
-	NATIVE
-	lda mapScrollPos
-	beq kbdScanDone
-	dec
-	dec
-	sta mapScrollRequested
-	rts
-
-kbdScanSpace:
-	NATIVE
-	lda #1
-	sta quitRequested
-	rts
-
-kbdScanA:
-	NATIVE
-	lda #1
-	sta angleDeltaRequested
-	rts
-
-kbdScanZ:
-	NATIVE
-	lda #-1
-	sta angleDeltaRequested
-	rts
-
-
-
 basePalette:
 	.word $0000,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 quitRequested:
@@ -182,6 +113,8 @@ angleDeltaRequested:
 	.word $0000
 terrainDirty:
 	.word 1
+activePlayer:
+	.word 0
 
 ; Position of map viewing window. Can be visualized in two ways:
 ; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen

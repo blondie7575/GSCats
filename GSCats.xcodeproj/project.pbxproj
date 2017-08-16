@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		700C39C51F2E5CA800C24F9C /* tables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tables.s; sourceTree = "<group>"; };
+		700F21DE1F43E31300D7007D /* input.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = input.s; sourceTree = "<group>"; };
 		700FFAFB1F40F3BF00A442DE /* font.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = font.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
@@ -30,6 +31,7 @@
 			isa = PBXGroup;
 			children = (
 				70E9D85F1F2BD95400555C19 /* equates.s */,
+				700F21DE1F43E31300D7007D /* input.s */,
 				70E9D8601F2BD95400555C19 /* graphics.s */,
 				70E9D8621F2BD95400555C19 /* macros.s */,
 				7099E3841F41022100182A82 /* gameobject.s */,

@@ -36,6 +36,8 @@ quitGame:
 .include "utility.s"
 .include "tables.s"
 .include "gamemanager.s"
+.include "input.s"
+
 endMainBank2:
 
 
