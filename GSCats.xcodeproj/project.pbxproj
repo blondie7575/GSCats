@@ -15,6 +15,7 @@
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
 		7099E3841F41022100182A82 /* gameobject.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gameobject.s; sourceTree = "<group>"; };
 		7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMYOffset.py; sourceTree = "<group>"; };
+		70A80FB01F43D7F200BD34C9 /* gamemanager.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gamemanager.s; sourceTree = "<group>"; };
 		70E9D85F1F2BD95400555C19 /* equates.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = equates.s; sourceTree = "<group>"; };
 		70E9D8601F2BD95400555C19 /* graphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = graphics.s; sourceTree = "<group>"; };
 		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 				70F086A01F4230CB002446C3 /* utility.s */,
 				700C39C51F2E5CA800C24F9C /* tables.s */,
 				70F0869F1F413A89002446C3 /* player.s */,
+				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,

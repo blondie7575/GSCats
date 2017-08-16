@@ -58,6 +58,17 @@ playerDeltaAngleClampHigh:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderPlayers
+;
+;
+renderPlayers:
+	lda #playerData
+	sta PARAML0
+	jsr renderGameobject
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderPlayerHeader
 ;
 ; Y = Player index to render
