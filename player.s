@@ -14,6 +14,48 @@ playerData:
 	.word 45		; Angle in degrees from +X
 	.word 50		; Power
 
+PD_ANGLE = 4	; Byte offsets into player data structure
+PD_POS = 6
+
+.macro PLAYERPTR_Y
+	tya		; Pointer to player structure from index
+	asl
+	asl
+	asl
+	tay
+.endmacro
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playerDeltaAngle
+;
+; Y = Player index
+; X = Delta
+;
+playerDeltaAngle:
+	SAVE_AXY
+	PLAYERPTR_Y
+
+	txa
+	clc
+	adc playerData+PD_ANGLE,y
+	bmi playerDeltaAngleClampLow
+	cmp #180
+	bpl playerDeltaAngleClampHigh
+
+playerDeltaAngleStore:
+	sta playerData+PD_ANGLE,y
+	RESTORE_AXY
+	rts
+
+playerDeltaAngleClampLow:
+	lda #0
+	bra playerDeltaAngleStore
+
+playerDeltaAngleClampHigh:
+	lda #180
+	bra playerDeltaAngleStore
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderPlayerHeader
@@ -22,18 +64,13 @@ playerData:
 ;
 renderPlayerHeader:
 	SAVE_AXY
-
-	tya		; Index to player structure
-	asl
-	asl
-	asl
-	tay
+	PLAYERPTR_Y
 
 	ldx #0
 	lda #angleStr
 	jsr DrawString
 
-	lda playerData+4,y
+	lda playerData+PD_ANGLE,y
 	ldx #24
 	jsr drawNumber
 
@@ -41,4 +78,4 @@ renderPlayerHeader:
 	rts
 
 angleStr:
-	pstring "ANGLE:"
+	pstring "ANGLE:   "

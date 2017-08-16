@@ -40,31 +40,14 @@ mainGameLoop:
 
 	jsr syncVBL
 
-;	lda scrollV
-;	bmi negV
-
-;	clc
-;	lda mapScrollPos
-;	adc scrollV
-;	cmp #COMPILEDTERRAINROW-80
-;	beq reverseScroll
-;	sta mapScrollPos
-	bra render
-
-negV:
-	clc
-	lda mapScrollPos
-	adc scrollV
-	beq reverseScroll
-	sta mapScrollPos
-
-render:
-	tay
 	jsr renderTerrain
 	jsr kbdScan
 
 	lda mapScrollRequested
 	bpl scrollMap
+
+	lda angleDeltaRequested
+	bne changeAngle
 
 	lda #gameobjectData
 	sta PARAML0
@@ -82,12 +65,22 @@ scrollMap:
 
 	sta mapScrollPos
 	asl
-	asl
 	sta leftScreenEdge
 
 	jsr clipTerrain
 	lda #$ffff
 	sta mapScrollRequested
+	jmp mainGameLoop
+
+changeAngle:
+	ldy #0
+	tax
+	jsr playerDeltaAngle
+
+	ldy #0
+	jsr renderPlayerHeader
+
+	stz angleDeltaRequested
 	jmp mainGameLoop
 
 reverseScroll:
@@ -117,12 +110,14 @@ kbdScanLoop:
 
 	cmp #(8 + $80)
 	beq kbdScanLeftArrow
-
 	cmp #(21 + $80)
 	beq kbdScanRightArrow
-
-	cmp #(32 + $80)
+	cmp #(' ' + $80)
 	beq kbdScanSpace
+	cmp #('a' + $80)
+	beq kbdScanA
+	cmp #('z' + $80)
+	beq kbdScanZ
 
 kbdScanDone:
 	NATIVE
@@ -153,6 +148,17 @@ kbdScanSpace:
 	sta quitRequested
 	rts
 
+kbdScanA:
+	NATIVE
+	lda #1
+	sta angleDeltaRequested
+	rts
+
+kbdScanZ:
+	NATIVE
+	lda #-1
+	sta angleDeltaRequested
+	rts
 
 
 
@@ -162,6 +168,8 @@ quitRequested:
 	.word $0000
 mapScrollRequested:
 	.word $FFFF
+angleDeltaRequested:
+	.word $0000
 
 
 ; Position of map viewing window. Can be visualized in two ways:

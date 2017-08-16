@@ -69,6 +69,7 @@ intToStringFullDigitsLoop:
 	lsr
 	lsr
 	lsr
+	clc
 	adc #'0'
 	sta intToStringResult,y
 	iny
