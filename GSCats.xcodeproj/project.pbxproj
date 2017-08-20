@@ -9,6 +9,8 @@
 /* Begin PBXFileReference section */
 		700C39C51F2E5CA800C24F9C /* tables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tables.s; sourceTree = "<group>"; };
 		700F21DE1F43E31300D7007D /* input.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = input.s; sourceTree = "<group>"; };
+		700F21DF1F4A364600D7007D /* projectile.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = projectile.s; sourceTree = "<group>"; };
+		700F21E01F4A3A5500D7007D /* GenerateTrigTables.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateTrigTables.py; sourceTree = "<group>"; };
 		700FFAFB1F40F3BF00A442DE /* font.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = font.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
@@ -41,12 +43,14 @@
 				70F086A01F4230CB002446C3 /* utility.s */,
 				700C39C51F2E5CA800C24F9C /* tables.s */,
 				70F0869F1F413A89002446C3 /* player.s */,
+				700F21DF1F4A364600D7007D /* projectile.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,
+				700F21E01F4A3A5500D7007D /* GenerateTrigTables.py */,
 			);
 			sourceTree = "<group>";
 		};

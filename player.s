@@ -15,7 +15,7 @@ playerData:
 	.word 50		; Power
 
 PD_ANGLE = 4	; Byte offsets into player data structure
-PD_POS = 6
+PD_POWER = 6
 
 .macro PLAYERPTR_Y
 	tya		; Pointer to player structure from index
@@ -85,8 +85,20 @@ renderPlayerHeader:
 	ldx #24
 	jsr drawNumber
 
+	ldx #48
+	lda #powerStr
+	jsr DrawString
+
+	lda playerData+PD_POWER,y
+	ldx #72
+	jsr drawNumber
+
 	RESTORE_AXY
 	rts
 
 angleStr:
 	pstring "ANGLE:   "
+powerStr:
+	pstring "POWER:   "
+
+

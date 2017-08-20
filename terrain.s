@@ -245,14 +245,6 @@ generateTerrainLoop:
 	lsr
 	lsr
 	lsr
-	lsr
-	lsr
-	lsr
-	lsr
-	lsr
-
-	lsr
-	lsr
 
 	clc
 	adc #30
@@ -261,11 +253,13 @@ generateTerrainLoop:
 	iny
 	iny
 
-	inx
-	inx
-	inx
+	clc
 	txa
-	and #$00ff
+	adc #12
+	tax
+	
+	txa
+	and #$03ff
 	tax
 
 	cpy #TERRAINWIDTH/2
