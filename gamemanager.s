@@ -47,15 +47,21 @@ gameplayLoopKbd:
 
 	; Scroll map if needed
 	lda mapScrollRequested
-	bmi gameplayLoopPlayers
+	bmi gameplayLoopAngle
 	jsr scrollMap
 
-gameplayLoopPlayers:
+gameplayLoopAngle:
 
-	; Update active player state if needed
+	; Update aim angle if needed
 	lda angleDeltaRequested
-	beq gameplayLoopEndFrame
+	beq gameplayLoopFire
 	jsr changeAngle
+
+gameplayLoopFire:
+
+	lda fireRequested
+	beq gameplayLoopEndFrame
+	jsr fire
 
 gameplayLoopEndFrame:
 
@@ -103,6 +109,18 @@ changeAngle:
 	rts
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; fire
+;
+; Handles firing a player's weapon
+;
+fire:
+	stz fireRequested
+	ldy #0
+	jsr playerFire
+	rts
+
+
 basePalette:
 	.word $0000,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 quitRequested:
@@ -110,6 +128,8 @@ quitRequested:
 mapScrollRequested:
 	.word $FFFF
 angleDeltaRequested:
+	.word $0000
+fireRequested:
 	.word $0000
 terrainDirty:
 	.word 1

@@ -22,12 +22,14 @@ kbdScan:
 	beq kbdScanLeftArrow
 	cmp #(21 + $80)
 	beq kbdScanRightArrow
-	cmp #(' ' + $80)
-	beq kbdScanSpace
+	cmp #('q' + $80)
+	beq kbdScanQ
 	cmp #('a' + $80)
 	beq kbdScanA
 	cmp #('z' + $80)
 	beq kbdScanZ
+	cmp #(' ' + $80)
+	beq kbdScanSpace
 
 kbdScanDone:
 	BITS16
@@ -53,7 +55,7 @@ kbdScanLeftArrow:
 	sta mapScrollRequested
 	rts
 
-kbdScanSpace:
+kbdScanQ:
 	BITS16
 
 	lda #1
@@ -70,5 +72,11 @@ kbdScanZ:
 	BITS16
 	lda #-1
 	sta angleDeltaRequested
+	rts
+
+kbdScanSpace:
+	BITS16
+	lda #1
+	sta fireRequested
 	rts
 

@@ -19,7 +19,7 @@ mainBank2:
 
 	; Set up SCBs
 	jsr initSCBs
-	SHRVIDEO
+	;SHRVIDEO
 
 	jmp beginGameplay
 

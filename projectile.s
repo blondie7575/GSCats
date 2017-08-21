@@ -11,7 +11,8 @@ projectileData:
 	.word 40	; X pos in pixels (from left terrain edge)
 	.word 38	; Y pos in pixels (from bottom terrain edge)
 
-	.word 0		; Velocity (8.8 fixed point)
+	.word 0		; Velocity X (8.8 fixed point)
+	.word 0		; Velocity Y (8.8 fixed point)
 
 JD_V = 4	; Byte offsets into projectile data structure
 
@@ -26,8 +27,6 @@ projectileParams:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; fireProjectile
 ;
-; PARAML0 = Pointer to projectileParams
-;
 ; Trashes SCRATCHL
 ;
 fireProjectile:
@@ -35,22 +34,34 @@ fireProjectile:
 
 	; Set up projectile structure
 	ldy #0
-	ldx #0
-	lda #projectileData		; Only one active at a tiem for now
+	lda #projectileData		; Only one active at a time for now
 	sta SCRATCHL
 
-;	lda (PARAML0),x		; X pos
-;	sta (SCRATCHL),y
-;	inx
-;	inx
-;	iny
-;	iny
-;	lda (PARAML0),x		; Y pos
-;	sta (SCRATCHL),y
-;	inx
-;	inx
-;	lda (PARAML0),x		;
+	lda projectileParams		; X pos
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda projectileParams+2		; Y pos
+	sta (SCRATCHL),y
+	iny
+	iny
 
+	lda projectileParams+4		; Convert angle to vector
+	asl
+	tax
+	lda angleToVectorX,x		; Velocity X
+
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda projectileParams+4		; Convert angle to vector
+	asl
+	tax
+	lda angleToVectorY,x		; Velocity Y
+	sta (SCRATCHL),y
+
+	brk
 fireProjectileLoop:
 
 

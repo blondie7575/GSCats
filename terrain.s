@@ -244,7 +244,6 @@ generateTerrainLoop:
 
 	lsr
 	lsr
-	lsr
 
 	clc
 	adc #30
@@ -253,11 +252,13 @@ generateTerrainLoop:
 	iny
 	iny
 
-	clc
-	txa
-	adc #12
-	tax
-	
+	inx
+	inx
+	inx
+	inx
+	inx
+	inx
+
 	txa
 	and #$03ff
 	tax

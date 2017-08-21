@@ -11,10 +11,12 @@ playerData:
 	.word 40	; X pos in pixels (from left terrain edge)
 	.word 38	; Y pos in pixels (from bottom terrain edge)
 
-	.word 45		; Angle in degrees from +X
+	.word 90+45		; Angle in degrees from +X
 	.word 50		; Power
 
-PD_ANGLE = 4	; Byte offsets into player data structure
+PD_POSX = 0	; Byte offsets into player data structure
+PD_POSY = 2
+PD_ANGLE = 4
 PD_POWER = 6
 
 .macro PLAYERPTR_Y
@@ -55,6 +57,29 @@ playerDeltaAngleClampLow:
 playerDeltaAngleClampHigh:
 	lda #180
 	bra playerDeltaAngleStore
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playerFire
+;
+; Y = Player index
+;
+playerFire:
+	SAVE_AY
+	PLAYERPTR_Y
+
+	lda playerData+PD_POSX,y
+	sta projectileParams
+	lda playerData+PD_POSY,y
+	sta projectileParams+2
+	lda playerData+PD_ANGLE,y
+	sta projectileParams+4
+	lda playerData+PD_POWER,y
+	sta projectileParams+6
+	jsr fireProjectile
+
+	RESTORE_AY
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
