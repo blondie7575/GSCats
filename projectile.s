@@ -8,13 +8,20 @@
 
 projectileData:
 	; gameobject data
-	.word 40	; X pos in pixels (from left terrain edge)
-	.word 38	; Y pos in pixels (from bottom terrain edge)
+	.word -1	; Pos X in pixels (from left terrain edge)
+	.word 0		; Pos Y in pixels (from bottom terrain edge)
 
+	.word 0		; Pos X (8.8 fixed point)
+	.word 0		; Pos Y (8.8 fixed point)
 	.word 0		; Velocity X (8.8 fixed point)
 	.word 0		; Velocity Y (8.8 fixed point)
 
-JD_V = 4	; Byte offsets into projectile data structure
+JD_POSX = 0		; Byte offsets into projectile data structure
+JD_POSY = 2
+JD_PRECISEX = 4
+JD_PRECISEY = 6
+JD_VX = 8
+JD_VY = 10
 
 
 projectileParams:
@@ -46,6 +53,18 @@ fireProjectile:
 	iny
 	iny
 
+	lda projectileParams		; Fixed point version of X pos
+	xba
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda projectileParams+2		; Fixed point version of Y pos
+	xba
+	sta (SCRATCHL),y
+	iny
+	iny
+
 	lda projectileParams+4		; Convert angle to vector
 	asl
 	tax
@@ -61,9 +80,54 @@ fireProjectile:
 	lda angleToVectorY,x		; Velocity Y
 	sta (SCRATCHL),y
 
-	brk
-fireProjectileLoop:
+	RESTORE_AXY
+	rts
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; updateProjectiles
+;
+; Trashes SCRATCHL
+;
+updateProjectiles:
+	SAVE_AXY
+	lda projectileData+JD_POSX
+	bmi updateProjectilesDone
+
+	; Integrate X velocity over position
+	lda projectileData+JD_PRECISEX
+	clc
+	adc projectileData+JD_VX
+	sta projectileData+JD_PRECISEX
+
+	; Convert to integral for rendering
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	sta projectileData+JD_POSX
+
+	; Integrate Y velocity over position
+	lda projectileData+JD_PRECISEY
+	clc
+	adc projectileData+JD_VY
+	sta projectileData+JD_PRECISEY
+
+	; Convert to integral for rendering
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	lsr
+	sta projectileData+JD_POSY
+brk
+updateProjectilesDone:
 	RESTORE_AXY
 	rts

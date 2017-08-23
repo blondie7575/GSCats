@@ -11,7 +11,7 @@ playerData:
 	.word 40	; X pos in pixels (from left terrain edge)
 	.word 38	; Y pos in pixels (from bottom terrain edge)
 
-	.word 90+45		; Angle in degrees from +X
+	.word 45		; Angle in degrees from +X
 	.word 50		; Power
 
 PD_POSX = 0	; Byte offsets into player data structure

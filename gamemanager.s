@@ -60,8 +60,11 @@ gameplayLoopAngle:
 gameplayLoopFire:
 
 	lda fireRequested
-	beq gameplayLoopEndFrame
+	beq gameplayLoopProjectiles
 	jsr fire
+
+gameplayLoopProjectiles:
+	jsr updateProjectiles
 
 gameplayLoopEndFrame:
 
