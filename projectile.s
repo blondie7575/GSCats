@@ -11,10 +11,10 @@ projectileData:
 	.word -1	; Pos X in pixels (from left terrain edge)
 	.word 0		; Pos Y in pixels (from bottom terrain edge)
 
-	.word 0		; Pos X (8.8 fixed point)
-	.word 0		; Pos Y (8.8 fixed point)
-	.word 0		; Velocity X (8.8 fixed point)
-	.word 0		; Velocity Y (8.8 fixed point)
+	.word 0		; Pos X (12.4 fixed point)
+	.word 0		; Pos Y (12.4 fixed point)
+	.word 0		; Velocity X (12.4 fixed point)
+	.word 0		; Velocity Y (12.4 fixed point)
 
 JD_POSX = 0		; Byte offsets into projectile data structure
 JD_POSY = 2
@@ -54,13 +54,19 @@ fireProjectile:
 	iny
 
 	lda projectileParams		; Fixed point version of X pos
-	xba
+	asl
+	asl
+	asl
+	asl
 	sta (SCRATCHL),y
 	iny
 	iny
 
 	lda projectileParams+2		; Fixed point version of Y pos
-	xba
+	asl
+	asl
+	asl
+	asl
 	sta (SCRATCHL),y
 	iny
 	iny
@@ -105,10 +111,6 @@ updateProjectiles:
 	lsr
 	lsr
 	lsr
-	lsr
-	lsr
-	lsr
-	lsr
 	sta projectileData+JD_POSX
 
 	; Integrate Y velocity over position
@@ -118,10 +120,6 @@ updateProjectiles:
 	sta projectileData+JD_PRECISEY
 
 	; Convert to integral for rendering
-	lsr
-	lsr
-	lsr
-	lsr
 	lsr
 	lsr
 	lsr

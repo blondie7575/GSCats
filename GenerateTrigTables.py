@@ -7,12 +7,12 @@ import math
 def twosCompliment(value):
 	return (value^65535)+1
 
-def toFixed(flt):		# Floating point to 8.8 fixed point
-	whole = max(-128, min(127, math.trunc(flt)))	# Clamp to signed range
+def toFixed(flt):		# Floating point to 12.4 fixed point
+	whole = max(-2048, min(2047, math.trunc(flt)))	# Clamp to signed range
 	frac = abs(flt)%1
-	binary = (abs(whole)<<8) + math.trunc(256*frac)
+	binary = (abs(whole)<<4) + math.trunc(16*frac)
 	
-	if (flt<0 and abs(flt)>0.000001):
+	if (flt<0 and abs(flt)>0.06):
 		binary = twosCompliment(binary)
 	
 	return binary
@@ -20,7 +20,7 @@ def toFixed(flt):		# Floating point to 8.8 fixed point
 
 def main(argv):
 
-	print ("sineTable:",end="")
+	print ("sineTable:\t\t; 8.8 fixed point",end="")
 	rowCount = 7
 	
 	for v in range(0,512):
@@ -34,7 +34,7 @@ def main(argv):
 			print (",", end="")
 
 
-	print ("\n\nangleToVectorX:\t\t; Counterclockwise angle, +x=(1,0)",end="")
+	print ("\n\nangleToVectorX:\t\t; 12.4 fixed point, counterclockwise angle, +x=(1,0)",end="")
 	rowCount = 11
 	
 	for v in range(0,360):
@@ -48,7 +48,7 @@ def main(argv):
 			print (",", end="")
 
 
-	print ("\n\nangleToVectorY:\t\t; Counterclockwise angle, +x=(1,0)",end="")
+	print ("\n\nangleToVectorY:\t\t; 12.4 fixed point, counterclockwise angle, +x=(1,0)",end="")
 	rowCount = 11
 	
 	for v in range(0,360):
