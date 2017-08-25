@@ -64,7 +64,9 @@ gameplayLoopFire:
 	jsr fire
 
 gameplayLoopProjectiles:
+	jsr unrenderProjectiles
 	jsr updateProjectiles
+	jsr renderProjectiles
 
 gameplayLoopEndFrame:
 

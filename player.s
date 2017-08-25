@@ -71,6 +71,8 @@ playerFire:
 	lda playerData+PD_POSX,y
 	sta projectileParams
 	lda playerData+PD_POSY,y
+	clc
+	adc #GAMEOBJECTHEIGHT
 	sta projectileParams+2
 	lda playerData+PD_ANGLE,y
 	sta projectileParams+4

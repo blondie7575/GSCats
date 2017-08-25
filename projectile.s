@@ -13,8 +13,10 @@ projectileData:
 
 	.word 0		; Pos X (12.4 fixed point)
 	.word 0		; Pos Y (12.4 fixed point)
-	.word 0		; Velocity X (12.4 fixed point)
-	.word 0		; Velocity Y (12.4 fixed point)
+	.word 0		; Velocity X (8.8 fixed point)
+	.word 0		; Velocity Y (8.8 fixed point)
+
+	.word 0,0	; Padding
 
 JD_POSX = 0		; Byte offsets into projectile data structure
 JD_POSY = 2
@@ -22,6 +24,19 @@ JD_PRECISEX = 4
 JD_PRECISEY = 6
 JD_VX = 8
 JD_VY = 10
+
+GRAVITY = $ffff	; 8.8 fixed point
+
+
+.macro PROJECTILEPTR_Y
+	tya		; Pointer to projectil structure from index
+	asl
+	asl
+	asl
+	asl
+	tay
+.endmacro
+
 
 
 projectileParams:
@@ -75,7 +90,6 @@ fireProjectile:
 	asl
 	tax
 	lda angleToVectorX,x		; Velocity X
-
 	sta (SCRATCHL),y
 	iny
 	iny
@@ -96,14 +110,29 @@ fireProjectile:
 ; Trashes SCRATCHL
 ;
 updateProjectiles:
-	SAVE_AXY
+	SAVE_AY
 	lda projectileData+JD_POSX
 	bmi updateProjectilesDone
 
-	; Integrate X velocity over position
-	lda projectileData+JD_PRECISEX
+	; Integrate gravity over velocity
+	lda projectileData+JD_VY
 	clc
-	adc projectileData+JD_VX
+	adc #GRAVITY
+	sta projectileData+JD_VY
+
+	; Integrate X velocity over position
+	lda projectileData+JD_VX
+	; Convert 8.8 to 12.4
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
+	clc
+	adc projectileData+JD_PRECISEX
 	sta projectileData+JD_PRECISEX
 
 	; Convert to integral for rendering
@@ -112,11 +141,23 @@ updateProjectiles:
 	lsr
 	lsr
 	sta projectileData+JD_POSX
+	bmi updateProjectilesDelete
+	cmp #TERRAINWIDTH-GAMEOBJECTWIDTH-1
+	bpl updateProjectilesDelete
 
 	; Integrate Y velocity over position
-	lda projectileData+JD_PRECISEY
+	lda projectileData+JD_VY
+	; Convert 8.8 to 12.4
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
+	cmp #$8000
+	ror
 	clc
-	adc projectileData+JD_VY
+	adc projectileData+JD_PRECISEY
 	sta projectileData+JD_PRECISEY
 
 	; Convert to integral for rendering
@@ -125,7 +166,64 @@ updateProjectiles:
 	lsr
 	lsr
 	sta projectileData+JD_POSY
-brk
+	bmi updateProjectilesDelete
+	cmp #201
+	bpl updateProjectilesDelete
+
 updateProjectilesDone:
-	RESTORE_AXY
+	RESTORE_AY
+	rts
+
+updateProjectilesDelete:
+	ldy #0
+	jsr deleteProjectile
+	bra updateProjectilesDone
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deleteProjectile
+;
+; Y = Projectile index
+; Trashes A
+;
+deleteProjectile:
+	PROJECTILEPTR_Y
+	lda #-1
+	sta projectileData+JD_POSX,y
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderProjectiles
+;
+;
+renderProjectiles:
+	pha
+	lda projectileData
+	bmi renderProjectilesDone
+
+	lda #projectileData
+	sta PARAML0
+	jsr renderGameobject
+
+renderProjectilesDone:
+	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderProjectiles
+;
+;
+unrenderProjectiles:
+	pha
+	lda projectileData
+	bmi unrenderProjectilesDone
+
+	lda #projectileData
+	sta PARAML0
+	jsr unrenderGameobject
+
+unrenderProjectilesDone:
+	pla
 	rts
