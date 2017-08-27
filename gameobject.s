@@ -12,47 +12,123 @@ GAMEOBJECTHEIGHT = 8
 gameobjectData:
 	.word 40	; X pos in pixels (from left terrain edge)
 	.word 38	; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+
+GO_POSX = 0		; Byte offsets into gameobject data structure
+GO_POSY = 2
+GO_BACKGROUND = 4
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderGameobject
+; RENDER_GAMEOBJECT
 ;
-; PARAML0 = Pointer to gameobject data
+; ptr = Pointer to gameobject data
+; Trashes SCRATCHL
 ;
-renderGameobject:
+.macro RENDER_GAMEOBJECT ptr
+.scope
 	SAVE_AXY
 
 	; Find gameobject location in video memory
 	ldy #0
 
 	; X
-	lda (PARAML0),y
+	lda ptr+GO_POSX,y
 	lsr
 	sec
 	sbc leftScreenEdge
-	bmi renderGameobjectDone	; Gameobject is off left edge of screen
+	bmi renderGameobjectSkip	; Gameobject is off left edge of screen
 	cmp #320 - GAMEOBJECTWIDTH
-	bpl renderGameobjectDone	; Gameobject is off right edge of screen
+	bpl renderGameobjectSkip	; Gameobject is off right edge of screen
 	sta SCRATCHL
 
 	; Y
-	iny
-	iny
 	sec
 	lda #200
-	sbc (PARAML0),y
-	bmi renderGameobjectDone	; Gameobject is off top edge of screen
+	sbc ptr+GO_POSY,y
+	bmi renderGameobjectSkip	; Gameobject is off top edge of screen
 	cmp #200 - GAMEOBJECTHEIGHT
-	bpl renderGameobjectDone	; Gameobject is off bottom edge of screen
+	bpl renderGameobjectSkip	; Gameobject is off bottom edge of screen
 
 	asl
 	tax
 	lda vramYOffset,x
 	clc
 	adc SCRATCHL
-	tax
+	tax		; X now contains the VRAM offset of the upper left corner
+	phx
+	bra renderGameobjectBackground
 
-	; X now contains the VRAM offset of the upper left corner
+renderGameobjectSkip:
+	jmp renderGameobjectDone
+
+renderGameobjectBackground:
+	; Save background
+	lda VRAM,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*2+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*3,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*3+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*4+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*5,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*5+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*6+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*7,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAM+160*7+2,x
+	sta ptr+GO_BACKGROUND,y
+	plx
+
+	; Draw sprite
 	lda #$FFFF
 	sta VRAM,x
 	sta VRAM+2,x
@@ -73,66 +149,105 @@ renderGameobject:
 
 renderGameobjectDone:
 	RESTORE_AXY
-	rts
+.endscope
+.endmacro
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; unrenderGameobject
+; UNRENDER_GAMEOBJECT
 ;
-; PARAML0 = Pointer to gameobject data
+; ptr = Pointer to gameobject data
+; Trashes SCRATCHL
 ;
-unrenderGameobject:
+.macro UNRENDER_GAMEOBJECT ptr
+.scope
 	SAVE_AXY
 
 	; Find gameobject location in video memory
 	ldy #0
 
 	; X
-	lda (PARAML0),y
+	lda ptr+GO_POSX,y
 	lsr
 	sec
 	sbc leftScreenEdge
-	bmi unrenderGameobjectDone	; Gameobject is off left edge of screen
-	cmp #320 - GAMEOBJECTWIDTH
-	bpl unrenderGameobjectDone	; Gameobject is off right edge of screen
 	sta SCRATCHL
 
 	; Y
-	iny
-	iny
 	sec
 	lda #200
-	sbc (PARAML0),y
-	bmi unrenderGameobjectDone	; Gameobject is off top edge of screen
-	cmp #200 - GAMEOBJECTHEIGHT
-	bpl unrenderGameobjectDone	; Gameobject is off bottom edge of screen
-
+	sbc ptr+GO_POSY,y
 	asl
 	tax
 	lda vramYOffset,x
 	clc
 	adc SCRATCHL
-	tax
+	tax			; X now contains the VRAM offset of the upper left corner
 
-	; X now contains the VRAM offset of the upper left corner
-	lda #$0000
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*2+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*3,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*3+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*4+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*5,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*5+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*6,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*6+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*7,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
 	sta VRAM+160*7+2,x
 
 unrenderGameobjectDone:
 	RESTORE_AXY
-	rts
+.endscope
+.endmacro

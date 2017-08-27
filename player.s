@@ -10,14 +10,13 @@ playerData:
 	; gameobject data
 	.word 40	; X pos in pixels (from left terrain edge)
 	.word 38	; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
 	.word 45		; Angle in degrees from +X
 	.word 50		; Power
 
-PD_POSX = 0	; Byte offsets into player data structure
-PD_POSY = 2
-PD_ANGLE = 4
-PD_POWER = 6
+PD_ANGLE = 36
+PD_POWER = 38
 
 .macro PLAYERPTR_Y
 	tya		; Pointer to player structure from index
@@ -68,9 +67,9 @@ playerFire:
 	SAVE_AY
 	PLAYERPTR_Y
 
-	lda playerData+PD_POSX,y
+	lda playerData+GO_POSX,y
 	sta projectileParams
-	lda playerData+PD_POSY,y
+	lda playerData+GO_POSY,y
 	clc
 	adc #GAMEOBJECTHEIGHT
 	sta projectileParams+2
@@ -89,9 +88,7 @@ playerFire:
 ;
 ;
 renderPlayers:
-	lda #playerData
-	sta PARAML0
-	jsr renderGameobject
+	RENDER_GAMEOBJECT playerData
 	rts
 
 

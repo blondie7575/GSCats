@@ -7,29 +7,26 @@
 
 
 projectileData:
-	; gameobject data
+	; gameobject data (we're a subclass, effectively)
 	.word -1	; Pos X in pixels (from left terrain edge)
 	.word 0		; Pos Y in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
 	.word 0		; Pos X (12.4 fixed point)
 	.word 0		; Pos Y (12.4 fixed point)
 	.word 0		; Velocity X (8.8 fixed point)
 	.word 0		; Velocity Y (8.8 fixed point)
 
-	.word 0,0	; Padding
-
-JD_POSX = 0		; Byte offsets into projectile data structure
-JD_POSY = 2
-JD_PRECISEX = 4
-JD_PRECISEY = 6
-JD_VX = 8
-JD_VY = 10
+JD_PRECISEX = 36		; Byte offsets into projectile data structure
+JD_PRECISEY = 38
+JD_VX = 40
+JD_VY = 42
 
 GRAVITY = $ffff	; 8.8 fixed point
 
 
 .macro PROJECTILEPTR_Y
-	tya		; Pointer to projectil structure from index
+	tya		; Pointer to projectile structure from index
 	asl
 	asl
 	asl
@@ -55,50 +52,39 @@ fireProjectile:
 	SAVE_AXY
 
 	; Set up projectile structure
-	ldy #0
-	lda #projectileData		; Only one active at a time for now
-	sta SCRATCHL
+	ldy #0							; Only one active at a time for now
+	PROJECTILEPTR_Y
 
 	lda projectileParams		; X pos
-	sta (SCRATCHL),y
-	iny
-	iny
+	sta projectileData+GO_POSX,y
 	lda projectileParams+2		; Y pos
-	sta (SCRATCHL),y
-	iny
-	iny
+	sta projectileData+GO_POSY,y
 
 	lda projectileParams		; Fixed point version of X pos
 	asl
 	asl
 	asl
 	asl
-	sta (SCRATCHL),y
-	iny
-	iny
+	sta projectileData+JD_PRECISEX,y
 
 	lda projectileParams+2		; Fixed point version of Y pos
 	asl
 	asl
 	asl
 	asl
-	sta (SCRATCHL),y
-	iny
-	iny
+	sta projectileData+JD_PRECISEY,y
 
 	lda projectileParams+4		; Convert angle to vector
 	asl
 	tax
 	lda angleToVectorX,x		; Velocity X
-	sta (SCRATCHL),y
-	iny
-	iny
+	sta projectileData+JD_VX,y
 
 	lda projectileParams+4		; Convert angle to vector
 	asl
 	tax
 	lda angleToVectorY,x		; Velocity Y
-	sta (SCRATCHL),y
+	sta projectileData+JD_VY,y
 
 	RESTORE_AXY
 	rts
@@ -111,7 +97,7 @@ fireProjectile:
 ;
 updateProjectiles:
 	SAVE_AY
-	lda projectileData+JD_POSX
+	lda projectileData+GO_POSX
 	bmi updateProjectilesDone
 
 	; Integrate gravity over velocity
@@ -140,7 +126,7 @@ updateProjectiles:
 	lsr
 	lsr
 	lsr
-	sta projectileData+JD_POSX
+	sta projectileData+GO_POSX
 	bmi updateProjectilesDelete
 	cmp #TERRAINWIDTH-GAMEOBJECTWIDTH-1
 	bpl updateProjectilesDelete
@@ -165,7 +151,8 @@ updateProjectiles:
 	lsr
 	lsr
 	lsr
-	sta projectileData+JD_POSY
+	sta projectileData+GO_POSY
+	cmp #GAMEOBJECTHEIGHT-1	
 	bmi updateProjectilesDelete
 	cmp #201
 	bpl updateProjectilesDelete
@@ -189,7 +176,7 @@ updateProjectilesDelete:
 deleteProjectile:
 	PROJECTILEPTR_Y
 	lda #-1
-	sta projectileData+JD_POSX,y
+	sta projectileData+GO_POSX,y
 	rts
 
 
@@ -200,11 +187,11 @@ deleteProjectile:
 renderProjectiles:
 	pha
 	lda projectileData
-	bmi renderProjectilesDone
+	bpl renderProjectilesDoIt
+	jmp renderProjectilesDone
 
-	lda #projectileData
-	sta PARAML0
-	jsr renderGameobject
+renderProjectilesDoIt:
+	RENDER_GAMEOBJECT projectileData
 
 renderProjectilesDone:
 	pla
@@ -218,11 +205,11 @@ renderProjectilesDone:
 unrenderProjectiles:
 	pha
 	lda projectileData
-	bmi unrenderProjectilesDone
+	bpl unrenderProjectilesDoIt
+	jmp unrenderProjectilesDone
 
-	lda #projectileData
-	sta PARAML0
-	jsr unrenderGameobject
+unrenderProjectilesDoIt:
+	UNRENDER_GAMEOBJECT projectileData
 
 unrenderProjectilesDone:
 	pla
