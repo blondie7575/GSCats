@@ -30,6 +30,8 @@ kbdScan:
 	beq kbdScanZ
 	cmp #(' ' + $80)
 	beq kbdScanSpace
+	cmp #(27 + $80)
+	beq kbdScanESC
 
 kbdScanDone:
 	BITS16
@@ -79,4 +81,13 @@ kbdScanSpace:
 	lda #1
 	sta fireRequested
 	rts
+
+kbdScanESC:
+	BITS16
+	lda #1
+	sta breakpoint
+	rts
+
+breakpoint:
+	.word 0
 

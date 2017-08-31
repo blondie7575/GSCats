@@ -127,6 +127,16 @@
 	.dbyt   Arg>>16,Arg&$0000ffff
 .endmacro
 
+.macro BREAK
+	pha
+	lda breakpoint
+	beq nobrk
+	pla
+	brk
+nobrk:
+	pla
+.endmacro
+
 ;;;;;;;;;;
 ; Stack Macros
 

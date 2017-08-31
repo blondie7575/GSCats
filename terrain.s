@@ -269,18 +269,69 @@ generateTerrainLoop:
 	rts
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; intersectRect
+;
+; A = non zero if rectangle is intersecting terrain
+;
+rectParams:
+	.word 0		; x
+	.word 0		; y	0=terrain bottom, +y=up
+	.word 0		; w
+	.word 0		; h
+
+intersectRect:
+	phy
+
+	; Convert X to words and compute horizontal extent
+	; Note that X counts from right terrain edge
+	lda rectParams
+	clc
+	adc rectParams+4	; Reverse rect horizontally
+	lsr					; Convert X to bytes
+	and #$fffe			; Force even
+	sta rectParams
+
+	lda #TERRAINWIDTH/2	; Reverse X coordinate system
+	sec
+	sbc rectParams
+	sta rectParams
+	tay					; We'll need this later as an index into height data words
+
+	lsr rectParams+4	; Convert width to bytes
+	sec
+	sbc rectParams+4	; Convert width to extent
+	sta rectParams+4
+
+	; Convert height to vertical extent
+	lda rectParams+2
+	sec
+	sbc rectParams+6
+	sta rectParams+6
+
+	; Check Y bottom
+intersectRectBottomLoop:
+	lda terrainData,y
+	cmp rectParams+6
+	bpl intersectRectYep
+	dey
+	dey
+	cpy rectParams+4
+	bpl intersectRectBottomLoop
+
+	lda #0
+	ply
+	rts
+
+intersectRectYep:
+	lda #1
+	ply
+	rts
+
+
 ; Terrain data, stored as height values 4 pixels wide
 
 terrainData:
-;	.word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
-;	.word 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
-;	.word 40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21
-;	.word 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,80
-;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-;	.word 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,80
-
 	.repeat TERRAINWIDTH/4  ; VISIBLETERRAINWIDTH
 	.word 0
 	.endrepeat

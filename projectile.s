@@ -152,10 +152,24 @@ updateProjectiles:
 	lsr
 	lsr
 	sta projectileData+GO_POSY
-	cmp #GAMEOBJECTHEIGHT-1	
+	cmp #GAMEOBJECTHEIGHT
 	bmi updateProjectilesDelete
 	cmp #201
 	bpl updateProjectilesDelete
+
+	; Check for terrain collisions
+	lda projectileData+GO_POSX
+	sta rectParams
+	lda projectileData+GO_POSY
+	sta rectParams+2
+	lda #GAMEOBJECTWIDTH
+	sta rectParams+4
+	lda #GAMEOBJECTHEIGHT
+	sta rectParams+6
+
+	jsr intersectRect
+	cmp #0
+	bne updateProjectilesDelete
 
 updateProjectilesDone:
 	RESTORE_AY
