@@ -8,15 +8,47 @@
 GAMEOBJECTWIDTH = 8
 GAMEOBJECTHEIGHT = 8
 
-
-gameobjectData:
-	.word 40	; X pos in pixels (from left terrain edge)
-	.word 38	; Y pos in pixels (from bottom terrain edge)
-	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+; Base class sample:
+;gameobjectData:
+;	.word 40	; X pos in pixels (from right terrain edge)
+;	.word 38	; Y pos in pixels (from bottom terrain edge)
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
 GO_POSX = 0		; Byte offsets into gameobject data structure
 GO_POSY = 2
 GO_BACKGROUND = 4
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; placeGameObjectOnTerrain
+;
+; PARAML0 = Pointer to gameobject data
+; Trashes SCRATCHL
+;
+placeGameObjectOnTerrain:
+	SAVE_AY
+
+	ldy #GO_POSX
+	lda (PARAML0),y
+	clc					; Map into reversed terrain X space
+	adc #GAMEOBJECTWIDTH
+	sta SCRATCHL
+	lda #TERRAINWIDTH
+	sec
+	sbc SCRATCHL
+
+	lsr					; Convert to bytes and force even
+	and #$fffe
+	tay
+	lda terrainData,y
+
+	clc
+	adc #GAMEOBJECTHEIGHT
+	ldy #GO_POSY
+	sta (PARAML0),y
+
+	RESTORE_AY
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,11 +67,13 @@ GO_BACKGROUND = 4
 	; X
 	lda ptr+GO_POSX,y
 	lsr
-	sec
-	sbc leftScreenEdge
+	cmp leftScreenEdge
 	bmi renderGameobjectSkip	; Gameobject is off left edge of screen
-	cmp #320 - GAMEOBJECTWIDTH
+	cmp rightScreenEdge
 	bpl renderGameobjectSkip	; Gameobject is off right edge of screen
+
+	sec							; Convert byte x-pos to screenspace
+	sbc leftScreenEdge
 	sta SCRATCHL
 
 	; Y

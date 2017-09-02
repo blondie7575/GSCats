@@ -8,8 +8,8 @@
 
 playerData:
 	; gameobject data
-	.word 40	; X pos in pixels (from left terrain edge)
-	.word 38	; Y pos in pixels (from bottom terrain edge)
+	.word 0	; X pos in pixels (from left terrain edge)
+	.word 0	; Y pos in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
 	.word 45		; Angle in degrees from +X
@@ -26,6 +26,18 @@ PD_POWER = 38
 	tay
 .endmacro
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playerCreate
+;
+; A = Player X pos
+;
+playerCreate:
+	sta playerData+GO_POSX
+	lda #playerData
+	sta PARAML0
+	jsr placeGameObjectOnTerrain
+	rts
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playerDeltaAngle

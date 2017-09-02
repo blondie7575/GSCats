@@ -23,6 +23,10 @@ beginGameplay:
 	jsr compileTerrain
 	jsr clipTerrain
 
+	; Create players
+	lda #600
+	jsr playerCreate
+
 	ldy #0
 	jsr renderPlayerHeader
 
@@ -86,6 +90,9 @@ scrollMap:
 	sta mapScrollPos
 	asl
 	sta leftScreenEdge
+	clc
+	adc #160-GAMEOBJECTWIDTH/4
+	sta rightScreenEdge
 
 	jsr clipTerrain
 	lda #$ffff
@@ -143,8 +150,11 @@ activePlayer:
 
 ; Position of map viewing window. Can be visualized in two ways:
 ; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen
-; b) Word-distance from left edge of logical terrain to left edge of visible screen
+; b) Byte-distance from left edge of logical terrain to left edge of visible screen
+; c) Byte-distance from left edge of logical terrain to right edge of visible screen minus game object width in words
 mapScrollPos:
 	.word 0
 leftScreenEdge:
-	.word 0		; In pixels
+	.word 0
+rightScreenEdge:
+	.word 160-GAMEOBJECTWIDTH/4

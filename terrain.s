@@ -266,6 +266,8 @@ generateTerrainLoop:
 	cpy #TERRAINWIDTH/2
 	bne generateTerrainLoop
 
+	lda #1
+	sta terrainData
 	rts
 
 
