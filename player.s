@@ -103,7 +103,7 @@ playerDeltaAngleClampHigh:
 ; Y = Player index
 ;
 playerFire:
-	SAVE_AY
+	pha
 	PLAYERPTR_Y
 
 	lda playerData+GO_POSX,y
@@ -118,7 +118,30 @@ playerFire:
 	sta projectileParams+6
 	jsr fireProjectile
 
-	RESTORE_AY
+	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playerIntersectRect
+;
+; Y = Player index
+; rectParams = Rectangle to intersect with us
+; A => non zero if rectangle is intersecting player
+;
+playerIntersectRect:
+	PLAYERPTR_Y
+
+	lda playerData+GO_POSX,y
+	sta rectParams2+0
+	lda playerData+GO_POSY,y
+	sta rectParams2+2
+	lda #GAMEOBJECTWIDTH
+	sta rectParams2+4
+	lda #GAMEOBJECTHEIGHT
+	sta rectParams2+6
+	jsr intersectRectRect
+
 	rts
 
 

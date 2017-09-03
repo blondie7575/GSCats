@@ -98,8 +98,10 @@ fireProjectile:
 updateProjectiles:
 	SAVE_AY
 	lda projectileData+GO_POSX
-	bmi updateProjectilesDone
+	bpl updateProjectilesActive
+	jmp updateProjectilesDone
 
+updateProjectilesActive:
 	; Integrate gravity over velocity
 	lda projectileData+JD_VY
 	clc
@@ -127,10 +129,15 @@ updateProjectiles:
 	lsr
 	lsr
 	sta projectileData+GO_POSX
-	bmi updateProjectilesDelete
+	bmi updateProjectilesOffWorld
 	cmp #TERRAINWIDTH-GAMEOBJECTWIDTH-1
-	bpl updateProjectilesDelete
+	bpl updateProjectilesOffWorld
+	bra updateProjectilesContinue
 
+updateProjectilesOffWorld:
+	jmp updateProjectilesDelete
+
+updateProjectilesContinue:
 	; Integrate Y velocity over position
 	lda projectileData+JD_VY
 	; Convert 8.8 to 12.4
@@ -157,6 +164,29 @@ updateProjectiles:
 	cmp #201
 	bpl updateProjectilesDelete
 
+	; Check for player collisions
+	ldy #0
+	lda projectileData+GO_POSX
+	sta rectParams
+	lda projectileData+GO_POSY
+	sta rectParams+2
+	lda #GAMEOBJECTWIDTH
+	sta rectParams+4
+	lda #GAMEOBJECTHEIGHT
+	sta rectParams+6
+
+updateProjectilesPlayerLoop:
+	iny
+	cpy #NUMPLAYERS
+	beq updateProjectilesPlayerDone
+	cpy currentPlayer
+	beq updateProjectilesPlayerLoop
+	jsr playerIntersectRect
+	cmp #0
+	bne updateProjectilesPlayerHit
+
+updateProjectilesPlayerDone:
+
 	; Check for terrain collisions
 	lda projectileData+GO_POSX
 	sta rectParams
@@ -167,9 +197,9 @@ updateProjectiles:
 	lda #GAMEOBJECTHEIGHT
 	sta rectParams+6
 
-	jsr intersectRect
+	jsr intersectRectTerrain
 	cmp #0
-	bne updateProjectilesDelete
+	bne updateProjectilesTerrainHit
 
 updateProjectilesDone:
 	RESTORE_AY
@@ -181,6 +211,13 @@ updateProjectilesDelete:
 	lda #1
 	sta turnRequested
 	bra updateProjectilesDone
+
+updateProjectilesPlayerHit:
+	brk
+	bra updateProjectilesDelete
+
+updateProjectilesTerrainHit:
+	bra updateProjectilesDelete
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

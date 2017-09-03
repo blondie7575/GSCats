@@ -271,65 +271,6 @@ generateTerrainLoop:
 	rts
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; intersectRect
-;
-; A = non zero if rectangle is intersecting terrain
-;
-rectParams:
-	.word 0		; x
-	.word 0		; y	0=terrain bottom, +y=up
-	.word 0		; w
-	.word 0		; h
-
-intersectRect:
-	phy
-
-	; Convert X to words and compute horizontal extent
-	; Note that X counts from right terrain edge
-	lda rectParams
-	clc
-	adc rectParams+4	; Reverse rect horizontally
-	lsr					; Convert X to bytes
-	and #$fffe			; Force even
-	sta rectParams
-
-	lda #TERRAINWIDTH/2	; Reverse X coordinate system
-	sec
-	sbc rectParams
-	sta rectParams
-	tay					; We'll need this later as an index into height data words
-
-	lsr rectParams+4	; Convert width to bytes
-	sec
-	sbc rectParams+4	; Convert width to extent
-	sta rectParams+4
-
-	; Convert height to vertical extent
-	lda rectParams+2
-	sec
-	sbc rectParams+6
-	sta rectParams+6
-
-	; Check Y bottom
-intersectRectBottomLoop:
-	lda terrainData,y
-	cmp rectParams+6
-	bpl intersectRectYep
-	dey
-	dey
-	cpy rectParams+4
-	bpl intersectRectBottomLoop
-
-	lda #0
-	ply
-	rts
-
-intersectRectYep:
-	lda #1
-	ply
-	rts
-
 
 ; Terrain data, stored as height values 4 pixels wide
 
