@@ -14,12 +14,29 @@ playerData:
 
 	.word 45		; Angle in degrees from +X
 	.word 50		; Power
+	.byte 8,"SPROCKET "	; Name
+	.word 0,0,0,0,0,0,0 ;Padding
+
+	; gameobject data
+	.word 0	; X pos in pixels (from left terrain edge)
+	.word 0	; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+
+	.word 45		; Angle in degrees from +X
+	.word 50		; Power
+	.byte 8,"TINKER   "	; Name
+	.word 0,0,0,0,0,0,0 ;Padding
 
 PD_ANGLE = 36
 PD_POWER = 38
+PD_NAME = 40
+PD_SIZE = 64
 
 .macro PLAYERPTR_Y
 	tya		; Pointer to player structure from index
+	asl
+	asl
+	asl
 	asl
 	asl
 	asl
@@ -31,13 +48,23 @@ PD_POWER = 38
 ; playerCreate
 ;
 ; A = Player X pos
+; Y = Index
+; Trashes SCRATCHL
 ;
 playerCreate:
-	sta playerData+GO_POSX
+	pha
+	PLAYERPTR_Y
+	sty SCRATCHL
+	pla
+
+	sta playerData+GO_POSX,y
 	lda #playerData
+	clc
+	adc SCRATCHL
 	sta PARAML0
 	jsr placeGameObjectOnTerrain
 	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playerDeltaAngle
@@ -101,6 +128,7 @@ playerFire:
 ;
 renderPlayers:
 	RENDER_GAMEOBJECT playerData
+	RENDER_GAMEOBJECT playerData+PD_SIZE
 	rts
 
 
@@ -114,19 +142,26 @@ renderPlayerHeader:
 	PLAYERPTR_Y
 
 	ldx #0
+	tya
+	clc
+	adc #playerData
+	adc #PD_NAME
+	jsr DrawString
+
+	ldx #48
 	lda #angleStr
 	jsr DrawString
 
 	lda playerData+PD_ANGLE,y
-	ldx #24
+	ldx #72
 	jsr drawNumber
 
-	ldx #48
+	ldx #96
 	lda #powerStr
 	jsr DrawString
 
 	lda playerData+PD_POWER,y
-	ldx #72
+	ldx #120
 	jsr drawNumber
 
 	RESTORE_AXY

@@ -5,6 +5,8 @@
 ;  Created by Quinn Dunki on 8/15/17
 ;
 
+NUMPLAYERS = 2
+
 
 beginGameplay:
 
@@ -24,7 +26,12 @@ beginGameplay:
 	jsr clipTerrain
 
 	; Create players
-	lda #600
+	lda #40
+	ldy #0
+	jsr playerCreate
+
+	lda #190
+	ldy #1
 	jsr playerCreate
 
 	ldy #0
@@ -72,11 +79,37 @@ gameplayLoopProjectiles:
 	jsr updateProjectiles
 	jsr renderProjectiles
 
-gameplayLoopEndFrame:
+	lda turnRequested
+	beq gameplayLoopEndFrame
+	jsr endTurn
 
+gameplayLoopEndFrame:
 	lda quitRequested
 	beq gameplayLoop
 	jmp quitGame
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; endTurn
+;
+; Handles changing the active player
+;
+endTurn:
+	lda currentPlayer
+	inc
+	cmp #NUMPLAYERS
+	beq endTurnWrap
+	sta currentPlayer
+
+endTurnRefresh:
+	ldy currentPlayer
+	jsr renderPlayerHeader
+	stz turnRequested
+	rts
+
+endTurnWrap:
+	stz currentPlayer
+	bra endTurnRefresh
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -110,11 +143,11 @@ scrollMap:
 ; Handles changing a player's aim
 ;
 changeAngle:
-	ldy #0
+	ldy currentPlayer
 	tax
 	jsr playerDeltaAngle
 
-	ldy #0
+	ldy currentPlayer
 	jsr renderPlayerHeader
 
 	stz angleDeltaRequested
@@ -128,7 +161,7 @@ changeAngle:
 ;
 fire:
 	stz fireRequested
-	ldy #0
+	ldy currentPlayer
 	jsr playerFire
 	rts
 
@@ -143,10 +176,15 @@ angleDeltaRequested:
 	.word $0000
 fireRequested:
 	.word $0000
+turnRequested:
+	.word $0000
 terrainDirty:
 	.word 1
 activePlayer:
 	.word 0
+currentPlayer:
+	.word 0
+
 
 ; Position of map viewing window. Can be visualized in two ways:
 ; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen

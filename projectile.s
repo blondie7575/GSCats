@@ -178,6 +178,8 @@ updateProjectilesDone:
 updateProjectilesDelete:
 	ldy #0
 	jsr deleteProjectile
+	lda #1
+	sta turnRequested
 	bra updateProjectilesDone
 
 
