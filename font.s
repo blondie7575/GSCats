@@ -235,24 +235,24 @@ s_OpenParen:
 	qbyte $00FF0000
 	qbyte $000FF000
 
-s_CloseParen:
-	qbyte $000FF000
-	qbyte $0000FF00
-	qbyte $00000FF0
-	qbyte $00000FF0
-	qbyte $0000FF00
-	qbyte $000FF000
+s_CloseParen:			; Anger symbol
+	qbyte $0F0000F0
+	qbyte $00F00F00
+	qbyte $00000000
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $F000000F
 
 
 s_Asterix:
-	qbyte $00000000
-	qbyte $00F0F0F0
-	qbyte $000FFF00
+	qbyte $00000000		; Angle symbol
+	qbyte $00000FF0
+	qbyte $0000FF00
+	qbyte $000FF000
 	qbyte $00FFFFF0
-	qbyte $000FFF00
-	qbyte $00F0F0F0
+	qbyte $00000000
 
-s_Plus:
+s_Plus:					; Power symbol
 	qbyte $000F0000
 	qbyte $000F0000
 	qbyte $0FFFFF00

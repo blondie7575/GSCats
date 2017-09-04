@@ -16,19 +16,35 @@ projectileData:
 	.word 0		; Pos Y (12.4 fixed point)
 	.word 0		; Velocity X (8.8 fixed point)
 	.word 0		; Velocity Y (8.8 fixed point)
+	.word 0		; Type
 
 JD_PRECISEX = 36		; Byte offsets into projectile data structure
 JD_PRECISEY = 38
 JD_VX = 40
 JD_VY = 42
+JD_TYPE = 44
 
 GRAVITY = $ffff	; 8.8 fixed point
+
+projectileTypes:		; Byte offsets into projectile type data structure
+	.word 50		; Damage
+	.word 0,0,0	; Padding
+
+PT_DAMAGE = 0
+
 
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
 	asl
 	asl
+	asl
+	asl
+	tay
+.endmacro
+
+.macro PROJECTILETYPEPTR_Y
+	tya		; Pointer to projectile type structure from index
 	asl
 	asl
 	tay
@@ -213,7 +229,7 @@ updateProjectilesDelete:
 	bra updateProjectilesDone
 
 updateProjectilesPlayerHit:
-	brk
+	jsr processPlayerImpact
 	bra updateProjectilesDelete
 
 updateProjectilesTerrainHit:
@@ -266,4 +282,35 @@ unrenderProjectilesDoIt:
 
 unrenderProjectilesDone:
 	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; processPlayerImpact
+;
+; Y = Byte offset of player that was hit
+;
+processPlayerImpact:
+	tyx
+
+	ldy #0		; Assume projectile 0
+	PROJECTILEPTR_Y
+	lda projectileData+JD_TYPE,y
+	tay
+	PROJECTILETYPEPTR_Y
+
+	; Apply damage
+	lda playerData+PD_ANGER,x
+	sec
+	sbc projectileTypes+PT_DAMAGE,y
+
+	; Check for death
+	beq processPlayerImpactDeath
+	bmi processPlayerImpactDeath
+	sta playerData+PD_ANGER,x
+	rts
+
+processPlayerImpactDeath:
+	lda currentPlayer
+	sta gameOver
 	rts

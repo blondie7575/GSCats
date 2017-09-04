@@ -14,8 +14,9 @@ playerData:
 
 	.word 45		; Angle in degrees from +X
 	.word 50		; Power
+	.word 100		; Anger
 	.byte 8,"SPROCKET "	; Name
-	.word 0,0,0,0,0,0,0 ;Padding
+	.word 0,0,0,0,0,0 ;Padding
 
 	; gameobject data
 	.word 0	; X pos in pixels (from left terrain edge)
@@ -24,12 +25,14 @@ playerData:
 
 	.word 45		; Angle in degrees from +X
 	.word 50		; Power
+	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
-	.word 0,0,0,0,0,0,0 ;Padding
+	.word 0,0,0,0,0,0 ;Padding
 
 PD_ANGLE = 36
 PD_POWER = 38
-PD_NAME = 40
+PD_ANGER = 40
+PD_NAME = 42
 PD_SIZE = 64
 
 .macro PLAYERPTR_Y
@@ -176,23 +179,33 @@ renderPlayerHeader:
 	jsr DrawString
 
 	lda playerData+PD_ANGLE,y
-	ldx #72
+	ldx #56
 	jsr drawNumber
 
-	ldx #96
+	ldx #68
 	lda #powerStr
 	jsr DrawString
 
 	lda playerData+PD_POWER,y
-	ldx #120
+	ldx #76
+	jsr drawNumber
+
+	ldx #88
+	lda #angerStr
+	jsr DrawString
+
+	lda playerData+PD_ANGER,y
+	ldx #96
 	jsr drawNumber
 
 	RESTORE_AXY
 	rts
 
 angleStr:
-	pstring "ANGLE:   "
+	pstring "*:   "
 powerStr:
-	pstring "POWER:   "
+	pstring "+:   "
+angerStr:
+	pstring "):   "
 
 

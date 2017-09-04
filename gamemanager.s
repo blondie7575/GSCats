@@ -52,7 +52,6 @@ gameplayLoop:
 	jsr renderPlayers
 
 gameplayLoopKbd:
-
 	; Check for keys down
 	jsr kbdScan
 
@@ -62,14 +61,12 @@ gameplayLoopKbd:
 	jsr scrollMap
 
 gameplayLoopAngle:
-
 	; Update aim angle if needed
 	lda angleDeltaRequested
 	beq gameplayLoopFire
 	jsr changeAngle
 
 gameplayLoopFire:
-
 	lda fireRequested
 	beq gameplayLoopProjectiles
 	jsr fire
@@ -80,8 +77,13 @@ gameplayLoopProjectiles:
 	jsr renderProjectiles
 
 	lda turnRequested
-	beq gameplayLoopEndFrame
+	beq gameplayLoopVictoryCondition
 	jsr endTurn
+
+gameplayLoopVictoryCondition:
+	lda gameOver
+	bmi gameplayLoopEndFrame
+	jsr endGame
 
 gameplayLoopEndFrame:
 	lda quitRequested
@@ -110,6 +112,17 @@ endTurnRefresh:
 endTurnWrap:
 	stz currentPlayer
 	bra endTurnRefresh
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; endGame
+;
+; Handles someone winning
+;
+endGame:
+	lda #1
+	sta quitRequested
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,6 +197,8 @@ activePlayer:
 	.word 0
 currentPlayer:
 	.word 0
+gameOver:
+	.word -1			; Player index of winner
 
 
 ; Position of map viewing window. Can be visualized in two ways:
