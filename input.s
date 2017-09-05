@@ -28,6 +28,10 @@ kbdScan:
 	beq kbdScanA
 	cmp #('z' + $80)
 	beq kbdScanZ
+	cmp #('s' + $80)
+	beq kbdScanS
+	cmp #('x' + $80)
+	beq kbdScanX
 	cmp #(' ' + $80)
 	beq kbdScanSpace
 	cmp #(27 + $80)
@@ -74,6 +78,18 @@ kbdScanZ:
 	BITS16
 	lda #-1
 	sta angleDeltaRequested
+	rts
+
+kbdScanS:
+	BITS16
+	lda #1
+	sta powerDeltaRequested
+	rts
+
+kbdScanX:
+	BITS16
+	lda #-1
+	sta powerDeltaRequested
 	rts
 
 kbdScanSpace:

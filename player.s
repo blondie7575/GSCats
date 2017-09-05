@@ -101,6 +101,37 @@ playerDeltaAngleClampHigh:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playerDeltaPower
+;
+; Y = Player index
+; X = Delta
+;
+playerDeltaPower:
+	SAVE_AXY
+	PLAYERPTR_Y
+
+	txa
+	clc
+	adc playerData+PD_POWER,y
+	beq playerDeltaPowerClampLow
+	cmp #15
+	bpl playerDeltaPowerClampHigh
+
+playerDeltaPowerStore:
+	sta playerData+PD_POWER,y
+	RESTORE_AXY
+	rts
+
+playerDeltaPowerClampLow:
+	lda #1
+	bra playerDeltaPowerStore
+
+playerDeltaPowerClampHigh:
+	lda #15
+	bra playerDeltaPowerStore
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playerFire
 ;
 ; Y = Player index

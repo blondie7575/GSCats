@@ -66,8 +66,14 @@ gameplayLoopKbd:
 gameplayLoopAngle:
 	; Update aim angle if needed
 	lda angleDeltaRequested
-	beq gameplayLoopFire
+	beq gameplayLoopPower
 	jsr changeAngle
+
+gameplayLoopPower:
+	; Update power if needed
+	lda powerDeltaRequested
+	beq gameplayLoopFire
+	jsr changePower
 
 gameplayLoopFire:
 	lda fireRequested
@@ -172,6 +178,23 @@ changeAngle:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; changePower
+;
+; Handles changing a player's power
+;
+changePower:
+	ldy currentPlayer
+	tax
+	jsr playerDeltaPower
+
+	ldy currentPlayer
+	jsr renderPlayerHeader
+
+	stz powerDeltaRequested
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; fire
 ;
 ; Handles firing a player's weapon
@@ -190,6 +213,8 @@ quitRequested:
 mapScrollRequested:
 	.word $FFFF
 angleDeltaRequested:
+	.word $0000
+powerDeltaRequested:
 	.word $0000
 fireRequested:
 	.word $0000
