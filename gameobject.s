@@ -203,6 +203,11 @@ renderGameobjectDone:
 	; X
 	lda ptr+GO_POSX,y
 	lsr
+	cmp leftScreenEdge
+	bmi unrenderGameobjectSkip	; Gameobject is off left edge of screen
+	cmp rightScreenEdge
+	bpl unrenderGameobjectSkip	; Gameobject is off right edge of screen
+
 	sec
 	sbc leftScreenEdge
 	sta SCRATCHL
@@ -211,6 +216,10 @@ renderGameobjectDone:
 	sec
 	lda #200
 	sbc ptr+GO_POSY,y
+	bmi unrenderGameobjectSkip	; Gameobject is off top edge of screen
+	cmp #200 - GAMEOBJECTHEIGHT
+	bpl unrenderGameobjectSkip	; Gameobject is off bottom edge of screen
+
 	asl
 	tax
 	lda vramYOffset,x
@@ -218,6 +227,12 @@ renderGameobjectDone:
 	adc SCRATCHL
 	tax			; X now contains the VRAM offset of the upper left corner
 
+	bra unrenderGameobjectBackground
+
+unrenderGameobjectSkip:
+	jmp unrenderGameobjectDone
+
+unrenderGameobjectBackground:
 	lda ptr+GO_BACKGROUND,y
 	sta VRAM,x
 	iny

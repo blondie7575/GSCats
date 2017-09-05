@@ -52,6 +52,9 @@ gameplayLoop:
 	jsr renderPlayers
 
 gameplayLoopKbd:
+	lda projectileActive
+	bpl gameplayLoopProjectiles	; Skip input during shots
+
 	; Check for keys down
 	jsr kbdScan
 
@@ -72,6 +75,7 @@ gameplayLoopFire:
 	jsr fire
 
 gameplayLoopProjectiles:
+	sta KBDSTROBE
 	jsr unrenderProjectiles
 	jsr updateProjectiles
 	jsr renderProjectiles
@@ -137,7 +141,7 @@ scrollMap:
 	asl
 	sta leftScreenEdge
 	clc
-	adc #160-GAMEOBJECTWIDTH/4
+	adc #160-GAMEOBJECTWIDTH/4-1
 	sta rightScreenEdge
 
 	jsr clipTerrain
@@ -199,6 +203,8 @@ currentPlayer:
 	.word 0
 gameOver:
 	.word -1			; Player index of winner
+projectileActive:
+	.word -1
 
 
 ; Position of map viewing window. Can be visualized in two ways:
@@ -210,4 +216,4 @@ mapScrollPos:
 leftScreenEdge:
 	.word 0
 rightScreenEdge:
-	.word 160-GAMEOBJECTWIDTH/4
+	.word 160-GAMEOBJECTWIDTH/4-1

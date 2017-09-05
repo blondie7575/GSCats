@@ -13,7 +13,7 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
 	.word 45		; Angle in degrees from +X
-	.word 2		; Power
+	.word 1		; Power
 	.word 100		; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 0,0,0,0,0,0 ;Padding
@@ -23,8 +23,8 @@ playerData:
 	.word 0	; Y pos in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
 
-	.word 135		; Angle in degrees from +X
-	.word 3		; Power
+	.word 45		; Angle in degrees from +X
+	.word 1	; Power
 	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 0,0,0,0,0,0 ;Padding

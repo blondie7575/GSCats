@@ -17,12 +17,14 @@ projectileData:
 	.word 0		; Velocity X (8.8 fixed point)
 	.word 0		; Velocity Y (8.8 fixed point)
 	.word 0		; Type
+	.word 1		; New?
 
 JD_PRECISEX = 36		; Byte offsets into projectile data structure
 JD_PRECISEY = 38
 JD_VX = 40
 JD_VY = 42
 JD_TYPE = 44
+JD_NEW = 46
 
 GRAVITY = $ffff	; 8.8 fixed point
 
@@ -121,6 +123,10 @@ fireProjectile:
 	sta PARAML0
 	jsr mult88
 	sta projectileData+JD_VY,y
+
+	lda #1
+	sta projectileData+JD_NEW,y
+	stz projectileActive
 
 	RESTORE_AXY
 	rts
@@ -246,6 +252,8 @@ updateProjectilesDelete:
 	jsr deleteProjectile
 	lda #1
 	sta turnRequested
+	lda #-1
+	sta projectileActive
 	bra updateProjectilesDone
 
 updateProjectilesPlayerHit:
@@ -294,7 +302,13 @@ renderProjectilesDone:
 unrenderProjectiles:
 	pha
 	lda projectileData
-	bpl unrenderProjectilesDoIt
+	bpl unrenderProjectilesActive
+	jmp unrenderProjectilesDone
+
+unrenderProjectilesActive:
+	lda projectileData+JD_NEW
+	beq unrenderProjectilesDoIt
+	stz projectileData+JD_NEW
 	jmp unrenderProjectilesDone
 
 unrenderProjectilesDoIt:
