@@ -90,16 +90,36 @@ fireProjectile:
 	asl
 	sta projectileData+JD_PRECISEY,y
 
+	lda projectileParams+6		; Convert power to 8.8
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	sta projectileParams+6
+
 	lda projectileParams+4		; Convert angle to vector
 	asl
 	tax
-	lda angleToVectorX,x		; Velocity X
+	lda angleToVectorX,x		; Velocity X (unit vector)
+
+	sta PARAML1
+	lda projectileParams+6		; Scale by power
+	sta PARAML0
+	jsr mult88
 	sta projectileData+JD_VX,y
 
 	lda projectileParams+4		; Convert angle to vector
 	asl
 	tax
-	lda angleToVectorY,x		; Velocity Y
+	lda angleToVectorY,x		; Velocity Y (unit vector)
+	sta PARAML1
+	lda projectileParams+6		; Scale by power
+	sta PARAML0
+	jsr mult88
 	sta projectileData+JD_VY,y
 
 	RESTORE_AXY
