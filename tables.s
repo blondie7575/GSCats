@@ -152,3 +152,32 @@ vramYOffset:
 	.word $6400,$64a0,$6540,$65e0,$6680,$6720,$67c0,$6860,$6900,$69a0,$6a40,$6ae0,$6b80,$6c20,$6cc0,$6d60,$6e00,$6ea0,$6f40,$6fe0
 	.word $7080,$7120,$71c0,$7260,$7300,$73a0,$7440,$74e0,$7580,$7620,$76c0,$7760,$7800,$78a0,$7940,$79e0,$7a80,$7b20,$7bc0,$7c60
 
+circleTable:		;-Y for each X, in words
+	.addr 0
+	.addr 0
+	.addr 0
+	.addr circleTable3
+	.addr circleTable4
+	.addr circleTable5
+	.addr circleTable6
+	.addr circleTable7
+	.addr circleTable8
+	.addr circleTable9
+	.addr circleTable10
+
+circleTable3:
+	.word 0,-8,-12,-12,-8,0
+circleTable4:
+	.word 0,-8,-12,-16,-16,-12,-8,0
+circleTable5:
+	.word 0,-12,-16,-16,-20,-20,-16,-16,-12,0
+circleTable6:
+	.word 0,-12,-16,-20,-20,-24,-24,-20,-20,-16,-12,0
+circleTable7:
+	.word 0,-12,-16,-20,-24,-24,-28,-28,-24,-24,-20,-16,-12,0
+circleTable8:
+	.word 0,-12,-20,-24,-24,-28,-28,-32,-32,-28,-28,-24,-24,-20,-12,0
+circleTable9:
+	.word 0,-16,-20,-24,-28,-32,-32,-32,-36,-36,-32,-32,-32,-28,-24,-20,-16,0
+circleTable10:
+	.word 0,-16,-24,-28,-32,-32,-36,-36,-36,-40,-40,-36,-36,-36,-32,-32,-28,-24,-16,0

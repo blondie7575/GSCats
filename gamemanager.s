@@ -22,6 +22,21 @@ beginGameplay:
 
 	; Generate, compile, and clip terrain
 	jsr generateTerrain
+
+;	lda #40
+;	sta PARAML0
+;	lda #30
+;	sta PARAML1
+;	ldy #12
+;	jsr craterTerrain
+
+;	lda #74
+;	sta PARAML0
+;	lda #30
+;	sta PARAML1
+;	ldy #16
+;	jsr craterTerrain
+
 	jsr compileTerrain
 	jsr clipTerrain
 
@@ -83,8 +98,9 @@ gameplayLoopFire:
 gameplayLoopProjectiles:
 	sta KBDSTROBE
 	jsr unrenderProjectiles
-	jsr updateProjectiles
+	jsr updateProjectilePhysics
 	jsr renderProjectiles
+	jsr updateProjectileCollisions
 
 	lda turnRequested
 	beq gameplayLoopVictoryCondition

@@ -30,10 +30,11 @@ GRAVITY = $ffff	; 8.8 fixed point
 
 projectileTypes:		; Byte offsets into projectile type data structure
 	.word 50		; Damage
-	.word 0,0,0	; Padding
+	.word 12		; Crater radius
+	.word 0,0		; Padding
 
 PT_DAMAGE = 0
-
+PT_RADIUS = 2
 
 
 .macro PROJECTILEPTR_Y
@@ -133,17 +134,18 @@ fireProjectile:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; updateProjectiles
+; updateProjectilePhysics
 ;
 ; Trashes SCRATCHL
 ;
-updateProjectiles:
+updateProjectilePhysics:
 	SAVE_AY
-	lda projectileData+GO_POSX
-	bpl updateProjectilesActive
-	jmp updateProjectilesDone
 
-updateProjectilesActive:
+	lda projectileData+GO_POSX
+	bpl updateProjectilePhysicsActive
+	jmp updateProjectilePhysicsDone
+
+updateProjectilePhysicsActive:
 	; Integrate gravity over velocity
 	lda projectileData+JD_VY
 	clc
@@ -171,15 +173,11 @@ updateProjectilesActive:
 	lsr
 	lsr
 	sta projectileData+GO_POSX
-	bmi updateProjectilesOffWorld
+	bmi updateProjectilePhysicsDelete
 	cmp #TERRAINWIDTH-GAMEOBJECTWIDTH-1
-	bpl updateProjectilesOffWorld
-	bra updateProjectilesContinue
+	bpl updateProjectilePhysicsDelete
 
-updateProjectilesOffWorld:
-	jmp updateProjectilesDelete
-
-updateProjectilesContinue:
+updateProjectilePhysicsContinue:
 	; Integrate Y velocity over position
 	lda projectileData+JD_VY
 	; Convert 8.8 to 12.4
@@ -202,13 +200,31 @@ updateProjectilesContinue:
 	lsr
 	sta projectileData+GO_POSY
 	cmp #GAMEOBJECTHEIGHT
-	bmi updateProjectilesDelete
+	bmi updateProjectilePhysicsDelete
 	cmp #201
-	bpl updateProjectilesDelete
+	bpl updateProjectilePhysicsDelete
+
+updateProjectilePhysicsDone:
+	RESTORE_AY
+	rts
+
+updateProjectilePhysicsDelete:
+	jsr endProjectile
+	bra updateProjectilePhysicsDone
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; updateProjectileCollisions
+;
+; Trashes SCRATCHL
+;
+updateProjectileCollisions:
+	SAVE_AY
 
 	; Check for player collisions
 	ldy #0
 	lda projectileData+GO_POSX
+	bmi updateProjectileCollisionsDone	; Projectile not active
 	sta rectParams
 	lda projectileData+GO_POSY
 	sta rectParams+2
@@ -217,17 +233,17 @@ updateProjectilesContinue:
 	lda #GAMEOBJECTHEIGHT
 	sta rectParams+6
 
-updateProjectilesPlayerLoop:
+updateProjectileCollisionsPlayerLoop:
 	iny
 	cpy #NUMPLAYERS
-	beq updateProjectilesPlayerDone
+	beq updateProjectileCollisionsPlayerDone
 	cpy currentPlayer
-	beq updateProjectilesPlayerLoop
+	beq updateProjectileCollisionsPlayerLoop
 	jsr playerIntersectRect
 	cmp #0
-	bne updateProjectilesPlayerHit
+	bne updateProjectileCollisionsPlayerHit
 
-updateProjectilesPlayerDone:
+updateProjectileCollisionsPlayerDone:
 
 	; Check for terrain collisions
 	lda projectileData+GO_POSX
@@ -241,27 +257,36 @@ updateProjectilesPlayerDone:
 
 	jsr intersectRectTerrain
 	cmp #0
-	bne updateProjectilesTerrainHit
+	bne updateProjectileCollisionsTerrainHit
 
-updateProjectilesDone:
+updateProjectileCollisionsDone:
 	RESTORE_AY
 	rts
 
-updateProjectilesDelete:
+updateProjectileCollisionsPlayerHit:
+	jsr processPlayerImpact
+	jsr endProjectile
+	bra updateProjectileCollisionsDone
+
+updateProjectileCollisionsTerrainHit:
+	jsr processTerrainImpact
+	jsr endProjectile
+	bra updateProjectileCollisionsDone
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; endProjectile
+;
+; Trashes A and Y
+;
+endProjectile:
 	ldy #0
 	jsr deleteProjectile
 	lda #1
 	sta turnRequested
 	lda #-1
 	sta projectileActive
-	bra updateProjectilesDone
-
-updateProjectilesPlayerHit:
-	jsr processPlayerImpact
-	bra updateProjectilesDelete
-
-updateProjectilesTerrainHit:
-	bra updateProjectilesDelete
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -347,4 +372,35 @@ processPlayerImpact:
 processPlayerImpactDeath:
 	lda currentPlayer
 	sta gameOver
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; processTerrainImpact
+;
+; Trashes A,Y
+;
+processTerrainImpact:
+	ldy #0		; Assume projectile 0
+	PROJECTILEPTR_Y
+	lda projectileData+GO_POSX,y
+	clc
+	adc #GAMEOBJECTWIDTH/2
+	sta PARAML0
+	lda projectileData+GO_POSY,y
+	sec
+	sbc #GAMEOBJECTHEIGHT
+	sta PARAML1
+
+	lda projectileData+JD_TYPE,y
+	tay
+	PROJECTILETYPEPTR_Y
+
+	lda projectileTypes+PT_RADIUS,y
+	tay
+
+	jsr craterTerrain
+	jsr compileTerrain
+	jsr clipTerrain
+
 	rts

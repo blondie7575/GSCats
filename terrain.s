@@ -47,6 +47,60 @@ renderRowComplete:
 	rts
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; craterTerrain
+;
+; PARAML0 = X pos of center in pixels from logical left terrain edge
+; PARAML1 = Y pos of center in pixels from bottom terrain edge
+; Y = Radius of circle, in pixels
+;
+; Trashes SCRATCHL
+craterTerrain:
+	SAVE_AX
+
+	lda #TERRAINWIDTH		; Convert X pos to terrain-right byte count
+	sec
+	sbc PARAML0
+	sty SCRATCHL			; Center width
+	sbc SCRATCHL
+	lsr
+	and #$fffe
+	clc
+	adc #terrainData
+	sta PARAML0
+
+	phy
+	tya						; Look up circle data
+	lsr
+	tay
+	lda circleTable,y
+	sta SCRATCHL
+	ply
+
+craterTerrainLoop:
+	dey
+	dey
+	bmi craterTerrainDone
+
+	lda (SCRATCHL),y		; Fetch circle Y value
+	clc
+	adc PARAML1				; Convert to terrain-space
+	sta SCRATCHL2
+	lda (PARAML0),y
+	cmp SCRATCHL2
+	bmi craterTerrainLoop
+
+	lda SCRATCHL2			; Circle value is lower, so use that
+	sta (PARAML0),y
+	bra craterTerrainLoop
+
+craterTerrainDone:
+	lda #1
+	sta terrainDirty
+
+	RESTORE_AX
+	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
@@ -272,7 +326,7 @@ generateTerrainLoop:
 
 
 
-; Terrain data, stored as height values 4 pixels wide
+; Terrain data, stored as height values 4 pixels wide (words)
 
 terrainData:
 	.repeat TERRAINWIDTH/4  ; VISIBLETERRAINWIDTH

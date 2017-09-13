@@ -16,6 +16,7 @@
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
 		706DF1651F2D4A8100AA6680 /* terrain.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain.s; sourceTree = "<group>"; };
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
+		709175C01F60D263008FAFAB /* GenerateCircles.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateCircles.py; sourceTree = "<group>"; };
 		7099E3841F41022100182A82 /* gameobject.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gameobject.s; sourceTree = "<group>"; };
 		7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMYOffset.py; sourceTree = "<group>"; };
 		70A80FB01F43D7F200BD34C9 /* gamemanager.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gamemanager.s; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,
 				700F21E01F4A3A5500D7007D /* GenerateTrigTables.py */,
+				709175C01F60D263008FAFAB /* GenerateCircles.py */,
 			);
 			sourceTree = "<group>";
 		};
