@@ -6,9 +6,9 @@ import math
 def main(argv):
 	
 	minRadius = 3
-	maxRadius = 10
+	maxRadius = 20
 	
-	print ("circleTable:\t\t;-Y for each X, in words")
+	print ("circleTable:\t\t;-Y for each X, in bytes")
 	
 	for radius in range(0,maxRadius+1):
 		if radius < minRadius:
@@ -29,7 +29,7 @@ def main(argv):
 			y = (int)(math.sqrt(radius*radius - x*x))
 			if p==radius-1:			# A fudge to make circles close better
 				y = radius
-			y*=-4		# Because X=words and we need -Y
+			y*=-2		# Because X=bytes and we need -Y
 			print (y, end=",")
 
 		skipMinus1 = 0
@@ -39,7 +39,7 @@ def main(argv):
 			if p==0:				# A fudge to make circles close better
 				y = radius
 			
-			y*=-4		# Because X=words and we need -Y
+			y*=-2		# Because X=bytes and we need -Y
 			if p==radius-1:
 				print(y)
 			else:

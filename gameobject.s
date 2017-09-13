@@ -37,8 +37,7 @@ placeGameObjectOnTerrain:
 	sec
 	sbc SCRATCHL
 
-	lsr					; Convert to bytes and force even
-	and #$fffe
+	and #$fffe				; Force even
 	tay
 	lda terrainData,y
 

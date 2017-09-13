@@ -31,17 +31,15 @@ intersectRectTerrain:
 	lda rectParams
 	clc
 	adc rectParams+4	; Reverse rect horizontally
-	lsr					; Convert X to bytes
 	and #$fffe			; Force even
 	sta rectParams
 
-	lda #TERRAINWIDTH/2	; Reverse X coordinate system
+	lda #TERRAINWIDTH	; Reverse X coordinate system
 	sec
 	sbc rectParams
 	sta rectParams
 	tay					; We'll need this later as an index into height data words
 
-	lsr rectParams+4	; Convert width to bytes
 	sec
 	sbc rectParams+4	; Convert width to extent
 	sta rectParams+4

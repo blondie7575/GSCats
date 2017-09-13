@@ -63,19 +63,17 @@ craterTerrain:
 	sbc PARAML0
 	sty SCRATCHL			; Center width
 	sbc SCRATCHL
-	lsr
-	and #$fffe
+	and #$fffe				; Force even
 	clc
 	adc #terrainData
 	sta PARAML0
 
-	phy
-	tya						; Look up circle data
-	lsr
-	tay
-	lda circleTable,y
+	lda circleTable,y		; Look up circle data
 	sta SCRATCHL
-	ply
+
+	tya						; Iterate over diameter
+	asl
+	tay
 
 craterTerrainLoop:
 	dey
@@ -229,6 +227,11 @@ compileTerrainDone:
 ; PARAML0 = Start of compiled row data
 ; PARAML1 = Row index
 ;
+; Note: DA = PHX = BGBG
+;       48 = PHA = FGFG
+;		5A = PHY =
+;		0B = PHD =
+
 compileTerrainRow:
 	SAVE_AXY
 	ldy #0
@@ -243,9 +246,12 @@ compileTerrainColumnLoop:
 	bcc compileTerrainColumnBGRight
 	beq compileTerrainColumnBGRight
 	lda #$00da
+
 compileTerrainColumnLeft:
 	sta compileTerrainOpcode
 	inx
+	inx
+	inx		; Double-up for now
 	inx
 	lda terrainData,x
 	cmp PARAML1
@@ -257,6 +263,8 @@ compileTerrainColumnLeft:
 compileTerrainColumnStore:
 	sta (PARAML0),y
 	inx
+	inx
+	inx		; Double-up for now
 	inx
 	iny
 	iny
@@ -305,6 +313,9 @@ generateTerrainLoop:
 	sta (SCRATCHL),y
 	iny
 	iny
+	sta (SCRATCHL),y	; Double-up for now
+	iny
+	iny
 
 	inx
 	inx
@@ -317,7 +328,7 @@ generateTerrainLoop:
 	and #$03ff
 	tax
 
-	cpy #TERRAINWIDTH/2
+	cpy #TERRAINWIDTH
 	bne generateTerrainLoop
 
 	lda #1
@@ -326,10 +337,10 @@ generateTerrainLoop:
 
 
 
-; Terrain data, stored as height values 4 pixels wide (words)
+; Terrain data, stored as height values 2 pixels wide (bytes)
 
 terrainData:
-	.repeat TERRAINWIDTH/4  ; VISIBLETERRAINWIDTH
+	.repeat TERRAINWIDTH/2
 	.word 0
 	.endrepeat
 

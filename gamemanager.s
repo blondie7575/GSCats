@@ -45,7 +45,7 @@ beginGameplay:
 	ldy #0
 	jsr playerCreate
 
-	lda #190
+	lda #191
 	ldy #1
 	jsr playerCreate
 
