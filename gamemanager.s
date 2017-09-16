@@ -41,11 +41,11 @@ beginGameplay:
 	jsr clipTerrain
 
 	; Create players
-	lda #40
+	lda #191
 	ldy #0
 	jsr playerCreate
 
-	lda #191
+	lda #40
 	ldy #1
 	jsr playerCreate
 

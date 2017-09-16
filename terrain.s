@@ -21,7 +21,8 @@ VISIBLETERRAINWINDOW = 80				; In words
 ;
 renderTerrain:
 	FASTGRAPHICS
-	ldy #MAXTERRAINHEIGHT
+	lda #MAXTERRAINHEIGHT
+	sta SCRATCHL2		; Row counter
 	lda #$9cff			; 4   Point stack to end of VRAM
 	tcs					; 2
 
@@ -31,8 +32,9 @@ renderTerrain:
 	sta PARAML0
 
 renderTerrainLoop:
-	lda #$0000		; Background
-	ldx #$1111		; Foreground
+	lda #$0000		; BG/BG
+	ldx #$1111		; FG/FG
+	ldy #$1100		; BG/FG
 	jmp (PARAML0)
 
 renderRowComplete:
@@ -40,7 +42,7 @@ renderRowComplete:
 	sec
 	sbc #COMPILEDTERRAINROW
 	sta PARAML0
-	dey
+	dec SCRATCHL2
 	bne renderTerrainLoop
 
 	SLOWGRAPHICS
@@ -227,9 +229,9 @@ compileTerrainDone:
 ; PARAML0 = Start of compiled row data
 ; PARAML1 = Row index
 ;
-; Note: DA = PHX = BGBG
-;       48 = PHA = FGFG
-;		5A = PHY =
+; Note: DA = PHX = FG/FG
+;       48 = PHA = BG/BG
+;		5A = PHY = BG/FG
 ;		0B = PHD =
 
 compileTerrainRow:
@@ -240,23 +242,30 @@ compileTerrainRow:
 compileTerrainColumnLoop:
 	stz compileTerrainOpcode
 
-	; Right half
+	; Rightmost byte
 	lda terrainData,x
 	cmp PARAML1
-	bcc compileTerrainColumnBGRight
-	beq compileTerrainColumnBGRight
+	bcc compileTerrainColumnBG0
+	beq compileTerrainColumnBG0
+
+	inx
+	inx
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumnBG1
+	beq compileTerrainColumnBG1
+
+	; Columns 0 and 1 are FG/FG, so PHX
 	lda #$00da
 
-compileTerrainColumnLeft:
+compileTerrainColumn2:
 	sta compileTerrainOpcode
 	inx
 	inx
-	inx		; Double-up for now
-	inx
 	lda terrainData,x
 	cmp PARAML1
-	bcc compileTerrainColumnBGLeft
-	beq compileTerrainColumnBGLeft
+	bcc compileTerrainColumnBG2
+	beq compileTerrainColumnBG2
 	lda compileTerrainOpcode
 	ora #$da00
 
@@ -264,7 +273,7 @@ compileTerrainColumnStore:
 	sta (PARAML0),y
 	inx
 	inx
-	inx		; Double-up for now
+	inx
 	inx
 	iny
 	iny
@@ -274,11 +283,21 @@ compileTerrainColumnStore:
 	RESTORE_AXY
 	rts
 
-compileTerrainColumnBGRight:
-	lda #$0048
-	bra compileTerrainColumnLeft
+compileTerrainColumnBG0:
 
-compileTerrainColumnBGLeft:
+	; Columns 0 and 1 are BG/BG, so PHA
+	lda #$0048
+	inx		; PHD check goes here?
+	inx
+	bra compileTerrainColumn2
+
+compileTerrainColumnBG1:
+
+	; Columns 0 and 1 are BG/FG, so PHY
+	lda #$005a
+	bra compileTerrainColumn2
+
+compileTerrainColumnBG2:
 	lda compileTerrainOpcode
 	ora #$4800
 	bra compileTerrainColumnStore
@@ -313,12 +332,7 @@ generateTerrainLoop:
 	sta (SCRATCHL),y
 	iny
 	iny
-	sta (SCRATCHL),y	; Double-up for now
-	iny
-	iny
 
-	inx
-	inx
 	inx
 	inx
 	inx
@@ -333,6 +347,8 @@ generateTerrainLoop:
 
 	lda #1
 	sta terrainData
+	lda #2
+	sta compiledTerrain-4
 	rts
 
 
