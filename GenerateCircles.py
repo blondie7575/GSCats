@@ -22,24 +22,25 @@ def main(argv):
 		
 		print ("circleTable%d:" % radius)
 		print ("\t.word ",end="")
+		byteR = radius*2
 		
 		skipMinus1 = 0
 		for p in range(0,radius):
-			x = radius-p
-			y = (int)(math.sqrt(radius*radius - x*x))
+			x = (radius-p)*2
+			y = (int)(math.sqrt(byteR*byteR - x*x))
 			if p==radius-1:			# A fudge to make circles close better
-				y = radius
-			y*=-2		# Because X=bytes and we need -Y
+				y = byteR
+			y*=-1		# Because X=bytes and we need -Y
 			print (y, end=",")
 
 		skipMinus1 = 0
 		for p in range(0,radius):
-			x = p+1
-			y = (int)(math.sqrt(radius*radius - x*x))
+			x = (p+1)*2
+			y = (int)(math.sqrt(byteR*byteR - x*x))
 			if p==0:				# A fudge to make circles close better
-				y = radius
+				y = byteR
 			
-			y*=-2		# Because X=bytes and we need -Y
+			y*=-1		# Because X=bytes and we need -Y
 			if p==radius-1:
 				print(y)
 			else:

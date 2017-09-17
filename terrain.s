@@ -64,8 +64,9 @@ craterTerrain:
 	lda #TERRAINWIDTH		; Convert X pos to terrain-right byte count
 	sec
 	sbc PARAML0
-	sty SCRATCHL			; Center width
+	sty SCRATCHL			; Center width in bytes
 	sbc SCRATCHL
+;	sbc SCRATCHL
 	and #$fffe				; Force even
 	clc
 	adc #terrainData

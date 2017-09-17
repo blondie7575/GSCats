@@ -21,6 +21,7 @@
 		7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMYOffset.py; sourceTree = "<group>"; };
 		70A80FB01F43D7F200BD34C9 /* gamemanager.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gamemanager.s; sourceTree = "<group>"; };
 		70C073091F5BAA3E009844A9 /* collision.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = collision.s; sourceTree = "<group>"; };
+		70E266E31F6F262D005AC7E4 /* circleTable.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = circleTable.s; sourceTree = "<group>"; };
 		70E9D85F1F2BD95400555C19 /* equates.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = equates.s; sourceTree = "<group>"; };
 		70E9D8601F2BD95400555C19 /* graphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = graphics.s; sourceTree = "<group>"; };
 		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
@@ -45,6 +46,7 @@
 				70C073091F5BAA3E009844A9 /* collision.s */,
 				70F086A01F4230CB002446C3 /* utility.s */,
 				700C39C51F2E5CA800C24F9C /* tables.s */,
+				70E266E31F6F262D005AC7E4 /* circleTable.s */,
 				70F0869F1F413A89002446C3 /* player.s */,
 				700F21DF1F4A364600D7007D /* projectile.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
