@@ -16,7 +16,7 @@ VISIBLETERRAINWINDOW = 80				; In words
 ;
 ; No stack operations permitted here!
 ;
-; Current implementation: X cycles per row
+; Current implementation: Unknown cycles per row
 ; Trashes all registers
 ;
 renderTerrain:
@@ -32,9 +32,10 @@ renderTerrain:
 	sta PARAML0
 
 renderTerrainLoop:
-	lda #$0000		; BG/BG
+	; Note that DP register is normally $0000, so that is used as the BG/BG case
+	lda #$0011		; BG/FG
 	ldx #$1111		; FG/FG
-	ldy #$1100		; BG/FG
+	ldy #$1100		; FG/BG
 	jmp (PARAML0)
 
 renderRowComplete:
@@ -230,9 +231,9 @@ compileTerrainDone:
 ; PARAML1 = Row index
 ;
 ; Note: DA = PHX = FG/FG
-;       48 = PHA = BG/BG
+;       48 = PHA = FG/BG
 ;		5A = PHY = BG/FG
-;		0B = PHD =
+;		0B = PHD = BG/BG
 
 compileTerrainRow:
 	SAVE_AXY
@@ -242,37 +243,48 @@ compileTerrainRow:
 compileTerrainColumnLoop:
 	stz compileTerrainOpcode
 
-	; Rightmost byte
+	; Check column 0
 	lda terrainData,x
 	cmp PARAML1
-	bcc compileTerrainColumnBG0
-	beq compileTerrainColumnBG0
+	bcc compileTerrainColumn0BG
+	beq compileTerrainColumn0BG
 
+	; Column 0 is FG, so check column 1
 	inx
 	inx
 	lda terrainData,x
 	cmp PARAML1
-	bcc compileTerrainColumnBG1
-	beq compileTerrainColumnBG1
+	bcc compileTerrainColumn1BG
+	beq compileTerrainColumn1BG
 
 	; Columns 0 and 1 are FG/FG, so PHX
 	lda #$00da
 
 compileTerrainColumn2:
-	sta compileTerrainOpcode
+	sta compileTerrainOpcode	; Cache results so far
+
+	; Check column 2
 	inx
 	inx
 	lda terrainData,x
 	cmp PARAML1
-	bcc compileTerrainColumnBG2
-	beq compileTerrainColumnBG2
+	bcc compileTerrainColumn2BG
+	beq compileTerrainColumn2BG
+
+	; Column 2 is FG, so check column 3
+	inx
+	inx
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumn3BG
+	beq compileTerrainColumn3BG
+
+	; Columns 2 and 3 are FG/FG, so PHX
 	lda compileTerrainOpcode
 	ora #$da00
 
 compileTerrainColumnStore:
 	sta (PARAML0),y
-	inx
-	inx
 	inx
 	inx
 	iny
@@ -283,23 +295,59 @@ compileTerrainColumnStore:
 	RESTORE_AXY
 	rts
 
-compileTerrainColumnBG0:
+compileTerrainColumn0BG:
 
-	; Columns 0 and 1 are BG/BG, so PHA
-	lda #$0048
-	inx		; PHD check goes here?
+	; Column 0 is BG, so check column 1
 	inx
+	inx
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumn01BG
+	beq compileTerrainColumn01BG
+
+	; Columns 0 and 1 are BG/FG, so PHA
+	lda #$0048
 	bra compileTerrainColumn2
 
-compileTerrainColumnBG1:
+compileTerrainColumn01BG:
 
-	; Columns 0 and 1 are BG/FG, so PHY
+	; Columns 0 and 1 are BG/BG, so PHD
+	lda #$000b
+	bra compileTerrainColumn2
+
+compileTerrainColumn1BG:
+
+	; Columns 0 and 1 are FG/BG, so PHY
 	lda #$005a
 	bra compileTerrainColumn2
 
-compileTerrainColumnBG2:
+compileTerrainColumn2BG:
+
+	; Column 2 is BG, so check column 3
+	inx
+	inx
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainColumn23BG
+	beq compileTerrainColumn23BG
+
+	; Columns 2 and 3 are BG/FG, so PHA
 	lda compileTerrainOpcode
 	ora #$4800
+	bra compileTerrainColumnStore
+
+compileTerrainColumn23BG:
+
+	; Columns 2 and 3 are BG, so PHD
+	lda compileTerrainOpcode
+	ora #$0b00
+	bra compileTerrainColumnStore
+
+compileTerrainColumn3BG:
+
+	; Columns 2 and 3 are FG/BG, so PHY
+	lda compileTerrainOpcode
+	ora #$5a00
 	bra compileTerrainColumnStore
 
 compileTerrainOpcode:
