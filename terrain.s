@@ -66,7 +66,6 @@ craterTerrain:
 	sbc PARAML0
 	sty SCRATCHL			; Center width in bytes
 	sbc SCRATCHL
-;	sbc SCRATCHL
 	and #$fffe				; Force even
 	clc
 	adc #terrainData
@@ -84,15 +83,29 @@ craterTerrainLoop:
 	dey
 	bmi craterTerrainDone
 
+	tya
+	clc
+	adc PARAML0				; Clip to terrain edges
+	cmp #terrainData
+	bmi craterTerrainDone
+	cmp #terrainDataEnd
+	bpl craterTerrainLoop
+
 	lda (SCRATCHL),y		; Fetch circle Y value
 	clc
 	adc PARAML1				; Convert to terrain-space
+	bmi craterTerrainZero
 	sta SCRATCHL2
 	lda (PARAML0),y
 	cmp SCRATCHL2
 	bmi craterTerrainLoop
 
 	lda SCRATCHL2			; Circle value is lower, so use that
+	sta (PARAML0),y
+	bra craterTerrainLoop
+
+craterTerrainZero:			; Circle went negative so clip to 0
+	lda #0
 	sta (PARAML0),y
 	bra craterTerrainLoop
 
@@ -408,6 +421,7 @@ terrainData:
 	.repeat TERRAINWIDTH/2
 	.word 0
 	.endrepeat
+terrainDataEnd:
 
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT

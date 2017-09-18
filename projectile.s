@@ -30,7 +30,7 @@ GRAVITY = $ffff	; 8.8 fixed point
 
 projectileTypes:		; Byte offsets into projectile type data structure
 	.word 50		; Damage
-	.word 12		; Crater radius
+	.word 40		; Crater radius
 	.word 0,0		; Padding
 
 PT_DAMAGE = 0
