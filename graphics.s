@@ -206,6 +206,7 @@ waitVBLToStart:
 	BITS16
 	rts
 
+.if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; TEST OF MR. SPRITE
 ;
@@ -413,7 +414,7 @@ SLOWGRAPHICS
 	rts	
 		
 ;------------------------------		
-
+.endif
 
 
 ; caches
@@ -423,3 +424,7 @@ stackRegister:
 .byte 0
 stackPtr:
 .word 0
+
+.include "cat.s"
+.include "block.s"
+.include "block1.s"

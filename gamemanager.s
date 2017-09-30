@@ -17,7 +17,7 @@ beginGameplay:
 	jsr setPalette
 
 	; Erase the screen
-	ldx #$2222
+	ldx #$0000
 	jsr colorFill
 
 	; Generate, compile, and clip terrain
@@ -37,7 +37,6 @@ beginGameplay:
 	ldy #0
 	jsr renderPlayerHeader
 
-
 gameplayLoop:
 
 	jsr syncVBL
@@ -52,11 +51,15 @@ gameplayLoop:
 	jsr renderPlayers
 
 gameplayLoopKbd:
-	lda projectileActive
-	bpl gameplayLoopProjectiles	; Skip input during shots
+;	lda projectileActive
+;	bpl gameplayLoopProjectiles	; Skip input during shots
 
 	; Check for keys down
 	jsr kbdScan
+
+	; Check for pause
+	lda paused
+	bne gameplayLoopEndFrame
 
 	; Scroll map if needed
 	lda mapScrollRequested
@@ -208,7 +211,10 @@ fire:
 
 
 basePalette:
-	.word $0000,$0080,$0000,$000F,$0FFF,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+	.word $0000,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+
+
+
 quitRequested:
 	.word $0000
 mapScrollRequested:
@@ -231,6 +237,8 @@ gameOver:
 	.word -1			; Player index of winner
 projectileActive:
 	.word -1
+paused:
+	.word 0
 
 
 ; Position of map viewing window. Can be visualized in two ways:

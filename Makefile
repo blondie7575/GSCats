@@ -14,6 +14,8 @@ AC=AppleCommander.jar
 ADDR=800
 
 PGM=gscats
+MRSPRITE=../MrSprite/mrsprite CODE
+PALETTE=00ff00 000000 ffff00 886611 cc9933 eebb44 dd6666 ff99aa 00ff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
 
 all: $(PGM)
 
@@ -32,4 +34,7 @@ clean:
 	rm -f $(PGM).o
 	rm ~/Library/Application\ Support/Sweet16/Disk\ Images/*
 
-
+sprites:
+	$(MRSPRITE) cat.gif $(PALETTE)
+	$(MRSPRITE) block.gif $(PALETTE)
+	$(MRSPRITE) block1.gif $(PALETTE)

@@ -59,7 +59,7 @@ placeGameObjectOnTerrain:
 ; ptr = Pointer to gameobject data
 ; Trashes SCRATCHL
 ;
-.macro RENDER_GAMEOBJECT ptr
+.macro RENDER_GAMEOBJECT ptr,compiledSprite
 .scope
 	SAVE_AXY
 
@@ -356,6 +356,8 @@ renderGameobjectBackground:
 	iny
 	lda VRAMBANK+160*14+6,x
 	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
 
 	lda VRAMBANK+160*15,x
 	sta ptr+GO_BACKGROUND,y
@@ -371,12 +373,10 @@ renderGameobjectBackground:
 	iny
 	lda VRAMBANK+160*15+6,x
 	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
 
 	; Draw sprite
 	ply
-	jsr Spr_000
+	jsr compiledSprite
 
 renderGameobjectDone:
 	RESTORE_AXY
@@ -564,6 +564,8 @@ unrenderGameobjectBackground:
 	iny
 	lda ptr+GO_BACKGROUND,y
 	sta VRAMBANK+160*7+6,x
+	iny
+	iny
 
 	lda ptr+GO_BACKGROUND,y
 	sta VRAMBANK+160*8,x

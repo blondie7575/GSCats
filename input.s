@@ -36,6 +36,8 @@ kbdScan:
 	beq kbdScanSpace
 	cmp #(27 + $80)
 	beq kbdScanESC
+	cmp #(127 + $80)
+	beq kbdScanDEL
 
 kbdScanDone:
 	BITS16
@@ -102,6 +104,13 @@ kbdScanESC:
 	BITS16
 	lda #1
 	sta breakpoint
+	rts
+
+kbdScanDEL:
+	BITS16
+	lda paused
+	eor #1
+	sta paused
 	rts
 
 breakpoint:
