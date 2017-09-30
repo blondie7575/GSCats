@@ -5,14 +5,17 @@
 ;  Created by Quinn Dunki on 8/13/17
 ;
 
-GAMEOBJECTWIDTH = 8
-GAMEOBJECTHEIGHT = 8
+GAMEOBJECTWIDTH = 16
+GAMEOBJECTHEIGHT = 16
 
 ; Base class sample:
 ;gameobjectData:
 ;	.word 40	; X pos in pixels (from right terrain edge)
 ;	.word 38	; Y pos in pixels (from bottom terrain edge)
-;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 64 bytes
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 GO_POSX = 0		; Byte offsets into gameobject data structure
 GO_POSY = 2
@@ -65,6 +68,7 @@ placeGameObjectOnTerrain:
 
 	; X
 	lda ptr+GO_POSX,y
+
 	lsr
 	cmp leftScreenEdge
 	bmi renderGameobjectSkip	; Gameobject is off left edge of screen
@@ -79,6 +83,7 @@ placeGameObjectOnTerrain:
 	sec
 	lda #200
 	sbc ptr+GO_POSY,y
+
 	bmi renderGameobjectSkip	; Gameobject is off top edge of screen
 	cmp #200 - GAMEOBJECTHEIGHT
 	bpl renderGameobjectSkip	; Gameobject is off bottom edge of screen
@@ -88,7 +93,9 @@ placeGameObjectOnTerrain:
 	lda vramYOffset,x
 	clc
 	adc SCRATCHL
-	tax		; X now contains the VRAM offset of the upper left corner
+	adc #$2000
+	tax		; X now contains the bank address of the upper left corner
+
 	phx
 	bra renderGameobjectBackground
 
@@ -97,88 +104,279 @@ renderGameobjectSkip:
 
 renderGameobjectBackground:
 	; Save background
-	lda VRAM,x
+	lda VRAMBANK,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+2,x
+	lda VRAMBANK+2,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160,x
+	lda VRAMBANK+4,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160+2,x
+	lda VRAMBANK+6,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*2,x
+
+	lda VRAMBANK+160,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*2+2,x
+	lda VRAMBANK+160+2,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*3,x
+	lda VRAMBANK+160+4,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*3+2,x
+	lda VRAMBANK+160+6,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*4,x
+
+	lda VRAMBANK+160*2,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*4+2,x
+	lda VRAMBANK+160*2+2,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*5,x
+	lda VRAMBANK+160*2+4,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*5+2,x
+	lda VRAMBANK+160*2+6,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*6,x
+
+	lda VRAMBANK+160*3,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*6+2,x
+	lda VRAMBANK+160*3+2,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*7,x
+	lda VRAMBANK+160*3+4,x
 	sta ptr+GO_BACKGROUND,y
 	iny
 	iny
-	lda VRAM+160*7+2,x
+	lda VRAMBANK+160*3+6,x
 	sta ptr+GO_BACKGROUND,y
-	plx
+	iny
+	iny
+
+	lda VRAMBANK+160*4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*4+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*4+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*4+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*5,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*5+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*5+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*5+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*6+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*6+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*6+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*7,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*7+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*7+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*7+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*8,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*8+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*8+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*8+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*9,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*9+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*9+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*9+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*10,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*10+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*10+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*10+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*11,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*11+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*11+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*11+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*12,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*12+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*12+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*12+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*13,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*13+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*13+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*13+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+
+	lda VRAMBANK+160*14,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*14+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*14+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*14+6,x
+	sta ptr+GO_BACKGROUND,y
+
+	lda VRAMBANK+160*15,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*15+2,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*15+4,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
+	lda VRAMBANK+160*15+6,x
+	sta ptr+GO_BACKGROUND,y
+	iny
+	iny
 
 	; Draw sprite
-	lda #$FFFF
-	sta VRAM,x
-	sta VRAM+2,x
-	sta VRAM+160,x
-	sta VRAM+160+2,x
-	sta VRAM+160*2,x
-	sta VRAM+160*2+2,x
-	sta VRAM+160*3,x
-	sta VRAM+160*3+2,x
-	sta VRAM+160*4,x
-	sta VRAM+160*4+2,x
-	sta VRAM+160*5,x
-	sta VRAM+160*5+2,x
-	sta VRAM+160*6,x
-	sta VRAM+160*6+2,x
-	sta VRAM+160*7,x
-	sta VRAM+160*7+2,x
+	ply
+	jsr Spr_000
 
 renderGameobjectDone:
 	RESTORE_AXY
@@ -224,6 +422,7 @@ renderGameobjectDone:
 	lda vramYOffset,x
 	clc
 	adc SCRATCHL
+	adc #$2000
 	tax			; X now contains the VRAM offset of the upper left corner
 
 	bra unrenderGameobjectBackground
@@ -233,67 +432,272 @@ unrenderGameobjectSkip:
 
 unrenderGameobjectBackground:
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM,x
+	sta VRAMBANK,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+2,x
+	sta VRAMBANK+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160,x
+	sta VRAMBANK+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160+2,x
+	sta VRAMBANK+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*2,x
+	sta VRAMBANK+160+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*2+2,x
+	sta VRAMBANK+160+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*3,x
+	sta VRAMBANK+160+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*3+2,x
+	sta VRAMBANK+160*2+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*4,x
+	sta VRAMBANK+160*2+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*4+2,x
+	sta VRAMBANK+160*2+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*3,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*5,x
+	sta VRAMBANK+160*3+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*5+2,x
+	sta VRAMBANK+160*3+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*6,x
+	sta VRAMBANK+160*3+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*6+2,x
+	sta VRAMBANK+160*4+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*7,x
+	sta VRAMBANK+160*4+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAM+160*7+2,x
+	sta VRAMBANK+160*4+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*5,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*5+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*5+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*5+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*6,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*6+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*6+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*6+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*7,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*7+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*7+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*7+6,x
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*8,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*8+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*8+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*8+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*9,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*9+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*9+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*9+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*10,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*10+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*10+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*10+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*11,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*11+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*11+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*11+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*12,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*12+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*12+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*12+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*13,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*13+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*13+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*13+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*14,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*14+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*14+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*14+6,x
+	iny
+	iny
+
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*15,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*15+2,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*15+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta VRAMBANK+160*15+6,x
 
 unrenderGameobjectDone:
 	RESTORE_AXY

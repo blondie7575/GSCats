@@ -69,44 +69,45 @@
 .endmacro
 
 
-.macro FASTGRAPHICS
-	sei
-	sep #%00100000	; 16-bit A only, to preserve X/Y
+.macro FASTGRAPHICS			;51 cycles, 12 bytes
+	sei						;2
+	phd						;4
+	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
 	.a8
 
-	lda SHADOW
-	sta shadowRegister
-	lda #0
-	sta SHADOW
+	lda SHADOW				;5
+	sta shadowRegister		;4
+	lda #0					;2
+	sta SHADOW				;5
 
-	lda STACKCTL
-	sta stackRegister
-	ora #$30
-	sta STACKCTL
+	lda STACKCTL			;5
+	sta stackRegister		;4
+	ora #$30				;2
+	sta STACKCTL			;5
 
-	rep #%00100000
+	rep #%00100000			;3
 	.a16
-	tsc
-	sta stackPtr
+	tsc						;2
+	sta stackPtr			;5
 .endmacro
 
 
-.macro SLOWGRAPHICS
-	sep #%00100000	; 16-bit A only, to preserve X/Y
+.macro SLOWGRAPHICS			;38 cycles, 12 bytes
+	sep #%00100000	;        3    16-bit A only, to preserve X/Y
 	.a8
 
-	lda shadowRegister
-	sta SHADOW
+	lda shadowRegister		;4
+	sta SHADOW				;5
 
-	lda stackRegister
-	sta STACKCTL
+	lda stackRegister		;4
+	sta STACKCTL			;5
 
-	rep #%00100000
+	rep #%00100000			;3
 	.a16
-	lda stackPtr
-	tcs
-
-	cli
+	lda stackPtr			;5
+	tcs						;2
+	pld						;5
+	cli						;2
 .endmacro
 
 
@@ -131,6 +132,8 @@
 	pha
 	lda breakpoint
 	beq nobrk
+	lda #1
+	sta $e1c029
 	pla
 	brk
 nobrk:

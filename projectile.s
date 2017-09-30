@@ -11,6 +11,9 @@ projectileData:
 	.word -1	; Pos X in pixels (from left terrain edge)
 	.word 0		; Pos Y in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 	.word 0		; Pos X (12.4 fixed point)
 	.word 0		; Pos Y (12.4 fixed point)
@@ -19,12 +22,16 @@ projectileData:
 	.word 0		; Type
 	.word 1		; New?
 
-JD_PRECISEX = 36		; Byte offsets into projectile data structure
-JD_PRECISEY = 38
-JD_VX = 40
-JD_VY = 42
-JD_TYPE = 44
-JD_NEW = 46
+	.repeat 112
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+JD_PRECISEX = 132		; Byte offsets into projectile data structure
+JD_PRECISEY = 134
+JD_VX = 136
+JD_VY = 138
+JD_TYPE = 140
+JD_NEW = 142
 
 GRAVITY = $ffff	; 8.8 fixed point
 
@@ -39,6 +46,10 @@ PT_RADIUS = 2
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
+	asl
+	asl
+	asl
+	asl
 	asl
 	asl
 	asl
@@ -234,16 +245,17 @@ updateProjectileCollisions:
 	sta rectParams+6
 
 updateProjectileCollisionsPlayerLoop:
-	iny
-	cpy #NUMPLAYERS
-	beq updateProjectileCollisionsPlayerDone
 	cpy currentPlayer
-	beq updateProjectileCollisionsPlayerLoop
+	beq updateProjectileCollisionsPlayerNext
+
 	jsr playerIntersectRect
 	cmp #0
 	bne updateProjectileCollisionsPlayerHit
 
-updateProjectileCollisionsPlayerDone:
+updateProjectileCollisionsPlayerNext:
+	iny
+	cpy #NUMPLAYERS
+	bne updateProjectileCollisionsPlayerLoop
 
 	; Check for terrain collisions
 	lda projectileData+GO_POSX
@@ -280,6 +292,7 @@ updateProjectileCollisionsTerrainHit:
 ; Trashes A and Y
 ;
 endProjectile:
+	UNRENDER_GAMEOBJECT projectileData
 	ldy #0
 	jsr deleteProjectile
 	lda #1
@@ -347,9 +360,10 @@ unrenderProjectilesDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; processPlayerImpact
 ;
-; Y = Byte offset of player that was hit
+; Y = Index of player that was hit
 ;
 processPlayerImpact:
+	PLAYERPTR_Y
 	tyx
 
 	ldy #0		; Assume projectile 0

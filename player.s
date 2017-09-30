@@ -11,32 +11,46 @@ playerData:
 	.word 0	; X pos in pixels (from left terrain edge)
 	.word 0	; Y pos in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 	.word 90		; Angle in degrees from +X
 	.word 1		; Power
 	.word 100		; Anger
 	.byte 8,"SPROCKET "	; Name
-	.word 0,0,0,0,0,0 ;Padding
+
+	.repeat 108
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
 
 	; gameobject data
 	.word 0	; X pos in pixels (from left terrain edge)
 	.word 0	; Y pos in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 45		; Angle in degrees from +X
+	.word 135		; Angle in degrees from +X
 	.word 1	; Power
 	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
-	.word 0,0,0,0,0,0 ;Padding
 
-PD_ANGLE = 36
-PD_POWER = 38
-PD_ANGER = 40
-PD_NAME = 42
-PD_SIZE = 64
+	.repeat 108
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+PD_ANGLE = 132
+PD_POWER = 134
+PD_ANGER = 136
+PD_NAME = 138
+PD_SIZE = 256
 
 .macro PLAYERPTR_Y
 	tya		; Pointer to player structure from index
+	asl
+	asl
 	asl
 	asl
 	asl
@@ -164,6 +178,7 @@ playerFire:
 ; A => non zero if rectangle is intersecting player
 ;
 playerIntersectRect:
+	phy
 	PLAYERPTR_Y
 
 	lda playerData+GO_POSX,y
@@ -174,8 +189,9 @@ playerIntersectRect:
 	sta rectParams2+4
 	lda #GAMEOBJECTHEIGHT
 	sta rectParams2+6
-	jsr intersectRectRect
 
+	jsr intersectRectRect
+	ply
 	rts
 
 

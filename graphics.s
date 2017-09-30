@@ -17,7 +17,7 @@ colorFill:
 colorFillLoop:
 	; 80 PHXs, for 1 line
 	; We could do the entire screen with PHXs, but this is a
-	; balance between speed and super-verbose code
+	; balance between speed and code size
 	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
 	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
 	.byte $da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da,$da
@@ -206,13 +206,220 @@ waitVBLToStart:
 	BITS16
 	rts
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; TEST OF MR. SPRITE
+;
+Spr_000:
+	FASTGRAPHICS		; 16x16, 464 bytes, 722 cycles
+	clc	
+	tya		; Y = Sprite Target Screen Address (upper left corner)
+	tcs		; New Stack address
+	ldx	#$1111	; Pattern #1 : 14
+	ldy	#$4444	; Pattern #2 : 12
+	lda	#$3333	; Pattern #3 : 6
+	tcd	
+;--		
+	sep	#$20	
+	.a8
+	lda	$A0,S
+	and	#$0F
+	ora	#$10
+	sta	$A0,S
+	lda	$A7,S
+	and	#$F0
+	ora	#$01
+	sta	$A7,S
+	rep	#$30	
+	.a16
+	tsc	
+	adc	#$0007
+	tcs	
+	phx	
+	phx	
+	phx	
+	phx	
+	tsc		; Line 2
+	adc	#$0141
+	tcs	
+	lda	$00,S
+	and	#$000F
+	ora	#$3310
+	sta	$00,S
+	lda	$06,S
+	and	#$F000
+	ora	#$0133
+	sta	$06,S
+	lda	$A0,S
+	and	#$0F0F
+	ora	#$3010
+	sta	$A0,S
+	lda	$A6,S
+	and	#$F0F0
+	ora	#$0103
+	sta	$A6,S
+	tsc	
+	adc	#$0005
+	tcs	
+	phd	
+	phd	
+	tsc		; Line 4
+	adc	#$013F
+	tcs	
+	lda	$00,S
+	and	#$000F
+	ora	#$3410
+	sta	$00,S
+	lda	$06,S
+	and	#$F000
+	ora	#$0143
+	sta	$06,S
+	lda	$A0,S
+	and	#$000F
+	ora	#$3410
+	sta	$A0,S
+	lda	$A6,S
+	and	#$F000
+	ora	#$0143
+	sta	$A6,S
+	tsc	
+	adc	#$0005
+	tcs	
+	phy	
+	phy	
+	tsc		; Line 5
+	adc	#$00A4
+	tcs	
+	lda	$9B,S
+	and	#$0F0F
+	ora	#$3010
+	sta	$9B,S
+	lda	$A1,S
+	and	#$F0F0
+	ora	#$0103
+	sta	$A1,S
+	phy	
+	phy	
+	tsc		; Line 7
+	adc	#$013F
+	tcs	
+	lda	$00,S
+	and	#$000F
+	ora	#$3310
+	sta	$00,S
+	lda	$06,S
+	and	#$F000
+	ora	#$0133
+	sta	$06,S
+	lda	$A0,S
+	and	#$000F
+	ora	#$2210
+	sta	$A0,S
+	lda	$A6,S
+	and	#$F000
+	ora	#$0122
+	sta	$A6,S
+	tsc	
+	adc	#$0005
+	tcs	
+	phd	
+	phd	
+	tsc		; Line 8
+	adc	#$00A4
+	tcs	
+	lda	$9B,S
+	and	#$0F0F
+	ora	#$2010
+	sta	$9B,S
+	lda	$A1,S
+	and	#$F0F0
+	ora	#$0102
+	sta	$A1,S
+	pea	$2222
+	pea	$2222
+	tsc		; Line 10
+	adc	#$013F
+	tcs	
+	lda	$00,S
+	and	#$000F
+	ora	#$2410
+	sta	$00,S
+	lda	$06,S
+	and	#$F000
+	ora	#$0142
+	sta	$06,S
+	lda	$A0,S
+	and	#$000F
+	ora	#$2410
+	sta	$A0,S
+	lda	$A6,S
+	and	#$F000
+	ora	#$0142
+	sta	$A6,S
+	tsc	
+	adc	#$0005
+	tcs	
+	phy	
+	phy	
+	tsc		; Line 11
+	adc	#$00A4
+	tcs	
+	lda	$9B,S
+	and	#$0F0F
+	ora	#$2010
+	sta	$9B,S
+	lda	$A1,S
+	and	#$F0F0
+	ora	#$0102
+	sta	$A1,S
+	phy	
+	phy	
+	tsc		; Line 13
+	adc	#$013F
+	tcs	
+	lda	$00,S
+	and	#$000F
+	ora	#$2210
+	sta	$00,S
+	lda	$06,S
+	and	#$F000
+	ora	#$0122
+	sta	$06,S
+	sep	#$20	
+	.a8
+	lda	$A0,S
+	and	#$0F
+	ora	#$10
+	sta	$A0,S
+	lda	$A7,S
+	and	#$F0
+	ora	#$01
+	sta	$A7,S
+	rep	#$30	
+	.a16
+	tsc	
+	adc	#$0005
+	tcs	
+	pea	$2222
+	pea	$2222
+	tsc		; Line 15
+	adc	#$0146
+	tcs	
+	phx	
+	phx	
+	phx	
+	phx	
+;--		
+SLOWGRAPHICS		
+	rts	
+		
+;------------------------------		
+
+
+
 ; caches
 shadowRegister:
-	.byte 0
+.byte 0
 stackRegister:
-	.byte 0
+.byte 0
 stackPtr:
-	.word 0
-
+.word 0

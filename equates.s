@@ -8,6 +8,7 @@ KBD				= $e0c000
 KBDSTROBE		= $e0c010
 COUT			= $fded
 VRAM			= $e12000
+VRAMBANK		= $e10000
 
 ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)
 PARAM0			= $06
@@ -21,3 +22,4 @@ SCRATCH1		= $1a
 SCRATCHL		= $19		; 16-bit version of scratch
 SCRATCHL2		= $67		; Second 16-bit scratch
 PARAM24			= $67		; 24-bit param (This is almost certainly messing up AppleSoft, but meh)
+STACKPTR		= $70		; Cache for stack pointer in fast graphics
