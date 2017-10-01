@@ -24,7 +24,8 @@ $(PGM):
 	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -l$(PGM).lst $(PGM).s
 	java -jar $(AC) -d $(PGM).2mg $(PGM)
 	java -jar $(AC) -p $(PGM).2mg $(PGM) BIN 0x$(ADDR) < $(PGM)
-	cp $(PGM).2mg ~/Library/Application\ Support/Sweet16/Disk\ Images
+	java -jar $(AC) -d $(PGM).2mg SPRITEBANK00
+	java -jar $(AC) -p $(PGM).2mg SPRITEBANK00 BIN 0x0000 < Art/spritebank00.bin
 	rm -f $(PGM)
 	rm -f $(PGM).o
 	osascript V2Make.scpt $(PROJECT_DIR) $(PGM)
@@ -34,7 +35,11 @@ clean:
 	rm -f $(PGM).o
 	rm ~/Library/Application\ Support/Sweet16/Disk\ Images/*
 
-sprites:
-	$(MRSPRITE) cat.gif $(PALETTE)
-	$(MRSPRITE) block.gif $(PALETTE)
-	$(MRSPRITE) block1.gif $(PALETTE)
+.PHONY: art
+art:
+	$(MRSPRITE) "Art/*.gif" $(PALETTE)
+	mv Art/*.s Sprites
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -lspritebank.lst spritebank.s
+	java -jar $(AC) -p $(PGM).2mg spritebank BIN 0x$(ADDR) < spritebank
+	rm -f spritebank
+	rm -f spritebank.o

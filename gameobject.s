@@ -376,7 +376,8 @@ renderGameobjectBackground:
 
 	; Draw sprite
 	ply
-	jsr compiledSprite
+	lda #compiledSprite
+	jsr drawSprite
 
 renderGameobjectDone:
 	RESTORE_AXY

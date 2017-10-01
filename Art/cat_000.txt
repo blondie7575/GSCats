@@ -1,141 +1,133 @@
 Spr_000:
-	FASTGRAPHICS		; 16x16, 484 bytes, 710 cycles
-	clc	
+	clc		; 16x16, 455 bytes, 716 cycles
+	sei		; Disable Interrupts
+	phd		; Backup Direct Page
+	tsc		; Backup Stack
+	sta	StackAddress
+	ldal	$e1c068	; Direct Page and Stack in Bank 01/
+	ora	#$0030
+	stal	$e1c068
 	tya		; Y = Sprite Target Screen Address (upper left corner)
 	tcs		; New Stack address
-	ldx	#$3333	; Pattern #1 : 4
-	ldy	#$0333	; Pattern #2 : 2
-	lda	#$3003	; Pattern #3 : 2
+	ldx	#$4444	; Pattern #1 : 4
+	ldy	#$0444	; Pattern #2 : 2
+	lda	#$4004	; Pattern #3 : 2
 	tcd	
-;--		
-	lda	#$1522	; Line 0
+*----------		
+	lda	#$2633	; Line 0
 	sta	$A5,S
 	lda	$A3,S
 	and	#$F000
-	ora	#$0115
+	ora	#$0226
 	sta	$A3,S
-	sep	#$20	
-	.a8
+	sep	#$20
 	lda	$03,S
 	and	#$F0
-	ora	#$02
+	ora	#$03
 	sta	$03,S
 	lda	$06,S
 	and	#$F0
-	ora	#$02
+	ora	#$03
 	sta	$06,S
 	lda	$A7,S
 	and	#$0F
-	ora	#$10
+	ora	#$20
 	sta	$A7,S
-	rep	#$30	
-	.a16
+	rep	#$30
 	tsc		; Line 2
 	adc	#$0140
 	tcs	
-	sep	#$20	
-	.a8
-	lda	#$77
+	sep	#$20
+	lda	#$FF
 	sta	$00,S
 	sta	$A0,S
 	lda	$07,S
 	and	#$0F
-	ora	#$10
+	ora	#$20
 	sta	$07,S
 	lda	$A7,S
 	and	#$0F
-	ora	#$10
+	ora	#$20
 	sta	$A7,S
-	rep	#$30	
-	.a16
+	rep	#$30
 	tsc	
 	adc	#$0006
 	tcs	
-	pea	$2422
-	pea	$1314
+	pea	$3533
+	pea	$2425
 	tsc		; Line 3
 	adc	#$00A4
 	tcs	
-	sep	#$20	
-	.a8
-	lda	#$12
+	sep	#$20
+	lda	#$23
 	sta	$9A,S
 	lda	$A1,S
 	and	#$0F
-	ora	#$20
+	ora	#$30
 	sta	$A1,S
-	rep	#$30	
-	.a16
-	pea	$2323
-	pea	$3312
+	rep	#$30
+	pea	$3434
+	pea	$4423
 	tsc		; Line 4
 	adc	#$00A4
 	tcs	
 	lda	$9C,S
 	and	#$00F0
-	ora	#$1202
+	ora	#$2303
 	sta	$9C,S
-	sep	#$20	
-	.a8
-	lda	#$13
+	sep	#$20
+	lda	#$24
 	sta	$9A,S
-	rep	#$30	
-	.a16
+	rep	#$30
 	phx	
-	pea	$3323
+	pea	$4434
 	tsc		; Line 5
 	adc	#$00A5
 	tcs	
-	sep	#$20	
-	.a8
-	lda	#$13
+	sep	#$20
+	lda	#$24
 	sta	$99,S
 	lda	$A0,S
 	and	#$0F
-	ora	#$20
+	ora	#$30
 	sta	$A0,S
-	rep	#$30	
-	.a16
-	pea	$1230
+	rep	#$30
+	pea	$2340
 	phy	
 	tsc		; Line 6
 	adc	#$00A3
 	tcs	
 	phd	
-	pea	$3322
+	pea	$4433
 	tsc		; Line 7
 	adc	#$00A5
 	tcs	
-	sep	#$20	
-	.a8
+	sep	#$20
 	lda	$99,S
 	and	#$F0
-	ora	#$02
+	ora	#$03
 	sta	$99,S
-	rep	#$30	
-	.a16
-	pea	$1257
-	pea	$7537
-	pea	$1122
-	pea	$2213
+	rep	#$30
+	pea	$236F
+	pea	$F64F
+	pea	$2233
+	pea	$3324
 	tsc		; Line 8
 	adc	#$00A7
 	tcs	
 	lda	$9F,S
 	and	#$0F00
-	ora	#$2011
+	ora	#$3022
 	sta	$9F,S
-	sep	#$20	
-	.a8
+	sep	#$20
 	lda	$9A,S
 	and	#$F0
-	ora	#$02
+	ora	#$03
 	sta	$9A,S
-	rep	#$30	
-	.a16
-	pea	$7177
-	pea	$1222
+	rep	#$30
+	pea	$F2FF
 	pea	$2333
+	pea	$3444
 	tsc		; Line 9
 	adc	#$00A4
 	tcs	
@@ -143,77 +135,81 @@ Spr_000:
 	sta	$9E,S
 	lda	$9C,S
 	and	#$00F0
-	ora	#$3302
+	ora	#$4403
 	sta	$9C,S
 	lda	$A0,S
 	and	#$0F00
-	ora	#$7027
+	ora	#$F03F
 	sta	$A0,S
-	pea	$7732
+	pea	$FF43
 	phx	
 	tsc		; Line 11
 	adc	#$0140
 	tcs	
-	lda	#$3323
+	lda	#$4434
 	sta	$02,S
-	lda	#$1211
+	lda	#$2322
 	sta	$A2,S
 	lda	$00,S
 	and	#$00F0
-	ora	#$3302
+	ora	#$4403
 	sta	$00,S
 	lda	$04,S
 	and	#$0F00
-	ora	#$7032
+	ora	#$F043
 	sta	$04,S
 	lda	$A0,S
 	and	#$00F0
-	ora	#$3202
+	ora	#$4303
 	sta	$A0,S
 	lda	$A4,S
 	and	#$0F00
-	ora	#$2033
+	ora	#$3044
 	sta	$A4,S
 	tsc		; Line 13
 	adc	#$0140
 	tcs	
 	lda	$00,S
 	and	#$00F0
-	ora	#$2103
+	ora	#$3204
 	sta	$00,S
 	lda	$03,S
 	and	#$00F0
-	ora	#$3102
+	ora	#$4203
 	sta	$03,S
 	lda	$A0,S
 	and	#$00F0
-	ora	#$2102
+	ora	#$3203
 	sta	$A0,S
 	lda	$A3,S
 	and	#$00F0
-	ora	#$2102
+	ora	#$3203
 	sta	$A3,S
-	sep	#$20	
-	.a8
+	sep	#$20
 	lda	$05,S
 	and	#$0F
-	ora	#$20
+	ora	#$30
 	sta	$05,S
-	rep	#$30	
-	.a16
+	rep	#$30
 	tsc		; Line 15
 	adc	#$0140
 	tcs	
 	lda	$00,S
 	and	#$00F0
-	ora	#$7207
+	ora	#$F30F
 	sta	$00,S
 	lda	$03,S
 	and	#$00F0
-	ora	#$7207
+	ora	#$F30F
 	sta	$03,S
-;--		
-SLOWGRAPHICS		
-	rts	
+*----------		
+	ldal	$e1C068	; Direct Page and Stack in Bank 00/
+	and	#$ffcf
+	stal	$e1c068
+	lda	StackAddress	; Restore Stack
+	tcs	
+	pld		; Restore Direct Page
+	cli		; Enable Interrupts
+	rtl	
 		
-;------------------------------		
+*----------		

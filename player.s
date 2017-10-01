@@ -200,8 +200,8 @@ playerIntersectRect:
 ;
 ;
 renderPlayers:
-	RENDER_GAMEOBJECT playerData,Spr_000
-	RENDER_GAMEOBJECT playerData+PD_SIZE,Spr_000
+	RENDER_GAMEOBJECT playerData,0
+	RENDER_GAMEOBJECT playerData+PD_SIZE,0
 	rts
 
 

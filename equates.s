@@ -23,3 +23,5 @@ SCRATCHL		= $19		; 16-bit version of scratch
 SCRATCHL2		= $67		; Second 16-bit scratch
 PARAM24			= $67		; 24-bit param (This is almost certainly messing up AppleSoft, but meh)
 STACKPTR		= $70		; Cache for stack pointer in fast graphics
+SHADOWREGISTER	= $72		; Cache for shadow register in fast graphics
+STACKREGISTER	= $73		; Cache for stack register in fast graphics

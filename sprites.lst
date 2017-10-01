@@ -1,0 +1,481 @@
+ca65 V2.13.3 - (C) Copyright 1998-2012 Ullrich von Bassewitz
+Main file   : sprites.s
+Current file: sprites.s
+
+000000r 1               .include "macros.s"
+000000r 2               .macro OP8
+000000r 2               	.i8
+000000r 2               	.a8
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro OP16
+000000r 2               	.i16
+000000r 2               	.a16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro BITS8
+000000r 2               	sep #%00110000
+000000r 2               	OP8
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro BITS16
+000000r 2               	rep #%00110000
+000000r 2               	OP16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro DBR bankNum
+000000r 2               	BITS8
+000000r 2               	lda bankNum
+000000r 2               	pha
+000000r 2               	plb
+000000r 2               	BITS16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SYNCDBR
+000000r 2               	phk
+000000r 2               	plb
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro EMULATION
+000000r 2               	sec		; Enable 8-bit mode
+000000r 2               	xce
+000000r 2               	OP8
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro NATIVE
+000000r 2               	clc				; Enable 16-bit mode
+000000r 2               	xce
+000000r 2               	BITS16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SHRVIDEO
+000000r 2               	BITS8
+000000r 2               	lda NEWVIDEO
+000000r 2               	ora	#%11000001
+000000r 2               	sta NEWVIDEO
+000000r 2               	BITS16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro CLASSICVIDEO
+000000r 2               	BITS8
+000000r 2               	lda NEWVIDEO
+000000r 2               	and #%00111111
+000000r 2               	sta NEWVIDEO
+000000r 2               	BITS16
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro FASTGRAPHICS			;50 cycles, 12 bytes
+000000r 2               	sei						;2
+000000r 2               	phd						;4
+000000r 2               	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
+000000r 2               	.a8
+000000r 2               
+000000r 2               	lda SHADOW				;5
+000000r 2               	sta SHADOWREGISTER		;4
+000000r 2               	lda #0					;2
+000000r 2               	sta SHADOW				;5
+000000r 2               
+000000r 2               	lda STACKCTL			;5
+000000r 2               	sta STACKREGISTER		;4
+000000r 2               	ora #$30				;2
+000000r 2               	sta STACKCTL			;5
+000000r 2               
+000000r 2               	rep #%00100000			;3
+000000r 2               	.a16
+000000r 2               	tsc						;2
+000000r 2               	sta STACKPTR			;4
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SLOWGRAPHICS			;37 cycles, 12 bytes
+000000r 2               	sep #%00100000	;        3    16-bit A only, to preserve X/Y
+000000r 2               	.a8
+000000r 2               
+000000r 2               	lda SHADOWREGISTER		;4
+000000r 2               	sta SHADOW				;5
+000000r 2               
+000000r 2               	lda STACKREGISTER		;4
+000000r 2               	sta STACKCTL			;5
+000000r 2               
+000000r 2               	rep #%00100000			;3
+000000r 2               	.a16
+000000r 2               	lda STACKPTR			;4
+000000r 2               	tcs						;2
+000000r 2               	pld						;5
+000000r 2               	cli						;2
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro LOADPARAM24 bankNumDoubled,addr16
+000000r 2               	lda #bankNumDoubled
+000000r 2               	sta PARAM24+1
+000000r 2               	lda #addr16
+000000r 2               	sta PARAM24
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro  pstring Arg
+000000r 2               	.byte   .strlen(Arg), Arg
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro  qbyte Arg
+000000r 2               	.dbyt   Arg>>16,Arg&$0000ffff
+000000r 2               .endmacro
+000000r 2               
+000000r 2               .macro BREAK
+000000r 2               	pha
+000000r 2               	lda breakpoint
+000000r 2               	beq nobrk
+000000r 2               	lda #1
+000000r 2               	sta $e1c029
+000000r 2               	pla
+000000r 2               	brk
+000000r 2               nobrk:
+000000r 2               	pla
+000000r 2               .endmacro
+000000r 2               
+000000r 2               ;;;;;;;;;;
+000000r 2               ; Stack Macros
+000000r 2               
+000000r 2               
+000000r 2               .macro SAVE_AXY				; Saves all registers
+000000r 2               	pha
+000000r 2               	phx
+000000r 2               	phy
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro RESTORE_AXY			; Restores all registers
+000000r 2               	ply
+000000r 2               	plx
+000000r 2               	pla
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SAVE_AY				; Saves accumulator and Y index
+000000r 2               	pha
+000000r 2               	phy
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro RESTORE_AY			; Restores accumulator and Y index
+000000r 2               	ply
+000000r 2               	pla
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SAVE_AX				; Saves accumulator and X index
+000000r 2               	pha
+000000r 2               	phx
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro RESTORE_AX			; Restores accumulator and X index
+000000r 2               	plx
+000000r 2               	pla
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SAVE_XY				; Saves X and Y index
+000000r 2               	phx
+000000r 2               	phy
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro RESTORE_XY			; Restores X and Y index
+000000r 2               	ply
+000000r 2               	plx
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro SAVE_P0				; Saves PARAML0
+000000r 2               	lda PARAML0
+000000r 2               	pha
+000000r 2               .endmacro
+000000r 2               
+000000r 2               
+000000r 2               .macro RESTORE_P0			; Restores PARAML0
+000000r 2               	pla
+000000r 2               	sta PARAML0
+000000r 2               .endmacro
+000000r 2               
+000000r 1               .include "equates.s"
+000000r 2               TEXTCOLOR		= $e0c022
+000000r 2               NEWVIDEO		= $e0c029
+000000r 2               BORDERCOLOR		= $e0c034
+000000r 2               CLOCKCTL		= $e0c034
+000000r 2               SHADOW			= $e0c035
+000000r 2               STACKCTL		= $e0c068
+000000r 2               KBD				= $e0c000
+000000r 2               KBDSTROBE		= $e0c010
+000000r 2               COUT			= $fded
+000000r 2               VRAM			= $e12000
+000000r 2               VRAMBANK		= $e10000
+000000r 2               
+000000r 2               ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)
+000000r 2               PARAM0			= $06
+000000r 2               PARAM1			= $07
+000000r 2               PARAM2			= $08
+000000r 2               PARAM3			= $09
+000000r 2               PARAML0			= $06		; 16-bit versions of params
+000000r 2               PARAML1			= $08
+000000r 2               SCRATCH0		= $19
+000000r 2               SCRATCH1		= $1a
+000000r 2               SCRATCHL		= $19		; 16-bit version of scratch
+000000r 2               SCRATCHL2		= $67		; Second 16-bit scratch
+000000r 2               PARAM24			= $67		; 24-bit param (This is almost certainly messing up AppleSoft, but meh)
+000000r 2               STACKPTR		= $70		; Cache for stack pointer in fast graphics
+000000r 2               SHADOWREGISTER	= $72		; Cache for shadow register in fast graphics
+000000r 2               STACKREGISTER	= $73		; Cache for stack register in fast graphics
+000000r 2               
+000000r 1               
+000000r 1               .org $800
+000800  1               
+000800  1  18 FB C2 30  NATIVE
+000804  1               
+000804  1               .include "Sprites/cat_000.s"
+000804  2               Spr_000:
+000804  2  78 0B E2 20  	FASTGRAPHICS		; 16x16, 445 bytes, 747 cycles
+000808  2  AF 35 C0 E0  
+00080C  2  85 72 A9 00  
+000825  2  18           	clc
+000826  2  98           	tya		; Y = Sprite Target Screen Address (upper left corner)
+000827  2  1B           	tcs		; New Stack address
+000828  2  A2 44 44     	ldx	#$4444	; Pattern #1 : 4
+00082B  2  A0 44 04     	ldy	#$0444	; Pattern #2 : 2
+00082E  2  A9 04 40     	lda	#$4004	; Pattern #3 : 2
+000831  2  5B           	tcd
+000832  2               ;--
+000832  2  A9 33 26     	lda	#$2633	; Line 0
+000835  2  83 A5        	sta	$A5,S
+000837  2  A3 A3        	lda	$A3,S
+000839  2  29 00 F0     	and	#$F000
+00083C  2  09 26 02     	ora	#$0226
+00083F  2  83 A3        	sta	$A3,S
+000841  2  E2 20        	sep	#$20
+000843  2               	.a8
+000843  2  A3 03        	lda	$03,S
+000845  2  29 F0        	and	#$F0
+000847  2  09 03        	ora	#$03
+000849  2  83 03        	sta	$03,S
+00084B  2  A3 06        	lda	$06,S
+00084D  2  29 F0        	and	#$F0
+00084F  2  09 03        	ora	#$03
+000851  2  83 06        	sta	$06,S
+000853  2  A3 A7        	lda	$A7,S
+000855  2  29 0F        	and	#$0F
+000857  2  09 20        	ora	#$20
+000859  2  83 A7        	sta	$A7,S
+00085B  2  C2 30        	rep	#$30
+00085D  2               	.a16
+00085D  2  3B           	tsc		; Line 2
+00085E  2  69 40 01     	adc	#$0140
+000861  2  1B           	tcs
+000862  2  E2 20        	sep	#$20
+000864  2               	.a8
+000864  2  A9 FF        	lda	#$FF
+000866  2  83 00        	sta	$00,S
+000868  2  83 A0        	sta	$A0,S
+00086A  2  A3 07        	lda	$07,S
+00086C  2  29 0F        	and	#$0F
+00086E  2  09 20        	ora	#$20
+000870  2  83 07        	sta	$07,S
+000872  2  A3 A7        	lda	$A7,S
+000874  2  29 0F        	and	#$0F
+000876  2  09 20        	ora	#$20
+000878  2  83 A7        	sta	$A7,S
+00087A  2  C2 30        	rep	#$30
+00087C  2               	.a16
+00087C  2  3B           	tsc
+00087D  2  69 06 00     	adc	#$0006
+000880  2  1B           	tcs
+000881  2  F4 33 35     	pea	$3533
+000884  2  F4 25 24     	pea	$2425
+000887  2  3B           	tsc		; Line 3
+000888  2  69 A4 00     	adc	#$00A4
+00088B  2  1B           	tcs
+00088C  2  E2 20        	sep	#$20
+00088E  2               	.a8
+00088E  2  A9 23        	lda	#$23
+000890  2  83 9A        	sta	$9A,S
+000892  2  A3 A1        	lda	$A1,S
+000894  2  29 0F        	and	#$0F
+000896  2  09 30        	ora	#$30
+000898  2  83 A1        	sta	$A1,S
+00089A  2  C2 30        	rep	#$30
+00089C  2               	.a16
+00089C  2  F4 34 34     	pea	$3434
+00089F  2  F4 23 44     	pea	$4423
+0008A2  2  3B           	tsc		; Line 4
+0008A3  2  69 A4 00     	adc	#$00A4
+0008A6  2  1B           	tcs
+0008A7  2  A3 9C        	lda	$9C,S
+0008A9  2  29 F0 00     	and	#$00F0
+0008AC  2  09 03 23     	ora	#$2303
+0008AF  2  83 9C        	sta	$9C,S
+0008B1  2  E2 20        	sep	#$20
+0008B3  2               	.a8
+0008B3  2  A9 24        	lda	#$24
+0008B5  2  83 9A        	sta	$9A,S
+0008B7  2  C2 30        	rep	#$30
+0008B9  2               	.a16
+0008B9  2  DA           	phx
+0008BA  2  F4 34 44     	pea	$4434
+0008BD  2  3B           	tsc		; Line 5
+0008BE  2  69 A5 00     	adc	#$00A5
+0008C1  2  1B           	tcs
+0008C2  2  E2 20        	sep	#$20
+0008C4  2               	.a8
+0008C4  2  A9 24        	lda	#$24
+0008C6  2  83 99        	sta	$99,S
+0008C8  2  A3 A0        	lda	$A0,S
+0008CA  2  29 0F        	and	#$0F
+0008CC  2  09 30        	ora	#$30
+0008CE  2  83 A0        	sta	$A0,S
+0008D0  2  C2 30        	rep	#$30
+0008D2  2               	.a16
+0008D2  2  F4 40 23     	pea	$2340
+0008D5  2  5A           	phy
+0008D6  2  3B           	tsc		; Line 6
+0008D7  2  69 A3 00     	adc	#$00A3
+0008DA  2  1B           	tcs
+0008DB  2  0B           	phd
+0008DC  2  F4 33 44     	pea	$4433
+0008DF  2  3B           	tsc		; Line 7
+0008E0  2  69 A5 00     	adc	#$00A5
+0008E3  2  1B           	tcs
+0008E4  2  E2 20        	sep	#$20
+0008E6  2               	.a8
+0008E6  2  A3 99        	lda	$99,S
+0008E8  2  29 F0        	and	#$F0
+0008EA  2  09 03        	ora	#$03
+0008EC  2  83 99        	sta	$99,S
+0008EE  2  C2 30        	rep	#$30
+0008F0  2               	.a16
+0008F0  2  F4 6F 23     	pea	$236F
+0008F3  2  F4 4F F6     	pea	$F64F
+0008F6  2  F4 33 22     	pea	$2233
+0008F9  2  F4 24 33     	pea	$3324
+0008FC  2  3B           	tsc		; Line 8
+0008FD  2  69 A7 00     	adc	#$00A7
+000900  2  1B           	tcs
+000901  2  A3 9F        	lda	$9F,S
+000903  2  29 00 0F     	and	#$0F00
+000906  2  09 22 30     	ora	#$3022
+000909  2  83 9F        	sta	$9F,S
+00090B  2  E2 20        	sep	#$20
+00090D  2               	.a8
+00090D  2  A3 9A        	lda	$9A,S
+00090F  2  29 F0        	and	#$F0
+000911  2  09 03        	ora	#$03
+000913  2  83 9A        	sta	$9A,S
+000915  2  C2 30        	rep	#$30
+000917  2               	.a16
+000917  2  F4 FF F2     	pea	$F2FF
+00091A  2  F4 33 23     	pea	$2333
+00091D  2  F4 44 34     	pea	$3444
+000920  2  3B           	tsc		; Line 9
+000921  2  69 A4 00     	adc	#$00A4
+000924  2  1B           	tcs
+000925  2  8A           	txa
+000926  2  83 9E        	sta	$9E,S
+000928  2  A3 9C        	lda	$9C,S
+00092A  2  29 F0 00     	and	#$00F0
+00092D  2  09 03 44     	ora	#$4403
+000930  2  83 9C        	sta	$9C,S
+000932  2  A3 A0        	lda	$A0,S
+000934  2  29 00 0F     	and	#$0F00
+000937  2  09 3F F0     	ora	#$F03F
+00093A  2  83 A0        	sta	$A0,S
+00093C  2  F4 43 FF     	pea	$FF43
+00093F  2  DA           	phx
+000940  2  3B           	tsc		; Line 11
+000941  2  69 40 01     	adc	#$0140
+000944  2  1B           	tcs
+000945  2  A9 34 44     	lda	#$4434
+000948  2  83 02        	sta	$02,S
+00094A  2  A9 22 23     	lda	#$2322
+00094D  2  83 A2        	sta	$A2,S
+00094F  2  A3 00        	lda	$00,S
+000951  2  29 F0 00     	and	#$00F0
+000954  2  09 03 44     	ora	#$4403
+000957  2  83 00        	sta	$00,S
+000959  2  A3 04        	lda	$04,S
+00095B  2  29 00 0F     	and	#$0F00
+00095E  2  09 43 F0     	ora	#$F043
+000961  2  83 04        	sta	$04,S
+000963  2  A3 A0        	lda	$A0,S
+000965  2  29 F0 00     	and	#$00F0
+000968  2  09 03 43     	ora	#$4303
+00096B  2  83 A0        	sta	$A0,S
+00096D  2  A3 A4        	lda	$A4,S
+00096F  2  29 00 0F     	and	#$0F00
+000972  2  09 44 30     	ora	#$3044
+000975  2  83 A4        	sta	$A4,S
+000977  2  3B           	tsc		; Line 13
+000978  2  69 40 01     	adc	#$0140
+00097B  2  1B           	tcs
+00097C  2  A3 00        	lda	$00,S
+00097E  2  29 F0 00     	and	#$00F0
+000981  2  09 04 32     	ora	#$3204
+000984  2  83 00        	sta	$00,S
+000986  2  A3 03        	lda	$03,S
+000988  2  29 F0 00     	and	#$00F0
+00098B  2  09 03 42     	ora	#$4203
+00098E  2  83 03        	sta	$03,S
+000990  2  A3 A0        	lda	$A0,S
+000992  2  29 F0 00     	and	#$00F0
+000995  2  09 03 32     	ora	#$3203
+000998  2  83 A0        	sta	$A0,S
+00099A  2  A3 A3        	lda	$A3,S
+00099C  2  29 F0 00     	and	#$00F0
+00099F  2  09 03 32     	ora	#$3203
+0009A2  2  83 A3        	sta	$A3,S
+0009A4  2  E2 20        	sep	#$20
+0009A6  2               	.a8
+0009A6  2  A3 05        	lda	$05,S
+0009A8  2  29 0F        	and	#$0F
+0009AA  2  09 30        	ora	#$30
+0009AC  2  83 05        	sta	$05,S
+0009AE  2  C2 30        	rep	#$30
+0009B0  2               	.a16
+0009B0  2  3B           	tsc		; Line 15
+0009B1  2  69 40 01     	adc	#$0140
+0009B4  2  1B           	tcs
+0009B5  2  A3 00        	lda	$00,S
+0009B7  2  29 F0 00     	and	#$00F0
+0009BA  2  09 0F F3     	ora	#$F30F
+0009BD  2  83 00        	sta	$00,S
+0009BF  2  A3 03        	lda	$03,S
+0009C1  2  29 F0 00     	and	#$00F0
+0009C4  2  09 0F F3     	ora	#$F30F
+0009C7  2  83 03        	sta	$03,S
+0009C9  2               ;--
+0009C9  2  E2 20 A5 72  SLOWGRAPHICS
+0009CD  2  8F 35 C0 E0  
+0009D1  2  A5 73 8F 68  
+0009DE  2  60           	rts
+0009DF  2               
+0009DF  2               ;------------------------------
+0009DF  2               
+0009DF  1               
+0009DF  1               
+0009DF  1               ; Suppress some linker warnings - Must be the last thing in the file
+0009DF  1               ; This is because Quinn doesn't really know how to use ca65 properly
+0009DF  1               .SEGMENT "ZPSAVE"
+0009DF  1               .SEGMENT "EXEHDR"
+0009DF  1               .SEGMENT "STARTUP"
+0009DF  1               .SEGMENT "INIT"
+0009DF  1               .SEGMENT "LOWCODE"
+0009DF  1               

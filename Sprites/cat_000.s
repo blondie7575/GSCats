@@ -1,5 +1,5 @@
 Spr_000:
-	FASTGRAPHICS		; 16x16, 484 bytes, 710 cycles
+	FASTGRAPHICS		; 16x16, 445 bytes, 747 cycles
 	clc	
 	tya		; Y = Sprite Target Screen Address (upper left corner)
 	tcs		; New Stack address

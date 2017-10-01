@@ -69,42 +69,42 @@
 .endmacro
 
 
-.macro FASTGRAPHICS			;51 cycles, 12 bytes
+.macro FASTGRAPHICS			;50 cycles, 12 bytes
 	sei						;2
 	phd						;4
 	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
 	.a8
 
 	lda SHADOW				;5
-	sta shadowRegister		;4
+	sta SHADOWREGISTER		;4
 	lda #0					;2
 	sta SHADOW				;5
 
 	lda STACKCTL			;5
-	sta stackRegister		;4
+	sta STACKREGISTER		;4
 	ora #$30				;2
 	sta STACKCTL			;5
 
 	rep #%00100000			;3
 	.a16
 	tsc						;2
-	sta stackPtr			;5
+	sta STACKPTR			;4
 .endmacro
 
 
-.macro SLOWGRAPHICS			;38 cycles, 12 bytes
+.macro SLOWGRAPHICS			;37 cycles, 12 bytes
 	sep #%00100000	;        3    16-bit A only, to preserve X/Y
 	.a8
 
-	lda shadowRegister		;4
+	lda SHADOWREGISTER		;4
 	sta SHADOW				;5
 
-	lda stackRegister		;4
+	lda STACKREGISTER		;4
 	sta STACKCTL			;5
 
 	rep #%00100000			;3
 	.a16
-	lda stackPtr			;5
+	lda STACKPTR			;4
 	tcs						;2
 	pld						;5
 	cli						;2

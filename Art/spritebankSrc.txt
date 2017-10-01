@@ -1,0 +1,15 @@
+Drawspritebank	ASL		; A=Sprite Number ($0000-$0002)
+	TAX		; Y=Target Screen Address ($2000-$9D00)
+	LDA	spritebankNum,X	; Relative Sprite Number Table
+	JMP	(spritebankBank,X)	; Bank Number Table
+
+spritebankNum	HEX	0000,0200,0100
+
+spritebankBank	DA	spritebankBank00,spritebankBank00,spritebankBank00
+
+spritebankBank00	JSL	$AA0000
+	PHK
+	PLB
+	RTS
+
+*----------

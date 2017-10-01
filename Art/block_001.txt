@@ -1,10 +1,16 @@
-Spr_002:
-	FASTGRAPHICS		; 16x16, 214 bytes, 433 cycles
-	clc	
+Spr_001:
+	clc		; 16x16, 185 bytes, 439 cycles
+	sei		; Disable Interrupts
+	phd		; Backup Direct Page
+	tsc		; Backup Stack
+	sta	StackAddress
+	ldal	$e1c068	; Direct Page and Stack in Bank 01/
+	ora	#$0030
+	stal	$e1c068
 	tya		; Y = Sprite Target Screen Address (upper left corner)
 	tcs		; New Stack address
-	ldx	#$6666	; Pattern #1 : 112
-;--		
+	ldx	#$FFFF	; Pattern #1 : 112
+*----------		
 	tsc	
 	adc	#$0007
 	tcs	
@@ -117,8 +123,14 @@ Spr_002:
 	phx	
 	phx	
 	phx	
-;--		
-SLOWGRAPHICS		
-	rts	
+*----------		
+	ldal	$e1C068	; Direct Page and Stack in Bank 00/
+	and	#$ffcf
+	stal	$e1c068
+	lda	StackAddress	; Restore Stack
+	tcs	
+	pld		; Restore Direct Page
+	cli		; Enable Interrupts
+	rtl	
 		
-;------------------------------		
+*----------		
