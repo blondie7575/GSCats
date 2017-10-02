@@ -9,6 +9,8 @@ KBDSTROBE		= $e0c010
 COUT			= $fded
 VRAM			= $e12000
 VRAMBANK		= $e10000
+PRODOS			= $bf00		; MLI entry point
+PRODOSRETURN	= $300		; Indirect jump to get back to ProDOS from any bank
 
 ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)
 PARAM0			= $06

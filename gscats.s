@@ -7,7 +7,9 @@
 
 .include "macros.s"
 .include "equates.s"
-.include "loader.s"
+
+.org $800
+
 
 mainBank2:
 	SYNCDBR
@@ -25,7 +27,7 @@ mainBank2:
 
 quitGame:
 	CLASSICVIDEO
-	jml (proDOSLongJump)
+	jml (PRODOSRETURN)
 
 
 .include "graphics.s"
