@@ -8,7 +8,7 @@
 .include "macros.s"
 .include "equates.s"
 
-.org $800
+.org $0000
 
 
 mainBank2:

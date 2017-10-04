@@ -21,9 +21,9 @@ all: loader $(PGM)
 
 
 $(PGM):
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -l$(PGM).lst $(PGM).s
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -l$(PGM).lst $(PGM).s
 	java -jar $(AC) -d $(PGM).2mg CODEBANK
-	java -jar $(AC) -p $(PGM).2mg CODEBANK BIN 0x$(ADDR) < $(PGM)
+	java -jar $(AC) -p $(PGM).2mg CODEBANK BIN 0x0000 < $(PGM)
 	java -jar $(AC) -d $(PGM).2mg SPRITEBANK00
 	java -jar $(AC) -p $(PGM).2mg SPRITEBANK00 BIN 0x0000 < Art/spritebank00.bin
 	rm -f $(PGM)
