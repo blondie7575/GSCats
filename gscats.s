@@ -19,13 +19,15 @@ mainBank2:
 	sta TEXTCOLOR
 	BITS16
 
-	; Set up SCBs
+	; Set up video
 	jsr initSCBs
 	SHRVIDEO
+	SHADOWMEMORY
 
 	jmp beginGameplay
 
 quitGame:
+	NORMALMEMORY
 	CLASSICVIDEO
 	jml (PRODOSRETURN)
 

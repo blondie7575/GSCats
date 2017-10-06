@@ -16,6 +16,12 @@ beginGameplay:
 	lda #0
 	jsr setPalette
 
+	; Set up sprite rendering
+	BITS8
+	lda #3
+	sta spritebankBank00+3		; Tell compiled sprites what bank they are in
+	BITS16
+	
 	; Erase the screen
 	ldx #$0000
 	jsr colorFill

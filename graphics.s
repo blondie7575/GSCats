@@ -156,16 +156,6 @@ drawNumber:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; drawSprite
-;
-; A = Sprite to render
-; X = VRAM position to render at
-;
-;
-drawSprite:
-	rts
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Vertical blank checkers
 ;
 

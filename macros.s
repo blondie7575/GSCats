@@ -69,16 +69,33 @@
 .endmacro
 
 
-.macro FASTGRAPHICS			;50 cycles, 12 bytes
-	sei						;2
-	phd						;4
+.macro SHADOWMEMORY
 	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
 	.a8
-
 	lda SHADOW				;5
 	sta SHADOWREGISTER		;4
 	lda #0					;2
 	sta SHADOW				;5
+	rep #%00100000			;3
+	.a16
+.endmacro
+
+
+.macro NORMALMEMORY
+	sep #%00100000	;        3    16-bit A only, to preserve X/Y
+	.a8
+	lda SHADOWREGISTER		;4
+	sta SHADOW				;5
+	rep #%00100000			;3
+	.a16
+.endmacro
+
+
+.macro FASTGRAPHICS			;34 cycles, 12 bytes
+	sei						;2
+	phd						;4
+	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
+	.a8
 
 	lda STACKCTL			;5
 	sta STACKREGISTER		;4
@@ -92,12 +109,9 @@
 .endmacro
 
 
-.macro SLOWGRAPHICS			;37 cycles, 12 bytes
+.macro SLOWGRAPHICS			;28 cycles, 12 bytes
 	sep #%00100000	;        3    16-bit A only, to preserve X/Y
 	.a8
-
-	lda SHADOWREGISTER		;4
-	sta SHADOW				;5
 
 	lda STACKREGISTER		;4
 	sta STACKCTL			;5
