@@ -206,6 +206,16 @@ renderPlayers:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderPlayers
+;
+;
+unrenderPlayers:
+	UNRENDER_GAMEOBJECT playerData
+	UNRENDER_GAMEOBJECT playerData+PD_SIZE
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderPlayerHeader
 ;
 ; Y = Player index to render

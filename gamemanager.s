@@ -152,6 +152,7 @@ endGame:
 ;
 scrollMap:
 	jsr unclipTerrain
+	jsr unrenderPlayers
 
 	sta mapScrollPos
 	asl
