@@ -30,6 +30,7 @@
 		70E9D8631F2BD95400555C19 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		70F0869F1F413A89002446C3 /* player.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = player.s; sourceTree = "<group>"; };
 		70F086A01F4230CB002446C3 /* utility.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = utility.s; sourceTree = "<group>"; };
+		70FE79D21F8814A600E0095C /* MerlinToCA65.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = MerlinToCA65.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -54,6 +55,7 @@
 				70E554C41F807ADB00F3C871 /* spritebank.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
+				70FE79D21F8814A600E0095C /* MerlinToCA65.sh */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,

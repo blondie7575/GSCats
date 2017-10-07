@@ -14,18 +14,19 @@ AC=AppleCommander.jar
 ADDR=800
 
 PGM=gscats
-MRSPRITE=../MrSprite/mrsprite CODE
+MRSPRITE=../MrSprite/mrsprite
 PALETTE=00ff00 000000 ffff00 886611 cc9933 eebb44 dd6666 ff99aa 00ff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
+SPRITES=SpriteBank
 
-all: loader $(PGM)
+all: $(PGM) loader
 
 
 $(PGM):
 	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -l$(PGM).lst $(PGM).s
 	java -jar $(AC) -d $(PGM).2mg CODEBANK
 	java -jar $(AC) -p $(PGM).2mg CODEBANK BIN 0x0000 < $(PGM)
-	java -jar $(AC) -d $(PGM).2mg SPRITEBANK00
-	java -jar $(AC) -p $(PGM).2mg SPRITEBANK00 BIN 0x0000 < Art/spritebank00.bin
+	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
+	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin
 	rm -f $(PGM)
 	rm -f $(PGM).o
 	osascript V2Make.scpt $(PROJECT_DIR) $(PGM)
@@ -45,9 +46,10 @@ clean:
 
 .PHONY: art
 art:
-	$(MRSPRITE) "Art/*.gif" $(PALETTE)
-	mv Art/*.s Sprites
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -lspritebank.lst spritebank.s
-	java -jar $(AC) -p $(PGM).2mg spritebank BIN 0x$(ADDR) < spritebank
-	rm -f spritebank
-	rm -f spritebank.o
+	$(MRSPRITE) CODE "Art/*.gif" $(PALETTE)
+	$(MRSPRITE) BANK "Art/*.txt" $(SPRITES)
+	mv Art/$(SPRITES)00.bin .
+	./MerlinToCA65.sh Art/$(SPRITES)Src.txt > spritebank.s
+	rm Art/*.txt
+	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
+	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin

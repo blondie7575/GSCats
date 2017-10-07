@@ -19,7 +19,7 @@ beginGameplay:
 	; Set up sprite rendering
 	BITS8
 	lda #3
-	sta spritebankBank00+3		; Tell compiled sprites what bank they are in
+	sta SpriteBankBank00+3		; Tell compiled sprites what bank they are in
 	BITS16
 	
 	; Erase the screen
