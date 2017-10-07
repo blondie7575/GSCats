@@ -15,7 +15,7 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 90		; Angle in degrees from +X
+	.word 45		; Angle in degrees from +X
 	.word 1		; Power
 	.word 100		; Anger
 	.byte 8,"SPROCKET "	; Name
