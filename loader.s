@@ -96,14 +96,20 @@ copyBytes:
 	phx
 	BITS8
 	sta copyBytesDest+3
+	sta copyBytesDest2+3
 	BITS16
 	plx
+
+	txa
+	and #1
+	bne copyBytesOdd
+
+copyBytesEven:
 	dex
 	dex
 
 copyBytesLoop:
 	lda LOADBUFFER,x
-
 copyBytesDest:
 	sta $010000,x
 	dex
@@ -111,6 +117,14 @@ copyBytesDest:
 	bpl copyBytesLoop
 	rts
 
+copyBytesOdd:
+	dex
+	BITS8A
+	lda LOADBUFFER,x
+copyBytesDest2:
+	sta $010000,x
+	BITS16
+	bra copyBytesEven
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -10,6 +10,12 @@
 .endmacro
 
 
+.macro BITS8A
+	sep #%00100000
+	.a8
+.endmacro
+
+
 .macro BITS8
 	sep #%00110000
 	OP8
