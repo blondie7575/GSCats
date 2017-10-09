@@ -29,8 +29,6 @@ intersectRectTerrain:
 	; Convert X to words and compute horizontal extent
 	; Note that X counts from right terrain edge
 	lda rectParams
-	clc
-	adc rectParams+4	; Reverse rect horizontally
 	and #$fffe			; Force even
 	sta rectParams
 
