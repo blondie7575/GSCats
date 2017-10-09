@@ -54,6 +54,7 @@ gameplayLoop:
 	stz terrainDirty
 
 	; Render players
+	jsr unrenderPlayers
 	jsr renderPlayers
 
 gameplayLoopKbd:
@@ -150,6 +151,8 @@ endGame:
 ;
 ; Handles updating the state of the terrain in response to scrolling
 ;
+; A = New map scroll position
+;
 scrollMap:
 	jsr unclipTerrain
 	jsr unrenderPlayers
@@ -167,7 +170,6 @@ scrollMap:
 
 	lda #1
 	sta terrainDirty
-
 	rts
 
 

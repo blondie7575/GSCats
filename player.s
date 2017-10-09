@@ -200,8 +200,10 @@ playerIntersectRect:
 ;
 ;
 renderPlayers:
+	SAVE_AXY
 	RENDER_GAMEOBJECT playerData,0
 	RENDER_GAMEOBJECT playerData+PD_SIZE,0
+	RESTORE_AXY
 	rts
 
 
@@ -210,8 +212,10 @@ renderPlayers:
 ;
 ;
 unrenderPlayers:
+	SAVE_AXY
 	UNRENDER_GAMEOBJECT playerData
 	UNRENDER_GAMEOBJECT playerData+PD_SIZE
+	RESTORE_AXY
 	rts
 
 
