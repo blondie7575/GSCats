@@ -212,8 +212,6 @@ updateProjectilePhysicsContinue:
 	sta projectileData+GO_POSY
 	cmp #GAMEOBJECTHEIGHT
 	bmi updateProjectilePhysicsDelete
-	cmp #201
-	bpl updateProjectilePhysicsDelete
 
 updateProjectilePhysicsDone:
 	RESTORE_AY
