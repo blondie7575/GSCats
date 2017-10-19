@@ -208,6 +208,25 @@ renderPlayers:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; protectPlayers
+;
+;
+protectPlayers:
+	SAVE_AXY
+
+	VRAM_PTR playerData
+	lda #playerData+GO_BACKGROUND
+	jsr protectGameObject
+
+	VRAM_PTR playerData+PD_SIZE
+	lda #playerData+GO_BACKGROUND+PD_SIZE
+	jsr protectGameObject
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; unrenderPlayers
 ;
 ;

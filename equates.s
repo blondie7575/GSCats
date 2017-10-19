@@ -8,7 +8,9 @@ KBD				= $e0c000
 KBDSTROBE		= $e0c010
 COUT			= $fded
 VRAM			= $e12000
+SHADOWVRAM		= $012000
 VRAMBANK		= $e10000
+SHADOWVRAMBANK	= $010000
 PRODOS			= $bf00		; MLI entry point
 PRODOSRETURN	= $300		; Indirect jump to get back to ProDOS from any bank
 

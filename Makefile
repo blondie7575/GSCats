@@ -15,7 +15,8 @@ ADDR=800
 
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
-PALETTE=00ff00 000000 ffff00 886611 cc9933 eebb44 dd6666 ff99aa 00ff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
+CHROMA=00ff00
+PALETTE=000000 008800 886611 cc9933 eebb44 dd6666 ff99aa 00ff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
 SPRITES=SpriteBank
 
 all: $(PGM) loader
@@ -46,7 +47,7 @@ clean:
 
 .PHONY: art
 art:
-	$(MRSPRITE) CODE "Art/*.gif" $(PALETTE)
+	$(MRSPRITE) CODE "Art/*.gif" $(CHROMA) $(PALETTE)
 	$(MRSPRITE) BANK "Art/*.txt" $(SPRITES)
 	mv Art/$(SPRITES)00.bin .
 	./MerlinToCA65.sh Art/$(SPRITES)Src.txt > spritebank.s

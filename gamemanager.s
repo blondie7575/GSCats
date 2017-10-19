@@ -43,6 +43,8 @@ beginGameplay:
 	ldy #0
 	jsr renderPlayerHeader
 
+	jsr protectPlayers
+
 gameplayLoop:
 
 	jsr syncVBL
@@ -54,7 +56,6 @@ gameplayLoop:
 	stz terrainDirty
 
 	; Render players
-	jsr unrenderPlayers
 	jsr renderPlayers
 
 gameplayLoopKbd:
@@ -168,6 +169,7 @@ scrollMap:
 	lda #$ffff
 	sta mapScrollRequested
 
+	jsr protectPlayers
 	lda #1
 	sta terrainDirty
 	rts

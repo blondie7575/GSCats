@@ -54,16 +54,15 @@ placeGameObjectOnTerrain:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; RENDER_GAMEOBJECT
+; VRAM_PTR
 ;
 ; ptr = Pointer to gameobject data
-; Trashes SCRATCHL
+; X => Offset to upper left corner of VRAM, or -1 if offscreen
 ;
-.macro RENDER_GAMEOBJECT ptr,spriteIndex
+; Trashes all registers
+;
+.macro VRAM_PTR ptr
 .scope
-	SAVE_AXY
-
-	; Find gameobject location in video memory
 	ldy #0
 
 	; X
@@ -71,9 +70,9 @@ placeGameObjectOnTerrain:
 
 	lsr
 	cmp leftScreenEdge
-	bmi renderGameobjectSkip	; Gameobject is off left edge of screen
+	bmi vramPtrSkip	; Gameobject is off left edge of screen
 	cmp rightScreenEdge
-	bpl renderGameobjectSkip	; Gameobject is off right edge of screen
+	bpl vramPtrSkip	; Gameobject is off right edge of screen
 
 	sec							; Convert byte x-pos to screenspace
 	sbc leftScreenEdge
@@ -84,9 +83,9 @@ placeGameObjectOnTerrain:
 	lda #200
 	sbc ptr+GO_POSY,y
 
-	bmi renderGameobjectSkip	; Gameobject is off top edge of screen
+	bmi vramPtrSkip	; Gameobject is off top edge of screen
 	cmp #200 - GAMEOBJECTHEIGHT
-	bpl renderGameobjectSkip	; Gameobject is off bottom edge of screen
+	bpl vramPtrSkip	; Gameobject is off bottom edge of screen
 
 	asl
 	tax
@@ -95,294 +94,330 @@ placeGameObjectOnTerrain:
 	adc SCRATCHL
 	adc #$2000
 	tax		; X now contains the bank address of the upper left corner
+	bra vramPtrDone
 
-	phx
-	bra renderGameobjectBackground
+vramPtrSkip:
+	ldx #-1
 
-renderGameobjectSkip:
-	jmp renderGameobjectDone
+vramPtrDone:
+.endscope
+.endmacro
 
-renderGameobjectBackground:
-	; Save background
-	lda VRAMBANK,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
 
-	lda VRAMBANK+160,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; RENDER_GAMEOBJECT
+;
+; ptr = Pointer to gameobject data
+; Trashes SCRATCHL
+;
+.macro RENDER_GAMEOBJECT ptr,spriteIndex
+.scope
+	SAVE_AXY
 
-	lda VRAMBANK+160*2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*2+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*2+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*2+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*3,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*3+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*3+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*3+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*4+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*4+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*4+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*5,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*5+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*5+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*5+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*6+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*6+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*6+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*7,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*7+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*7+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*7+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*8,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*8+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*8+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*8+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*9,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*9+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*9+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*9+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*10,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*10+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*10+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*10+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*11,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*11+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*11+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*11+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*12,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*12+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*12+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*12+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*13,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*13+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*13+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*13+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*14,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*14+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*14+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*14+6,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-
-	lda VRAMBANK+160*15,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*15+2,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*15+4,x
-	sta ptr+GO_BACKGROUND,y
-	iny
-	iny
-	lda VRAMBANK+160*15+6,x
-	sta ptr+GO_BACKGROUND,y
+	; Find gameobject location in video memory
+	VRAM_PTR ptr
+	cpx #0
+	bmi renderGameobjectDone
 
 	; Call compiled sprite code
-	ply
+	txy
 	lda #spriteIndex
+	clc
 	jsr DrawSpriteBank
 
 renderGameobjectDone:
 	RESTORE_AXY
 .endscope
 .endmacro
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; protectGameObject
+;
+; Saves background behind this game object
+; A = Pointer to gameobject data
+; X = VRAM position of upper left of game object
+;
+; Trashes SCRATCHL
+;
+protectGameObject:
+	phy
+	ldy #0
+
+	sta SCRATCHL
+
+	lda SHADOWVRAMBANK,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*2+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*2+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*2+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*3,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*3+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*3+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*3+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*4+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*4+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*4+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*5,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*5+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*5+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*5+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*6+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*6+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*6+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*7,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*7+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*7+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*7+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*8,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*8+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*8+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*8+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*9,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*9+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*9+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*9+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*10,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*10+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*10+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*10+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*11,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*11+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*11+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*11+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*12,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*12+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*12+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*12+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*13,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*13+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*13+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*13+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*14,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*14+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*14+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*14+6,x
+	sta (SCRATCHL),y
+	iny
+	iny
+
+	lda SHADOWVRAMBANK+160*15,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*15+2,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*15+4,x
+	sta (SCRATCHL),y
+	iny
+	iny
+	lda SHADOWVRAMBANK+160*15+6,x
+	sta (SCRATCHL),y
+
+	ply
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -394,313 +429,288 @@ renderGameobjectDone:
 .macro UNRENDER_GAMEOBJECT ptr
 .scope
 	SAVE_AXY
-
-	; Find gameobject location in video memory
 	ldy #0
 
-	; X
-	lda ptr+GO_POSX,y
-	lsr
-	cmp leftScreenEdge
-	bmi unrenderGameobjectSkip	; Gameobject is off left edge of screen
-	cmp rightScreenEdge
-	bpl unrenderGameobjectSkip	; Gameobject is off right edge of screen
-
-	sec
-	sbc leftScreenEdge
-	sta SCRATCHL
-
-	; Y
-	sec
-	lda #200
-	sbc ptr+GO_POSY,y
-	bmi unrenderGameobjectSkip	; Gameobject is off top edge of screen
-	cmp #200 - GAMEOBJECTHEIGHT
-	bpl unrenderGameobjectSkip	; Gameobject is off bottom edge of screen
-
-	asl
-	tax
-	lda vramYOffset,x
-	clc
-	adc SCRATCHL
-	adc #$2000
-	tax			; X now contains the VRAM offset of the upper left corner
-
+	; Find gameobject location in video memory
+	VRAM_PTR ptr
+	cpx #0
+	bmi unrenderGameobjectSkip
 	bra unrenderGameobjectBackground
 
 unrenderGameobjectSkip:
 	jmp unrenderGameobjectDone
 
 unrenderGameobjectBackground:
+
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK,x
-	iny
-	iny
-	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+2,x
+	sta SHADOWVRAMBANK,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+4,x
+	sta SHADOWVRAMBANK+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+6,x
+	sta SHADOWVRAMBANK+4,x
+	iny
+	iny
+	lda ptr+GO_BACKGROUND,y
+	sta SHADOWVRAMBANK+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160,x
+	sta SHADOWVRAMBANK+160,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160+2,x
+	sta SHADOWVRAMBANK+160+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160+4,x
+	sta SHADOWVRAMBANK+160+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160+6,x
+	sta SHADOWVRAMBANK+160+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*2,x
+	sta SHADOWVRAMBANK+160*2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*2+2,x
+	sta SHADOWVRAMBANK+160*2+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*2+4,x
+	sta SHADOWVRAMBANK+160*2+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*2+6,x
+	sta SHADOWVRAMBANK+160*2+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*3,x
+	sta SHADOWVRAMBANK+160*3,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*3+2,x
+	sta SHADOWVRAMBANK+160*3+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*3+4,x
+	sta SHADOWVRAMBANK+160*3+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*3+6,x
+	sta SHADOWVRAMBANK+160*3+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*4,x
+	sta SHADOWVRAMBANK+160*4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*4+2,x
+	sta SHADOWVRAMBANK+160*4+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*4+4,x
+	sta SHADOWVRAMBANK+160*4+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*4+6,x
+	sta SHADOWVRAMBANK+160*4+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*5,x
+	sta SHADOWVRAMBANK+160*5,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*5+2,x
+	sta SHADOWVRAMBANK+160*5+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*5+4,x
+	sta SHADOWVRAMBANK+160*5+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*5+6,x
+	sta SHADOWVRAMBANK+160*5+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*6,x
+	sta SHADOWVRAMBANK+160*6,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*6+2,x
+	sta SHADOWVRAMBANK+160*6+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*6+4,x
+	sta SHADOWVRAMBANK+160*6+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*6+6,x
+	sta SHADOWVRAMBANK+160*6+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*7,x
+	sta SHADOWVRAMBANK+160*7,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*7+2,x
+	sta SHADOWVRAMBANK+160*7+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*7+4,x
+	sta SHADOWVRAMBANK+160*7+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*7+6,x
+	sta SHADOWVRAMBANK+160*7+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*8,x
+	sta SHADOWVRAMBANK+160*8,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*8+2,x
+	sta SHADOWVRAMBANK+160*8+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*8+4,x
+	sta SHADOWVRAMBANK+160*8+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*8+6,x
+	sta SHADOWVRAMBANK+160*8+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*9,x
+	sta SHADOWVRAMBANK+160*9,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*9+2,x
+	sta SHADOWVRAMBANK+160*9+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*9+4,x
+	sta SHADOWVRAMBANK+160*9+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*9+6,x
+	sta SHADOWVRAMBANK+160*9+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*10,x
+	sta SHADOWVRAMBANK+160*10,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*10+2,x
+	sta SHADOWVRAMBANK+160*10+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*10+4,x
+	sta SHADOWVRAMBANK+160*10+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*10+6,x
+	sta SHADOWVRAMBANK+160*10+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*11,x
+	sta SHADOWVRAMBANK+160*11,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*11+2,x
+	sta SHADOWVRAMBANK+160*11+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*11+4,x
+	sta SHADOWVRAMBANK+160*11+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*11+6,x
+	sta SHADOWVRAMBANK+160*11+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*12,x
+	sta SHADOWVRAMBANK+160*12,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*12+2,x
+	sta SHADOWVRAMBANK+160*12+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*12+4,x
+	sta SHADOWVRAMBANK+160*12+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*12+6,x
+	sta SHADOWVRAMBANK+160*12+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*13,x
+	sta SHADOWVRAMBANK+160*13,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*13+2,x
+	sta SHADOWVRAMBANK+160*13+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*13+4,x
+	sta SHADOWVRAMBANK+160*13+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*13+6,x
+	sta SHADOWVRAMBANK+160*13+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*14,x
+	sta SHADOWVRAMBANK+160*14,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*14+2,x
+	sta SHADOWVRAMBANK+160*14+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*14+4,x
+	sta SHADOWVRAMBANK+160*14+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*14+6,x
+	sta SHADOWVRAMBANK+160*14+6,x
 	iny
 	iny
 
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*15,x
+	sta SHADOWVRAMBANK+160*15,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*15+2,x
+	sta SHADOWVRAMBANK+160*15+2,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*15+4,x
+	sta SHADOWVRAMBANK+160*15+4,x
 	iny
 	iny
 	lda ptr+GO_BACKGROUND,y
-	sta VRAMBANK+160*15+6,x
+	sta SHADOWVRAMBANK+160*15+6,x
 
 unrenderGameobjectDone:
 	RESTORE_AXY
