@@ -36,7 +36,7 @@ beginGameplay:
 	ldy #0
 	jsr playerCreate
 
-	lda #196
+	lda #600
 	ldy #1
 	jsr playerCreate
 
@@ -59,8 +59,8 @@ gameplayLoop:
 	jsr renderPlayers
 
 gameplayLoopKbd:
-;	lda projectileActive
-;	bpl gameplayLoopProjectiles	; Skip input during shots
+	lda projectileActive
+	bpl gameplayLoopShotTracking	; Skip input during shots
 
 	; Check for keys down
 	jsr kbdScan
@@ -68,6 +68,8 @@ gameplayLoopKbd:
 	; Check for pause
 	lda paused
 	bne gameplayLoopEndFrame
+
+gameplayLoopScroll:
 
 	; Scroll map if needed
 	lda mapScrollRequested
@@ -111,6 +113,64 @@ gameplayLoopEndFrame:
 	lda quitRequested
 	beq gameplayLoop
 	jmp quitGame
+
+gameplayLoopShotTracking:
+	jsr trackActiveShot
+	bra gameplayLoopScroll
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; trackActiveShot
+;
+; Handles tracking the projectile with the camera
+;
+; Trashes SCRATCHL
+;
+trackActiveShot:
+	lda projectileData+JD_PRECISEX
+	lsr		; Convert to integer and divide by two for byte distance
+	lsr
+	lsr
+	lsr
+	lsr
+	sta SCRATCHL		; Save this for later
+
+	lda projectileData+JD_VX
+	bmi trackActiveShotNeg
+
+	; Left-to-right
+	lda mapScrollPos
+	cmp #VISIBLETERRAINWIDTH-VISIBLETERRAINWINDOW
+	beq trackActiveShotDone	; Logical-right edge clamp
+
+	lda SCRATCHL
+	sec
+	sbc #80			; Check for moving past center
+	cmp leftScreenEdge
+	bpl trackActiveShotCameraMove
+	bra trackActiveShotDone
+
+trackActiveShotNeg:
+
+	; Right-to-left
+	lda mapScrollPos
+	beq trackActiveShotDone	; Logical-left edge clamp
+
+	lda SCRATCHL
+	clc
+	adc #80			; Check for moving past center
+	cmp rightScreenEdge
+	bpl trackActiveShotDone
+
+trackActiveShotCameraMove:
+	lda SCRATCHL
+	sbc #80
+	lsr
+	and #$fffe			; Force even
+	sta mapScrollRequested
+
+trackActiveShotDone:
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
