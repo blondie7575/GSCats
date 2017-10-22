@@ -44,6 +44,7 @@ beginGameplay:
 	jsr renderPlayerHeader
 
 	jsr protectPlayers
+	jsr protectProjectiles
 
 gameplayLoop:
 
@@ -217,6 +218,7 @@ endGame:
 scrollMap:
 	jsr unclipTerrain
 	jsr unrenderPlayers
+	jsr unrenderProjectiles
 
 	sta mapScrollPos
 	asl
@@ -230,6 +232,7 @@ scrollMap:
 	sta mapScrollRequested
 
 	jsr protectPlayers
+	jsr protectProjectiles
 	lda #1
 	sta terrainDirty
 	rts

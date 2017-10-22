@@ -314,6 +314,25 @@ deleteProjectile:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; protectProjectiles
+;
+;
+protectProjectiles:
+	SAVE_AXY
+
+	lda projectileData
+	bmi protectProjectilesDone
+
+	VRAM_PTR projectileData
+	lda #projectileData+GO_BACKGROUND
+	jsr protectGameObject
+
+protectProjectilesDone:
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderProjectiles
 ;
 ;
