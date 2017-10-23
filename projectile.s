@@ -343,7 +343,7 @@ renderProjectiles:
 	jmp renderProjectilesDone
 
 renderProjectilesDoIt:
-	RENDER_GAMEOBJECT projectileData,1
+	RENDER_GAMEOBJECT projectileData,5
 
 renderProjectilesDone:
 	pla

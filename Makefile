@@ -16,7 +16,7 @@ ADDR=800
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
 CHROMA=00ff00
-PALETTE=a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 000000 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
+PALETTE=a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 000000 0e7db1 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
 SPRITES=SpriteBank
 
 all: $(PGM) loader
