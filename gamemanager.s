@@ -32,11 +32,11 @@ beginGameplay:
 	jsr clipTerrain
 
 	; Create players
-	lda #40
+	lda #56
 	ldy #0
 	jsr playerCreate
 
-	lda #600
+	lda #568
 	ldy #1
 	jsr playerCreate
 
@@ -285,7 +285,7 @@ fire:
 
 
 basePalette:
-	.word $0000,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+	.word $0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 
 
 

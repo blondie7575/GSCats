@@ -247,35 +247,35 @@ renderPlayerHeader:
 	SAVE_AXY
 	PLAYERPTR_Y
 
-	ldx #0
+	ldx #0 + 321
 	tya
 	clc
 	adc #playerData
 	adc #PD_NAME
 	jsr DrawString
 
-	ldx #48
+	ldx #48 + 321
 	lda #angleStr
 	jsr DrawString
 
 	lda playerData+PD_ANGLE,y
-	ldx #56
+	ldx #56 + 321
 	jsr drawNumber
 
-	ldx #68
+	ldx #68 + 321
 	lda #powerStr
 	jsr DrawString
 
 	lda playerData+PD_POWER,y
-	ldx #76
+	ldx #76 + 321
 	jsr drawNumber
 
-	ldx #88
+	ldx #88 + 321
 	lda #angerStr
 	jsr DrawString
 
 	lda playerData+PD_ANGER,y
-	ldx #96
+	ldx #96 + 321
 	jsr drawNumber
 
 	RESTORE_AXY

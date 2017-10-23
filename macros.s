@@ -148,6 +148,14 @@
 	.dbyt   Arg>>16,Arg&$0000ffff
 .endmacro
 
+.macro  qbytei Arg
+	.dbyt   ~(Arg>>16),~(Arg&$0000ffff)
+.endmacro
+
+.macro  qbyte7 Arg
+	.dbyt   (Arg>>16)&$7777,Arg&$00007777
+.endmacro
+
 .macro BREAK
 	pha
 	lda breakpoint

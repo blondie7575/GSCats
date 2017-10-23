@@ -407,10 +407,10 @@ generateTerrainLoop:
 	cpy #TERRAINWIDTH
 	bne generateTerrainLoop
 
-	lda #1
-	sta terrainData
-	lda #2
-	sta compiledTerrain-4
+;	lda #1					; Debug values
+;	sta terrainData
+;	lda #2
+;	sta compiledTerrain-4
 	rts
 
 
