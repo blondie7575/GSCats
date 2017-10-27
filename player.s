@@ -201,9 +201,18 @@ playerIntersectRect:
 ;
 renderPlayers:
 	SAVE_AXY
-	RENDER_GAMEOBJECT playerData,0
-	RENDER_GAMEOBJECT playerData+PD_SIZE,0
-	RESTORE_AXY
+
+	lda #playerData
+	sta PARAML0
+	lda #0
+	jsr renderGameObject
+
+	lda #playerData+PD_SIZE
+	sta PARAML0
+	lda #0
+	jsr renderGameObject
+
+RESTORE_AXY
 	rts
 
 
@@ -214,14 +223,26 @@ renderPlayers:
 protectPlayers:
 	SAVE_AXY
 
-	VRAM_PTR playerData
+	lda #playerData
+	sta PARAML0
+	jsr vramPtr
+	cpx #0
+	bmi protectPlayerNext
+
 	lda #playerData+GO_BACKGROUND
 	jsr protectGameObject
 
-	VRAM_PTR playerData+PD_SIZE
+protectPlayerNext:
+	lda #playerData+PD_SIZE
+	sta PARAML0
+	jsr vramPtr
+	cpx #0
+	bmi protectPlayerDone
+
 	lda #playerData+GO_BACKGROUND+PD_SIZE
 	jsr protectGameObject
 
+protectPlayerDone:
 	RESTORE_AXY
 	rts
 
@@ -232,8 +253,13 @@ protectPlayers:
 ;
 unrenderPlayers:
 	SAVE_AXY
-	UNRENDER_GAMEOBJECT playerData
-	UNRENDER_GAMEOBJECT playerData+PD_SIZE
+	lda #playerData
+	sta PARAML0
+	jsr unrenderGameObject
+
+	lda #playerData+PD_SIZE
+	sta PARAML0
+	jsr unrenderGameObject
 	RESTORE_AXY
 	rts
 

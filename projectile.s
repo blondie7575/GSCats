@@ -37,7 +37,7 @@ GRAVITY = $ffff	; 8.8 fixed point
 
 projectileTypes:		; Byte offsets into projectile type data structure
 	.word 50		; Damage
-	.word 40		; Crater radius
+	.word 10		; Crater radius
 	.word 0,0		; Padding
 
 PT_DAMAGE = 0
@@ -257,12 +257,15 @@ updateProjectileCollisionsPlayerNext:
 
 	; Check for terrain collisions
 	lda projectileData+GO_POSX
+	inc
 	sta rectParams
 	lda projectileData+GO_POSY
+	clc
+	inc
 	sta rectParams+2
-	lda #GAMEOBJECTWIDTH
+	lda #GAMEOBJECTWIDTH-2
 	sta rectParams+4
-	lda #GAMEOBJECTHEIGHT
+	lda #GAMEOBJECTHEIGHT-2
 	sta rectParams+6
 
 	jsr intersectRectTerrain
@@ -290,7 +293,9 @@ updateProjectileCollisionsTerrainHit:
 ; Trashes A and Y
 ;
 endProjectile:
-	UNRENDER_GAMEOBJECT projectileData
+	lda #projectileData
+	sta PARAML0
+	jsr unrenderGameObject
 	ldy #0
 	jsr deleteProjectile
 	lda #1
@@ -323,7 +328,12 @@ protectProjectiles:
 	lda projectileData
 	bmi protectProjectilesDone
 
-	VRAM_PTR projectileData
+	lda #projectileData
+	sta PARAML0
+	jsr vramPtr
+	cpx #0
+	bmi protectProjectilesDone
+
 	lda #projectileData+GO_BACKGROUND
 	jsr protectGameObject
 
@@ -343,8 +353,30 @@ renderProjectiles:
 	jmp renderProjectilesDone
 
 renderProjectilesDoIt:
-	RENDER_GAMEOBJECT projectileData,5
+	lda #projectileData
+	sta PARAML0
+	bra renderProjectilesFlat	; Bypass angle for now
 
+	; Determine which sprite to use
+	lda projectileData+JD_VY
+	bmi renderProjectilesNegAngle
+	cmp #$0400
+	bmi renderProjectilesFlat
+	lda #4		; Up angle
+	bra renderProjectilesGoSprite
+
+renderProjectilesNegAngle:
+	cmp #$ffc0
+	bpl renderProjectilesFlat
+	lda #6		; Down angle
+	bra renderProjectilesGoSprite
+
+renderProjectilesFlat:
+	lda #5		; Flat
+
+renderProjectilesGoSprite:
+	jsr renderGameObject
+	
 renderProjectilesDone:
 	pla
 	rts
@@ -367,7 +399,9 @@ unrenderProjectilesActive:
 	jmp unrenderProjectilesDone
 
 unrenderProjectilesDoIt:
-	UNRENDER_GAMEOBJECT projectileData
+	lda #projectileData
+	sta PARAML0
+	jsr unrenderGameObject
 
 unrenderProjectilesDone:
 	pla
