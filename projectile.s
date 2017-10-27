@@ -258,14 +258,16 @@ updateProjectileCollisionsPlayerNext:
 	; Check for terrain collisions
 	lda projectileData+GO_POSX
 	inc
+	inc
 	sta rectParams
 	lda projectileData+GO_POSY
 	clc
 	inc
+	inc
 	sta rectParams+2
-	lda #GAMEOBJECTWIDTH-2
+	lda #GAMEOBJECTWIDTH-4
 	sta rectParams+4
-	lda #GAMEOBJECTHEIGHT-2
+	lda #GAMEOBJECTHEIGHT-4
 	sta rectParams+6
 
 	jsr intersectRectTerrain

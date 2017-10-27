@@ -98,6 +98,7 @@ gameplayLoopProjectiles:
 	sta KBDSTROBE
 	jsr unrenderProjectiles
 	jsr updateProjectilePhysics
+	jsr protectProjectiles
 	jsr renderProjectiles
 	jsr updateProjectileCollisions
 
@@ -233,6 +234,7 @@ scrollMap:
 
 	jsr protectPlayers
 	jsr protectProjectiles
+	jsr renderPlayers
 	lda #1
 	sta terrainDirty
 	rts
