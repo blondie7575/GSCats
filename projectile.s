@@ -344,6 +344,9 @@ protectProjectilesDone:
 	rts
 
 
+UPANGLE = $00af
+DNANGLE = $ffaf
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderProjectiles
 ;
@@ -357,21 +360,42 @@ renderProjectiles:
 renderProjectilesDoIt:
 	lda #projectileData
 	sta PARAML0
-	bra renderProjectilesFlat	; Bypass angle for now
 
 	; Determine which sprite to use
+	lda projectileData+JD_VX
+	bmi renderProjectilesNegX
+
 	lda projectileData+JD_VY
-	bmi renderProjectilesNegAngle
-	cmp #$0400
+
+	bmi renderProjectilesNegYPosX
+	cmp #UPANGLE
 	bmi renderProjectilesFlat
+
+renderProjectilesUpAngle:
 	lda #4		; Up angle
 	bra renderProjectilesGoSprite
 
-renderProjectilesNegAngle:
-	cmp #$ffc0
+renderProjectilesNegYPosX:
+	cmp #DNANGLE
 	bpl renderProjectilesFlat
+
+renderProjectilesDownAngle:
 	lda #6		; Down angle
 	bra renderProjectilesGoSprite
+
+renderProjectilesNegX:
+	lda projectileData+JD_VY
+
+	bmi renderProjectilesNegYNegX
+
+	cmp #UPANGLE
+	bmi renderProjectilesFlat
+	bra renderProjectilesDownAngle
+
+renderProjectilesNegYNegX:
+	cmp #DNANGLE
+	bpl renderProjectilesFlat
+	bra renderProjectilesUpAngle
 
 renderProjectilesFlat:
 	lda #5		; Flat
