@@ -21,9 +21,9 @@ VISIBLETERRAINWINDOW = 80				; In words
 ;
 renderTerrain:
 	FASTGRAPHICS
-	lda #MAXTERRAINHEIGHT
+	lda #0
 	sta SCRATCHL2		; Row counter
-	lda #$9cff			; 4   Point stack to end of VRAM
+	lda #$5f1f			; 4   Point stack to end of VRAM
 	tcs					; 2
 
 	sec
@@ -43,9 +43,20 @@ renderRowComplete:
 	sec
 	sbc #COMPILEDTERRAINROW
 	sta PARAML0
-	dec SCRATCHL2
-	bne renderTerrainLoop
 
+	tsc
+	clc
+	adc #320
+	tcs
+
+	lda SCRATCHL2
+	inc
+	cmp #MAXTERRAINHEIGHT
+	beq renderTerrainDone
+	sta SCRATCHL2
+	bra renderTerrainLoop
+
+renderTerrainDone:
 	SLOWGRAPHICS
 	rts
 
@@ -216,15 +227,16 @@ unclipTerrainLoop:
 compileTerrain:
 	SAVE_AY
 
-	ldy #MAXTERRAINHEIGHT-1
+	ldy #0
 	lda #compiledTerrain
 	sta PARAML0
 
 compileTerrainLoop:
 	sty PARAML1
 	jsr compileTerrainRow
-	dey
-	bmi compileTerrainDone
+	iny
+	cpy #MAXTERRAINHEIGHT
+	beq compileTerrainDone
 
 	clc
 	lda #COMPILEDTERRAINROW
