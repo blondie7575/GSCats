@@ -81,6 +81,40 @@ initSCBsLoop:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; enableFillMode
+; Enables fill mode for a given scanline
+;
+; X = Scan line
+;
+; Trashes A
+
+enableFillMode:
+	BITS8
+	lda $e19d00,x
+	ora #%00100000
+	sta $e19d00,x
+	BITS16
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; disableFillMode
+; Disables fill mode for a given scanline
+;
+; X = Scan line
+;
+; Trashes A
+
+disableFillMode:
+	BITS8
+	lda $e19d00,x
+	and #%11011111
+	sta $e19d00,x
+	BITS16
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; setPaletteColor
 ; Set a single color in a palette
 ; PARAML0 = 0:Color index
