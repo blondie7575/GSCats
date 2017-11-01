@@ -156,20 +156,6 @@ drawNumber:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; BORDER_COLOR
-;
-; Trashes A
-;
-.macro BORDER_COLOR color
-	BITS8
-	lda BORDERCOLOR
-	and #$f0
-	ora color
-	sta BORDERCOLOR
-	BITS16
-.endmacro
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Vertical blank checkers
 ;
 
