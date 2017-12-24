@@ -168,6 +168,15 @@ nobrk:
 	pla
 .endmacro
 
+.macro HARDBRK
+	pha
+	lda #1
+	sta $e1c029
+	pla
+	brk
+.endmacro
+
+
 ;;;;;;;;;;
 ; Stack Macros
 

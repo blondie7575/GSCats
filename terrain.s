@@ -10,13 +10,14 @@ MAXTERRAINHEIGHT = 100	; In pixels
 COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
 VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
 VISIBLETERRAINWINDOW = 80				; In words
+MAXSPANSPERROW = 15
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
 ;
 ; No stack operations permitted here!
 ;
-; Current implementation: Unknown cycles per row
 ; Trashes all registers
 ;
 renderTerrain:
@@ -59,6 +60,207 @@ renderRowComplete:
 renderTerrainDone:
 	SLOWGRAPHICS
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderTerrainSpans:
+;
+;
+renderTerrainSpans:
+	pha
+	lda #MAXTERRAINHEIGHT-1;-7;-36
+
+renderTerrainSpansLoop:
+	sta PARAML1
+	jsr renderTerrainRowSpans
+	dec
+	bpl renderTerrainSpansLoop
+;brk
+	pla
+	rts
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderTerrainRowSpans:
+;
+; PARAML1 = Row index (bottom relative)
+;
+; Trashes SCRATCHL,SCRATCHL2,PARAML0
+;
+renderTerrainRowSpans:
+	SAVE_AXY
+
+	; Find row data
+	lda PARAML1
+	asl		; Shifts must match MAXSPANSPERROW*2 + 2
+	asl
+	asl
+	asl
+	asl
+	tay
+	lda terrainSpanData,y
+	sta SCRATCHL			; Track span color
+
+	; Find VRAM row
+	lda #200
+	sec
+	sbc PARAML1
+	tax
+	jsr enableFillMode
+	asl
+	tax
+	lda vramYOffset,x
+	clc
+	adc #$2000
+	tax
+	adc #160
+	sta PARAML0				; Watch for end of VRAM row
+
+	; Find span that intersects left logical edge
+	lda #0
+	clc
+
+renderTerrainRowSpansFindLeftLoop:
+	adc terrainSpanData+2,y
+	cmp leftScreenEdge
+	bpl renderTerrainRowSpansFoundLeft
+	iny
+	iny
+	pha
+	lda SCRATCHL
+	eor #%110000	; Toggle span color cache
+	sta SCRATCHL
+	pla
+	bra renderTerrainRowSpansFindLeftLoop
+
+renderTerrainRowSpansFoundLeft:
+	sec
+	sbc leftScreenEdge	; A now holds remainder of leftmost span
+						; and Y points to leftmost span
+
+renderTerrainRowSpansLoop:
+	sta SCRATCHL2
+
+	; Set fill mode byte for this span
+	lda SCRATCHL
+	sta VRAMBANK,x
+
+	; Advance to end of span
+	clc
+	txa
+	adc SCRATCHL2
+	cmp PARAML0
+	bpl renderTerrainRowSpansDone
+	tax
+
+	; Prepare for next span
+	iny
+	iny
+	lda SCRATCHL
+	eor #%110000	; Toggle span color cache
+	sta SCRATCHL
+
+	lda terrainSpanData+2,y
+	bra renderTerrainRowSpansLoop
+
+renderTerrainRowSpansDone:
+	RESTORE_AXY
+	rts
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderTerrainFillMode:
+;
+; Trashes all registers
+;
+renderTerrainFillMode:
+	jsr renderTerrainSpans
+	brk
+
+	SAVE_AXY
+	ldy #0
+	ldx #200-MAXTERRAINHEIGHT
+
+renderTerrainFillModeLoop:
+	jsr enableFillMode
+	sty PARAML1
+	jsr renderTerrainRowFillMode
+	inx
+	iny
+	cpy #MAXTERRAINHEIGHT
+	bmi renderTerrainFillModeLoop
+renderTerrainFillModeDone:
+brk
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderTerrainRowFillMode:
+;
+; PARAML1 = Row index (top relative)
+;
+; Trashes PARAML1
+;
+renderTerrainRowFillMode:
+	SAVE_AXY
+	lda PARAML1
+	asl
+	tay
+	ldx vramYOffset,y
+
+	stz renderTerrainRowFillCurrent
+
+	sec
+	lda #MAXTERRAINHEIGHT
+	sbc PARAML1
+	sta PARAML1
+
+	ldy leftScreenEdge
+	sty renderTerrainRowFillColumn
+
+renderTerrainRowFillModeColumnLoop:
+	tya
+	asl
+	tay
+
+	lda terrainData,y
+	cmp PARAML1
+	bmi renderTerrainRowFillModeBlack
+
+	lda renderTerrainRowFillCurrent
+	cmp #$10
+	beq renderTerrainRowFillModeColumnLoopNext
+
+	lda #$10
+	sta renderTerrainRowFillCurrent
+	sta VRAM+(200-MAXTERRAINHEIGHT)*160,x
+
+renderTerrainRowFillModeColumnLoopNext:
+	inx
+	inc renderTerrainRowFillColumn
+	ldy renderTerrainRowFillColumn
+	cpy rightScreenEdge
+	bne renderTerrainRowFillModeColumnLoop
+
+renderTerrainRowFillModeDone:
+	RESTORE_AXY
+	rts
+
+renderTerrainRowFillModeBlack:
+	lda renderTerrainRowFillCurrent
+	cmp #$70
+	beq renderTerrainRowFillModeColumnLoopNext
+
+	lda #$70
+	sta renderTerrainRowFillCurrent
+	sta VRAM+(200-MAXTERRAINHEIGHT)*160,x
+	bra renderTerrainRowFillModeColumnLoopNext
+
+renderTerrainRowFillCurrent:
+	.word 0
+renderTerrainRowFillColumn:
+	.word 0
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -246,6 +448,7 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
+	jsr compileTerrainSpans
 	RESTORE_AY
 	rts
 
@@ -382,6 +585,129 @@ compileTerrainOpcode:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; compileTerrainSpans:
+;
+;
+compileTerrainSpans:
+	pha
+	lda #0; MAXTERRAINHEIGHT-7;  0
+
+compileTerrainSpansLoop:
+	sta PARAML1
+	jsr compileTerrainSpansRow
+	lda PARAML1
+	inc
+	cmp #MAXTERRAINHEIGHT
+	bne compileTerrainSpansLoop
+
+	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; compileTerrainSpansRow:
+;
+; PARAML1 = Row index (bottom relative)
+;
+; Trashes SCRATCHL
+;
+compileTerrainSpansRow:
+	SAVE_AXY
+
+	lda PARAML1
+	asl		; Shifts must match MAXSPANSPERROW*2 + 2
+	asl
+	asl
+	asl
+	asl
+	clc
+	adc #terrainSpanData
+	sta SCRATCHL
+
+	ldy #0
+	ldx #TERRAINWIDTH-2
+
+	lda terrainData,x	; Figure out start value for row
+	cmp PARAML1
+	bcs compileTerrainSpansRowInitGreen
+
+compileTerrainSpansRowInitBlack:
+	lda #$0020		; First span is black
+	sta (SCRATCHL)	; Initialize the row
+	inc SCRATCHL
+	inc SCRATCHL
+	ldy #-1
+
+compileTerrainSpansRowBlackStart:
+	iny
+
+compileTerrainSpansRowBlackLoop:
+	lda terrainData,x
+	cmp PARAML1
+	bcs compileTerrainSpansBlackEnd
+	dex
+	dex
+	iny
+	cpx #-2
+	bne compileTerrainSpansRowBlackLoop
+
+compileTerrainSpansBlackEnd:
+BREAK
+	tya				; Store this span's length
+	sta (SCRATCHL)
+	inc SCRATCHL
+	inc SCRATCHL
+
+	dex				; Begin searching for next span
+	dex
+	cpx #0
+	bmi compileTerrainSpansRowDone
+	ldy #0
+	bra compileTerrainSpansRowGreenStart
+
+compileTerrainSpansRowDone:
+	RESTORE_AXY
+	rts
+
+compileTerrainSpansRowInitGreen:
+	lda #$0010		; First span is green
+	sta (SCRATCHL)	; Initialize the row
+	inc SCRATCHL
+	inc SCRATCHL
+	ldy #-1
+
+compileTerrainSpansRowGreenStart:
+	iny
+
+compileTerrainSpansRowGreenLoop:
+	lda terrainData,x
+	cmp PARAML1
+	bcc compileTerrainSpansGreenEnd
+	dex
+	dex
+	iny
+	cpx #-2
+	bne compileTerrainSpansRowGreenLoop
+
+compileTerrainSpansGreenEnd:
+;	iny
+
+;	lda #1								;
+;	sta breakpoint	;
+
+	tya				; Store this span's length
+	sta (SCRATCHL)
+	inc SCRATCHL
+	inc SCRATCHL
+
+	dex				; Begin searching for next span
+	dex
+	cpx #0
+	bmi compileTerrainSpansRowDone
+	ldy #0
+	bra compileTerrainSpansRowBlackStart
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
 ;
 ; Trashes everything
@@ -444,5 +770,13 @@ compiledTerrainEnd:
 clippedTerrainData:
 	.repeat MAXTERRAINHEIGHT
 	.byte 0,0,0,0	; xx,jmp,addr
+	.endrepeat
+
+terrainSpanData:
+	.repeat MAXTERRAINHEIGHT
+		.word 0		; Start value (0=BG)
+		.repeat MAXSPANSPERROW
+		.word 0		; Length (in bytes)
+		.endrepeat
 	.endrepeat
 

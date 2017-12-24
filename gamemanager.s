@@ -49,12 +49,15 @@ beginGameplay:
 gameplayLoop:
 
 	jsr syncVBL
+	BORDER_COLOR #$0
 
 	; Render the terrain if needed
-	lda terrainDirty
-	beq gameplayLoopKbd
-	jsr renderTerrain
+;	lda terrainDirty
+;	beq gameplayLoopKbd
+	BORDER_COLOR #$3
+	jsr renderTerrainFillMode
 	stz terrainDirty
+	BORDER_COLOR #$1
 
 	; Render players
 	jsr renderPlayers
@@ -113,8 +116,10 @@ gameplayLoopVictoryCondition:
 
 gameplayLoopEndFrame:
 	lda quitRequested
-	beq gameplayLoop
+	beq gameplayLoopContinue
 	jmp quitGame
+gameplayLoopContinue:
+	jmp gameplayLoop
 
 gameplayLoopShotTracking:
 	jsr trackActiveShot
@@ -287,7 +292,7 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$07b,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+	.word $0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$007b,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 
 
 

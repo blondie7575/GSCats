@@ -86,14 +86,14 @@ initSCBsLoop:
 ;
 ; X = Scan line
 ;
-; Trashes A
-
 enableFillMode:
+	SAVE_AXY
 	BITS8
 	lda $e19d00,x
 	ora #%00100000
 	sta $e19d00,x
 	BITS16
+	RESTORE_AXY
 	rts
 
 
