@@ -12,7 +12,7 @@ VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
 VISIBLETERRAINWINDOW = 80				; In words
 MAXSPANSPERROW = 15
 
-
+.if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
 ;
@@ -60,7 +60,7 @@ renderRowComplete:
 renderTerrainDone:
 	SLOWGRAPHICS
 	rts
-
+.endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainSpans:
@@ -68,16 +68,45 @@ renderTerrainDone:
 ;
 renderTerrainSpans:
 	pha
-	lda #MAXTERRAINHEIGHT-1;-7;-36
+	stz terrainSpanWriteCacheLen
+	lda #MAXTERRAINHEIGHT-1
+
 
 renderTerrainSpansLoop:
 	sta PARAML1
 	jsr renderTerrainRowSpans
 	dec
 	bpl renderTerrainSpansLoop
-;brk
+
 	pla
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderTerrainSpans:
+;
+;
+
+unrenderTerrainSpans:
+	SAVE_AXY
+	ldy #0
+
+unrenderTerrainSpansLoop:
+	lda terrainSpanWriteCache,y
+	tax
+	lda #0
+
+	sta VRAMBANK,x
+
+	iny
+	iny
+	cpy terrainSpanWriteCacheLen
+	bne unrenderTerrainSpansLoop
+
+	stz terrainSpanWriteCacheLen
+	RESTORE_AXY
+	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainRowSpans:
@@ -105,7 +134,7 @@ renderTerrainRowSpans:
 	sec
 	sbc PARAML1
 	tax
-	jsr enableFillMode
+	;jsr enableFillMode
 	asl
 	tax
 	lda vramYOffset,x
@@ -118,6 +147,7 @@ renderTerrainRowSpans:
 	; Find span that intersects left logical edge
 	lda #0
 	clc
+
 
 renderTerrainRowSpansFindLeftLoop:
 	adc terrainSpanData+2,y
@@ -144,6 +174,16 @@ renderTerrainRowSpansLoop:
 	lda SCRATCHL
 	sta VRAMBANK,x
 
+	; Cache the index we wrote to so we can erase later
+	phy
+	ldy terrainSpanWriteCacheLen
+	txa
+	sta terrainSpanWriteCache,y
+	iny
+	iny
+	sty terrainSpanWriteCacheLen
+	ply
+
 	; Advance to end of span
 	clc
 	txa
@@ -166,8 +206,7 @@ renderTerrainRowSpansDone:
 	RESTORE_AXY
 	rts
 
-
-
+.if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainFillMode:
 ;
@@ -175,7 +214,7 @@ renderTerrainRowSpansDone:
 ;
 renderTerrainFillMode:
 	jsr renderTerrainSpans
-	brk
+	rts
 
 	SAVE_AXY
 	ldy #0
@@ -189,8 +228,8 @@ renderTerrainFillModeLoop:
 	iny
 	cpy #MAXTERRAINHEIGHT
 	bmi renderTerrainFillModeLoop
+
 renderTerrainFillModeDone:
-brk
 	RESTORE_AXY
 	rts
 
@@ -261,7 +300,7 @@ renderTerrainRowFillCurrent:
 	.word 0
 renderTerrainRowFillColumn:
 	.word 0
-
+.endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; craterTerrain
@@ -329,7 +368,7 @@ craterTerrainDone:
 	RESTORE_AX
 	rts
 
-
+.if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
 ;
@@ -448,7 +487,7 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
-	jsr compileTerrainSpans
+	;jsr compileTerrainSpans
 	RESTORE_AY
 	rts
 
@@ -582,7 +621,7 @@ compileTerrainColumn3BG:
 compileTerrainOpcode:
 	.word 0
 
-
+.endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; compileTerrainSpans:
@@ -590,7 +629,7 @@ compileTerrainOpcode:
 ;
 compileTerrainSpans:
 	pha
-	lda #0; MAXTERRAINHEIGHT-7;  0
+	lda #0
 
 compileTerrainSpansLoop:
 	sta PARAML1
@@ -652,7 +691,6 @@ compileTerrainSpansRowBlackLoop:
 	bne compileTerrainSpansRowBlackLoop
 
 compileTerrainSpansBlackEnd:
-BREAK
 	tya				; Store this span's length
 	sta (SCRATCHL)
 	inc SCRATCHL
@@ -690,11 +728,6 @@ compileTerrainSpansRowGreenLoop:
 	bne compileTerrainSpansRowGreenLoop
 
 compileTerrainSpansGreenEnd:
-;	iny
-
-;	lda #1								;
-;	sta breakpoint	;
-
 	tya				; Store this span's length
 	sta (SCRATCHL)
 	inc SCRATCHL
@@ -706,6 +739,47 @@ compileTerrainSpansGreenEnd:
 	bmi compileTerrainSpansRowDone
 	ldy #0
 	bra compileTerrainSpansRowBlackStart
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; prepareRowRendering:
+;
+; Set SCBs to match rendering mode of each terrain line
+;
+; Trashes SCRATCHL, SCRATCHL2
+;
+prepareRowRendering:
+	SAVE_AXY
+
+	ldx #199
+	stz SCRATCHL2
+
+prepareRowRenderingLoop:
+	lda #0
+	PLAYERPTR_Y
+	sec
+	lda playerData+GO_POSY,y
+	sbc #GAMEOBJECTHEIGHT
+
+	cmp SCRATCHL2
+	bcc prepareRowRenderingCompileMode
+	beq prepareRowRenderingCompileMode
+
+	jsr enableFillMode
+	bra prepareRowRenderingLoopNext
+
+prepareRowRenderingCompileMode:
+	jsr disableFillMode
+
+prepareRowRenderingLoopNext:
+	inc SCRATCHL2
+	dex
+	cpx #200-MAXTERRAINHEIGHT
+	bne prepareRowRenderingLoop
+
+	RESTORE_AXY
+	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
@@ -720,7 +794,6 @@ generateTerrain:
 	sta SCRATCHL
 
 generateTerrainLoop:
-
 	lda sineTable,x
 
 	lsr
@@ -761,6 +834,7 @@ terrainData:
 	.endrepeat
 terrainDataEnd:
 
+.if 0
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
 	.byte 0
@@ -771,6 +845,7 @@ clippedTerrainData:
 	.repeat MAXTERRAINHEIGHT
 	.byte 0,0,0,0	; xx,jmp,addr
 	.endrepeat
+.endif
 
 terrainSpanData:
 	.repeat MAXTERRAINHEIGHT
@@ -779,4 +854,11 @@ terrainSpanData:
 		.word 0		; Length (in bytes)
 		.endrepeat
 	.endrepeat
+
+terrainSpanWriteCache:
+	.repeat 512
+	.word 0
+	.endrepeat
+terrainSpanWriteCacheLen:
+	.word 0
 

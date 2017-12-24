@@ -491,7 +491,7 @@ processTerrainImpact:
 	tay
 
 	jsr craterTerrain
-	jsr compileTerrain
-	jsr clipTerrain
+;	jsr compileTerrain
+;	jsr clipTerrain
 
 	rts

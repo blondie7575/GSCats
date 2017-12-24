@@ -34,10 +34,10 @@ quitGame:
 
 .include "graphics.s"
 .include "font.s"
+.include "player.s"
 .include "terrain.s"
 .include "collision.s"
 .include "gameobject.s"
-.include "player.s"
 .include "utility.s"
 .include "tables.s"
 .include "gamemanager.s"

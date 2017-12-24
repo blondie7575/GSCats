@@ -106,11 +106,13 @@ enableFillMode:
 ; Trashes A
 
 disableFillMode:
+	SAVE_AXY
 	BITS8
 	lda $e19d00,x
 	and #%11011111
 	sta $e19d00,x
 	BITS16
+	RESTORE_AXY
 	rts
 
 
@@ -195,12 +197,14 @@ drawNumber:
 ; Trashes A
 ;
 .macro BORDER_COLOR color
+	SAVE_AXY
 	BITS8
 	lda BORDERCOLOR
 	and #$f0
 	ora color
 	sta BORDERCOLOR
 	BITS16
+	RESTORE_AXY
 .endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

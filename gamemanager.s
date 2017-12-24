@@ -28,8 +28,9 @@ beginGameplay:
 
 	; Generate, compile, and clip terrain
 	jsr generateTerrain
-	jsr compileTerrain
-	jsr clipTerrain
+	jsr compileTerrainSpans
+;	jsr compileTerrain
+;	jsr clipTerrain
 
 	; Create players
 	lda #56
@@ -45,6 +46,7 @@ beginGameplay:
 
 	jsr protectPlayers
 	jsr protectProjectiles
+	jsr prepareRowRendering
 
 gameplayLoop:
 
@@ -55,7 +57,8 @@ gameplayLoop:
 ;	lda terrainDirty
 ;	beq gameplayLoopKbd
 	BORDER_COLOR #$3
-	jsr renderTerrainFillMode
+	jsr renderTerrainSpans
+;	jsr unrenderTerrainSpans
 	stz terrainDirty
 	BORDER_COLOR #$1
 
@@ -222,7 +225,8 @@ endGame:
 ; A = New map scroll position
 ;
 scrollMap:
-	jsr unclipTerrain
+;	jsr unclipTerrain
+	jsr unrenderTerrainSpans
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
 
@@ -233,7 +237,7 @@ scrollMap:
 	adc #160-GAMEOBJECTWIDTH/4-1
 	sta rightScreenEdge
 
-	jsr clipTerrain
+;	jsr clipTerrain
 	lda #$ffff
 	sta mapScrollRequested
 
