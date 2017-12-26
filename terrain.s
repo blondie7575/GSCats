@@ -68,9 +68,10 @@ renderTerrainDone:
 ;
 renderTerrainSpans:
 	pha
-	stz terrainSpanWriteCacheLen
-	lda #MAXTERRAINHEIGHT-1
+	lda #terrainSpanWriteCache
+	sta CACHEPTR
 
+	lda #MAXTERRAINHEIGHT-1
 
 renderTerrainSpansLoop:
 	sta PARAML1
@@ -89,21 +90,18 @@ renderTerrainSpansLoop:
 
 unrenderTerrainSpans:
 	SAVE_AXY
-	ldy #0
 
 unrenderTerrainSpansLoop:
-	lda terrainSpanWriteCache,y
+	dec CACHEPTR
+	dec CACHEPTR
+	lda (CACHEPTR)
+	beq unrenderTerrainSpansDone
 	tax
 	lda #0
-
 	sta VRAMBANK,x
+	bra unrenderTerrainSpansLoop
 
-	iny
-	iny
-	cpy terrainSpanWriteCacheLen
-	bne unrenderTerrainSpansLoop
-
-	stz terrainSpanWriteCacheLen
+unrenderTerrainSpansDone:
 	RESTORE_AXY
 	rts
 
@@ -173,14 +171,10 @@ renderTerrainRowSpansLoop:
 	sta VRAMBANK,x
 
 	; Cache the index we wrote to so we can erase later
-	phy
-	ldy terrainSpanWriteCacheLen
 	txa
-	sta terrainSpanWriteCache,y
-	iny
-	iny
-	sty terrainSpanWriteCacheLen
-	ply
+	sta (CACHEPTR)
+	inc CACHEPTR
+	inc CACHEPTR
 
 	; Advance to end of span
 	clc
@@ -854,10 +848,10 @@ terrainSpanData:
 		.endrepeat
 	.endrepeat
 
+terrainSpanWriteCacheNull:
+	.word 0	; Null terminator for when popping off LIFO
 terrainSpanWriteCache:
 	.repeat 512
-	.word 0
+	.word 0			; LIFO for tracking span byte writes
 	.endrepeat
-terrainSpanWriteCacheLen:
-	.word 0
 
