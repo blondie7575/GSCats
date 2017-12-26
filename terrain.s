@@ -76,7 +76,7 @@ renderTerrainSpansLoop:
 	sta PARAML1
 	jsr renderTerrainRowSpans
 	dec
-	bpl renderTerrainSpansLoop
+	bne renderTerrainSpansLoop
 
 	pla
 	rts
@@ -133,8 +133,6 @@ renderTerrainRowSpans:
 	lda #200
 	sec
 	sbc PARAML1
-	tax
-	;jsr enableFillMode
 	asl
 	tax
 	lda vramYOffset,x
@@ -205,6 +203,7 @@ renderTerrainRowSpansLoop:
 renderTerrainRowSpansDone:
 	RESTORE_AXY
 	rts
+
 
 .if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
