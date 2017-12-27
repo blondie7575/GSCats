@@ -130,15 +130,12 @@ renderTerrainRowSpans:
 	sta SCRATCHL			; Track span color
 
 	; Find VRAM row
-	lda #200
-	sec
-	sbc PARAML1
+	lda PARAML1
 	asl
 	tax
-	lda vramYOffset,x
-	clc
-	adc #$2000
+	lda vramRowInvertedSpanLookup,x
 	tax
+	
 	adc #160
 	sta PARAML0				; Watch for end of VRAM row
 
