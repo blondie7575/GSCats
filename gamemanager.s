@@ -58,7 +58,7 @@ gameplayLoop:
 ;	beq gameplayLoopKbd
 	BORDER_COLOR #$3
 	jsr renderTerrainSpans
-	jsr unrenderTerrainSpans
+;	jsr unrenderTerrainSpans
 
 	stz terrainDirty
 	BORDER_COLOR #$1

@@ -11,6 +11,8 @@ COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping j
 VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
 VISIBLETERRAINWINDOW = 80				; In words
 MAXSPANSPERROW = 15
+SPANROWBYTES = MAXSPANSPERROW*2 + 2		; In bytes
+
 
 .if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -118,7 +120,7 @@ renderTerrainRowSpans:
 
 	; Find row data
 	lda PARAML1
-	asl		; Shifts must match MAXSPANSPERROW*2 + 2
+	asl		; Shifts must match SPANROWBYTES
 	asl
 	asl
 	asl
@@ -647,7 +649,7 @@ compileTerrainSpansRow:
 	SAVE_AXY
 
 	lda PARAML1
-	asl		; Shifts must match MAXSPANSPERROW*2 + 2
+	asl		; Shifts must match SPANROWBYTES
 	asl
 	asl
 	asl
