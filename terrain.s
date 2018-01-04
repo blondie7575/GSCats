@@ -86,29 +86,6 @@ renderTerrainSpansLoop:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; unrenderTerrainSpans:
-;
-;
-
-unrenderTerrainSpans:
-	SAVE_AXY
-
-unrenderTerrainSpansLoop:
-	dec CACHEPTR
-	dec CACHEPTR
-	lda (CACHEPTR)
-	beq unrenderTerrainSpansDone
-	tax
-	lda #0
-	sta VRAMBANK,x
-	bra unrenderTerrainSpansLoop
-
-unrenderTerrainSpansDone:
-	RESTORE_AXY
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrainRowSpans:
 ;
 ; PARAML1 = Row index (bottom relative)
@@ -196,6 +173,30 @@ renderTerrainRowSpansLoop:
 renderTerrainRowSpansDone:
 	RESTORE_AXY
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderTerrainSpans:
+;
+;
+
+unrenderTerrainSpans:
+	SAVE_AXY
+
+unrenderTerrainSpansLoop:
+	dec CACHEPTR
+	dec CACHEPTR
+	lda (CACHEPTR)
+	beq unrenderTerrainSpansDone
+	tax
+	lda #0
+	sta VRAMBANK,x
+	bra unrenderTerrainSpansLoop
+
+unrenderTerrainSpansDone:
+	RESTORE_AXY
+	rts
+
 
 
 .if 0
