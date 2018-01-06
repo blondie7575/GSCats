@@ -69,7 +69,12 @@ renderTerrainDone:
 ;
 ;
 renderTerrainSpans:
-	pha
+	SAVE_AXY
+	FASTGRAPHICS
+
+	lda #$800	; Prepare unrender cache
+	tcs
+
 	lda #terrainSpanWriteCache
 	sta CACHEPTR
 
@@ -77,23 +82,6 @@ renderTerrainSpans:
 
 renderTerrainSpansLoop:
 	sta PARAML1
-	jsr renderTerrainRowSpans
-	dec
-	bne renderTerrainSpansLoop
-
-	pla
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainRowSpans:
-;
-; PARAML1 = Row index (bottom relative)
-;
-; Trashes SCRATCHL,SCRATCHL2,PARAML0
-;
-renderTerrainRowSpans:
-	SAVE_AXY
 
 	; Find row data
 	lda PARAML1
@@ -120,18 +108,17 @@ renderTerrainRowSpans:
 	lda #0
 	clc
 
-
 renderTerrainRowSpansFindLeftLoop:
 	adc terrainSpanData+2,y
 	cmp leftScreenEdge
 	bpl renderTerrainRowSpansFoundLeft
 	iny
 	iny
-	pha
+	sta CACHEDATA
 	lda SCRATCHL
 	eor #%110000	; Toggle span color cache
 	sta SCRATCHL
-	pla
+	lda CACHEDATA
 	bra renderTerrainRowSpansFindLeftLoop
 
 renderTerrainRowSpansFoundLeft:
@@ -147,10 +134,11 @@ renderTerrainRowSpansLoop:
 	sta VRAMBANK,x
 
 	; Cache the index we wrote to so we can erase later
-	txa
-	sta (CACHEPTR)
-	inc CACHEPTR
-	inc CACHEPTR
+	phx
+;	txa
+;	sta (CACHEPTR)
+;	inc CACHEPTR
+;	inc CACHEPTR
 
 	; Advance to end of span
 	clc
@@ -171,8 +159,15 @@ renderTerrainRowSpansLoop:
 	bra renderTerrainRowSpansLoop
 
 renderTerrainRowSpansDone:
+	lda PARAML1
+	dec
+	bne renderTerrainSpansLoop
+
+	pea 0		; Null-terminate the unrender cache
+	SLOWGRAPHICS
 	RESTORE_AXY
 	rts
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -182,18 +177,25 @@ renderTerrainRowSpansDone:
 
 unrenderTerrainSpans:
 	SAVE_AXY
+	phb
+	pea $e1e1		; Work entirely in bank E1 for all local read/writes
+	plb
+	plb
+
+	ldy #$800-1
 
 unrenderTerrainSpansLoop:
-	dec CACHEPTR
-	dec CACHEPTR
-	lda (CACHEPTR)
+	lda 0,y
 	beq unrenderTerrainSpansDone
 	tax
 	lda #0
-	sta VRAMBANK,x
+	sta a:0,x
+	dey
+	dey
 	bra unrenderTerrainSpansLoop
 
 unrenderTerrainSpansDone:
+	plb
 	RESTORE_AXY
 	rts
 

@@ -31,6 +31,7 @@ beginGameplay:
 	jsr compileTerrainSpans
 ;	jsr compileTerrain
 ;	jsr clipTerrain
+	jsr renderTerrainSpans
 
 	; Create players
 	lda #56
@@ -57,8 +58,8 @@ gameplayLoop:
 ;	lda terrainDirty
 ;	beq gameplayLoopKbd
 	BORDER_COLOR #$3
+	jsr unrenderTerrainSpans
 	jsr renderTerrainSpans
-;	jsr unrenderTerrainSpans
 
 	stz terrainDirty
 	BORDER_COLOR #$1
