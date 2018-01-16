@@ -42,6 +42,15 @@
 	plb
 .endmacro
 
+.macro SAVE_DBR
+	phb
+	phk
+	plb
+.endmacro
+
+.macro RESTORE_DBR
+	plb
+.endmacro
 
 .macro EMULATION
 	sec		; Enable 8-bit mode

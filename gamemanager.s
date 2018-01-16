@@ -27,11 +27,13 @@ beginGameplay:
 	jsr colorFill
 
 	; Generate, compile, and clip terrain
+	stz leftScreenEdge
 	jsr generateTerrain
-	jsr compileTerrainSpans
+
+	jsl compileTerrainSpans
 ;	jsr compileTerrain
 ;	jsr clipTerrain
-	jsr renderTerrainSpans
+	jsl renderTerrainSpans
 
 	; Create players
 	lda #56
@@ -58,8 +60,8 @@ gameplayLoop:
 ;	lda terrainDirty
 ;	beq gameplayLoopKbd
 	BORDER_COLOR #$3
-	jsr unrenderTerrainSpans
-	jsr renderTerrainSpans
+	jsl unrenderTerrainSpans
+	jsl renderTerrainSpans
 
 	stz terrainDirty
 	BORDER_COLOR #$1
@@ -334,7 +336,7 @@ paused:
 ; c) Byte-distance from left edge of logical terrain to right edge of visible screen minus game object width in words
 mapScrollPos:
 	.word 0
-leftScreenEdge:
-	.word 0
+;leftScreenEdge = $6E		; Moved to zero page for speed and cross-bank convenience
+;	.word 0
 rightScreenEdge:
 	.word 160-GAMEOBJECTWIDTH/4-1

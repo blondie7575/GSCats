@@ -28,6 +28,26 @@ SCRATCHL2		= $67		; Second 16-bit scratch
 PARAM24			= $67		; 24-bit param (This is almost certainly messing up AppleSoft, but meh)
 CACHEPTR		= $6A		; General purpose cache pointer (This is almost certainly messing up AppleSoft, but meh)
 CACHEDATA		= $6C		; General purpose cache data (This is almost certainly messing up AppleSoft, but meh)
+leftScreenEdge	= $6E		; Reserved for leftScreenEdge  (This is almost certainly messing up AppleSoft, but meh)
 STACKPTR		= $70		; Cache for stack pointer in fast graphics
 SHADOWREGISTER	= $72		; Cache for shadow register in fast graphics
 STACKREGISTER	= $73		; Cache for stack register in fast graphics
+
+
+; Terrain constants
+TERRAINWIDTH = 640		; In pixels
+MAXTERRAINHEIGHT = 100	; In pixels
+COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
+VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
+VISIBLETERRAINWINDOW = 80				; In words
+MAXSPANSPERROW = 15
+SPANROWBYTES = MAXSPANSPERROW*2 + 2		; In bytes
+
+
+; Terrain data, stored as height values 2 pixels wide (bytes)
+terrainDataFar = $02f500
+terrainData = $f500
+;	.repeat TERRAINWIDTH/2
+;	.word 0
+;	.endrepeat
+terrainDataEnd = terrainData + (TERRAINWIDTH/2 * 2)

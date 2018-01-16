@@ -8,12 +8,15 @@
 .include "macros.s"
 .include "equates.s"
 
+.import renderTerrainSpans
+.import unrenderTerrainSpans
+.import compileTerrainSpans
+
 .org $0000
 
 
 mainBank2:
 	SYNCDBR
-
 	BITS8
 	lda #$f0
 	sta TEXTCOLOR

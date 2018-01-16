@@ -50,7 +50,7 @@ intersectRectTerrain:
 
 	; Check Y bottom
 intersectRectTerrainBottomLoop:
-	lda terrainData,y
+	lda terrainDataFar,y
 	cmp rectParams+6
 	bpl intersectRectTerrainYep
 	dey

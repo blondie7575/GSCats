@@ -18,18 +18,21 @@ MRSPRITE=../MrSprite/mrsprite
 CHROMA=00ff00
 PALETTE=a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 000000 0e7db1 ffff00 ffff00 ffff00 ffff00 ffff00 ffff00 ffffff
 SPRITES=SpriteBank
+REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
 
-all: $(PGM) loader
+all: terrain_e1 $(PGM) loader
 
 
 $(PGM):
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -l$(PGM).lst $(PGM).s
+	@echo $(REMOTESYMBOLS)
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr 0000 -l$(PGM).lst $(REMOTESYMBOLS) $(PGM).s
 	java -jar $(AC) -d $(PGM).2mg CODEBANK
 	java -jar $(AC) -p $(PGM).2mg CODEBANK BIN 0x0000 < $(PGM)
 	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
 	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin
 	rm -f $(PGM)
 	rm -f $(PGM).o
+	rm -f terrain_e1.map
 	osascript V2Make.scpt $(PROJECT_DIR) $(PGM)
 
 loader:
@@ -39,11 +42,21 @@ loader:
 	rm -f loader
 	rm -f loader.o
 
+terrain_e1:
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr $(ADDR) -l -vm -m terrain_e1.map terrain_e1.s
+	java -jar $(AC) -d $(PGM).2mg CODEBANKE1
+	java -jar $(AC) -p $(PGM).2mg CODEBANKE1 BIN 0x800 < terrain_e1
+	rm -f terrain_e1
+	rm -f terrain_e1.o
+
 clean:
 	rm -f $(PGM)
 	rm -f $(PGM).o
 	rm -f loader
 	rm -f loader.o
+	rm -f terrain_e1.o
+	rm -f terrain_e1.map
+	rm -f terrain_e1
 
 .PHONY: art
 art:

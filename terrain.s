@@ -4,16 +4,6 @@
 ;  Created by Quinn Dunki on 7/29/17
 ;
 
-
-TERRAINWIDTH = 640		; In pixels
-MAXTERRAINHEIGHT = 100	; In pixels
-COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
-VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
-VISIBLETERRAINWINDOW = 80				; In words
-MAXSPANSPERROW = 15
-SPANROWBYTES = MAXSPANSPERROW*2 + 2		; In bytes
-
-
 .if 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
@@ -63,142 +53,6 @@ renderTerrainDone:
 	SLOWGRAPHICS
 	rts
 .endif
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainSpans:
-;
-;
-renderTerrainSpans:
-	SAVE_AXY
-	FASTGRAPHICS
-
-	lda #$800	; Prepare unrender cache
-	tcs
-
-	lda #terrainSpanWriteCache
-	sta CACHEPTR
-
-	lda #MAXTERRAINHEIGHT-1
-
-renderTerrainSpansLoop:
-	sta PARAML1
-
-	; Find row data
-	lda PARAML1
-	asl		; Shifts must match SPANROWBYTES
-	asl
-	asl
-	asl
-	asl
-	tay
-	lda terrainSpanData,y
-	sta SCRATCHL			; Track span color
-
-	; Find VRAM row
-	lda PARAML1
-	asl
-	tax
-	lda vramRowInvertedSpanLookup,x
-	tax
-	
-	adc #160
-	sta PARAML0				; Watch for end of VRAM row
-
-	; Find span that intersects left logical edge
-	lda #0
-	clc
-
-renderTerrainRowSpansFindLeftLoop:
-	adc terrainSpanData+2,y
-	cmp leftScreenEdge
-	bpl renderTerrainRowSpansFoundLeft
-	iny
-	iny
-	sta CACHEDATA
-	lda SCRATCHL
-	eor #%110000	; Toggle span color cache
-	sta SCRATCHL
-	lda CACHEDATA
-	bra renderTerrainRowSpansFindLeftLoop
-
-renderTerrainRowSpansFoundLeft:
-	sec
-	sbc leftScreenEdge	; A now holds remainder of leftmost span
-						; and Y points to leftmost span
-
-renderTerrainRowSpansLoop:
-	sta SCRATCHL2
-
-	; Set fill mode byte for this span
-	lda SCRATCHL
-	sta VRAMBANK,x
-
-	; Cache the index we wrote to so we can erase later
-	phx
-;	txa
-;	sta (CACHEPTR)
-;	inc CACHEPTR
-;	inc CACHEPTR
-
-	; Advance to end of span
-	clc
-	txa
-	adc SCRATCHL2
-	cmp PARAML0
-	bpl renderTerrainRowSpansDone
-	tax
-
-	; Prepare for next span
-	iny
-	iny
-	lda SCRATCHL
-	eor #%110000	; Toggle span color cache
-	sta SCRATCHL
-
-	lda terrainSpanData+2,y
-	bra renderTerrainRowSpansLoop
-
-renderTerrainRowSpansDone:
-	lda PARAML1
-	dec
-	bne renderTerrainSpansLoop
-
-	pea 0		; Null-terminate the unrender cache
-	SLOWGRAPHICS
-	RESTORE_AXY
-	rts
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; unrenderTerrainSpans:
-;
-;
-
-unrenderTerrainSpans:
-	SAVE_AXY
-	phb
-	pea $e1e1		; Work entirely in bank E1 for all local read/writes
-	plb
-	plb
-
-	ldy #$800-1
-
-unrenderTerrainSpansLoop:
-	lda 0,y
-	beq unrenderTerrainSpansDone
-	tax
-	lda #0
-	sta a:0,x
-	dey
-	dey
-	bra unrenderTerrainSpansLoop
-
-unrenderTerrainSpansDone:
-	plb
-	RESTORE_AXY
-	rts
-
 
 
 .if 0
@@ -618,123 +472,6 @@ compileTerrainOpcode:
 
 .endif
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; compileTerrainSpans:
-;
-;
-compileTerrainSpans:
-	pha
-	lda #0
-
-compileTerrainSpansLoop:
-	sta PARAML1
-	jsr compileTerrainSpansRow
-	lda PARAML1
-	inc
-	cmp #MAXTERRAINHEIGHT
-	bne compileTerrainSpansLoop
-
-	pla
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; compileTerrainSpansRow:
-;
-; PARAML1 = Row index (bottom relative)
-;
-; Trashes SCRATCHL
-;
-compileTerrainSpansRow:
-	SAVE_AXY
-
-	lda PARAML1
-	asl		; Shifts must match SPANROWBYTES
-	asl
-	asl
-	asl
-	asl
-	clc
-	adc #terrainSpanData
-	sta SCRATCHL
-
-	ldy #0
-	ldx #TERRAINWIDTH-2
-
-	lda terrainData,x	; Figure out start value for row
-	cmp PARAML1
-	bcs compileTerrainSpansRowInitGreen
-
-compileTerrainSpansRowInitBlack:
-	lda #$0020		; First span is black
-	sta (SCRATCHL)	; Initialize the row
-	inc SCRATCHL
-	inc SCRATCHL
-	ldy #-1
-
-compileTerrainSpansRowBlackStart:
-	iny
-
-compileTerrainSpansRowBlackLoop:
-	lda terrainData,x
-	cmp PARAML1
-	bcs compileTerrainSpansBlackEnd
-	dex
-	dex
-	iny
-	cpx #-2
-	bne compileTerrainSpansRowBlackLoop
-
-compileTerrainSpansBlackEnd:
-	tya				; Store this span's length
-	sta (SCRATCHL)
-	inc SCRATCHL
-	inc SCRATCHL
-
-	dex				; Begin searching for next span
-	dex
-	cpx #0
-	bmi compileTerrainSpansRowDone
-	ldy #0
-	bra compileTerrainSpansRowGreenStart
-
-compileTerrainSpansRowDone:
-	RESTORE_AXY
-	rts
-
-compileTerrainSpansRowInitGreen:
-	lda #$0010		; First span is green
-	sta (SCRATCHL)	; Initialize the row
-	inc SCRATCHL
-	inc SCRATCHL
-	ldy #-1
-
-compileTerrainSpansRowGreenStart:
-	iny
-
-compileTerrainSpansRowGreenLoop:
-	lda terrainData,x
-	cmp PARAML1
-	bcc compileTerrainSpansGreenEnd
-	dex
-	dex
-	iny
-	cpx #-2
-	bne compileTerrainSpansRowGreenLoop
-
-compileTerrainSpansGreenEnd:
-	tya				; Store this span's length
-	sta (SCRATCHL)
-	inc SCRATCHL
-	inc SCRATCHL
-
-	dex				; Begin searching for next span
-	dex
-	cpx #0
-	bmi compileTerrainSpansRowDone
-	ldy #0
-	bra compileTerrainSpansRowBlackStart
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; prepareRowRendering:
@@ -820,15 +557,6 @@ generateTerrainLoop:
 	rts
 
 
-
-; Terrain data, stored as height values 2 pixels wide (bytes)
-
-terrainData:
-	.repeat TERRAINWIDTH/2
-	.word 0
-	.endrepeat
-terrainDataEnd:
-
 .if 0
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
@@ -841,19 +569,4 @@ clippedTerrainData:
 	.byte 0,0,0,0	; xx,jmp,addr
 	.endrepeat
 .endif
-
-terrainSpanData:
-	.repeat MAXTERRAINHEIGHT
-		.word 0		; Start value (0=BG)
-		.repeat MAXSPANSPERROW
-		.word 0		; Length (in bytes)
-		.endrepeat
-	.endrepeat
-
-terrainSpanWriteCacheNull:
-	.word 0	; Null terminator for when popping off LIFO
-terrainSpanWriteCache:
-	.repeat 512
-	.word 0			; LIFO for tracking span byte writes
-	.endrepeat
 
