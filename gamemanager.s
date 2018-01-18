@@ -30,8 +30,7 @@ beginGameplay:
 	stz leftScreenEdge
 	jsr generateTerrain
 
-	jsl compileTerrainSpans
-;	jsr compileTerrain
+	jsr compileTerrain
 ;	jsr clipTerrain
 	jsl renderTerrainSpans
 
@@ -62,6 +61,7 @@ gameplayLoop:
 	BORDER_COLOR #$3
 	jsl unrenderTerrainSpans
 	jsl renderTerrainSpans
+;	jsr renderTerrain
 
 	stz terrainDirty
 	BORDER_COLOR #$1
@@ -230,7 +230,7 @@ endGame:
 ;
 scrollMap:
 ;	jsr unclipTerrain
-;	jsr unrenderTerrainSpans
+;	jsl unrenderTerrainSpans
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
 

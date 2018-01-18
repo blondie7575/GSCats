@@ -4,7 +4,7 @@
 ;  Created by Quinn Dunki on 7/29/17
 ;
 
-.if 0
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
 ;
@@ -52,104 +52,7 @@ renderRowComplete:
 renderTerrainDone:
 	SLOWGRAPHICS
 	rts
-.endif
 
-
-.if 0
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainFillMode:
-;
-; Trashes all registers
-;
-renderTerrainFillMode:
-	jsr renderTerrainSpans
-	rts
-
-	SAVE_AXY
-	ldy #0
-	ldx #200-MAXTERRAINHEIGHT
-
-renderTerrainFillModeLoop:
-	jsr enableFillMode
-	sty PARAML1
-	jsr renderTerrainRowFillMode
-	inx
-	iny
-	cpy #MAXTERRAINHEIGHT
-	bmi renderTerrainFillModeLoop
-
-renderTerrainFillModeDone:
-	RESTORE_AXY
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; renderTerrainRowFillMode:
-;
-; PARAML1 = Row index (top relative)
-;
-; Trashes PARAML1
-;
-renderTerrainRowFillMode:
-	SAVE_AXY
-	lda PARAML1
-	asl
-	tay
-	ldx vramYOffset,y
-
-	stz renderTerrainRowFillCurrent
-
-	sec
-	lda #MAXTERRAINHEIGHT
-	sbc PARAML1
-	sta PARAML1
-
-	ldy leftScreenEdge
-	sty renderTerrainRowFillColumn
-
-renderTerrainRowFillModeColumnLoop:
-	tya
-	asl
-	tay
-
-	lda terrainData,y
-	cmp PARAML1
-	bmi renderTerrainRowFillModeBlack
-
-	lda renderTerrainRowFillCurrent
-	cmp #$10
-	beq renderTerrainRowFillModeColumnLoopNext
-
-	lda #$10
-	sta renderTerrainRowFillCurrent
-	sta VRAM+(200-MAXTERRAINHEIGHT)*160,x
-
-renderTerrainRowFillModeColumnLoopNext:
-	inx
-	inc renderTerrainRowFillColumn
-	ldy renderTerrainRowFillColumn
-	cpy rightScreenEdge
-	bne renderTerrainRowFillModeColumnLoop
-
-renderTerrainRowFillModeDone:
-	RESTORE_AXY
-	rts
-
-renderTerrainRowFillModeBlack:
-	lda renderTerrainRowFillCurrent
-	cmp #$70
-	beq renderTerrainRowFillModeColumnLoopNext
-
-	lda #$70
-	sta renderTerrainRowFillCurrent
-	sta VRAM+(200-MAXTERRAINHEIGHT)*160,x
-	bra renderTerrainRowFillModeColumnLoopNext
-
-renderTerrainRowFillCurrent:
-	.word 0
-renderTerrainRowFillColumn:
-	.word 0
-.endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; craterTerrain
@@ -217,7 +120,7 @@ craterTerrainDone:
 	RESTORE_AX
 	rts
 
-.if 0
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
 ;
@@ -336,7 +239,7 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
-	;jsr compileTerrainSpans
+	jsl compileTerrainSpans
 	RESTORE_AY
 	rts
 
@@ -470,7 +373,6 @@ compileTerrainColumn3BG:
 compileTerrainOpcode:
 	.word 0
 
-.endif
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -557,7 +459,6 @@ generateTerrainLoop:
 	rts
 
 
-.if 0
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
 	.byte 0
@@ -568,5 +469,5 @@ clippedTerrainData:
 	.repeat MAXTERRAINHEIGHT
 	.byte 0,0,0,0	; xx,jmp,addr
 	.endrepeat
-.endif
+
 
