@@ -16,7 +16,7 @@ renderTerrain:
 	FASTGRAPHICS
 	lda #0
 	sta SCRATCHL2		; Row counter
-	lda #$5f1f			; 4   Point stack to end of VRAM
+	lda #$5f1f			; 4   Point stack to end of affected VRAM
 	tcs					; 2
 
 	sec
@@ -44,8 +44,11 @@ renderRowComplete:
 
 	lda SCRATCHL2
 	inc
-	cmp #MAXTERRAINHEIGHT
-	beq renderTerrainDone
+	cmp lastCompiledTerrainY
+	beq	renderRowCont
+	bcs renderTerrainDone
+
+renderRowCont:
 	sta SCRATCHL2
 	bra renderTerrainLoop
 
@@ -387,6 +390,7 @@ prepareRowRendering:
 
 	ldx #199
 	stz SCRATCHL2
+	stz lastCompiledTerrainY
 
 prepareRowRenderingLoop:
 	lda #0
@@ -404,6 +408,7 @@ prepareRowRenderingLoop:
 
 prepareRowRenderingCompileMode:
 	jsr disableFillMode
+	inc lastCompiledTerrainY
 
 prepareRowRenderingLoopNext:
 	inc SCRATCHL2

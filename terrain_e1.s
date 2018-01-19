@@ -29,6 +29,8 @@ renderTerrainSpans:
 	tcs
 
 	lda #MAXTERRAINHEIGHT-1
+	sec
+	sbc lastCompiledTerrainY
 
 renderTerrainSpansLoop:
 	sta PARAML1

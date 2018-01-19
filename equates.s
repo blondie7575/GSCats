@@ -32,6 +32,8 @@ leftScreenEdge	= $6E		; Reserved for leftScreenEdge  (This is almost certainly m
 STACKPTR		= $70		; Cache for stack pointer in fast graphics
 SHADOWREGISTER	= $72		; Cache for shadow register in fast graphics
 STACKREGISTER	= $73		; Cache for stack register in fast graphics
+lastCompiledTerrainY = $75	; The highest Y value that the compiled renderer must handle
+
 
 
 ; Terrain constants
