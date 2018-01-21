@@ -135,14 +135,14 @@ clipTerrain:
 	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
 	sbc mapScrollPos
 	tay
-	ldx #MAXTERRAINHEIGHT
+	ldx #0
 
 clipTerrainLoop:
-	clc		; Compute buffer to for saved data
+	clc		; Compute buffer to use for saved data
 	txa
 	asl
 	asl
-	adc #clippedTerrainData-4
+	adc #clippedTerrainData;-4
 	sta PARAML0
 
 	lda	compiledTerrain,y
@@ -152,6 +152,7 @@ clipTerrainLoop:
 
 	and #$ff00
 	ora #$004c	; jmp in low byte
+
 	sta compiledTerrain,y
 	iny
 
@@ -166,8 +167,10 @@ clipTerrainLoop:
 	sbc #COMPILEDTERRAINROW+1
 	tay
 
-	dex
-	bne clipTerrainLoop
+	inx
+	cpx lastCompiledTerrainY
+	bcc clipTerrainLoop
+	beq clipTerrainLoop
 
 	RESTORE_AXY
 	rts
@@ -184,14 +187,14 @@ unclipTerrain:
 	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
 	sbc mapScrollPos
 	tay
-	ldx #MAXTERRAINHEIGHT
+	ldx #0
 
 unclipTerrainLoop:
 	clc		; Compute buffer that saved data is in
 	txa
 	asl
 	asl
-	adc #clippedTerrainData-4
+	adc #clippedTerrainData;-4
 	sta PARAML0
 
 	lda	(PARAML0)
@@ -208,8 +211,10 @@ unclipTerrainLoop:
 	sbc #COMPILEDTERRAINROW+1
 	tay
 
-	dex
-	bne unclipTerrainLoop
+	inx
+	cpx lastCompiledTerrainY
+	bcc unclipTerrainLoop
+	beq unclipTerrainLoop
 
 	RESTORE_AXY
 	rts
