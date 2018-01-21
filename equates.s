@@ -39,7 +39,7 @@ lastCompiledTerrainY = $75	; The highest Y value that the compiled renderer must
 ; Terrain constants
 TERRAINWIDTH = 640		; In pixels
 MAXTERRAINHEIGHT = 100	; In pixels
-COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
+COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +3 to make room for clipping jump at end of row
 VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
 VISIBLETERRAINWINDOW = 80				; In words
 MAXSPANSPERROW = 15

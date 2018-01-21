@@ -31,7 +31,7 @@ beginGameplay:
 	jsr generateTerrain
 
 	; Create players
-	lda #106;#56
+	lda #56
 	ldy #0
 	jsr playerCreate
 
@@ -48,35 +48,24 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
+	jsl renderTerrainSpans
 
 gameplayLoop:
-
 	jsr syncVBL
 	BORDER_COLOR #$0
 
-	; Render the terrain if needed
-	lda terrainDirty
-	beq gameplayLoopKbd
-	BORDER_COLOR #$3
-	jsl renderTerrainSpans
-	jsr renderTerrain
-
-	stz terrainDirty
-	BORDER_COLOR #$1
-
-	; Render players
-	jsr renderPlayers
-
-gameplayLoopKbd:
-	lda projectileActive
-	bpl gameplayLoopShotTracking	; Skip input during shots
+	;;;;;;;;;;;
+	; Update
+	;
+;	lda projectileActive
+;	bpl gameplayLoopShotTracking	; Skip input during shots
 
 	; Check for keys down
 	jsr kbdScan
 
 	; Check for pause
-	lda paused
-	bne gameplayLoopEndFrame
+;	lda paused
+;	bne gameplayLoopEndFrame
 
 gameplayLoopScroll:
 
@@ -99,20 +88,42 @@ gameplayLoopPower:
 
 gameplayLoopFire:
 	lda fireRequested
-	beq gameplayLoopProjectiles
+	beq gameplayLoopRender
 	jsr fire
 
-gameplayLoopProjectiles:
+gameplayLoopRender:
 	sta KBDSTROBE
-	jsr unrenderProjectiles
-	jsr updateProjectilePhysics
-	jsr protectProjectiles
-	jsr renderProjectiles
-	jsr updateProjectileCollisions
 
-	lda turnRequested
-	beq gameplayLoopVictoryCondition
-	jsr endTurn
+	;;;;;;;;;;;
+	; Render
+	;
+
+	; Render the terrain if needed
+;	lda terrainDirty
+;	beq gameplayLoopProjectiles
+	BORDER_COLOR #$3
+	jsr unclipTerrain
+	jsl unrenderTerrainSpans
+	jsr clipTerrain
+	jsl renderTerrainSpans
+	jsr renderTerrain
+
+	stz terrainDirty
+	BORDER_COLOR #$1
+
+	; Render players
+;	jsr renderPlayers
+
+gameplayLoopProjectiles:
+;	jsr unrenderProjectiles
+;	jsr updateProjectilePhysics
+;	jsr protectProjectiles
+;	jsr renderProjectiles
+;	jsr updateProjectileCollisions
+
+;	lda turnRequested
+;	beq gameplayLoopVictoryCondition
+;	jsr endTurn
 
 gameplayLoopVictoryCondition:
 	lda gameOver
@@ -127,8 +138,8 @@ gameplayLoopContinue:
 	jmp gameplayLoop
 
 gameplayLoopShotTracking:
-	jsr trackActiveShot
-	bra gameplayLoopScroll
+;	jsr trackActiveShot
+;	bra gameplayLoopScroll
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -229,8 +240,8 @@ endGame:
 scrollMap:
 	jsr unclipTerrain
 	jsl unrenderTerrainSpans
-	jsr unrenderPlayers
-	jsr unrenderProjectiles
+;	jsr unrenderPlayers
+;	jsr unrenderProjectiles
 
 	sta mapScrollPos
 	asl
@@ -243,9 +254,9 @@ scrollMap:
 	lda #$ffff
 	sta mapScrollRequested
 
-	jsr protectPlayers
-	jsr protectProjectiles
-	jsr renderPlayers
+;	jsr protectPlayers
+;	jsr protectProjectiles
+;	jsr renderPlayers
 	lda #1
 	sta terrainDirty
 	rts
