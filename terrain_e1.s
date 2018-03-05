@@ -10,7 +10,7 @@
 .include "equates.s"
 .include "macros.s"
 
-UNRENDERCACHESTACK = $7ff
+UNRENDERCACHESTACK = $7ff	; Stack downwards from bottom of VRAM. Mirrored from $01 into $E1!
 
 OP16
 

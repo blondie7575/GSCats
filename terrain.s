@@ -20,7 +20,7 @@ renderTerrain:
 	tcs					; 2
 
 	sec
-	lda #compiledTerrainEnd-VISIBLETERRAINWINDOW-3
+	lda #compiledTerrainEnd-VISIBLETERRAINWINDOW-4
 	sbc mapScrollPos
 	sta PARAML0
 
@@ -32,6 +32,7 @@ renderTerrainLoop:
 	jmp (PARAML0)
 
 renderRowComplete:
+
 	lda PARAML0
 	sec
 	sbc #COMPILEDTERRAINROW
@@ -127,50 +128,55 @@ craterTerrainDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
 ;
+; Saves the compiled terrain data that we overwrite into
+; a buffer at $E04000. We do this by shadowing the stack
+; to that area and pushing.
 ;
 clipTerrain:
 	SAVE_AXY
 
+	; Shadow stack into $E04000 to save clipped data fast
+	tsc
+	sta STACKPTR
+	lda #CLIPPEDTERRAINSTACK
+	tcs
+
 	sec
-	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-4
 	sbc mapScrollPos
 	tay
+
 	ldx #0
 
 clipTerrainLoop:
-	clc		; Compute buffer to use for saved data
-	txa
-	asl
-	asl
-	adc #clippedTerrainData;-4
-	sta PARAML0
-
 	lda	compiledTerrain,y
-	sta (PARAML0)	; Preserve data we're overwriting
-	inc PARAML0
-	inc PARAML0
-
-	and #$ff00
-	ora #$004c	; jmp in low byte
-
+	pha
+	lda #$4cea		; NOP followed by JMP
 	sta compiledTerrain,y
-	iny
 
+	iny
+	iny
 	lda	compiledTerrain,y
-	sta (PARAML0)	; Preserve data we're overwriting
+	pha
 
 	lda #renderRowComplete
 	sta compiledTerrain,y
 
 	tya
 	sec
-	sbc #COMPILEDTERRAINROW+1
+	sbc #COMPILEDTERRAINROW+2
 	tay
 
 	inx
 	cpx lastCompiledTerrainY
 	bcc clipTerrainLoop
 	beq clipTerrainLoop
+
+	; Put stack back where it belongs
+	tsc
+	sta clippedTerrainStackPtr
+	lda STACKPTR
+	tcs
 
 	RESTORE_AXY
 	rts
@@ -179,42 +185,52 @@ clipTerrainLoop:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; unclipTerrain
 ;
+; Restores the compiled terrain data that we wrote
+; to a buffer at $E04000. We do this by mapping the stack
+; to $4000, then using stack-relative addressing to pull the data.
+; We can't pop the data because it's all stored in reverse.
 ;
+; On first move-left unclip every second row is unclipped incorrectly
 unclipTerrain:
 	SAVE_AXY
 
+	phd
+	lda #(CLIPPEDTERRAINSTACK & $ff00)
+	pha
+	pld		; Point direct page at our clip data
+
 	sec
-	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-4
 	sbc mapScrollPos
 	tay
-	ldx #0
+
+	lda clippedTerrainStackPtr
+	and #$00ff
+	tax
+	inx
 
 unclipTerrainLoop:
-	clc		; Compute buffer that saved data is in
-	txa
-	asl
-	asl
-	adc #clippedTerrainData;-4
-	sta PARAML0
-
-	lda	(PARAML0)
+	lda	2,x
 	sta compiledTerrain,y
-	inc PARAML0
-	inc PARAML0
+	iny
 	iny
 
-	lda	(PARAML0)
+	lda 0,x
 	sta compiledTerrain,y
 
 	tya
 	sec
-	sbc #COMPILEDTERRAINROW+1
+	sbc #COMPILEDTERRAINROW+2
 	tay
 
 	inx
-	cpx lastCompiledTerrainY
-	bcc unclipTerrainLoop
-	beq unclipTerrainLoop
+	inx
+	inx
+	inx
+	cpx #$100		; When x hits the top of the stack, we're done
+	bne unclipTerrainLoop
+
+	pld
 
 	RESTORE_AXY
 	rts
@@ -471,13 +487,10 @@ generateTerrainLoop:
 
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
-	.byte 0
+	.byte $00
 	.endrepeat
 compiledTerrainEnd:
 
-clippedTerrainData:
-	.repeat MAXTERRAINHEIGHT
-	.byte 0,0,0,0	; xx,jmp,addr
-	.endrepeat
-
+clippedTerrainStackPtr:
+	.word 0
 

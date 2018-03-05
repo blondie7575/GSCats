@@ -39,12 +39,12 @@ lastCompiledTerrainY = $75	; The highest Y value that the compiled renderer must
 ; Terrain constants
 TERRAINWIDTH = 640		; In pixels
 MAXTERRAINHEIGHT = 100	; In pixels
-COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +3 to make room for clipping jump at end of row
+COMPILEDTERRAINROW = TERRAINWIDTH/4+4	; In words, +4 to make room for clipping jump at end of row
 VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
 VISIBLETERRAINWINDOW = 80				; In words
 MAXSPANSPERROW = 15
 SPANROWBYTES = MAXSPANSPERROW*2 + 2		; In bytes
-
+CLIPPEDTERRAINSTACK = $3fff				; Location of stack where clipped terrain data lives
 
 ; Terrain data, stored as height values 2 pixels wide (bytes)
 terrainDataFar = $02f500

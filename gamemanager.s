@@ -99,12 +99,9 @@ gameplayLoopRender:
 	;
 
 	; Render the terrain if needed
-;	lda terrainDirty
-;	beq gameplayLoopProjectiles
+	lda terrainDirty
+	beq gameplayLoopProjectiles
 	BORDER_COLOR #$3
-	jsr unclipTerrain
-	jsl unrenderTerrainSpans
-	jsr clipTerrain
 	jsl renderTerrainSpans
 	jsr renderTerrain
 
