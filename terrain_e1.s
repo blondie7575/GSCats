@@ -200,7 +200,7 @@ compileTerrainSpansRow:
 	bcs compileTerrainSpansRowInitGreen
 
 compileTerrainSpansRowInitBlack:
-	lda #$0020		; First span is black
+	lda #$0010		; First span is black
 	sta (SCRATCHL)	; Initialize the row
 	inc SCRATCHL
 	inc SCRATCHL
@@ -237,7 +237,7 @@ compileTerrainSpansRowDone:
 	rts
 
 compileTerrainSpansRowInitGreen:
-	lda #$0010		; First span is green
+	lda #$0020		; First span is green
 	sta (SCRATCHL)	; Initialize the row
 	inc SCRATCHL
 	inc SCRATCHL
