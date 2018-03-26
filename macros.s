@@ -30,7 +30,7 @@
 
 .macro DBR bankNum
 	BITS8
-	lda bankNum
+	lda #bankNum
 	pha
 	plb
 	BITS16
@@ -42,6 +42,15 @@
 	plb
 .endmacro
 
+.macro SAVE_DBR
+	phb
+	phk
+	plb
+.endmacro
+
+.macro RESTORE_DBR
+	plb
+.endmacro
 
 .macro EMULATION
 	sec		; Enable 8-bit mode
@@ -100,7 +109,7 @@
 .macro FASTGRAPHICS			;34 cycles, 12 bytes
 	sei						;2
 	phd						;4
-	sep #%00100000	;		 3   16-bit A only, to preserve X/Y
+	sep #%00100000	;		 3   8-bit A only, to preserve X/Y
 	.a8
 
 	lda STACKCTL			;5
@@ -116,7 +125,7 @@
 
 
 .macro SLOWGRAPHICS			;28 cycles, 12 bytes
-	sep #%00100000	;        3    16-bit A only, to preserve X/Y
+	sep #%00100000	;        3    8-bit A only, to preserve X/Y
 	.a8
 
 	lda STACKREGISTER		;4
@@ -167,6 +176,25 @@
 nobrk:
 	pla
 .endmacro
+
+.macro BREAK_NOSTACK
+	lda breakpoint
+	beq nobrk
+	lda #1
+	sta $e1c029
+	brk
+nobrk:	
+.endmacro
+
+
+.macro HARDBRK
+	pha
+	lda #1
+	sta $e1c029
+	pla
+	brk
+.endmacro
+
 
 ;;;;;;;;;;
 ; Stack Macros

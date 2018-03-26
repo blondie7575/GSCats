@@ -40,9 +40,41 @@ main:
 	; Copy code into bank 2
 	ldx fileReadLen
 	lda #2
+	ldy #0
 	jsr copyBytes
 
 	EMULATION
+
+;;;;;;;;;;;;;;;;;;;;;
+
+	; Open the E1 code file
+	jsr PRODOS
+	.byte $c8
+	.addr fileOpenCodeE1
+	bne ioError
+
+	; Load the code into bank 0
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioError
+
+	; Close the file
+	jsr PRODOS
+	.byte $cc
+	.addr fileClose
+
+	NATIVE
+
+	; Copy code into bank E1
+	ldx fileReadLen
+	lda #$E1
+	ldy #$800		; Must match terrain_e1 .org
+	jsr copyBytes
+
+	EMULATION
+
+;;;;;;;;;;;;;;;;;;;;;
 
 	; Open the sprite bank file
 	jsr PRODOS
@@ -66,6 +98,7 @@ main:
 	; Copy sprites into bank 3
 	ldx fileReadLen
 	lda #3
+	ldy #0
 	jsr copyBytes
 
 	; Set up a long jump into bank 2, and
@@ -73,6 +106,7 @@ main:
 	; properly to ProDOS 8
 	lda #returnToProDOS
 	sta PRODOSRETURN
+
 	jml MAINENTRY
 
 returnToProDOS:
@@ -90,9 +124,13 @@ ioError:
 ; bottom of any other bank. Must be in native mode.
 ;
 ; X = Length of data in bytes
+; Y = Origin within bank
 ; A = Bank number of destination
 ;
 copyBytes:
+	sty copyBytesDest+1
+	sty copyBytesDest2+1
+
 	phx
 	BITS8
 	sta copyBytesDest+3
@@ -135,6 +173,13 @@ fileOpenCode:
 	.byte 0					; Result (file handle)
 	.byte 0					; Padding
 
+fileOpenCodeE1:
+	.byte 3
+	.addr codePathE1
+	.addr $9200				; 1k below BASIC.SYSTEM
+	.byte 0					; Result (file handle)
+	.byte 0					; Padding
+
 fileRead:
 	.byte 4
 	.byte 1					; File handle (we know it's gonna be 1)
@@ -156,5 +201,7 @@ fileOpenSprites:
 
 codePath:
 	pstring "/GSAPP/CODEBANK"
+codePathE1:
+	pstring "/GSAPP/CODEBANKE1"
 spritePath:
 	pstring "/GSAPP/SPRITEBANK00"

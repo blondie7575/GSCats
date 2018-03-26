@@ -8,12 +8,15 @@
 .include "macros.s"
 .include "equates.s"
 
+.import renderTerrainSpans
+.import unrenderTerrainSpans
+.import compileTerrainSpans
+
 .org $0000
 
 
 mainBank2:
 	SYNCDBR
-
 	BITS8
 	lda #$f0
 	sta TEXTCOLOR
@@ -34,10 +37,10 @@ quitGame:
 
 .include "graphics.s"
 .include "font.s"
+.include "player.s"
 .include "terrain.s"
 .include "collision.s"
 .include "gameobject.s"
-.include "player.s"
 .include "utility.s"
 .include "tables.s"
 .include "gamemanager.s"

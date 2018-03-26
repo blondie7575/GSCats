@@ -27,9 +27,8 @@ beginGameplay:
 	jsr colorFill
 
 	; Generate, compile, and clip terrain
+	stz leftScreenEdge
 	jsr generateTerrain
-	jsr compileTerrain
-	jsr clipTerrain
 
 	; Create players
 	lda #56
@@ -45,21 +44,21 @@ beginGameplay:
 
 	jsr protectPlayers
 	jsr protectProjectiles
+	jsr prepareRowRendering
+
+	jsr compileTerrain
+	jsr clipTerrain
+	jsl renderTerrainSpans
 
 gameplayLoop:
-
 	jsr syncVBL
+	BORDER_COLOR #$0
 
-	; Render the terrain if needed
-	lda terrainDirty
-	beq gameplayLoopKbd
-	jsr renderTerrain
-	stz terrainDirty
-
-	; Render players
-	jsr renderPlayers
-
-gameplayLoopKbd:
+	;;;;;;;;;;;
+	; Update
+	;
+	lda #1
+	sta projectilesDirty
 	lda projectileActive
 	bpl gameplayLoopShotTracking	; Skip input during shots
 
@@ -67,8 +66,13 @@ gameplayLoopKbd:
 	jsr kbdScan
 
 	; Check for pause
-	lda paused
-	bne gameplayLoopEndFrame
+;	lda paused
+;	bne gameplayLoopEndFrame
+
+	bra gameplayLoopScroll
+
+gameplayLoopShotTracking:
+	jsr trackActiveShot
 
 gameplayLoopScroll:
 
@@ -91,20 +95,44 @@ gameplayLoopPower:
 
 gameplayLoopFire:
 	lda fireRequested
-	beq gameplayLoopProjectiles
+	beq gameplayLoopRender
 	jsr fire
 
-gameplayLoopProjectiles:
+gameplayLoopRender:
 	sta KBDSTROBE
+
+	;;;;;;;;;;;
+	; Render
+	;
+
+	; Render the terrain if needed
+	lda terrainDirty
+	beq gameplayLoopProjectiles
+	BORDER_COLOR #$3
+	jsl renderTerrainSpans
+	jsr renderTerrain
+
+	stz terrainDirty
+	BORDER_COLOR #$1
+
+	; Render players
+	jsr renderPlayers
+
+gameplayLoopProjectiles:
+	lda projectilesDirty
+	beq gameplayLoopProjectilesSkip
+
 	jsr unrenderProjectiles
 	jsr updateProjectilePhysics
 	jsr protectProjectiles
 	jsr renderProjectiles
+
+gameplayLoopProjectilesSkip:
 	jsr updateProjectileCollisions
 
-	lda turnRequested
-	beq gameplayLoopVictoryCondition
-	jsr endTurn
+;	lda turnRequested
+;	beq gameplayLoopVictoryCondition
+;	jsr endTurn
 
 gameplayLoopVictoryCondition:
 	lda gameOver
@@ -113,12 +141,10 @@ gameplayLoopVictoryCondition:
 
 gameplayLoopEndFrame:
 	lda quitRequested
-	beq gameplayLoop
+	beq gameplayLoopContinue
 	jmp quitGame
-
-gameplayLoopShotTracking:
-	jsr trackActiveShot
-	bra gameplayLoopScroll
+gameplayLoopContinue:
+	jmp gameplayLoop
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -218,8 +244,11 @@ endGame:
 ;
 scrollMap:
 	jsr unclipTerrain
+	jsl unrenderTerrainSpans
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
+
+	jsr updateProjectilePhysics	; Good idea?
 
 	sta mapScrollPos
 	asl
@@ -235,8 +264,10 @@ scrollMap:
 	jsr protectPlayers
 	jsr protectProjectiles
 	jsr renderPlayers
+	jsr renderProjectiles		; Prevents flicker, but ads jitter to shot tracking
 	lda #1
 	sta terrainDirty
+	stz projectilesDirty
 	rts
 
 
@@ -287,7 +318,7 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0000,$07b,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+	.word $0aef,$0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$007b,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
 
 
 
@@ -304,6 +335,8 @@ fireRequested:
 turnRequested:
 	.word $0000
 terrainDirty:
+	.word 1
+projectilesDirty:
 	.word 1
 activePlayer:
 	.word 0
@@ -323,7 +356,7 @@ paused:
 ; c) Byte-distance from left edge of logical terrain to right edge of visible screen minus game object width in words
 mapScrollPos:
 	.word 0
-leftScreenEdge:
-	.word 0
+;leftScreenEdge = $6E		; Moved to zero page for speed and cross-bank convenience
+;	.word 0
 rightScreenEdge:
 	.word 160-GAMEOBJECTWIDTH/4-1

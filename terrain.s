@@ -5,29 +5,22 @@
 ;
 
 
-TERRAINWIDTH = 640		; In pixels
-MAXTERRAINHEIGHT = 100	; In pixels
-COMPILEDTERRAINROW = TERRAINWIDTH/4+3	; In words, +2 to make room for clipping jump at end of row
-VISIBLETERRAINWIDTH = TERRAINWIDTH/4	; In words- width minus jump return padding
-VISIBLETERRAINWINDOW = 80				; In words
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderTerrain
 ;
 ; No stack operations permitted here!
 ;
-; Current implementation: Unknown cycles per row
 ; Trashes all registers
 ;
 renderTerrain:
 	FASTGRAPHICS
-	lda #MAXTERRAINHEIGHT
+	lda #0
 	sta SCRATCHL2		; Row counter
-	lda #$9cff			; 4   Point stack to end of VRAM
+	lda #$5f1f			; 4   Point stack to end of affected VRAM
 	tcs					; 2
 
 	sec
-	lda #compiledTerrainEnd-VISIBLETERRAINWINDOW-3
+	lda #compiledTerrainEnd-VISIBLETERRAINWINDOW-4
 	sbc mapScrollPos
 	sta PARAML0
 
@@ -39,13 +32,28 @@ renderTerrainLoop:
 	jmp (PARAML0)
 
 renderRowComplete:
+
 	lda PARAML0
 	sec
 	sbc #COMPILEDTERRAINROW
 	sta PARAML0
-	dec SCRATCHL2
-	bne renderTerrainLoop
 
+	tsc
+	clc
+	adc #320
+	tcs
+
+	lda SCRATCHL2
+	inc
+	cmp lastCompiledTerrainY
+	beq	renderRowCont
+	bcs renderTerrainDone
+
+renderRowCont:
+	sta SCRATCHL2
+	bra renderTerrainLoop
+
+renderTerrainDone:
 	SLOWGRAPHICS
 	rts
 
@@ -120,47 +128,55 @@ craterTerrainDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain
 ;
+; Saves the compiled terrain data that we overwrite into
+; a buffer at $E04000. We do this by shadowing the stack
+; to that area and pushing.
 ;
 clipTerrain:
 	SAVE_AXY
 
+	; Shadow stack into $E04000 to save clipped data fast
+	tsc
+	sta STACKPTR
+	lda #CLIPPEDTERRAINSTACK
+	tcs
+
 	sec
-	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-4
 	sbc mapScrollPos
 	tay
-	ldx #MAXTERRAINHEIGHT
+
+	ldx #0
 
 clipTerrainLoop:
-	clc		; Compute buffer to for saved data
-	txa
-	asl
-	asl
-	adc #clippedTerrainData-4
-	sta PARAML0
-
 	lda	compiledTerrain,y
-	sta (PARAML0)	; Preserve data we're overwriting
-	inc PARAML0
-	inc PARAML0
-
-	and #$ff00
-	ora #$004c	; jmp in low byte
+	pha
+	lda #$4cea		; NOP followed by JMP
 	sta compiledTerrain,y
-	iny
 
+	iny
+	iny
 	lda	compiledTerrain,y
-	sta (PARAML0)	; Preserve data we're overwriting
+	pha
 
 	lda #renderRowComplete
 	sta compiledTerrain,y
 
 	tya
 	sec
-	sbc #COMPILEDTERRAINROW+1
+	sbc #COMPILEDTERRAINROW+2
 	tay
 
-	dex
-	bne clipTerrainLoop
+	inx
+	cpx lastCompiledTerrainY
+	bcc clipTerrainLoop
+	beq clipTerrainLoop
+
+	; Put stack back where it belongs
+	tsc
+	sta clippedTerrainStackPtr
+	lda STACKPTR
+	tcs
 
 	RESTORE_AXY
 	rts
@@ -169,40 +185,52 @@ clipTerrainLoop:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; unclipTerrain
 ;
+; Restores the compiled terrain data that we wrote
+; to a buffer at $E04000. We do this by mapping the stack
+; to $4000, then using stack-relative addressing to pull the data.
+; We can't pop the data because it's all stored in reverse.
 ;
+; On first move-left unclip every second row is unclipped incorrectly
 unclipTerrain:
 	SAVE_AXY
 
+	phd
+	lda #(CLIPPEDTERRAINSTACK & $ff00)
+	pha
+	pld		; Point direct page at our clip data
+
 	sec
-	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-3
+	lda #COMPILEDTERRAINROW*MAXTERRAINHEIGHT-4
 	sbc mapScrollPos
 	tay
-	ldx #MAXTERRAINHEIGHT
+
+	lda clippedTerrainStackPtr
+	and #$00ff
+	tax
+	inx
 
 unclipTerrainLoop:
-	clc		; Compute buffer that saved data is in
-	txa
-	asl
-	asl
-	adc #clippedTerrainData-4
-	sta PARAML0
-
-	lda	(PARAML0)
+	lda	2,x
 	sta compiledTerrain,y
-	inc PARAML0
-	inc PARAML0
+	iny
 	iny
 
-	lda	(PARAML0)
+	lda 0,x
 	sta compiledTerrain,y
 
 	tya
 	sec
-	sbc #COMPILEDTERRAINROW+1
+	sbc #COMPILEDTERRAINROW+2
 	tay
 
-	dex
+	inx
+	inx
+	inx
+	inx
+	cpx #$100		; When x hits the top of the stack, we're done
 	bne unclipTerrainLoop
+
+	pld
 
 	RESTORE_AXY
 	rts
@@ -216,15 +244,16 @@ unclipTerrainLoop:
 compileTerrain:
 	SAVE_AY
 
-	ldy #MAXTERRAINHEIGHT-1
+	ldy #0
 	lda #compiledTerrain
 	sta PARAML0
 
 compileTerrainLoop:
 	sty PARAML1
 	jsr compileTerrainRow
-	dey
-	bmi compileTerrainDone
+	iny
+	cpy #MAXTERRAINHEIGHT
+	beq compileTerrainDone
 
 	clc
 	lda #COMPILEDTERRAINROW
@@ -234,6 +263,7 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
+	jsl compileTerrainSpans
 	RESTORE_AY
 	rts
 
@@ -370,6 +400,48 @@ compileTerrainOpcode:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; prepareRowRendering:
+;
+; Set SCBs to match rendering mode of each terrain line
+;
+; Trashes SCRATCHL, SCRATCHL2
+;
+prepareRowRendering:
+	SAVE_AXY
+
+	ldx #199
+	stz SCRATCHL2
+	stz lastCompiledTerrainY
+
+prepareRowRenderingLoop:
+	lda #0
+	PLAYERPTR_Y
+	sec
+	lda playerData+GO_POSY,y
+	sbc #GAMEOBJECTHEIGHT
+
+	cmp SCRATCHL2
+	bcc prepareRowRenderingCompileMode
+	beq prepareRowRenderingCompileMode
+
+	jsr enableFillMode
+	bra prepareRowRenderingLoopNext
+
+prepareRowRenderingCompileMode:
+	jsr disableFillMode
+	inc lastCompiledTerrainY
+
+prepareRowRenderingLoopNext:
+	inc SCRATCHL2
+	dex
+	cpx #200-MAXTERRAINHEIGHT
+	bne prepareRowRenderingLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; generateTerrain
 ;
 ; Trashes everything
@@ -382,7 +454,6 @@ generateTerrain:
 	sta SCRATCHL
 
 generateTerrainLoop:
-
 	lda sineTable,x
 
 	lsr
@@ -414,23 +485,12 @@ generateTerrainLoop:
 	rts
 
 
-
-; Terrain data, stored as height values 2 pixels wide (bytes)
-
-terrainData:
-	.repeat TERRAINWIDTH/2
-	.word 0
-	.endrepeat
-terrainDataEnd:
-
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
-	.byte 0
+	.byte $00
 	.endrepeat
 compiledTerrainEnd:
 
-clippedTerrainData:
-	.repeat MAXTERRAINHEIGHT
-	.byte 0,0,0,0	; xx,jmp,addr
-	.endrepeat
+clippedTerrainStackPtr:
+	.word 0
 
