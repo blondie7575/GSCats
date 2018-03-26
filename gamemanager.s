@@ -57,8 +57,10 @@ gameplayLoop:
 	;;;;;;;;;;;
 	; Update
 	;
-;	lda projectileActive
-;	bpl gameplayLoopShotTracking	; Skip input during shots
+	lda #1
+	sta projectilesDirty
+	lda projectileActive
+	bpl gameplayLoopShotTracking	; Skip input during shots
 
 	; Check for keys down
 	jsr kbdScan
@@ -66,6 +68,11 @@ gameplayLoop:
 	; Check for pause
 ;	lda paused
 ;	bne gameplayLoopEndFrame
+
+	bra gameplayLoopScroll
+
+gameplayLoopShotTracking:
+	jsr trackActiveShot
 
 gameplayLoopScroll:
 
@@ -112,11 +119,16 @@ gameplayLoopRender:
 	jsr renderPlayers
 
 gameplayLoopProjectiles:
-;	jsr unrenderProjectiles
-;	jsr updateProjectilePhysics
-;	jsr protectProjectiles
-;	jsr renderProjectiles
-;	jsr updateProjectileCollisions
+	lda projectilesDirty
+	beq gameplayLoopProjectilesSkip
+
+	jsr unrenderProjectiles
+	jsr updateProjectilePhysics
+	jsr protectProjectiles
+	jsr renderProjectiles
+
+gameplayLoopProjectilesSkip:
+	jsr updateProjectileCollisions
 
 ;	lda turnRequested
 ;	beq gameplayLoopVictoryCondition
@@ -133,10 +145,6 @@ gameplayLoopEndFrame:
 	jmp quitGame
 gameplayLoopContinue:
 	jmp gameplayLoop
-
-gameplayLoopShotTracking:
-;	jsr trackActiveShot
-;	bra gameplayLoopScroll
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -238,7 +246,9 @@ scrollMap:
 	jsr unclipTerrain
 	jsl unrenderTerrainSpans
 	jsr unrenderPlayers
-;	jsr unrenderProjectiles
+	jsr unrenderProjectiles
+
+	jsr updateProjectilePhysics	; Good idea?
 
 	sta mapScrollPos
 	asl
@@ -252,10 +262,12 @@ scrollMap:
 	sta mapScrollRequested
 
 	jsr protectPlayers
-;	jsr protectProjectiles
+	jsr protectProjectiles
 	jsr renderPlayers
+	jsr renderProjectiles		; Prevents flicker, but ads jitter to shot tracking
 	lda #1
 	sta terrainDirty
+	stz projectilesDirty
 	rts
 
 
@@ -323,6 +335,8 @@ fireRequested:
 turnRequested:
 	.word $0000
 terrainDirty:
+	.word 1
+projectilesDirty:
 	.word 1
 activePlayer:
 	.word 0
