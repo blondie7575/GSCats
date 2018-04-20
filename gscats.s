@@ -46,6 +46,7 @@ quitGame:
 .include "gamemanager.s"
 .include "input.s"
 .include "projectile.s"
+.include "inventory.s"
 
 endMainBank2:
 

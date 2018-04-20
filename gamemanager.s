@@ -50,6 +50,8 @@ beginGameplay:
 	jsr clipTerrain
 	jsl renderTerrainSpans
 
+	jsr renderInventory
+
 gameplayLoop:
 	jsr syncVBL
 	BORDER_COLOR #$0

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		700B5E6F2069831000B31C00 /* inventory.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = inventory.s; sourceTree = "<group>"; };
 		700C39C51F2E5CA800C24F9C /* tables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tables.s; sourceTree = "<group>"; };
 		700F21DE1F43E31300D7007D /* input.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = input.s; sourceTree = "<group>"; };
 		700F21DF1F4A364600D7007D /* projectile.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = projectile.s; sourceTree = "<group>"; };
@@ -54,6 +55,7 @@
 				700C39C51F2E5CA800C24F9C /* tables.s */,
 				70E266E31F6F262D005AC7E4 /* circleTable.s */,
 				70F0869F1F413A89002446C3 /* player.s */,
+				700B5E6F2069831000B31C00 /* inventory.s */,
 				700F21DF1F4A364600D7007D /* projectile.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
 				70E554C41F807ADB00F3C871 /* spritebank.s */,
