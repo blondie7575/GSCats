@@ -16,6 +16,18 @@ beginGameplay:
 	lda #0
 	jsr setPalette
 
+	; Set up palette for status bar
+	lda #statusBarPalette
+	sta PARAML0
+	lda #1
+	jsr setPalette
+
+	lda #1
+	sta PARAML0
+	ldx #0
+	ldy #10
+	jsr setScanlinePalette
+
 	; Set up sprite rendering
 	BITS8
 	lda #3
@@ -320,7 +332,9 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$007b,$0000,$0000,$0000,$0000,$0000,$0000,$0FFF
+	.word $0aef,$0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$00f0,$0fff,$0bbb,$ddd,$007b,$0000,$0ff0,$0fff
+statusBarPalette:
+	.word $0888,$0aef,$0F00,$0861,$0c93,$0eb4,$0d66,$0f9a,$00f0,$0fff,$0bbb,$ddd,$007b,$0000,$0ff0,$0fff
 
 
 

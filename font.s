@@ -164,524 +164,524 @@ FontTable:
 
 FontData:
 s_Space:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 
 s_Exclaim:
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $00000000
-	qbyte7 $000FF000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $00000000
+	qbyte $000FF000
 
 s_Quote:
-	qbyte7 $0FF00FF0
-	qbyte7 $00F000F0
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $0FF00FF0
+	qbyte $00F000F0
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 
 s_Number:
-	qbyte7 $00000000
-	qbyte7 $00F00F00
-	qbyte7 $0FFFFFF0
-	qbyte7 $00F00F00
-	qbyte7 $0FFFFFF0
-	qbyte7 $00F00F00
+	qbyte $00000000
+	qbyte $00F00F00
+	qbyte $0FFFFFF0
+	qbyte $00F00F00
+	qbyte $0FFFFFF0
+	qbyte $00F00F00
 
 s_Dollar:
-	qbyte7 $000F0F00
-	qbyte7 $00FFFFF0
-	qbyte7 $0F0F0F00
-	qbyte7 $00FFFF00
-	qbyte7 $000F0FF0
-	qbyte7 $0FFFFF00
+	qbyte $000F0F00
+	qbyte $00FFFFF0
+	qbyte $0F0F0F00
+	qbyte $00FFFF00
+	qbyte $000F0FF0
+	qbyte $0FFFFF00
 
 s_Percent:
-	qbyte7 $0FF000F0
-	qbyte7 $00000F00
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $00F00000
-	qbyte7 $0F000FF0
+	qbyte $0FF000F0
+	qbyte $00000F00
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $00F00000
+	qbyte $0F000FF0
 
 s_Amper:
-	qbyte7 $000FF000
-	qbyte7 $00F00F00
-	qbyte7 $0F00F000
-	qbyte7 $00F000F0
-	qbyte7 $0F0FFF00
-	qbyte7 $00F0F000
+	qbyte $000FF000
+	qbyte $00F00F00
+	qbyte $0F00F000
+	qbyte $00F000F0
+	qbyte $0F0FFF00
+	qbyte $00F0F000
 
 s_Single:
-	qbyte7 $000FF000
-	qbyte7 $0000F000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $000FF000
+	qbyte $0000F000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 
 s_OpenParen:
-	qbyte7 $000FF000
-	qbyte7 $00FF0000
-	qbyte7 $0FF00000
-	qbyte7 $0FF00000
-	qbyte7 $00FF0000
-	qbyte7 $000FF000
+	qbyte $000FF000
+	qbyte $00FF0000
+	qbyte $0FF00000
+	qbyte $0FF00000
+	qbyte $00FF0000
+	qbyte $000FF000
 
 s_CloseParen:			; Anger symbol
-	qbyte7 $0F0000F0
-	qbyte7 $00F00F00
-	qbyte7 $00000000
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $F000000F
+	qbyte $0F0000F0
+	qbyte $00F00F00
+	qbyte $00000000
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $F000000F
 
 
 s_Asterix:
-	qbyte7 $00000000		; Angle symbol
-	qbyte7 $00000FF0
-	qbyte7 $0000FF00
-	qbyte7 $000FF000
-	qbyte7 $00FFFFF0
-	qbyte7 $00000000
+	qbyte $00000000		; Angle symbol
+	qbyte $00000FF0
+	qbyte $0000FF00
+	qbyte $000FF000
+	qbyte $00FFFFF0
+	qbyte $00000000
 
 s_Plus:					; Power symbol
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $0FFFFF00
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $00000000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $0FFFFF00
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $00000000
 
 s_Comma:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $0000FF00
-	qbyte7 $0000F000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $0000FF00
+	qbyte $0000F000
 
 s_Minus:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $0FFFFF00
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $0FFFFF00
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 
 
 s_Period:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $0000FF00
-	qbyte7 $0000FF00
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $0000FF00
+	qbyte $0000FF00
 
 s_Slash:
-	qbyte7 $000000F0
-	qbyte7 $00000F00
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $00F00000
-	qbyte7 $0F000000
+	qbyte $000000F0
+	qbyte $00000F00
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $00F00000
+	qbyte $0F000000
 
 s_N0:
-	qbyte7 $00FFFF00
-	qbyte7 $0F000FF0
-	qbyte7 $0F00F0F0
-	qbyte7 $0F0F00F0
-	qbyte7 $0FF000F0
-	qbyte7 $00FFFF00
+	qbyte $00FFFF00
+	qbyte $0F000FF0
+	qbyte $0F00F0F0
+	qbyte $0F0F00F0
+	qbyte $0FF000F0
+	qbyte $00FFFF00
 
 s_N1:
-	qbyte7 $000F0000
-	qbyte7 $00FF0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $00FFF000
+	qbyte $000F0000
+	qbyte $00FF0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $00FFF000
 
 s_N2:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $00000F00
-	qbyte7 $000FF000
-	qbyte7 $00F00000
-	qbyte7 $0FFFFFF0
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $00000F00
+	qbyte $000FF000
+	qbyte $00F00000
+	qbyte $0FFFFFF0
 
 s_N3:
-	qbyte7 $00FFFF00
-	qbyte7 $000000F0
-	qbyte7 $000FFF00
-	qbyte7 $000000F0
-	qbyte7 $000000F0
-	qbyte7 $00FFFF00
+	qbyte $00FFFF00
+	qbyte $000000F0
+	qbyte $000FFF00
+	qbyte $000000F0
+	qbyte $000000F0
+	qbyte $00FFFF00
 
 s_N4:
-	qbyte7 $0000FF00
-	qbyte7 $000F0F00
-	qbyte7 $00F00F00
-	qbyte7 $0FFFFFF0
-	qbyte7 $00000F00
-	qbyte7 $00000F00
+	qbyte $0000FF00
+	qbyte $000F0F00
+	qbyte $00F00F00
+	qbyte $0FFFFFF0
+	qbyte $00000F00
+	qbyte $00000F00
 
 s_N5:
-	qbyte7 $0FFFFFF0
-	qbyte7 $0F000000
-	qbyte7 $0FFFFF00
-	qbyte7 $000000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $0FFFFFF0
+	qbyte $0F000000
+	qbyte $0FFFFF00
+	qbyte $000000F0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_N6:
-	qbyte7 $000FFF00
-	qbyte7 $00F00000
-	qbyte7 $0F000000
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFFF0
+	qbyte $000FFF00
+	qbyte $00F00000
+	qbyte $0F000000
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $00FFFFF0
 
 s_N7:
-	qbyte7 $0FFFFFF0
-	qbyte7 $000000F0
-	qbyte7 $00000F00
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
+	qbyte $0FFFFFF0
+	qbyte $000000F0
+	qbyte $00000F00
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $000F0000
 
 s_N8:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_N9:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $00F00000
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $00FFFF00
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $00F00000
 
 s_Colon:
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $00000000
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $00000000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $00000000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $00000000
 
 s_Semi:
-	qbyte7 $00000000
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $00000000
-	qbyte7 $000FF000
-	qbyte7 $000F0000
+	qbyte $00000000
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $00000000
+	qbyte $000FF000
+	qbyte $000F0000
 
 s_LAngle:
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $00F00000
-	qbyte7 $000F0000
-	qbyte7 $0000F000
-	qbyte7 $00000000
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $00F00000
+	qbyte $000F0000
+	qbyte $0000F000
+	qbyte $00000000
 
 s_Equal:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $0FFFFF00
-	qbyte7 $00000000
-	qbyte7 $0FFFFF00
-	qbyte7 $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $0FFFFF00
+	qbyte $00000000
+	qbyte $0FFFFF00
+	qbyte $00000000
 
 s_RAngle:
-	qbyte7 $0000F000
-	qbyte7 $00000F00
-	qbyte7 $000000F0
-	qbyte7 $00000F00
-	qbyte7 $0000F000
-	qbyte7 $00000000
+	qbyte $0000F000
+	qbyte $00000F00
+	qbyte $000000F0
+	qbyte $00000F00
+	qbyte $0000F000
+	qbyte $00000000
 
 s_Question:
-	qbyte7 $00FFF000
-	qbyte7 $0F000F00
-	qbyte7 $00000F00
-	qbyte7 $000FF000
-	qbyte7 $00000000
-	qbyte7 $000FF000
+	qbyte $00FFF000
+	qbyte $0F000F00
+	qbyte $00000F00
+	qbyte $000FF000
+	qbyte $00000000
+	qbyte $000FF000
 
 s_At:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F00F0F0
-	qbyte7 $0FFFF0F0
-	qbyte7 $000000F0
-	qbyte7 $0FFFFF00
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $0F00F0F0
+	qbyte $0FFFF0F0
+	qbyte $000000F0
+	qbyte $0FFFFF00
 
 s_A:
-	qbyte7 $000FF000
-	qbyte7 $00F00F00
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFFF0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
+	qbyte $000FF000
+	qbyte $00F00F00
+	qbyte $0F0000F0
+	qbyte $0FFFFFF0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
 
 s_B:
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFF00
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0FFFFF00
 
 s_C:
-	qbyte7 $00FFFFF0
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $00FFFFF0
+	qbyte $00FFFFF0
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $00FFFFF0
 
 s_D:
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFF00
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0FFFFF00
 
 s_E:
-	qbyte7 $0FFFFFF0
-	qbyte7 $0F000000
-	qbyte7 $0FFFF000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0FFFFFF0
+	qbyte $0FFFFFF0
+	qbyte $0F000000
+	qbyte $0FFFF000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0FFFFFF0
 
 s_F:
-	qbyte7 $0FFFFFF0
-	qbyte7 $0F000000
-	qbyte7 $0FFFF000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
+	qbyte $0FFFFFF0
+	qbyte $0F000000
+	qbyte $0FFFF000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
 
 s_G:
-	qbyte7 $00FFFFF0
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F00FFF0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $00FFFFF0
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F00FFF0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_H:
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFFF0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0FFFFFF0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
 
 s_I:
-	qbyte7 $0FFFFF00
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $0FFFFF00
+	qbyte $0FFFFF00
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $0FFFFF00
 
 s_J:
-	qbyte7 $000000F0
-	qbyte7 $000000F0
-	qbyte7 $000000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $000000F0
+	qbyte $000000F0
+	qbyte $000000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_K:
-	qbyte7 $0F000F00
-	qbyte7 $0F00F000
-	qbyte7 $0FFF0000
-	qbyte7 $0F00F000
-	qbyte7 $0F000F00
-	qbyte7 $0F000F00
+	qbyte $0F000F00
+	qbyte $0F00F000
+	qbyte $0FFF0000
+	qbyte $0F00F000
+	qbyte $0F000F00
+	qbyte $0F000F00
 
 s_L:
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0FFFFFF0
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0FFFFFF0
 
 s_M:
-	qbyte7 $0F0000F0
-	qbyte7 $0FF00FF0
-	qbyte7 $0F0FF0F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0FF00FF0
+	qbyte $0F0FF0F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
 
 s_N:
-	qbyte7 $0F0000F0
-	qbyte7 $0FF000F0
-	qbyte7 $0F0F00F0
-	qbyte7 $0F00F0F0
-	qbyte7 $0F000FF0
-	qbyte7 $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0FF000F0
+	qbyte $0F0F00F0
+	qbyte $0F00F0F0
+	qbyte $0F000FF0
+	qbyte $0F0000F0
 
 s_O:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_P:
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFF00
-	qbyte7 $0F000000
-	qbyte7 $0F000000
-	qbyte7 $0F000000
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $0FFFFF00
+	qbyte $0F000000
+	qbyte $0F000000
+	qbyte $0F000000
 
 s_Q:
-	qbyte7 $00FFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F00F0F0
-	qbyte7 $0F000FF0
-	qbyte7 $00FFFFF0
+	qbyte $00FFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F00F0F0
+	qbyte $0F000FF0
+	qbyte $00FFFFF0
 
 s_R:
-	qbyte7 $0FFFFF00
-	qbyte7 $0F0000F0
-	qbyte7 $0FFFFF00
-	qbyte7 $0F000F00
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
+	qbyte $0FFFFF00
+	qbyte $0F0000F0
+	qbyte $0FFFFF00
+	qbyte $0F000F00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
 
 s_S:
-	qbyte7 $00FFFFF0
-	qbyte7 $0F000000
-	qbyte7 $00FFFF00
-	qbyte7 $000000F0
-	qbyte7 $000000F0
-	qbyte7 $0FFFFF00
+	qbyte $00FFFFF0
+	qbyte $0F000000
+	qbyte $00FFFF00
+	qbyte $000000F0
+	qbyte $000000F0
+	qbyte $0FFFFF00
 
 s_T:
-	qbyte7 $0FFFFF00
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
+	qbyte $0FFFFF00
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
 
 s_U:
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00FFFF00
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00FFFF00
 
 s_V:
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $00F00F00
-	qbyte7 $000FF000
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00F00F00
+	qbyte $000FF000
 
 s_W:
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0000F0
-	qbyte7 $0F0FF0F0
-	qbyte7 $0FF00FF0
-	qbyte7 $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0000F0
+	qbyte $0F0FF0F0
+	qbyte $0FF00FF0
+	qbyte $0F0000F0
 
 s_X:
-	qbyte7 $0F0000F0
-	qbyte7 $00F00F00
-	qbyte7 $000FF000
-	qbyte7 $000FF000
-	qbyte7 $00F00F00
-	qbyte7 $0F0000F0
+	qbyte $0F0000F0
+	qbyte $00F00F00
+	qbyte $000FF000
+	qbyte $000FF000
+	qbyte $00F00F00
+	qbyte $0F0000F0
 
 s_Y:
-	qbyte7 $F00000F0
-	qbyte7 $0F000F00
-	qbyte7 $00F0F000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
+	qbyte $F00000F0
+	qbyte $0F000F00
+	qbyte $00F0F000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
 
 s_Z:
-	qbyte7 $0FFFFFF0
-	qbyte7 $00000F00
-	qbyte7 $0000F000
-	qbyte7 $000F0000
-	qbyte7 $00F00000
-	qbyte7 $0FFFFFF0
+	qbyte $0FFFFFF0
+	qbyte $00000F00
+	qbyte $0000F000
+	qbyte $000F0000
+	qbyte $00F00000
+	qbyte $0FFFFFF0
 
 s_LBracket:
-	qbyte7 $000FFF00
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000F0000
-	qbyte7 $000FFF00
+	qbyte $000FFF00
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000F0000
+	qbyte $000FFF00
 
 s_BackSlash:
-	qbyte7 $0F000000
-	qbyte7 $00F00000
-	qbyte7 $000F0000
-	qbyte7 $0000F000
-	qbyte7 $00000F00
-	qbyte7 $000000F0
+	qbyte $0F000000
+	qbyte $00F00000
+	qbyte $000F0000
+	qbyte $0000F000
+	qbyte $00000F00
+	qbyte $000000F0
 
 s_RBracket:
-	qbyte7 $00FFF000
-	qbyte7 $0000F000
-	qbyte7 $0000F000
-	qbyte7 $0000F000
-	qbyte7 $0000F000
-	qbyte7 $00FFF000
+	qbyte $00FFF000
+	qbyte $0000F000
+	qbyte $0000F000
+	qbyte $0000F000
+	qbyte $0000F000
+	qbyte $00FFF000
 
 s_Caret:
-	qbyte7 $0000F000
-	qbyte7 $000F0F00
-	qbyte7 $00F000F0
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $0000F000
+	qbyte $000F0F00
+	qbyte $00F000F0
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 
 s_UnderLine:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $FFFFFFF0
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $FFFFFFF0
 
 s_Template:
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
-	qbyte7 $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
+	qbyte $00000000
 

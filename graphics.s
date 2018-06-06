@@ -81,6 +81,29 @@ initSCBsLoop:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; setScanlinePalette
+; Set the palette for a given scan line
+;
+; PARAML0 = Palette index
+; X = Start scan line
+; Y = Count
+
+setScanlinePalette:
+	pha
+
+setScanlinePaletteLoop:
+	lda $e19d00,x
+	ora PARAML0
+	sta $e19d00,x
+	inx
+	dey
+	bne setScanlinePaletteLoop
+
+	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; enableFillMode
 ; Enables fill mode for a given scanline
 ;
@@ -144,7 +167,7 @@ setPaletteColor:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; setPalette
-; Set a single color in a palette
+; Set all colors in a palette from memory
 ; PARAML0 = Pointer to 32 color bytes
 ; A = Palette index
 ;
@@ -156,13 +179,17 @@ setPalette:
 	asl
 	asl
 	asl
-	tax
+	BITS8A
+	sta setPaletteLoop_SMC+1
+	BITS16
+	ldx #0
 	ldy #0
 
 setPaletteLoop:
-
 	lda (PARAML0),y
-	sta $e19e00,x
+setPaletteLoop_SMC:
+	sta $e19e00,x		; Self-modifying code!
+
 	iny
 	iny
 	inx

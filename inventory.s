@@ -49,7 +49,7 @@ renderInventoryItem:
 
 	phy
 	phx
-	lda #1
+	lda #2
 	clc
 	jsr DrawSpriteBank
 
