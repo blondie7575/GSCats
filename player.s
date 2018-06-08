@@ -19,8 +19,9 @@ playerData:
 	.word 2				; Power
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
+	.word 1				; Base Sprite
 
-	.repeat 108
+	.repeat 106
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -36,8 +37,9 @@ playerData:
 	.word 2	; Power
 	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
+	.word 0				; Base Sprite
 
-	.repeat 108
+	.repeat 106
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -45,6 +47,7 @@ PD_ANGLE = 132
 PD_POWER = 134
 PD_ANGER = 136
 PD_NAME = 138
+PD_BASESPRITE = 148
 PD_SIZE = 256
 
 .macro PLAYERPTR_Y
@@ -204,12 +207,12 @@ renderPlayers:
 
 	lda #playerData
 	sta PARAML0
-	lda #0
+	lda playerData+PD_BASESPRITE
 	jsr renderGameObject
 
 	lda #playerData+PD_SIZE
 	sta PARAML0
-	lda #0
+	lda playerData+PD_SIZE+PD_BASESPRITE
 	jsr renderGameObject
 
 RESTORE_AXY
