@@ -33,9 +33,10 @@ beginGameplay:
 	lda #3
 	sta SpriteBankBank00+3		; Tell compiled sprites what bank they are in
 	BITS16
-	
+
 	; Erase the screen
 	ldx #$0000
+	ldy #200
 	jsr colorFill
 
 	; Generate, compile, and clip terrain
@@ -332,7 +333,9 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$00f0,$0fff,$0bbb,$ddd,$007b,$0000,$0ff0,$0fff
+	; Color 0 and 1 must both be sky blue. Compiled rendering uses PHD (which must contain $0000),
+	; and span rendering uses fill mode, so 0 can't be used there
+	.word $0aef,$0aef,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$00f0,$0f00,$0bbb,$ddd,$007b,$0ff0,$0000,$0fff
 statusBarPalette:
 	.word $0888,$0aef,$0F00,$0861,$0c93,$0eb4,$0d66,$0f9a,$00f0,$0fff,$0bbb,$ddd,$007b,$0000,$0ff0,$0fff
 

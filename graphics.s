@@ -1,18 +1,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; colorFill
 ; Fills the screen with a color (or two). Pretty fast, but not fastest possible
-; A 4:4:4:4 = Palette entries
-; X = Color to fill (doubled)
+; X = 4:4:4:4 = Palette entries to fill
+; Y = Scanline count (fills backwards to 0)
 ;
-; Trashes Y
+; Trashes A,Y,PARAML0,PARAML1
 
 colorFill:
+
+	; Calculate end of VRAM we're going to touch
+	sty PARAML0
+	lda #160		; Bytes per row in VRAM
+	sta PARAML1
+	phx
+	jsr mult16
+	clc
+	adc #$2000
+	dec				; A now holds address of highest byte we'll touch (e.g. $9d00-1 for full screen fill)
+	sta PARAML0		; Cache values for highspeed zone
+	sty PARAML1
+	plx
+
 	FASTGRAPHICS
-
-	lda #$9d00-1	; Point stack to end of VRAM
+	lda PARAML0
 	tcs
-
-	ldy #200
+	ldy PARAML1	
 
 colorFillLoop:
 	; 80 PHXs, for 1 line

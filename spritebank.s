@@ -8,7 +8,7 @@ DrawSpriteBank :
 	  	 JMP 	 (SpriteBankBank,X) 	 ; Bank Number Table
 	  	  	  	 
 SpriteBankNum :
- 	 .dbyt 	 $0200,$0100,$0500,$0000,$0300,$0600,$0400 	 
+ 	 .dbyt 	 $0100,$0200,$0600,$0000,$0300,$0500,$0400 	 
 	  	  	  	 
 SpriteBankBank :
  	 .addr 	 SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00 	 
