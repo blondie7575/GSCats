@@ -165,6 +165,10 @@
 	.dbyt   (Arg>>16)&$7777,Arg&$00007777
 .endmacro
 
+.macro	fontword Arg	; Converts 0->A,F->E to match our palette for font rendering
+	.dbyt	(((Arg & $FF00) | $AA00) & $EE00) | (((Arg & $00FF) | $00AA) & $00EE)
+.endmacro
+
 .macro BREAK
 	pha
 	lda breakpoint
