@@ -26,7 +26,10 @@ renderInventory:
 	; Find inventory we need to render
 	ldy currentPlayer
 	PLAYERPTR_Y
-	lda playerData+PD_INVENTORY,y
+	tya
+	clc
+	adc #playerData
+	adc #PD_INVENTORY
 	sta PARAML1
 
 	; Compute initial VRAM position ($E1-relative)
@@ -59,15 +62,15 @@ RESTORE_AXY
 ;
 renderInventoryItem:
 	SAVE_AXY
+	stx renderInventoryItemIndex
 
 	phy
-	phx
 	lda #2	; Frame
 	clc
 	jsr DrawSpriteBank
 
 	; Find projectile type data
-	ply		; Pushed as X
+	ldy renderInventoryItemIndex
 	PROJECTILETYPEPTR_Y
 
 	; Render projectile
@@ -77,6 +80,9 @@ renderInventoryItem:
 
 	clc
 	jsr DrawSpriteBank
+
+	lda renderInventoryItemIndex
+	beq renderInventoryItem_abort	; First item shows no counter
 
 	; Render counter background
 	clc
@@ -88,7 +94,10 @@ renderInventoryItem:
 	jsr DrawSpriteBank
 
 	; Render counter
-	lda #789
+	ldy renderInventoryItemIndex
+	lda (PARAML1),y
+	xba
+	and #$00ff
 	sta PARAML0
 	jsr intToString
 
@@ -99,9 +108,14 @@ renderInventoryItem:
 	lda #intToStringResult
 	jsr DrawNumber
 
-RESTORE_AXY
+renderInventoryItem_done:
+	RESTORE_AXY
 	rts
 
-renderInventoryItemParam:
-	.word 0,20
+renderInventoryItem_abort:
+	ply		; Balance stack
+	bra renderInventoryItem_done
+
+renderInventoryItemIndex:
+	.word 0
 

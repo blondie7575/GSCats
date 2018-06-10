@@ -20,7 +20,7 @@ playerData:
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 1				; Base Sprite
-	.word 10,0,0,0,0,0,0,0	; Inventory
+	.word 0,5,0,0,0,0,0,0	; Inventory
 
 	.repeat 90
 	.byte 0		; Padding to 256-byte boundary
@@ -39,7 +39,7 @@ playerData:
 	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 0				; Base Sprite
-	.word 10,0,0,0,0,0,0,0	; Inventory
+	.word 0,5,0,0,0,0,0,0	; Inventory
 
 	.repeat 90
 	.byte 0		; Padding to 256-byte boundary
