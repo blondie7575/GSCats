@@ -15,7 +15,7 @@ ADDR=800
 
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
-CHROMA=00ff00
+CHROMA=a4dffb
 PALETTE=a4dffb a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 00ff00 ff0000 b7b7b7 dddddd 0077bb ffff00 000000 ffffff
 SPRITES=SpriteBank
 REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)

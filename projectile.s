@@ -7,7 +7,7 @@
 
 
 projectileData:
-	; gameobject data (we're a subclass, effectively)
+	; Gameobject data (we're a subclass, effectively)
 	.word -1	; Pos X in pixels (from left terrain edge)
 	.word 0		; Pos Y in pixels (from bottom terrain edge)
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
@@ -33,15 +33,34 @@ JD_VY = 138
 JD_TYPE = 140
 JD_NEW = 142
 
+
 GRAVITY = $ffff	; 8.8 fixed point
 
-projectileTypes:		; Byte offsets into projectile type data structure
+projectileTypes:
+	; Spit
+	.word 3			; Damage
+	.word 1			; Crater radius
+	.word 4			; Frame 0
+	.word 5			; Frame 1
+	.word 6			; Frame 2
+
+	.word 0,0,0		; Padding to 16-byte boundary
+
+	; Bomb
 	.word 50		; Damage
 	.word 10		; Crater radius
-	.word 0,0		; Padding
+	.word 3			; Frame 0
+	.word 3			; Frame 1
+	.word 3			; Frame 2
 
-PT_DAMAGE = 0
+	.word 0,0,0		; Padding to 16-byte boundary
+
+
+PT_DAMAGE = 0		; Byte offsets into projectile type data structure
 PT_RADIUS = 2
+PT_FRAME0 = 4
+PT_FRAME1 = 6
+PT_FRAME2 = 8
 
 
 .macro PROJECTILEPTR_Y
@@ -59,6 +78,8 @@ PT_RADIUS = 2
 
 .macro PROJECTILETYPEPTR_Y
 	tya		; Pointer to projectile type structure from index
+	asl
+	asl
 	asl
 	asl
 	tay
