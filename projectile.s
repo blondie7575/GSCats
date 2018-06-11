@@ -92,6 +92,7 @@ projectileParams:
 	.word 0		; Starting pos Y
 	.word 0		; Initial angle
 	.word 0		; Initial power
+	.word 0		; Type
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -156,6 +157,9 @@ fireProjectile:
 	sta PARAML0
 	jsr mult88
 	sta projectileData+JD_VY,y
+
+	lda projectileParams+8		; Type
+	sta projectileData+JD_TYPE,y
 
 	lda #1
 	sta projectileData+JD_NEW,y
@@ -373,12 +377,18 @@ DNANGLE = $ffaf
 ;
 ;
 renderProjectiles:
-	pha
+	SAVE_AY
+
 	lda projectileData
 	bpl renderProjectilesDoIt
 	jmp renderProjectilesDone
 
 renderProjectilesDoIt:
+
+	lda projectileData+JD_TYPE
+	tay
+	PROJECTILETYPEPTR_Y
+
 	lda #projectileData
 	sta PARAML0
 
@@ -393,7 +403,7 @@ renderProjectilesDoIt:
 	bmi renderProjectilesFlat
 
 renderProjectilesUpAngle:
-	lda #4		; Up angle
+	lda projectileTypes+PT_FRAME0,y		; Up angle
 	bra renderProjectilesGoSprite
 
 renderProjectilesNegYPosX:
@@ -401,7 +411,7 @@ renderProjectilesNegYPosX:
 	bpl renderProjectilesFlat
 
 renderProjectilesDownAngle:
-	lda #6		; Down angle
+	lda projectileTypes+PT_FRAME2,y		; Down angle
 	bra renderProjectilesGoSprite
 
 renderProjectilesNegX:
@@ -419,13 +429,13 @@ renderProjectilesNegYNegX:
 	bra renderProjectilesUpAngle
 
 renderProjectilesFlat:
-	lda #5		; Flat
+	lda projectileTypes+PT_FRAME1,y		; Flat
 
 renderProjectilesGoSprite:
 	jsr renderGameObject
 	
 renderProjectilesDone:
-	pla
+	RESTORE_AY
 	rts
 
 

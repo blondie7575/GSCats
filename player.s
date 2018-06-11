@@ -173,6 +173,8 @@ playerFire:
 	sta projectileParams+4
 	lda playerData+PD_POWER,y
 	sta projectileParams+6
+	lda playerData+PD_CURRWEAPON,y
+	sta projectileParams+8
 	jsr fireProjectile
 
 	pla
