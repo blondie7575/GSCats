@@ -39,7 +39,7 @@ GRAVITY = $ffff	; 8.8 fixed point
 projectileTypes:
 	; Spit
 	.word 3			; Damage
-	.word 1			; Crater radius
+	.word 9		; Crater radius
 	.word 4			; Frame 0
 	.word 5			; Frame 1
 	.word 6			; Frame 2

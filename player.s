@@ -160,9 +160,26 @@ playerDeltaPowerClampHigh:
 ; Y = Player index
 ;
 playerFire:
-	pha
+	SAVE_AX
 	PLAYERPTR_Y
 
+	; Check for inventory
+	lda playerData+PD_CURRWEAPON,y
+	pha
+	asl
+	tax
+	beq playerFire_infiniteAmmo
+	lda playerData+PD_INVENTORY,x
+	beq playerFire_abort
+	dec								; Consume ammo
+	sta playerData+PD_INVENTORY,x
+	dec inventoryDirty
+
+playerFire_infiniteAmmo:
+
+	; Prepare projectile parameters
+	pla
+	sta projectileParams+8
 	lda playerData+GO_POSX,y
 	sta projectileParams
 	lda playerData+GO_POSY,y
@@ -173,12 +190,15 @@ playerFire:
 	sta projectileParams+4
 	lda playerData+PD_POWER,y
 	sta projectileParams+6
-	lda playerData+PD_CURRWEAPON,y
-	sta projectileParams+8
 	jsr fireProjectile
 
-	pla
+playerFire_done:
+	RESTORE_AX
 	rts
+
+playerFire_abort:
+	pla		; Balance stack
+	bra playerFire_done
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
