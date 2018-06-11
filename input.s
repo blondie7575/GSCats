@@ -38,6 +38,8 @@ kbdScan:
 	beq kbdScanESC
 	cmp #(127 + $80)
 	beq kbdScanDEL
+	cmp #(9 + $80)
+	beq kbdScanTab
 
 kbdScanDone:
 	BITS16
@@ -112,6 +114,22 @@ kbdScanDEL:
 	eor #1
 	sta paused
 	rts
+
+kbdScanTab:
+	BITS16
+	ldy currentPlayer
+	PLAYERPTR_Y
+	lda playerData+PD_CURRWEAPON,y
+	inc
+	cmp #INVENTORY_ITEMS
+	bne kbdScanTab_store
+	lda #0
+
+kbdScanTab_store:
+	sta playerData+PD_CURRWEAPON,y
+	inc inventoryDirty
+	rts
+
 
 breakpoint:
 	.word 0

@@ -63,8 +63,6 @@ beginGameplay:
 	jsr clipTerrain
 	jsl renderTerrainSpans
 
-	jsr renderInventory
-
 gameplayLoop:
 	jsr syncVBL
 	BORDER_COLOR #$0
@@ -145,9 +143,10 @@ gameplayLoopProjectiles:
 gameplayLoopProjectilesSkip:
 	jsr updateProjectileCollisions
 
-;	lda turnRequested
-;	beq gameplayLoopVictoryCondition
-;	jsr endTurn
+	lda inventoryDirty
+	beq gameplayLoopVictoryCondition
+	stz inventoryDirty
+	jsr renderInventory
 
 gameplayLoopVictoryCondition:
 	lda gameOver
@@ -356,6 +355,8 @@ turnRequested:
 terrainDirty:
 	.word 1
 projectilesDirty:
+	.word 1
+inventoryDirty:
 	.word 1
 activePlayer:
 	.word 0

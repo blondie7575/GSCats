@@ -21,8 +21,9 @@ playerData:
 	.byte 8,"SPROCKET "	; Name
 	.word 1				; Base Sprite
 	.word 0,5,0,0,0,0,0,0	; Inventory
+	.word 0				; Current weapon
 
-	.repeat 90
+	.repeat 88
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -40,8 +41,9 @@ playerData:
 	.byte 8,"TINKER   "	; Name
 	.word 0				; Base Sprite
 	.word 0,5,0,0,0,0,0,0	; Inventory
+	.word 0				; Current weapon
 
-	.repeat 90
+	.repeat 88
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -51,6 +53,7 @@ PD_ANGER = 136
 PD_NAME = 138
 PD_BASESPRITE = 148
 PD_INVENTORY = 150
+PD_CURRWEAPON = 166
 PD_SIZE = 256
 
 .macro PLAYERPTR_Y

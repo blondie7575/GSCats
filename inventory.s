@@ -81,6 +81,20 @@ renderInventoryItem:
 	clc
 	jsr DrawSpriteBank
 
+	; Render selection
+	ldy currentPlayer
+	PLAYERPTR_Y
+	lda playerData+PD_CURRWEAPON,y
+	cmp renderInventoryItemIndex
+	bne renderInventoryItem_unselected
+
+	ply
+	phy
+	lda #8
+	clc
+	jsr DrawSpriteBank
+
+renderInventoryItem_unselected:
 	lda renderInventoryItemIndex
 	beq renderInventoryItem_abort	; First item shows no counter
 
@@ -94,10 +108,10 @@ renderInventoryItem:
 	jsr DrawSpriteBank
 
 	; Render counter
-	ldy renderInventoryItemIndex
+	lda renderInventoryItemIndex
+	asl
+	tay
 	lda (PARAML1),y
-	xba
-	and #$00ff
 	sta PARAML0
 	jsr intToString
 
