@@ -63,7 +63,7 @@ renderTerrainDone:
 ;
 ; PARAML0 = X pos of center in pixels from logical left terrain edge
 ; PARAML1 = Y pos of center in pixels from bottom terrain edge
-; Y = Radius of circle, in pixels
+; Y = Radius of circle, in pixels (minimum is 3)
 ;
 ; Trashes SCRATCHL
 craterTerrain:
@@ -74,15 +74,19 @@ craterTerrain:
 	sbc PARAML0
 	sty SCRATCHL			; Center width in bytes
 	sbc SCRATCHL
+	sbc SCRATCHL
 	and #$fffe				; Force even
 	clc
 	adc #terrainData
 	sta PARAML0
 
+	tya
+	asl
+	tay
 	lda circleTable,y		; Look up circle data
 	sta SCRATCHL
 
-	tya						; Iterate over diameter
+	tya						; Iterate over diameter words
 	asl
 	tay
 
