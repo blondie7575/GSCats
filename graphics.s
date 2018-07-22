@@ -268,18 +268,21 @@ waitVBL:
 	bpl waitVBL
 	rts
 
+
 ; The Apple version, taken from GS Tech Note 039
 ;
 syncVBL:
+	;sei
 	BITS8
 syncVBL0:
-	lda $E0C02F
+	ldaA $C02f
     asl         ; VA is now in the Carry flag
-    lda $E0C02E
+	ldaA $C02e
     rol         ; Roll Carry into bit 0
 	cmp #200	; A now contains line number
-	bne syncVBL0
+	blt syncVBL0
 	BITS16
+	;cli
 	rts
 
 ; The old style //e version

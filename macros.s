@@ -169,6 +169,12 @@
 	.dbyt	(((Arg & $FF00) | $AA00) & $EE00) | (((Arg & $00FF) | $00AA) & $00EE)
 .endmacro
 
+.macro ldaA Arg			; Forces 24-bit absolute addressing to bank $00
+	.byte $af
+	.word Arg
+	.byte $00
+.endmacro
+
 .macro BREAK
 	pha
 	lda breakpoint

@@ -152,3 +152,30 @@ mult88:
 
 	jsr mult16		; Result is 8.8
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; delayShort
+; Sleeps for a teeny bit
+;
+delayShort:
+	SAVE_AXY
+
+	ldy		#$01	; Loop a bit
+delayShortOuter:
+	ldx		#$ff
+delayShortInner:
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	dex
+	bne		delayShortInner
+	dey
+	bne		delayShortOuter
+
+	RESTORE_AXY
+	rts

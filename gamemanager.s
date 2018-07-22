@@ -64,6 +64,7 @@ beginGameplay:
 	jsl renderTerrainSpans
 
 gameplayLoop:
+	jsr kbdScan
 	jsr syncVBL
 	BORDER_COLOR #$0
 
@@ -74,9 +75,6 @@ gameplayLoop:
 	sta projectilesDirty
 	lda projectileActive
 	bpl gameplayLoopShotTracking	; Skip input during shots
-
-	; Check for keys down
-	jsr kbdScan
 
 	; Check for pause
 ;	lda paused
@@ -150,8 +148,13 @@ gameplayLoopProjectilesSkip:
 
 gameplayLoopVictoryCondition:
 	lda gameOver
-	bmi gameplayLoopEndFrame
+	bmi gameplayEndTurnCondition
 	jsr endGame
+
+gameplayEndTurnCondition:
+	lda turnRequested
+	beq gameplayLoopEndFrame
+	jsr endTurn
 
 gameplayLoopEndFrame:
 	lda quitRequested
@@ -358,8 +361,6 @@ projectilesDirty:
 	.word 1
 inventoryDirty:
 	.word 1
-activePlayer:
-	.word 0
 currentPlayer:
 	.word 0
 gameOver:
