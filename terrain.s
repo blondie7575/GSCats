@@ -199,7 +199,7 @@ unclipTerrain:
 	SAVE_AXY
 
 	phd
-	lda #(CLIPPEDTERRAINSTACK & $ff00)
+	lda #(CLIPPEDTERRAINSTACK & $f000)
 	pha
 	pld		; Point direct page at our clip data
 
@@ -208,10 +208,14 @@ unclipTerrain:
 	sbc mapScrollPos
 	tay
 
+	sec							; Find stopping point for stack-relative addressing
 	lda clippedTerrainStackPtr
-	and #$00ff
+	and #$0fff
+	sbc #7						; 4 bytes past top of stack, +3 for starting offset
+	sta STACKPTR
+
+	lda #$0fff-3	; Start at the bottom of the stack
 	tax
-	inx
 
 unclipTerrainLoop:
 	lda	2,x
@@ -227,11 +231,11 @@ unclipTerrainLoop:
 	sbc #COMPILEDTERRAINROW+2
 	tay
 
-	inx
-	inx
-	inx
-	inx
-	cpx #$100		; When x hits the top of the stack, we're done
+	dex						; Walk up the stack to reverse the data
+	dex
+	dex
+	dex
+	cpx STACKPT				; When x hits the top of the stack, we're done
 	bne unclipTerrainLoop
 
 	pld
@@ -424,12 +428,12 @@ prepareRowRenderingLoop:
 	lda playerData+GO_POSY,y
 	sbc #GAMEOBJECTHEIGHT
 
-	cmp SCRATCHL2
-	bcc prepareRowRenderingCompileMode
-	beq prepareRowRenderingCompileMode
+;	cmp SCRATCHL2
+;	bcc prepareRowRenderingCompileMode
+;	beq prepareRowRenderingCompileMode
 
-	jsr enableFillMode
-	bra prepareRowRenderingLoopNext
+;	jsr enableFillMode
+;	bra prepareRowRenderingLoopNext
 
 prepareRowRenderingCompileMode:
 	jsr disableFillMode
@@ -441,6 +445,8 @@ prepareRowRenderingLoopNext:
 	cpx #200-MAXTERRAINHEIGHT
 	bne prepareRowRenderingLoop
 
+prepareRowRenderingDone:
+;HARDBRK
 	RESTORE_AXY
 	rts
 
@@ -487,11 +493,11 @@ generateTerrainLoop:
 ;	lda #2
 ;	sta compiledTerrain-4
 	rts
-
+	
 
 compiledTerrain:
 	.repeat COMPILEDTERRAINROW * MAXTERRAINHEIGHT
-	.byte $00
+	.byte $42
 	.endrepeat
 compiledTerrainEnd:
 

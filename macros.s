@@ -206,6 +206,24 @@ nobrk:
 .endmacro
 
 
+.macro DEADLOCK
+deadlock: jmp deadlock
+.endmacro
+
+
+.macro BREAKLOCK
+	pha
+	lda breakpoint
+	beq nobrk
+	pla
+deadlock: jmp deadlock
+
+nobrk:
+	pla
+.endmacro
+
+
+
 ;;;;;;;;;;
 ; Stack Macros
 

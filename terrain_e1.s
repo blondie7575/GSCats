@@ -31,6 +31,7 @@ renderTerrainSpans:
 	lda #MAXTERRAINHEIGHT-1
 	sec
 	sbc lastCompiledTerrainY
+	beq renderTerrainRowSpansSkip		; All terrain needs compiled rendering
 
 renderTerrainSpansLoop:
 	sta PARAML1
@@ -112,6 +113,8 @@ renderTerrainRowSpansDone:
 	bne renderTerrainSpansLoop
 
 	pea 0		; Null-terminate the unrender cache
+
+renderTerrainRowSpansSkip:
 	SLOWGRAPHICS
 	RESTORE_DBR
 	RESTORE_AXY
