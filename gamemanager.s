@@ -61,7 +61,7 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
-	jsl renderTerrainSpans
+;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 
 gameplayLoop:
 	jsr kbdScan
@@ -120,7 +120,7 @@ gameplayLoopRender:
 	lda terrainDirty
 	beq gameplayLoopProjectiles
 	BORDER_COLOR #$3
-	jsl renderTerrainSpans
+;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 	jsr renderTerrain
 	stz terrainDirty
 	BORDER_COLOR #$1
@@ -260,7 +260,7 @@ endGame:
 ;
 scrollMap:
 	jsr unclipTerrain
-	jsl unrenderTerrainSpans
+;	jsl unrenderTerrainSpans	; Part of the now disabled fill-mode renderer
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
 

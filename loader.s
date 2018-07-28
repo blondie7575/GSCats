@@ -64,6 +64,12 @@ main:
 	.byte $cc
 	.addr fileClose
 
+	jmp loadData
+	; Note that we skip E1 code bank loading now. This was used for the
+	; fill mode terrain renderer, which is disabled until further notice
+	; There isn't enough safe room in E1 to do everything we wanted and the fill
+	; mode rendering isn't useful enough to keep
+
 	NATIVE
 
 	; Copy code into bank E1
@@ -72,7 +78,11 @@ main:
 	ldy #$800		; Must match terrain_e1 .org
 	jsr copyBytes
 
+
 	; Copy vram table into bank E1
+	; Note that there's a GS memory manager jump table at 1680 - 16BB
+	; in E1 that we have to work around. If we step on it, warm reboots and other
+	; critical things start to fail.
 	phb
 	lda #vramRowInvertedSpanLookupEnd-vramRowInvertedSpanLookup-1
 	ldx #vramRowInvertedSpanLookupEnd-1
@@ -82,16 +92,12 @@ main:
 
 	EMULATION
 
-	jmp loadData
-
-	; Mystery jump table at 1680 - 16BB
 
 ioError:
 	brk
 
 ;;;;;;;;;;;;;;;;;;;;;
 loadData:
-
 	; Open the sprite bank file
 	jsr PRODOS
 	.byte $c8

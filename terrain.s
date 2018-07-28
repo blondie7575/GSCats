@@ -235,7 +235,7 @@ unclipTerrainLoop:
 	dex
 	dex
 	dex
-	cpx STACKPT				; When x hits the top of the stack, we're done
+	cpx STACKPTR  ;#$e6f-7 ;$1000		; When x hits the top of the stack, we're done
 	bne unclipTerrainLoop
 
 	pld
@@ -271,7 +271,7 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
-	jsl compileTerrainSpans
+	;jsl compileTerrainSpans	; Part of the now disabled fill-mode renderer
 	RESTORE_AY
 	rts
 
