@@ -66,7 +66,6 @@ beginGameplay:
 gameplayLoop:
 	jsr kbdScan
 	jsr syncVBL
-	BORDER_COLOR #$0
 
 	;;;;;;;;;;;
 	; Update
@@ -119,11 +118,9 @@ gameplayLoopRender:
 	; Render the terrain if needed
 	lda terrainDirty
 	beq gameplayLoopProjectiles
-	BORDER_COLOR #$3
 ;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 	jsr renderTerrain
 	stz terrainDirty
-	BORDER_COLOR #$1
 
 	; Render players
 	jsr renderPlayers
@@ -189,10 +186,12 @@ trackActiveShot:
 
 	lda SCRATCHL
 	sec
-	sbc #80			; Check for moving past center
+	sbc #140			; Check for moving close to right edge
 	cmp leftScreenEdge
-	bpl trackActiveShotCameraMove
-	bra trackActiveShotDone
+	bmi trackActiveShotDone
+
+	lda #80				; Move screen right to see shot land
+	sta mapScrollRequested
 
 trackActiveShotNeg:
 
@@ -202,16 +201,10 @@ trackActiveShotNeg:
 
 	lda SCRATCHL
 	clc
-	adc #80			; Check for moving past center
+	adc #140			; Check for moving close to left edge
 	cmp rightScreenEdge
 	bpl trackActiveShotDone
-
-trackActiveShotCameraMove:
-	lda SCRATCHL
-	sbc #80
-	lsr
-	and #$fffe			; Force even
-	sta mapScrollRequested
+	stz mapScrollRequested	; Move screen left to see shot land
 
 trackActiveShotDone:
 	rts
