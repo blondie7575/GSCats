@@ -186,7 +186,7 @@ trackActiveShot:
 
 	lda SCRATCHL
 	sec
-	sbc #140			; Check for moving close to right edge
+	sbc #150			; Check for moving close to right edge
 	cmp leftScreenEdge
 	bmi trackActiveShotDone
 
@@ -201,7 +201,7 @@ trackActiveShotNeg:
 
 	lda SCRATCHL
 	clc
-	adc #140			; Check for moving close to left edge
+	adc #150			; Check for moving close to left edge
 	cmp rightScreenEdge
 	bpl trackActiveShotDone
 	stz mapScrollRequested	; Move screen left to see shot land
@@ -224,9 +224,20 @@ endTurn:
 
 endTurnRefresh:
 	ldy currentPlayer
+	beq endTurnFocusPlayer0
+
+	lda #VISIBLETERRAINWINDOW
+	sta mapScrollRequested
+
+endTurnHeader:
 	jsr renderPlayerHeader
+	jsr renderInventory
 	stz turnRequested
 	rts
+
+endTurnFocusPlayer0:
+	stz mapScrollRequested
+	bra endTurnHeader
 
 endTurnWrap:
 	stz currentPlayer
