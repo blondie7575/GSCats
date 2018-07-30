@@ -20,7 +20,7 @@ playerData:
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 1				; Base Sprite
-	.word 0,5,0,0,0,0,0,0	; Inventory
+	.word 0,5,5,0,0,0,0,0	; Inventory
 	.word 0				; Current weapon
 
 	.repeat 88
@@ -40,7 +40,7 @@ playerData:
 	.word 100		; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 0				; Base Sprite
-	.word 0,5,0,0,0,0,0,0	; Inventory
+	.word 0,5,5,0,0,0,0,0	; Inventory
 	.word 0				; Current weapon
 
 	.repeat 88

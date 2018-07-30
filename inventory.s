@@ -6,7 +6,7 @@
 ;
 
 
-INVENTORY_ITEMS = 2
+INVENTORY_ITEMS = 3
 ITEM_WIDTH = 16		; In pixels
 ITEM_HEIGHT = 16	; In pixels
 ICON_WIDTH = 8		; In pixels

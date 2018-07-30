@@ -55,6 +55,15 @@ projectileTypes:
 
 	.word 0,0,0		; Padding to 16-byte boundary
 
+	; Fan
+	.word 3			; Damage
+	.word 3			; Crater radius
+	.word 9			; Frame 0
+	.word 9			; Frame 1
+	.word 9			; Frame 2
+
+	.word 0,0,0		; Padding to 16-byte boundary
+
 
 PT_DAMAGE = 0		; Byte offsets into projectile type data structure
 PT_RADIUS = 2
