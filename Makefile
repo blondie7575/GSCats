@@ -15,9 +15,11 @@ ADDR=800
 
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
+GENART=Art/Generated
 CHROMA=a4dffb
 PALETTE=a4dffb a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 777777 ff0000 b7b7b7 dddddd 0077bb ffff00 000000 ffffff
 SPRITES=SpriteBank
+FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
 REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
 
 all: terrain_e1 $(PGM) loader
@@ -57,13 +59,20 @@ clean:
 	rm -f terrain_e1.o
 	rm -f terrain_e1.map
 	rm -f terrain_e1
+	rm -f Art/*m.gif
+	rm -f $(GENART)/*
 
 .PHONY: art
 art:
-	$(MRSPRITE) CODE "Art/*.gif" $(CHROMA) $(PALETTE)
-	$(MRSPRITE) BANK "Art/*.txt" $(SPRITES)
-	mv Art/$(SPRITES)00.bin .
-	./MerlinToCA65.sh Art/$(SPRITES)Src.txt > spritebank.s
-	rm Art/*.txt
+	rm -f $(GENART)/*
+	for gif in $(FLIPLIST); do $(MRSPRITE) MIRROR "$$gif" $(CHROMA); done
+	./RenumberSpriteFiles.sh
+	$(MRSPRITE) CODE $(GENART)"/*.gif" $(CHROMA) $(PALETTE)
+	$(MRSPRITE) BANK $(GENART)"/*.txt" $(SPRITES)
+#	$(MRSPRITE) WALLPAPER "Art/*.gif" $(CHROMA) ff0000
+	mv $(GENART)/$(SPRITES)00.bin .
+	./MerlinToCA65.sh $(GENART)/$(SPRITES)Src.txt > spritebank.s
+	rm $(GENART)/*.txt
+	rm -f Art/*m.gif
 	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
 	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin

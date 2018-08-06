@@ -90,7 +90,7 @@ renderInventoryItem:
 
 	ply
 	phy
-	lda #8
+	lda #11
 	clc
 	jsr DrawSpriteBank
 
@@ -104,7 +104,7 @@ renderInventoryItem_unselected:
 	adc #ITEM_HEIGHT*160
 	pha
 	tay
-	lda #7
+	lda #10
 	jsr DrawSpriteBank
 
 	; Render counter

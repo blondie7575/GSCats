@@ -41,8 +41,8 @@ projectileTypes:
 	.word 3			; Damage
 	.word 3 		; Crater radius
 	.word 4			; Frame 0
-	.word 5			; Frame 1
-	.word 6			; Frame 2
+	.word 6			; Frame 1
+	.word 8			; Frame 2
 
 	.word 0,0,0		; Padding to 16-byte boundary
 
@@ -58,9 +58,9 @@ projectileTypes:
 	; Fan
 	.word 3			; Damage
 	.word 3			; Crater radius
-	.word 9			; Frame 0
-	.word 9			; Frame 1
-	.word 9			; Frame 2
+	.word 12		; Frame 0
+	.word 12		; Frame 1
+	.word 12		; Frame 2
 
 	.word 0,0,0		; Padding to 16-byte boundary
 
