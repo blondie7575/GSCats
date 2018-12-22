@@ -17,6 +17,7 @@
 		700FFAFB1F40F3BF00A442DE /* font.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = font.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
 		705AAFA920040B0D001BB0ED /* terrain_e1.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain_e1.s; sourceTree = "<group>"; };
+		705C54E62124B7F300515A6B /* fan.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = fan.s; sourceTree = "<group>"; };
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
 		706DF1651F2D4A8100AA6680 /* terrain.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain.s; sourceTree = "<group>"; };
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 				70F0869F1F413A89002446C3 /* player.s */,
 				700B5E6F2069831000B31C00 /* inventory.s */,
 				700F21DF1F4A364600D7007D /* projectile.s */,
+				705C54E62124B7F300515A6B /* fan.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
 				70E554C41F807ADB00F3C871 /* spritebank.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,

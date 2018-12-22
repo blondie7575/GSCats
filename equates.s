@@ -53,3 +53,13 @@ terrainData = $f500
 ;	.word 0
 ;	.endrepeat
 terrainDataEnd = terrainData + (TERRAINWIDTH/2 * 2)
+
+
+; projectileData struct offsets
+JD_PRECISEX = 132
+JD_PRECISEY = 134
+JD_VX = 136
+JD_VY = 138
+JD_TYPE = 140
+JD_NEW = 142
+

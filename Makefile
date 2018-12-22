@@ -22,7 +22,7 @@ SPRITES=SpriteBank
 FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
 REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
 
-all: terrain_e1 $(PGM) loader
+all: clean terrain_e1 $(PGM) loader
 
 
 $(PGM):

@@ -176,6 +176,7 @@
 .endmacro
 
 .macro BREAK
+	.local nobrk
 	pha
 	lda breakpoint
 	beq nobrk
@@ -188,6 +189,7 @@ nobrk:
 .endmacro
 
 .macro BREAK_NOSTACK
+	.local nobrk
 	lda breakpoint
 	beq nobrk
 	lda #1
@@ -212,6 +214,7 @@ deadlock: jmp deadlock
 
 
 .macro BREAKLOCK
+	.local deadlock
 	pha
 	lda breakpoint
 	beq nobrk
@@ -223,6 +226,12 @@ nobrk:
 .endmacro
 
 
+.macro JSRA		; Destination in accumulator
+	.local jsri_smc
+	sta jsri_smc+1
+jsri_smc:
+	jsr 0
+.endmacro
 
 ;;;;;;;;;;
 ; Stack Macros

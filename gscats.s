@@ -46,6 +46,7 @@ quitGame:
 .include "tables.s"
 .include "gamemanager.s"
 .include "input.s"
+.include "fan.s"
 .include "projectile.s"
 .include "inventory.s"
 

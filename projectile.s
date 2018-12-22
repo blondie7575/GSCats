@@ -26,25 +26,27 @@ projectileData:
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
-JD_PRECISEX = 132		; Byte offsets into projectile data structure
-JD_PRECISEY = 134
-JD_VX = 136
-JD_VY = 138
-JD_TYPE = 140
-JD_NEW = 142
+; Byte offsets for that ^ data structure can be found in equates.s
 
 
 GRAVITY = $ffff	; 8.8 fixed point
 
 projectileTypes:
+	PT_SPIT = 0
+	PT_BOMB = 1
+	PT_FAN = 2
+
 	; Spit
 	.word 3			; Damage
 	.word 3 		; Crater radius
 	.word 4			; Frame 0
 	.word 6			; Frame 1
 	.word 8			; Frame 2
+	.addr 0			; Deploy
+	.addr 0			; Update
+	.addr 0			; Render
 
-	.word 0,0,0		; Padding to 16-byte boundary
+	;.word 		; Padding to 16-byte boundary (none needed)
 
 	; Bomb
 	.word 50		; Damage
@@ -52,8 +54,11 @@ projectileTypes:
 	.word 3			; Frame 0
 	.word 3			; Frame 1
 	.word 3			; Frame 2
+	.addr 0			; Deploy
+	.addr 0			; Update
+	.addr 0			; Render
 
-	.word 0,0,0		; Padding to 16-byte boundary
+	;.word 		; Padding to 16-byte boundary (none needed)
 
 	; Fan
 	.word 3			; Damage
@@ -61,8 +66,11 @@ projectileTypes:
 	.word 12		; Frame 0
 	.word 12		; Frame 1
 	.word 12		; Frame 2
+	.addr deployFan ; Deploy
+	.addr updateFan	; Update
+	.addr 0			; Render
 
-	.word 0,0,0		; Padding to 16-byte boundary
+	;.word 		; Padding to 16-byte boundary (none needed)
 
 
 PT_DAMAGE = 0		; Byte offsets into projectile type data structure
@@ -70,7 +78,9 @@ PT_RADIUS = 2
 PT_FRAME0 = 4
 PT_FRAME1 = 6
 PT_FRAME2 = 8
-
+PT_DEPLOY = 10
+PT_UPDATE = 12
+PT_RENDER = 14
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
@@ -107,7 +117,6 @@ projectileParams:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; fireProjectile
 ;
-; Trashes SCRATCHL
 ;
 fireProjectile:
 	SAVE_AXY
@@ -134,6 +143,43 @@ fireProjectile:
 	asl
 	asl
 	sta projectileData+JD_PRECISEY,y
+
+	lda projectileParams+8		; Type
+	sta projectileData+JD_TYPE,y
+
+	; Check for special deployment code
+	phy
+	tay							; Find projectile type data
+	PROJECTILETYPEPTR_Y
+
+	lda projectileTypes+PT_DEPLOY,y
+	beq fireProjectileStandardDeploy
+	ply
+	JSRA
+	bra fireProjectileFinish
+
+fireProjectileStandardDeploy:
+	ply
+
+	; Standard physics setup
+	jsr prepareProjectilePhysics
+
+fireProjectileFinish:
+	lda #1
+	sta projectileData+JD_NEW,y
+	stz projectileActive
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; prepareProjectilePhysics
+;
+; Y: Index to projectile structure
+;
+prepareProjectilePhysics:
+	SAVE_AXY
 
 	lda projectileParams+6		; Convert power to 8.8
 	asl
@@ -166,13 +212,6 @@ fireProjectile:
 	sta PARAML0
 	jsr mult88
 	sta projectileData+JD_VY,y
-
-	lda projectileParams+8		; Type
-	sta projectileData+JD_TYPE,y
-
-	lda #1
-	sta projectileData+JD_NEW,y
-	stz projectileActive
 
 	RESTORE_AXY
 	rts
@@ -212,7 +251,7 @@ updateProjectilePhysicsActive:
 	adc projectileData+JD_PRECISEX
 	sta projectileData+JD_PRECISEX
 
-	; Convert to integral for rendering
+	; Convert to integer for rendering
 	lsr
 	lsr
 	lsr
@@ -238,7 +277,7 @@ updateProjectilePhysicsContinue:
 	adc projectileData+JD_PRECISEY
 	sta projectileData+JD_PRECISEY
 
-	; Convert to integral for rendering
+	; Convert to integer for rendering
 	lsr
 	lsr
 	lsr
@@ -246,6 +285,15 @@ updateProjectilePhysicsContinue:
 	sta projectileData+GO_POSY
 	cmp #GAMEOBJECTHEIGHT
 	bmi updateProjectilePhysicsDelete
+
+	; Check for special update code
+	ldy #0
+	lda projectileData+JD_TYPE,y
+	tay
+	PROJECTILETYPEPTR_Y
+	lda projectileTypes+PT_UPDATE,y
+	beq updateProjectilePhysicsDone
+	JSRA
 
 updateProjectilePhysicsDone:
 	RESTORE_AY
