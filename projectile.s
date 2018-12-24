@@ -26,7 +26,48 @@ projectileData:
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
-; Byte offsets for that ^ data structure can be found in equates.s
+
+	; Gameobject data (we're a subclass, effectively)
+	.word -1	; Pos X in pixels (from left terrain edge)
+	.word 0		; Pos Y in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.word 0		; Pos X (12.4 fixed point)
+	.word 0		; Pos Y (12.4 fixed point)
+	.word 0		; Velocity X (8.8 fixed point)
+	.word 0		; Velocity Y (8.8 fixed point)
+	.word 0		; Type
+	.word 1		; New?
+
+	.repeat 112
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	; Gameobject data (we're a subclass, effectively)
+	.word -1	; Pos X in pixels (from left terrain edge)
+	.word 0		; Pos Y in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.word 0		; Pos X (12.4 fixed point)
+	.word 0		; Pos Y (12.4 fixed point)
+	.word 0		; Velocity X (8.8 fixed point)
+	.word 0		; Velocity Y (8.8 fixed point)
+	.word 0		; Type
+	.word 1		; New?
+
+	.repeat 112
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+; Byte offsets for that-^ data structure can be found in equates.s
 
 
 GRAVITY = $ffff	; 8.8 fixed point
@@ -104,7 +145,14 @@ PT_RENDER = 14
 	tay
 .endmacro
 
-
+.macro PROJECTILETYPEPTR_X
+	txa		; Pointer to projectile type structure from index
+	asl
+	asl
+	asl
+	asl
+	tax
+.endmacro
 
 projectileParams:
 	.word 0		; Starting pos X
@@ -115,16 +163,42 @@ projectileParams:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; allocProjectile
+;
+; Returns offset of projectile structure in Y, or -1 if none available
+;
+allocProjectile:
+	SAVE_AX
+	ldx #0
+
+allocProjectileLoop:
+	txy
+	PROJECTILEPTR_Y
+	lda projectileData+GO_POSX,y
+	bmi allocProjectileDone
+	inx
+	cpx MAXPROJECTILES
+	bne allocProjectileLoop
+	ldy #-1
+
+allocProjectileDone:
+	RESTORE_AX
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; fireProjectile
 ;
 ;
 fireProjectile:
 	SAVE_AXY
 
-	; Set up projectile structure
-	ldy #0							; Only one active at a time for now
-	PROJECTILEPTR_Y
+	; Allocate a projectile
+	jsr allocProjectile
+	cpy #-1
+	beq fireProjectileDone
 
+	; Set up projectile structure
 	lda projectileParams		; X pos
 	sta projectileData+GO_POSX,y
 	lda projectileParams+2		; Y pos
@@ -169,6 +243,7 @@ fireProjectileFinish:
 	sta projectileData+JD_NEW,y
 	stz projectileActive
 
+fireProjectileDone:
 	RESTORE_AXY
 	rts
 
@@ -218,26 +293,48 @@ prepareProjectilePhysics:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; updateProjectilesPhysics
+;
+;
+updateProjectilesPhysics:
+	SAVE_AXY
+	ldx #0
+
+updateProjectilesPhysicsLoop:
+	txy
+	PROJECTILEPTR_Y
+	jsr updateProjectilePhysics
+
+updateProjectilesPhysicsSkip:
+	inx
+	cpx #MAXPROJECTILES
+	bne updateProjectilesPhysicsLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; updateProjectilePhysics
 ;
-; Trashes SCRATCHL
+; Y = Offset to projectile structure
 ;
 updateProjectilePhysics:
-	SAVE_AY
+	SAVE_AXY
 
-	lda projectileData+GO_POSX
+	lda projectileData+GO_POSX,y
 	bpl updateProjectilePhysicsActive
 	jmp updateProjectilePhysicsDone
 
 updateProjectilePhysicsActive:
 	; Integrate gravity over velocity
-	lda projectileData+JD_VY
+	lda projectileData+JD_VY,y
 	clc
 	adc #GRAVITY
-	sta projectileData+JD_VY
+	sta projectileData+JD_VY,y
 
 	; Integrate X velocity over position
-	lda projectileData+JD_VX
+	lda projectileData+JD_VX,y
 	; Convert 8.8 to 12.4
 	cmp #$8000
 	ror
@@ -248,22 +345,22 @@ updateProjectilePhysicsActive:
 	cmp #$8000
 	ror
 	clc
-	adc projectileData+JD_PRECISEX
-	sta projectileData+JD_PRECISEX
+	adc projectileData+JD_PRECISEX,y
+	sta projectileData+JD_PRECISEX,y
 
 	; Convert to integer for rendering
 	lsr
 	lsr
 	lsr
 	lsr
-	sta projectileData+GO_POSX
+	sta projectileData+GO_POSX,y
 	bmi updateProjectilePhysicsDelete
 	cmp #TERRAINWIDTH-GAMEOBJECTWIDTH-1
 	bpl updateProjectilePhysicsDelete
 
 updateProjectilePhysicsContinue:
 	; Integrate Y velocity over position
-	lda projectileData+JD_VY
+	lda projectileData+JD_VY,y
 	; Convert 8.8 to 12.4
 	cmp #$8000
 	ror
@@ -274,58 +371,85 @@ updateProjectilePhysicsContinue:
 	cmp #$8000
 	ror
 	clc
-	adc projectileData+JD_PRECISEY
-	sta projectileData+JD_PRECISEY
+	adc projectileData+JD_PRECISEY,y
+	sta projectileData+JD_PRECISEY,y
 
 	; Convert to integer for rendering
 	lsr
 	lsr
 	lsr
 	lsr
-	sta projectileData+GO_POSY
+	sta projectileData+GO_POSY,y
 	cmp #GAMEOBJECTHEIGHT
 	bmi updateProjectilePhysicsDelete
 
 	; Check for special update code
-	ldy #0
+	phy
 	lda projectileData+JD_TYPE,y
 	tay
 	PROJECTILETYPEPTR_Y
 	lda projectileTypes+PT_UPDATE,y
-	beq updateProjectilePhysicsDone
+	beq updateProjectilePhysicsNormalUpdate
+	ply
 	JSRA
 
 updateProjectilePhysicsDone:
-	RESTORE_AY
+	RESTORE_AXY
 	rts
 
 updateProjectilePhysicsDelete:
 	jsr endProjectile
 	bra updateProjectilePhysicsDone
 
+updateProjectilePhysicsNormalUpdate:
+	ply
+	bra updateProjectilePhysicsDone
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; updateProjectilesCollisions
+;
+;
+updateProjectilesCollisions:
+	SAVE_AXY
+	ldx #0
+
+updateProjectilesCollisionsLoop:
+	txy
+	PROJECTILEPTR_Y
+	jsr updateProjectileCollisions
+
+updateProjectilesCollisionsSkip:
+	inx
+	cpx #MAXPROJECTILES
+	bne updateProjectilesCollisionsLoop
+
+	RESTORE_AXY
+	rts
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; updateProjectileCollisions
 ;
-; Trashes SCRATCHL
+; Y = Offset to projectile structure
 ;
 updateProjectileCollisions:
-	SAVE_AY
+	SAVE_AXY
 
 	; Check for player collisions
-	ldy #0
-	lda projectileData+GO_POSX
+	lda projectileData+GO_POSX,y
 	bmi updateProjectileCollisionsDone	; Projectile not active
 	sta rectParams
-	lda projectileData+GO_POSY
+	lda projectileData+GO_POSY,y
 	sta rectParams+2
 	lda #GAMEOBJECTWIDTH
 	sta rectParams+4
 	lda #GAMEOBJECTHEIGHT
 	sta rectParams+6
+	ldx #0
 
 updateProjectileCollisionsPlayerLoop:
-	cpy currentPlayer
+	cpx currentPlayer
 	beq updateProjectileCollisionsPlayerNext
 
 	jsr playerIntersectRect
@@ -333,16 +457,16 @@ updateProjectileCollisionsPlayerLoop:
 	bne updateProjectileCollisionsPlayerHit
 
 updateProjectileCollisionsPlayerNext:
-	iny
-	cpy #NUMPLAYERS
+	inx
+	cpx #NUMPLAYERS
 	bne updateProjectileCollisionsPlayerLoop
 
 	; Check for terrain collisions
-	lda projectileData+GO_POSX
+	lda projectileData+GO_POSX,y
 	inc
 	inc
 	sta rectParams
-	lda projectileData+GO_POSY
+	lda projectileData+GO_POSY,y
 	clc
 	inc
 	inc
@@ -357,7 +481,7 @@ updateProjectileCollisionsPlayerNext:
 	bne updateProjectileCollisionsTerrainHit
 
 updateProjectileCollisionsDone:
-	RESTORE_AY
+	RESTORE_AXY
 	rts
 
 updateProjectileCollisionsPlayerHit:
@@ -409,90 +533,145 @@ deleteProjectile:
 protectProjectiles:
 	SAVE_AXY
 
-	lda projectileData
-	bmi protectProjectilesDone
+	ldx #0
 
-	lda #projectileData
+protectProjectilesLoop:
+	txy
+	PROJECTILEPTR_Y
+	lda projectileData+GO_POSX,y
+	bpl protectProjectilesGotOne
+
+protectProjectilesContinue:
+	inx
+	cpx #MAXPROJECTILES
+	beq protectProjectilesDone
+	bra protectProjectilesLoop
+
+protectProjectilesGotOne:
+	lda #projectileData+GO_POSX
 	sta PARAML0
+	clc
+	tya
+	adc PARAML0
+	sta PARAML0
+	phx
 	jsr vramPtr
-	cpx #0
-	bmi protectProjectilesDone
+	cpx #-1
+	beq protectProjectilesOffscreen
 
 	lda #projectileData+GO_BACKGROUND
+	sta PARAML0
+	clc
+	tya
+	adc PARAML0
+	sta PARAML0
 	jsr protectGameObject
+	plx
+	bra protectProjectilesContinue
 
 protectProjectilesDone:
 	RESTORE_AXY
 	rts
 
+protectProjectilesOffscreen:
+	plx
+	bra protectProjectilesContinue
 
 UPANGLE = $00af
 DNANGLE = $ffaf
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderProjectiles
 ;
 ;
 renderProjectiles:
-	SAVE_AY
+	SAVE_AXY
+	ldx #0
 
-	lda projectileData
-	bpl renderProjectilesDoIt
-	jmp renderProjectilesDone
+renderProjectilesLoop:
+	txy
+	PROJECTILEPTR_Y
+	jsr renderProjectile
 
-renderProjectilesDoIt:
+renderProjectilesSkip:
+	inx
+	cpx #MAXPROJECTILES
+	bne renderProjectilesLoop
 
-	lda projectileData+JD_TYPE
-	tay
-	PROJECTILETYPEPTR_Y
+	RESTORE_AXY
+	rts
 
-	lda #projectileData
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderProjectile
+;
+; Y = Offset to projectile structure
+;
+renderProjectile:
+	SAVE_AXY
+
+	PROJECTILEPTR_Y
+	lda projectileData+GO_POSX,y
+	bpl renderProjectileDoIt
+	jmp renderProjectileDone
+
+renderProjectileDoIt:
+	lda projectileData+JD_TYPE,y
+	tax
+	PROJECTILETYPEPTR_X
+
+	lda #projectileData		; Calculate pointer for game object render
+	sta PARAML0
+	clc
+	tya
+	adc PARAML0
 	sta PARAML0
 
 	; Determine which sprite to use
-	lda projectileData+JD_VX
-	bmi renderProjectilesNegX
+	lda projectileData+JD_VX,y
+	bmi renderProjectileNegX
 
-	lda projectileData+JD_VY
+	lda projectileData+JD_VY,y
 
-	bmi renderProjectilesNegYPosX
+	bmi renderProjectileNegYPosX
 	cmp #UPANGLE
-	bmi renderProjectilesFlat
+	bmi renderProjectileFlat
 
-renderProjectilesUpAngle:
-	lda projectileTypes+PT_FRAME0,y		; Up angle
-	bra renderProjectilesGoSprite
+renderProjectileUpAngle:
+	lda projectileTypes+PT_FRAME0,x		; Up angle
+	bra renderProjectileGoSprite
 
-renderProjectilesNegYPosX:
+renderProjectileNegYPosX:
 	cmp #DNANGLE
-	bpl renderProjectilesFlat
+	bpl renderProjectileFlat
 
-renderProjectilesDownAngle:
-	lda projectileTypes+PT_FRAME2,y		; Down angle
-	bra renderProjectilesGoSprite
+renderProjectileDownAngle:
+	lda projectileTypes+PT_FRAME2,x		; Down angle
+	bra renderProjectileGoSprite
 
-renderProjectilesNegX:
-	lda projectileData+JD_VY
+renderProjectileNegX:
+	lda projectileData+JD_VY,y
 
-	bmi renderProjectilesNegYNegX
+	bmi renderProjectileNegYNegX
 
 	cmp #UPANGLE
-	bmi renderProjectilesFlat
-	bra renderProjectilesDownAngle
+	bmi renderProjectileFlat
+	bra renderProjectileDownAngle
 
-renderProjectilesNegYNegX:
+renderProjectileNegYNegX:
 	cmp #DNANGLE
-	bpl renderProjectilesFlat
-	bra renderProjectilesUpAngle
+	bpl renderProjectileFlat
+	bra renderProjectileUpAngle
 
-renderProjectilesFlat:
-	lda projectileTypes+PT_FRAME1,y		; Flat
+renderProjectileFlat:
+	lda projectileTypes+PT_FRAME1,x		; Flat
 
-renderProjectilesGoSprite:
+renderProjectileGoSprite:
 	jsr renderGameObject
 	
-renderProjectilesDone:
-	RESTORE_AY
+renderProjectileDone:
+	RESTORE_AXY
 	rts
 
 
@@ -501,23 +680,51 @@ renderProjectilesDone:
 ;
 ;
 unrenderProjectiles:
+	SAVE_AXY
+	ldx #0
+
+unrenderProjectilesLoop:
+	txy
+	PROJECTILEPTR_Y
+	jsr unrenderProjectile
+
+unrenderProjectilesSkip:
+	inx
+	cpx #MAXPROJECTILES
+	bne unrenderProjectilesLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderProjectile
+;
+; Y = Offset to projectile structure
+;
+unrenderProjectile:
 	pha
-	lda projectileData
-	bpl unrenderProjectilesActive
-	jmp unrenderProjectilesDone
+	lda projectileData+GO_POSX,y
+	bpl unrenderProjectileActive
+	jmp unrenderProjectileDone
 
-unrenderProjectilesActive:
-	lda projectileData+JD_NEW
-	beq unrenderProjectilesDoIt
-	stz projectileData+JD_NEW
-	jmp unrenderProjectilesDone
+unrenderProjectileActive:
+	lda projectileData+JD_NEW,y
+	beq unrenderProjectileDoIt
+	lda #0
+	sta projectileData+JD_NEW,y
+	jmp unrenderProjectileDone
 
-unrenderProjectilesDoIt:
+unrenderProjectileDoIt:
 	lda #projectileData
+	sta PARAML0
+	clc
+	tya
+	adc PARAML0
 	sta PARAML0
 	jsr unrenderGameObject
 
-unrenderProjectilesDone:
+unrenderProjectileDone:
 	pla
 	rts
 
@@ -525,14 +732,12 @@ unrenderProjectilesDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; processPlayerImpact
 ;
-; Y = Index of player that was hit
+; X = Index of player that was hit
+; Y = Offset to projectile structure
 ;
 processPlayerImpact:
-	PLAYERPTR_Y
-	tyx
+	PLAYERPTR_X
 
-	ldy #0		; Assume projectile 0
-	PROJECTILEPTR_Y
 	lda projectileData+JD_TYPE,y
 	tay
 	PROJECTILETYPEPTR_Y

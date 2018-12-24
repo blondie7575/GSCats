@@ -70,6 +70,20 @@ PD_SIZE = 256
 .endmacro
 
 
+.macro PLAYERPTR_X
+	txa		; Pointer to player structure from index
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	tax
+.endmacro
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playerCreate
 ;
@@ -204,17 +218,17 @@ playerFire_abort:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playerIntersectRect
 ;
-; Y = Player index
+; X = Player index
 ; rectParams = Rectangle to intersect with us
 ; A => non zero if rectangle is intersecting player
 ;
 playerIntersectRect:
-	phy
-	PLAYERPTR_Y
+	phx
+	PLAYERPTR_X
 
-	lda playerData+GO_POSX,y
+	lda playerData+GO_POSX,x
 	sta rectParams2+0
-	lda playerData+GO_POSY,y
+	lda playerData+GO_POSY,x
 	sta rectParams2+2
 	lda #GAMEOBJECTWIDTH
 	sta rectParams2+4
@@ -222,7 +236,7 @@ playerIntersectRect:
 	sta rectParams2+6
 
 	jsr intersectRectRect
-	ply
+	plx
 	rts
 
 
@@ -250,6 +264,7 @@ RESTORE_AXY
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; protectPlayers
 ;
+; Trashes PARAML0
 ;
 protectPlayers:
 	SAVE_AXY
@@ -261,6 +276,7 @@ protectPlayers:
 	bmi protectPlayerNext
 
 	lda #playerData+GO_BACKGROUND
+	sta PARAML0
 	jsr protectGameObject
 
 protectPlayerNext:
@@ -271,6 +287,7 @@ protectPlayerNext:
 	bmi protectPlayerDone
 
 	lda #playerData+GO_BACKGROUND+PD_SIZE
+	sta PARAML0
 	jsr protectGameObject
 
 protectPlayerDone:

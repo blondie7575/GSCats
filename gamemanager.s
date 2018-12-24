@@ -130,12 +130,12 @@ gameplayLoopProjectiles:
 	beq gameplayLoopProjectilesSkip
 
 	jsr unrenderProjectiles
-	jsr updateProjectilePhysics
+	jsr updateProjectilesPhysics
 	jsr protectProjectiles
 	jsr renderProjectiles
 
 gameplayLoopProjectilesSkip:
-	jsr updateProjectileCollisions
+	jsr updateProjectilesCollisions
 
 	lda inventoryDirty
 	beq gameplayLoopVictoryCondition
@@ -268,7 +268,7 @@ scrollMap:
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
 
-	jsr updateProjectilePhysics	; Good idea?
+;	jsr updateProjectilePhysics	; Good idea?
 
 	sta mapScrollPos
 	asl

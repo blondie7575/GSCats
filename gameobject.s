@@ -135,286 +135,284 @@ renderGameobjectDone:
 ; protectGameObject
 ;
 ; Saves background behind this game object
-; A = Pointer to gameobject background data
+; PARAML0 = Pointer to gameobject background data
 ; X = VRAM position of upper left of game object
 ;
-; Trashes SCRATCHL
+; Trashes PARAML0
 ;
 protectGameObject:
 	phy
 	ldy #0
 
-	sta SCRATCHL
-
 	lda SHADOWVRAMBANK,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*2+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*2+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*2+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*3,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*3+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*3+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*3+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*4+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*4+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*4+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*5,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*5+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*5+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*5+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*6+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*6+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*6+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*7,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*7+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*7+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*7+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*8,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*8+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*8+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*8+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*9,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*9+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*9+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*9+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*10,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*10+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*10+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*10+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*11,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*11+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*11+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*11+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*12,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*12+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*12+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*12+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*13,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*13+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*13+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*13+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*14,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*14+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*14+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*14+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 
 	lda SHADOWVRAMBANK+160*15,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*15+2,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*15+4,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 	iny
 	iny
 	lda SHADOWVRAMBANK+160*15+6,x
-	sta (SCRATCHL),y
+	sta (PARAML0),y
 
 	ply
 	rts

@@ -30,12 +30,12 @@ deployFan:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; updateFan
 ;
+; Y = Offset to projectile structure
 ;
 updateFan:
-	SAVE_AY
+	SAVE_AXY
 
 	; Wait for fan to collide with us as it falls from the sky
-	ldy #0
 	lda projectileData+GO_POSX,y
 	sta rectParams
 	lda projectileData+GO_POSY,y
@@ -45,12 +45,13 @@ updateFan:
 	lda #GAMEOBJECTHEIGHT
 	sta rectParams+6
 
+	ldx currentPlayer
 	jsr playerIntersectRect
 	cmp #0
 	beq updateFanDone
 
 updateFanDone:
-	RESTORE_AY
+	RESTORE_AXY
 
 	rts
 
