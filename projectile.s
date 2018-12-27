@@ -112,7 +112,7 @@ projectileTypes:
 	.word 12		; Frame 2
 	.addr deployFan ; Deploy
 	.addr updateFan	; Update
-	.addr 0			; Render
+	.addr renderFan	; Render
 
 	;.word 		; Padding to 16-byte boundary (none needed)
 
@@ -687,7 +687,12 @@ renderProjectileFlat:
 
 renderProjectileGoSprite:
 	jsr renderGameObject
-	
+
+	; Check for special deployment code
+	lda projectileTypes+PT_RENDER,x
+	beq renderProjectileDone
+	JSRA
+
 renderProjectileDone:
 	RESTORE_AXY
 	rts
