@@ -21,8 +21,9 @@ projectileData:
 	.word 0		; Velocity Y (8.8 fixed point)
 	.word 0		; Type
 	.word 1		; New?
+	.word 0		; Static?
 
-	.repeat 112
+	.repeat 110
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -41,8 +42,9 @@ projectileData:
 	.word 0		; Velocity Y (8.8 fixed point)
 	.word 0		; Type
 	.word 1		; New?
+	.word 0		; Static?
 
-	.repeat 112
+	.repeat 110
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -61,8 +63,9 @@ projectileData:
 	.word 0		; Velocity Y (8.8 fixed point)
 	.word 0		; Type
 	.word 1		; New?
+	.word 0		; Static?
 
-	.repeat 112
+	.repeat 110
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -177,7 +180,7 @@ allocProjectileLoop:
 	lda projectileData+GO_POSX,y
 	bmi allocProjectileDone
 	inx
-	cpx MAXPROJECTILES
+	cpx #MAXPROJECTILES
 	bne allocProjectileLoop
 	ldy #-1
 
@@ -203,6 +206,9 @@ fireProjectile:
 	sta projectileData+GO_POSX,y
 	lda projectileParams+2		; Y pos
 	sta projectileData+GO_POSY,y
+	lda #0
+	sta projectileData+JD_STATIC,y
+	sty projectileActive
 
 	lda projectileParams		; Fixed point version of X pos
 	asl
@@ -241,7 +247,6 @@ fireProjectileStandardDeploy:
 fireProjectileFinish:
 	lda #1
 	sta projectileData+JD_NEW,y
-	stz projectileActive
 
 fireProjectileDone:
 	RESTORE_AXY
@@ -323,7 +328,12 @@ updateProjectilePhysics:
 	SAVE_AXY
 
 	lda projectileData+GO_POSX,y
-	bpl updateProjectilePhysicsActive
+	bmi updateProjectilePhysicsSkip		; Not allocated
+	lda projectileData+JD_STATIC,y
+	bne updateProjectilePhysicsSkip		; Static
+	bra updateProjectilePhysicsActive
+
+updateProjectilePhysicsSkip:
 	jmp updateProjectilePhysicsDone
 
 updateProjectilePhysicsActive:
@@ -398,7 +408,7 @@ updateProjectilePhysicsDone:
 	rts
 
 updateProjectilePhysicsDelete:
-	jsr endProjectile
+	jsr endDeleteProjectile
 	bra updateProjectilePhysicsDone
 
 updateProjectilePhysicsNormalUpdate:
@@ -437,8 +447,10 @@ updateProjectileCollisions:
 	SAVE_AXY
 
 	; Check for player collisions
+	lda projectileData+JD_STATIC,y
+	bne updateProjectileCollisionsDone	; Static
 	lda projectileData+GO_POSX,y
-	bmi updateProjectileCollisionsDone	; Projectile not active
+	bmi updateProjectileCollisionsDone	; Not allocated
 	sta rectParams
 	lda projectileData+GO_POSY,y
 	sta rectParams+2
@@ -486,26 +498,34 @@ updateProjectileCollisionsDone:
 
 updateProjectileCollisionsPlayerHit:
 	jsr processPlayerImpact
-	jsr endProjectile
+	jsr endDeleteProjectile
 	bra updateProjectileCollisionsDone
 
 updateProjectileCollisionsTerrainHit:
 	jsr processTerrainImpact
-	jsr endProjectile
+	jsr endDeleteProjectile
 	bra updateProjectileCollisionsDone
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; endProjectile
+; endDeleteProjectile
 ;
 ; Trashes A and Y
 ;
-endProjectile:
+endDeleteProjectile:
 	lda #projectileData
 	sta PARAML0
 	jsr unrenderGameObject
-	ldy #0
+	ldy projectileActive
 	jsr deleteProjectile
+	bra endProjectile
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; endProjectile
+;
+; Trashes A
+;
+endProjectile:
 	lda #1
 	sta turnRequested
 	lda #-1
@@ -516,11 +536,10 @@ endProjectile:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deleteProjectile
 ;
-; Y = Projectile index
+; Y = Projectile offset
 ; Trashes A
 ;
 deleteProjectile:
-	PROJECTILEPTR_Y
 	lda #-1
 	sta projectileData+GO_POSX,y
 	rts
@@ -611,7 +630,6 @@ renderProjectilesSkip:
 renderProjectile:
 	SAVE_AXY
 
-	PROJECTILEPTR_Y
 	lda projectileData+GO_POSX,y
 	bpl renderProjectileDoIt
 	jmp renderProjectileDone

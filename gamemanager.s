@@ -65,7 +65,14 @@ beginGameplay:
 
 gameplayLoop:
 	jsr kbdScan
-	jsr syncVBL
+;	BORDER_COLOR #$F
+	jsr nextVBL
+
+;	BORDER_COLOR #$0
+
+	; Check for pause
+	lda paused
+	bne gameplayLoopEndFrame
 
 	;;;;;;;;;;;
 	; Update
@@ -74,15 +81,12 @@ gameplayLoop:
 	sta projectilesDirty
 	lda projectileActive
 	bpl gameplayLoopShotTracking	; Skip input during shots
-
-	; Check for pause
-;	lda paused
-;	bne gameplayLoopEndFrame
-
 	bra gameplayLoopScroll
 
 gameplayLoopShotTracking:
 	jsr trackActiveShot
+
+;	BORDER_COLOR #$1
 
 gameplayLoopScroll:
 
@@ -108,8 +112,10 @@ gameplayLoopFire:
 	beq gameplayLoopRender
 	jsr fire
 
+;	BORDER_COLOR #$2
+
 gameplayLoopRender:
-	sta KBDSTROBE
+;	sta KBDSTROBE
 
 	;;;;;;;;;;;
 	; Render
@@ -126,6 +132,9 @@ gameplayLoopRender:
 	jsr renderPlayers
 
 gameplayLoopProjectiles:
+
+;	BORDER_COLOR #$3
+
 	lda projectilesDirty
 	beq gameplayLoopProjectilesSkip
 
@@ -141,6 +150,8 @@ gameplayLoopProjectilesSkip:
 	beq gameplayLoopVictoryCondition
 	stz inventoryDirty
 	jsr renderInventory
+
+;	BORDER_COLOR #$4
 
 gameplayLoopVictoryCondition:
 	lda gameOver
@@ -168,7 +179,8 @@ gameplayLoopContinue:
 ; Trashes SCRATCHL
 ;
 trackActiveShot:
-	lda projectileData+JD_PRECISEX
+	ldy projectileActive
+	lda projectileData+JD_PRECISEX,y
 	lsr		; Convert to integer and divide by two for byte distance
 	lsr
 	lsr
@@ -176,7 +188,7 @@ trackActiveShot:
 	lsr
 	sta SCRATCHL		; Save this for later
 
-	lda projectileData+JD_VX
+	lda projectileData+JD_VX,y
 	bmi trackActiveShotNeg
 
 	; Left-to-right
@@ -369,7 +381,7 @@ currentPlayer:
 gameOver:
 	.word -1			; Player index of winner
 projectileActive:
-	.word -1
+	.word -1			; Y offset of active shot
 paused:
 	.word 0
 

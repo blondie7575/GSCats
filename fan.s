@@ -35,6 +35,9 @@ deployFan:
 updateFan:
 	SAVE_AXY
 
+	lda projectileData+JD_STATIC,y
+	bne updateFanDone		; We're already static, so no work to do
+
 	; Wait for fan to collide with us as it falls from the sky
 	lda projectileData+GO_POSX,y
 	sta rectParams
@@ -49,6 +52,11 @@ updateFan:
 	jsr playerIntersectRect
 	cmp #0
 	beq updateFanDone
+
+	; Once fan is in place, make it static
+	lda #1
+	sta projectileData+JD_STATIC,y
+	jsr endProjectile
 
 updateFanDone:
 	RESTORE_AXY
