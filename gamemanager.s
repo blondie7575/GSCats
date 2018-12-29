@@ -384,7 +384,8 @@ projectileActive:
 	.word -1			; Y offset of active shot
 paused:
 	.word 0
-
+globalWind:
+	.word 0				; 12.4 velocity
 
 ; Position of map viewing window. Can be visualized in two ways:
 ; a) Word-distance from right edge of terrain data (which is in memory right-to-left) to left edge of visible screen

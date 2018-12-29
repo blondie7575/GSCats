@@ -233,6 +233,15 @@ jsri_smc:
 	jsr 0
 .endmacro
 
+.macro ABSA		; Absolute value of accumulator. Assumes status flags set correctly for accumulator!
+	.local done
+	bpl done
+	eor #$ffff
+	inc
+done:
+.endmacro
+
+
 ;;;;;;;;;;
 ; Stack Macros
 

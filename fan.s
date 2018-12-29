@@ -5,6 +5,10 @@
 ;  Created by Quinn Dunki on 8/15/18
 ;
 
+FANRANGE = 100	; In pixels
+FANMAGNITUDE = $10		; 12.4 fixed point speed delta, in pixels
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deployFan
 ;
@@ -36,7 +40,7 @@ updateFan:
 	SAVE_AXY
 
 	lda projectileData+JD_STATIC,y
-	bne updateFanDone		; We're already static, so no work to do
+	bne updateFanWind		; We're set up, so apply our wind
 
 	; Wait for fan to collide with us as it falls from the sky
 	lda projectileData+GO_POSX,y
@@ -69,6 +73,42 @@ updateFan:
 updateFanDone:
 	RESTORE_AXY
 	rts
+
+updateFanWind:
+	lda projectileData+JD_OWNER,y
+	cmp currentPlayer		; We're not affected by our own fan
+	beq updateFanDone
+
+	tyx
+	ldy projectileActive
+	bmi updateFanDone		; No active projectile
+
+	; Calculate distance to fan
+	lda projectileData+GO_POSX,y
+	sta SCRATCHL
+	lda projectileData+GO_POSX,x
+	sec
+	sbc SCRATCHL
+	ABSA
+	cmp #FANRANGE			; Check if we're within range
+	bcs updateFanDone
+
+	; Apply wind
+	lda projectileData+JD_FACING,y
+	bne updateFanWindNeg
+
+	sec
+	lda projectileData+JD_PRECISEX,y
+	sbc #FANMAGNITUDE
+	sta projectileData+JD_PRECISEX,y
+	bra updateFanDone
+
+updateFanWindNeg:
+	clc
+	lda projectileData+JD_PRECISEX,y
+	adc #FANMAGNITUDE
+	sta projectileData+JD_PRECISEX,y
+	bra updateFanDone
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

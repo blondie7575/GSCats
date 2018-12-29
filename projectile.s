@@ -22,8 +22,10 @@ projectileData:
 	.word 0		; Type
 	.word 1		; New?
 	.word 0		; Static?
+	.word 0		; Owner (player index)
+	.word 0		; Facing (0,1) = (+X,-X)
 
-	.repeat 110
+	.repeat 106
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -43,8 +45,10 @@ projectileData:
 	.word 0		; Type
 	.word 1		; New?
 	.word 0		; Static?
+	.word 0		; Owner (player index)
+	.word 0		; Facing (0,1) = (+X,-X)
 
-	.repeat 110
+	.repeat 106
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -64,8 +68,10 @@ projectileData:
 	.word 0		; Type
 	.word 1		; New?
 	.word 0		; Static?
+	.word 0		; Owner (player index)
+	.word 0		; Facing (0,1) = (+X,-X)
 
-	.repeat 110
+	.repeat 106
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -209,7 +215,19 @@ fireProjectile:
 	lda #0
 	sta projectileData+JD_STATIC,y
 	sty projectileActive
+	lda currentPlayer
+	sta projectileData+JD_OWNER,y
 
+	; Set facing. For now assume player orientations are constant
+	beq fireProjectilePosX
+	lda #1
+	sta projectileData+JD_FACING,y
+	bra fireProjectileSetup
+fireProjectilePosX:
+	lda #0
+	sta projectileData+JD_FACING,y
+
+fireProjectileSetup:
 	lda projectileParams		; Fixed point version of X pos
 	asl
 	asl
@@ -328,13 +346,9 @@ updateProjectilePhysics:
 	SAVE_AXY
 
 	lda projectileData+GO_POSX,y
-	bmi updateProjectilePhysicsSkip		; Not allocated
+	bmi updateProjectilePhysicsDone		; Not allocated
 	lda projectileData+JD_STATIC,y
-	bne updateProjectilePhysicsSkip		; Static
-	bra updateProjectilePhysicsActive
-
-updateProjectilePhysicsSkip:
-	jmp updateProjectilePhysicsDone
+	bne updateProjectilePhysicsSpecial		; Static
 
 updateProjectilePhysicsActive:
 	; Integrate gravity over velocity
@@ -356,6 +370,7 @@ updateProjectilePhysicsActive:
 	ror
 	clc
 	adc projectileData+JD_PRECISEX,y
+	adc globalWind						; Add wind
 	sta projectileData+JD_PRECISEX,y
 
 	; Convert to integer for rendering
@@ -393,6 +408,7 @@ updateProjectilePhysicsContinue:
 	cmp #GAMEOBJECTHEIGHT
 	bmi updateProjectilePhysicsDelete
 
+updateProjectilePhysicsSpecial:
 	; Check for special update code
 	phy
 	lda projectileData+JD_TYPE,y
