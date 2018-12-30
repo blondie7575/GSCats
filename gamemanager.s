@@ -235,6 +235,8 @@ endTurn:
 	sta currentPlayer
 
 endTurnRefresh:
+	jsr processTurnForProjectiles
+
 	ldy currentPlayer
 	beq endTurnFocusPlayer0
 

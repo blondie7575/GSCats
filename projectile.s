@@ -25,8 +25,9 @@ projectileData:
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
 	.word 0		; Scratch space for subclasses
+	.word 0		; Age (in turns)
 
-	.repeat 104
+	.repeat 102
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -49,8 +50,9 @@ projectileData:
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
 	.word 0		; Scratch space for subclasses
+	.word 0		; Age (in turns)
 
-	.repeat 104
+	.repeat 102
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -73,8 +75,9 @@ projectileData:
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
 	.word 0		; Scratch space for subclasses
+	.word 0		; Age (in turns)
 
-	.repeat 104
+	.repeat 102
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -98,8 +101,11 @@ projectileTypes:
 	.addr 0			; Deploy
 	.addr 0			; Update
 	.addr 0			; Render
+	.addr 0			; Cleanup
 
-	;.word 		; Padding to 16-byte boundary (none needed)
+	.repeat 14
+	.byte 0 		; Padding to 32-byte boundary
+	.endrepeat
 
 	; Bomb
 	.word 50		; Damage
@@ -110,8 +116,11 @@ projectileTypes:
 	.addr 0			; Deploy
 	.addr 0			; Update
 	.addr 0			; Render
+	.addr 0			; Cleanup
 
-	;.word 		; Padding to 16-byte boundary (none needed)
+	.repeat 14
+	.byte 0 		; Padding to 32-byte boundary
+	.endrepeat
 
 	; Fan
 	.word 3			; Damage
@@ -122,8 +131,11 @@ projectileTypes:
 	.addr deployFan ; Deploy
 	.addr updateFan	; Update
 	.addr renderFan	; Render
+	.addr deleteFan	; Cleanup
 
-	;.word 		; Padding to 16-byte boundary (none needed)
+	.repeat 14
+	.byte 0 		; Padding to 32-byte boundary
+	.endrepeat
 
 
 PT_DAMAGE = 0		; Byte offsets into projectile type data structure
@@ -134,6 +146,7 @@ PT_FRAME2 = 8
 PT_DEPLOY = 10
 PT_UPDATE = 12
 PT_RENDER = 14
+PT_CLEANUP = 16
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
@@ -154,11 +167,13 @@ PT_RENDER = 14
 	asl
 	asl
 	asl
+	asl
 	tay
 .endmacro
 
 .macro PROJECTILETYPEPTR_X
 	txa		; Pointer to projectile type structure from index
+	asl
 	asl
 	asl
 	asl
@@ -217,6 +232,7 @@ fireProjectile:
 	sta projectileData+GO_POSY,y
 	lda #0
 	sta projectileData+JD_STATIC,y
+	sta projectileData+JD_AGE,y
 	sty projectileActive
 	lda currentPlayer
 	sta projectileData+JD_OWNER,y
@@ -427,7 +443,7 @@ updateProjectilePhysicsDone:
 	rts
 
 updateProjectilePhysicsDelete:
-	jsr endDeleteProjectile
+	jsr endDeleteCurrProjectile
 	bra updateProjectilePhysicsDone
 
 updateProjectilePhysicsNormalUpdate:
@@ -517,21 +533,46 @@ updateProjectileCollisionsDone:
 
 updateProjectileCollisionsPlayerHit:
 	jsr processPlayerImpact
-	jsr endDeleteProjectile
+	jsr endDeleteCurrProjectile
 	bra updateProjectileCollisionsDone
 
 updateProjectileCollisionsTerrainHit:
 	jsr processTerrainImpact
-	jsr endDeleteProjectile
+	jsr endDeleteCurrProjectile
 	bra updateProjectileCollisionsDone
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; endDeleteProjectile
+; processTurnForProjectiles
+;
+;
+processTurnForProjectiles:
+	SAVE_AXY
+	ldx #0
+
+processTurnForProjectilesLoop:
+	txy
+	PROJECTILEPTR_Y
+
+	lda projectileData+JD_AGE,y
+	inc
+	sta projectileData+JD_AGE,y
+
+processTurnForProjectilesSkip:
+	inx
+	cpx #MAXPROJECTILES
+	bne processTurnForProjectilesLoop
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; endDeleteCurrProjectile
 ;
 ; Trashes A and Y
 ;
-endDeleteProjectile:
+endDeleteCurrProjectile:
 	lda #projectileData
 	clc
 	adc projectileActive
@@ -540,6 +581,24 @@ endDeleteProjectile:
 	ldy projectileActive
 	jsr deleteProjectile
 	bra endProjectile
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deleteVisibleProjectile
+;
+; Y = Projectile offset
+; Trashes A
+;
+deleteVisibleProjectile:
+	lda #projectileData
+	sta PARAML0
+	tya
+	clc
+	adc PARAML0
+	sta PARAML0
+	jsr unrenderGameObject
+	bra deleteProjectile
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; endProjectile
@@ -563,6 +622,17 @@ endProjectile:
 deleteProjectile:
 	lda #-1
 	sta projectileData+GO_POSX,y
+
+	; Check for special cleanup code
+	lda projectileData+JD_TYPE,y
+	tax							; Find projectile type data
+	PROJECTILETYPEPTR_X
+
+	lda projectileTypes+PT_CLEANUP,x
+	beq deleteProjectileDone
+	JSRA
+
+deleteProjectileDone:
 	rts
 
 

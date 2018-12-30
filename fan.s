@@ -7,7 +7,7 @@
 
 FANRANGE = 100	; In pixels
 FANMAGNITUDE = $10		; 12.4 fixed point speed delta, in pixels
-
+FAN_AGE = 4
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deployFan
@@ -39,6 +39,10 @@ deployFan:
 updateFan:
 	SAVE_AXY
 
+	lda projectileData+JD_AGE,y
+	cmp #FAN_AGE
+	bcs updateFanWornOut
+
 	lda projectileData+JD_STATIC,y
 	bne updateFanWind		; We're set up, so apply our wind
 
@@ -68,7 +72,6 @@ updateFan:
 	; Now set up the stand
 	jsr allocGameObject
 	cpx #-1
-BREAK
 	beq updateFanDone
 	txa
 	sta projectileData+JD_SCRATCH,y		; Remember where our stand is
@@ -82,6 +85,10 @@ BREAK
 updateFanDone:
 	RESTORE_AXY
 	rts
+
+updateFanWornOut:
+	jsr deleteVisibleProjectile
+	bra updateFanDone
 
 updateFanWind:
 	lda projectileData+JD_OWNER,y
@@ -143,4 +150,31 @@ renderFan:
 
 renderFanDone:
 	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deleteFan
+;
+; Y = Offset to projectile structure
+;
+deleteFan:
+	SAVE_AX
+
+	lda projectileData+JD_SCRATCH,y
+	tax
+
+	; Unrender the stand
+	lda #gameObjectPool
+	sta PARAML0
+	txa
+	clc
+	adc PARAML0
+	sta PARAML0
+	jsr unrenderGameObject
+
+	jsr deleteGameObject
+	jsr renderPlayers
+
+	RESTORE_AX
 	rts
