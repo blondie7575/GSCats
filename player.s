@@ -172,6 +172,7 @@ playerDeltaPowerClampHigh:
 ; playerFire
 ;
 ; Y = Player index
+; Trashes SCRATCHL
 ;
 playerFire:
 	SAVE_AX
@@ -182,11 +183,16 @@ playerFire:
 	pha
 	asl
 	tax
-	beq playerFire_infiniteAmmo
-	lda playerData+PD_INVENTORY,x
+	beq playerFire_infiniteAmmo		; Weapon 0 is always infinite
+	stx SCRATCHL
+	lda #playerData+PD_INVENTORY
+	clc
+	adc SCRATCHL
+	sta SCRATCHL
+	lda (SCRATCHL),y
 	beq playerFire_abort
 	dec								; Consume ammo
-	sta playerData+PD_INVENTORY,x
+	sta (SCRATCHL),y
 	dec inventoryDirty
 
 playerFire_infiniteAmmo:
