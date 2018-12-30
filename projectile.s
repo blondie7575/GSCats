@@ -85,7 +85,7 @@ projectileData:
 ; Byte offsets for that-^ data structure can be found in equates.s
 
 
-GRAVITY = $ffff	; 8.8 fixed point
+GRAVITY = $fffa	; 8.8 fixed point
 
 projectileTypes:
 	PT_SPIT = 0
