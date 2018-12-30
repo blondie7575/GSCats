@@ -7,12 +7,14 @@
 
 GAMEOBJECTWIDTH = 16
 GAMEOBJECTHEIGHT = 16
+MAXGAMEOBJECTS = 6		; Size of general purpose object pool
+
 
 ; Base class sample:
 ;gameobjectData:
 ;	.word 40	; X pos in pixels (from right terrain edge)
 ;	.word 38	; Y pos in pixels (from bottom terrain edge)
-;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 64 bytes
+;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
 ;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 ;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 ;	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -712,3 +714,133 @@ unrenderGameobjectBackground:
 unrenderGameobjectDone:
 	RESTORE_AXY
 	rts
+
+
+.macro GAMEOBJECTPTR_X
+	txa		; Pointer to game object type structure from index
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	tax
+.endmacro
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; allocGameObject
+;
+; Returns offset of gameobject structure in X, or -1 if none available
+;
+allocGameObject:
+	SAVE_AY
+	ldy #0
+
+allocGameObjectLoop:
+	tyx
+	GAMEOBJECTPTR_X
+	lda gameObjectPool+GO_POSX,x
+	bmi allocGameObjectDone
+	iny
+	cpy #MAXGAMEOBJECTS
+	bne allocGameObjectLoop
+	ldx #-1
+
+allocGameObjectDone:
+	RESTORE_AY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deleteGameObject
+;
+; Deletes the game object at offset X
+;
+deleteGameObject:
+	pha
+	lda #-1
+	sta gameObjectPool+GO_POSX,x
+	pla
+	rts
+
+
+; A general purpose pool allocator for game objects. Useful
+; for those times you need an object, but not a full fledged
+; Player, Projectile, or other subclass.
+gameObjectPool:
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 128 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+	.word -1	; X pos in pixels (from right terrain edge)
+	.word 0		; Y pos in pixels (from bottom terrain edge)
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 64 bytes
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+	.repeat 124
+	.byte 0		; Padding to 256-byte boundary
+	.endrepeat
+
+
+

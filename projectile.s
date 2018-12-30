@@ -24,8 +24,9 @@ projectileData:
 	.word 0		; Static?
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
+	.word 0		; Scratch space for subclasses
 
-	.repeat 106
+	.repeat 104
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -47,8 +48,9 @@ projectileData:
 	.word 0		; Static?
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
+	.word 0		; Scratch space for subclasses
 
-	.repeat 106
+	.repeat 104
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -70,8 +72,9 @@ projectileData:
 	.word 0		; Static?
 	.word 0		; Owner (player index)
 	.word 0		; Facing (0,1) = (+X,-X)
+	.word 0		; Scratch space for subclasses
 
-	.repeat 106
+	.repeat 104
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -530,6 +533,8 @@ updateProjectileCollisionsTerrainHit:
 ;
 endDeleteProjectile:
 	lda #projectileData
+	clc
+	adc projectileActive
 	sta PARAML0
 	jsr unrenderGameObject
 	ldy projectileActive

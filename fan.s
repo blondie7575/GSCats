@@ -58,17 +58,26 @@ updateFan:
 	beq updateFanDone
 
 	; Once fan is in place, make it static
+	lda projectileData+GO_POSY,y
+	inc
+	sta projectileData+GO_POSY,y
 	lda #1
 	sta projectileData+JD_STATIC,y
 	jsr endProjectile
 
 	; Now set up the stand
+	jsr allocGameObject
+	cpx #-1
+BREAK
+	beq updateFanDone
+	txa
+	sta projectileData+JD_SCRATCH,y		; Remember where our stand is
 	lda projectileData+GO_POSX,y
-	sta standGameObjectData+GO_POSX
+	sta gameObjectPool+GO_POSX,x
 	lda projectileData+GO_POSY,y
 	sec
 	sbc #GAMEOBJECTHEIGHT
-	sta standGameObjectData+GO_POSY,y
+	sta gameObjectPool+GO_POSY,x
 
 updateFanDone:
 	RESTORE_AXY
@@ -123,7 +132,11 @@ renderFan:
 	beq renderFanDone		; Don't render the stand until we're static
 
 	; Render the stand under the fan
-	lda #standGameObjectData
+	lda projectileData+JD_SCRATCH,y
+	sta PARAML0
+	clc
+	lda #gameObjectPool
+	adc PARAML0
 	sta PARAML0
 	lda #14
 	jsr renderGameObject
@@ -131,13 +144,3 @@ renderFan:
 renderFanDone:
 	RESTORE_AXY
 	rts
-
-
-; Fake game object for rendering the stand
-standGameObjectData:
-	.word 40	; X pos in pixels (from right terrain edge)
-	.word 38	; Y pos in pixels (from bottom terrain edge)
-	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	; Saved background 64 bytes
-	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
