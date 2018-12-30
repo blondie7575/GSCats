@@ -102,8 +102,9 @@ projectileTypes:
 	.addr 0			; Update
 	.addr 0			; Render
 	.addr 0			; Cleanup
+	.word 1			; Directional
 
-	.repeat 14
+	.repeat 12
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -117,8 +118,9 @@ projectileTypes:
 	.addr 0			; Update
 	.addr 0			; Render
 	.addr 0			; Cleanup
+	.word 0			; Directional
 
-	.repeat 14
+	.repeat 12
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -132,8 +134,9 @@ projectileTypes:
 	.addr updateFan	; Update
 	.addr renderFan	; Render
 	.addr deleteFan	; Cleanup
+	.word 1			; Directional
 
-	.repeat 14
+	.repeat 12
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -147,6 +150,7 @@ PT_DEPLOY = 10
 PT_UPDATE = 12
 PT_RENDER = 14
 PT_CLEANUP = 16
+PT_DIRECTIONAL = 18
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
@@ -717,6 +721,7 @@ renderProjectilesSkip:
 ; renderProjectile
 ;
 ; Y = Offset to projectile structure
+; Trashes SCRATCHL
 ;
 renderProjectile:
 	SAVE_AXY
@@ -738,9 +743,6 @@ renderProjectileDoIt:
 	sta PARAML0
 
 	; Determine which sprite to use
-	lda projectileData+JD_VX,y
-	bmi renderProjectileNegX
-
 	lda projectileData+JD_VY,y
 
 	bmi renderProjectileNegYPosX
@@ -759,24 +761,23 @@ renderProjectileDownAngle:
 	lda projectileTypes+PT_FRAME2,x		; Down angle
 	bra renderProjectileGoSprite
 
-renderProjectileNegX:
-	lda projectileData+JD_VY,y
-
-	bmi renderProjectileNegYNegX
-
-	cmp #UPANGLE
-	bmi renderProjectileFlat
-	bra renderProjectileDownAngle
-
-renderProjectileNegYNegX:
-	cmp #DNANGLE
-	bpl renderProjectileFlat
-	bra renderProjectileUpAngle
-
 renderProjectileFlat:
 	lda projectileTypes+PT_FRAME1,x		; Flat
 
 renderProjectileGoSprite:
+	sta SCRATCHL
+	lda projectileTypes+PT_DIRECTIONAL,x
+	beq renderProjectileGoSpriteNormal
+	lda projectileData+JD_FACING,y		; Projectile is directional, so flip sprite if needed
+	beq renderProjectileGoSpriteNormal
+	lda SCRATCHL
+	inc									; Flip it!
+	bra renderProjectileGoSpriteFlipped
+
+renderProjectileGoSpriteNormal:
+	lda SCRATCHL
+
+renderProjectileGoSpriteFlipped:
 	jsr renderGameObject
 
 	; Check for special deployment code
