@@ -59,7 +59,7 @@ placeGameObjectOnTerrain:
 ; vramPtr
 ;
 ; PARAML0 = Pointer to X,Y (16 bits each)
-; X => Offset to upper left corner of VRAM, or -1 if offscreen
+; X => Offset to upper left corner of VRAM, or ffff if offscreen
 ;
 ; Trashes SCRATCHL
 ;
@@ -100,7 +100,7 @@ vramPtr:
 	bra vramPtrDone
 
 vramPtrSkip:
-	ldx #-1
+	ldx #$ffff
 
 vramPtrDone:
 	RESTORE_AY
@@ -120,13 +120,19 @@ renderGameObject:
 
 	; Find gameobject location in video memory
 	jsr vramPtr
-	cpx #0
-	bmi renderGameobjectDone
+	cpx #$ffff
+	beq renderGameobjectDone
 
 	; Call compiled sprite code
 	txy
+	SAVE_AXY				; DEBUG BOUNDS RENDER
 	clc
 	jsr DrawSpriteBank
+
+	RESTORE_AXY				; DEBUG BOUNDS RENDER
+	lda #11					; DEBUG BOUNDS RENDER
+	clc						; DEBUG BOUNDS RENDER
+	jsr DrawSpriteBank		; DEBUG BOUNDS RENDER
 
 renderGameobjectDone:
 	RESTORE_XY

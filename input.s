@@ -38,6 +38,8 @@ kbdScan:
 	beq kbdScanESC
 	cmp #(127 + $80)
 	beq kbdScanDEL
+	cmp #('=' + $80)
+	beq kbdScanEquals
 	cmp #(9 + $80)
 	beq kbdScanTab
 
@@ -113,6 +115,13 @@ kbdScanDEL:
 	lda paused
 	eor #1
 	sta paused
+	rts
+
+kbdScanEquals:
+	BITS16
+	lda #1
+	sta singleStep
+	stz paused
 	rts
 
 kbdScanTab:

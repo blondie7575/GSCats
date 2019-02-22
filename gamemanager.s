@@ -63,6 +63,15 @@ beginGameplay:
 	jsr clipTerrain
 ;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 
+;	lda #7
+;	sta PARAML0
+;	lda #50
+;	sta PARAML1
+;	ldy #3
+;	jsr craterTerrain
+;	jsr compileTerrain
+;	jsr clipTerrain
+
 gameplayLoop:
 	jsr kbdScan
 ;	BORDER_COLOR #$F
@@ -164,6 +173,12 @@ gameplayEndTurnCondition:
 	jsr endTurn
 
 gameplayLoopEndFrame:
+	lda singleStep
+	beq gameplayLoopEndFrameCont
+	lda #1
+	sta paused
+
+gameplayLoopEndFrameCont:
 	lda quitRequested
 	beq gameplayLoopContinue
 	jmp quitGame
@@ -228,11 +243,14 @@ trackActiveShotDone:
 ; Handles changing the active player
 ;
 endTurn:
-	lda currentPlayer
-	inc
-	cmp #NUMPLAYERS
-	beq endTurnWrap
+	lda #0			; HAAAAX
 	sta currentPlayer
+
+;	lda currentPlayer
+;	inc
+;	cmp #NUMPLAYERS
+;	beq endTurnWrap
+;	sta currentPlayer
 
 endTurnRefresh:
 	jsr processTurnForProjectiles
@@ -386,6 +404,8 @@ projectileActive:
 	.word -1			; Y offset of active shot
 paused:
 	.word 0
+singleStep:
+	.word 0
 globalWind:
 	.word 0				; 12.4 velocity
 
@@ -399,3 +419,4 @@ mapScrollPos:
 ;	.word 0
 rightScreenEdge:
 	.word 160-GAMEOBJECTWIDTH/4-1
+
