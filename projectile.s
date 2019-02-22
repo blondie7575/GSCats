@@ -880,11 +880,21 @@ processPlayerImpactDeath:
 ; Trashes A,Y
 ;
 processTerrainImpact:
-	ldy #0		; Assume projectile 0
-	PROJECTILEPTR_Y
+	ldy projectileActive
+
+	; Shift impact point to forward bottom corner according to V
+	lda projectileData+JD_VX,y
+	bmi processTerrainImpactNegative
+
 	lda projectileData+GO_POSX,y
 	clc
-	adc #GAMEOBJECTWIDTH/2
+	adc #GAMEOBJECTWIDTH/2			; /2 is a fudge that makes crater location look better in this direction
+	bra processTerrainStoreContinue
+
+processTerrainImpactNegative:
+	lda projectileData+GO_POSX,y
+
+processTerrainStoreContinue:
 	sta PARAML0
 	lda projectileData+GO_POSY,y
 	sec
