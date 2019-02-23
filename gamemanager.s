@@ -243,14 +243,11 @@ trackActiveShotDone:
 ; Handles changing the active player
 ;
 endTurn:
-	lda #0			; HAAAAX
+	lda currentPlayer
+	inc
+	cmp #NUMPLAYERS
+	beq endTurnWrap
 	sta currentPlayer
-
-;	lda currentPlayer
-;	inc
-;	cmp #NUMPLAYERS
-;	beq endTurnWrap
-;	sta currentPlayer
 
 endTurnRefresh:
 	jsr processTurnForProjectiles

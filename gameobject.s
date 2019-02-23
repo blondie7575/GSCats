@@ -437,8 +437,8 @@ unrenderGameObject:
 
 	; Find gameobject location in video memory
 	jsr vramPtr
-	cpx #0
-	bmi unrenderGameobjectSkip
+	cpx #$ffff
+	beq unrenderGameobjectSkip
 	bra unrenderGameobjectBackground
 
 unrenderGameobjectSkip:

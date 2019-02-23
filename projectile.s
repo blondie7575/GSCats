@@ -670,7 +670,7 @@ protectProjectilesGotOne:
 	sta PARAML0
 	phx
 	jsr vramPtr
-	cpx #-1
+	cpx #$ffff
 	beq protectProjectilesOffscreen
 
 	lda #projectileData+GO_BACKGROUND

@@ -278,8 +278,8 @@ protectPlayers:
 	lda #playerData
 	sta PARAML0
 	jsr vramPtr
-	cpx #0
-	bmi protectPlayerNext
+	cpx #$ffff
+	beq protectPlayerNext
 
 	lda #playerData+GO_BACKGROUND
 	sta PARAML0
@@ -289,8 +289,8 @@ protectPlayerNext:
 	lda #playerData+PD_SIZE
 	sta PARAML0
 	jsr vramPtr
-	cpx #0
-	bmi protectPlayerDone
+	cpx #$ffff
+	beq protectPlayerDone
 
 	lda #playerData+GO_BACKGROUND+PD_SIZE
 	sta PARAML0
