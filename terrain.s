@@ -271,8 +271,47 @@ compileTerrainLoop:
 	bra compileTerrainLoop
 
 compileTerrainDone:
-	;jsl compileTerrainSpans	; Part of the now disabled fill-mode renderer
 	RESTORE_AY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; compileTerrainChunk
+;
+; Y = First row to compile (bottom-relative)
+; X = Last row to compile (bottom-relative)
+; A = |X-Y|
+;
+; Trashes A,Y, SCRATCHL
+;
+compileTerrainChunk:
+;HARDBRK
+	stx SCRATCHL
+	sty PARAML0
+
+	; Compute the start of memory affected
+	lda #COMPILEDTERRAINROW
+	sta PARAML1
+	jsr mult16
+	clc
+	adc #compiledTerrain
+	sta PARAML0
+
+compileTerrainChunkLoop:
+	sty PARAML1
+;HARDBRK
+	jsr compileTerrainRow
+	iny
+	cpy SCRATCHL
+	beq compileTerrainChunkDone
+
+	clc
+	lda #COMPILEDTERRAINROW
+	adc PARAML0
+	sta PARAML0
+	bra compileTerrainChunkLoop
+
+compileTerrainChunkDone:
 	rts
 
 

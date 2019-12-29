@@ -106,7 +106,8 @@ intToStringResult: .byte 0,0,0,0,0,0
 ; PARAML1 = Operand 2 (16 bits)
 ; A => Op1 * Op2 (16 bits)
 ; Algorithm from https://apple2.gs/downloads/Programmanual.pdf
-; Trashes X
+;
+; Trashes X,PARAML0,PARAML1
 ;
 mult16:
 	lda #0			; Initialize result

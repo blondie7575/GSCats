@@ -877,7 +877,7 @@ processPlayerImpactDeath:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; processTerrainImpact
 ;
-; Trashes A,Y
+; Trashes A,Y, SCRATCHL
 ;
 processTerrainImpact:
 	ldy projectileActive
@@ -888,17 +888,19 @@ processTerrainImpact:
 
 	lda projectileData+GO_POSX,y
 	clc
-	adc #GAMEOBJECTWIDTH/2			; /2 is a fudge that makes crater location look better in this direction
+	adc #GAMEOBJECTWIDTH/2+1			; A fudge that makes crater location look better in this direction, and tunneling work better
 	bra processTerrainStoreContinue
 
 processTerrainImpactNegative:
 	lda projectileData+GO_POSX,y
+	clc
+	adc #GAMEOBJECTWIDTH/4-1			; A fudge that makes crater location look better in this direction, and tunneling work better
 
 processTerrainStoreContinue:
 	sta PARAML0
 	lda projectileData+GO_POSY,y
 	sec
-	sbc #GAMEOBJECTHEIGHT
+	sbc #GAMEOBJECTHEIGHT	; This fudge makes tunneling work better
 	sta PARAML1
 
 	lda projectileData+JD_TYPE,y
@@ -907,9 +909,29 @@ processTerrainStoreContinue:
 
 	lda projectileTypes+PT_RADIUS,y
 	tay
+	phy					; We'll need the radius in a moment
 
 	jsr craterTerrain
-	jsr compileTerrain
+
+	jsr unclipTerrain	
+
+	; Recompile the rows affected by the crater
+	clc
+	lda PARAML1			; Impact point is top row to recompile
+	adc #GAMEOBJECTHEIGHT	; Expand recompile area upwards because of tunneling fudge
+	tax
+
+	clc
+	pla
+	adc #GAMEOBJECTHEIGHT	; Expand "vertical" radius area because of tunneling fudge
+	sta SCRATCHL		; Need radius in a memory location for this math
+	txa
+	sec
+	sbc SCRATCHL
+	tay
+	lda SCRATCHL
+	jsr compileTerrainChunk
+
 	jsr clipTerrain
 
 	rts
