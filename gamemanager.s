@@ -9,6 +9,9 @@ NUMPLAYERS = 2
 
 
 beginGameplay:
+	; Initialize random numbers
+	lda #1
+	jsr seedRandom
 
 	; Set up palette for terrain and players
 	lda #basePalette
@@ -132,13 +135,17 @@ gameplayLoopRender:
 
 	; Render the terrain if needed
 	lda terrainDirty
-	beq gameplayLoopProjectiles
+	beq gameplayLoopExplosions
 ;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 	jsr renderTerrain
 	stz terrainDirty
 
 	; Render players
 	jsr renderPlayers
+
+gameplayLoopExplosions:
+	; Render explosions
+	jsr renderDirtExplosion
 
 gameplayLoopProjectiles:
 

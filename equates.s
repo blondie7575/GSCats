@@ -21,6 +21,7 @@ PARAM2			= $08
 PARAM3			= $09
 PARAML0			= $06		; 16-bit versions of params
 PARAML1			= $08
+PARAML2			= $d0
 SCRATCH0		= $19
 SCRATCH1		= $1a
 SCRATCHL		= $19		; 16-bit version of scratch
@@ -33,7 +34,9 @@ STACKPTR		= $70		; Cache for stack pointer in fast graphics
 SHADOWREGISTER	= $72		; Cache for shadow register in fast graphics
 STACKREGISTER	= $73		; Cache for stack register in fast graphics
 lastCompiledTerrainY = $75	; The highest Y value that the compiled renderer must handle
-
+RANDOM			= $ce		; 16 bit random number
+RANDOML			= $ce		; Low byte of random number generator
+RANDOMH			= $cf		; High byte of random number generator
 
 
 ; Terrain constants

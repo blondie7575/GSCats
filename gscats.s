@@ -35,6 +35,7 @@ quitGame:
 	jml (PRODOSRETURN)
 
 
+.include "random.s"
 .include "graphics.s"
 .include "font.s"
 .include "smallNumbers.s"
@@ -49,7 +50,7 @@ quitGame:
 .include "fan.s"
 .include "projectile.s"
 .include "inventory.s"
-
+.include "dirt.s"
 endMainBank2:
 
 

@@ -222,6 +222,9 @@ allocProjectileDone:
 ;
 ;
 fireProjectile:
+	jsr createDirtExplosion
+	rts
+
 	SAVE_AXY
 
 	; Allocate a projectile

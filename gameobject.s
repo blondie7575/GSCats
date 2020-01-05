@@ -58,7 +58,7 @@ placeGameObjectOnTerrain:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; vramPtr
 ;
-; PARAML0 = Pointer to X,Y (16 bits each)
+; PARAML0 = Pointer to X,Y (16 bits each, Y is bottom relative)
 ; X => Offset to upper left corner of VRAM, or ffff if offscreen
 ;
 ; Trashes SCRATCHL
