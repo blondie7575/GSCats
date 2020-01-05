@@ -33,11 +33,7 @@ createDirtExplosion:
 	lda #1
 	sta dirtExplosionActive
 
-	lda #120
-	sta PARAML0
-	lda #100
-	sta PARAML1
-	lda #3
+	lda #3			; Radius hard-coded for now
 	sta PARAML2
 	asl
 	sta CACHEDATA	; Cache diameter
@@ -168,10 +164,13 @@ createDirtExplosionColumnLoopNowY:
 ;
 renderDirtExplosion:
 	SAVE_AXY
+
 	lda dirtExplosionActive
 	beq renderDirtExplosionDone
 
 	ldx #0
+	stz dirtExplosionActive		; Assume we're done unless a particle says otherwise
+
 renderDirtExplosionLoop:
 	PARTICLEPTR_XY
 	jsr updateDirtParticle
@@ -266,8 +265,13 @@ updateDirtParticle:
 	lda #$11
 	sta SHADOWVRAMBANK,x
 
+	; Let everyone know we did work
+	lda #1
+	sta dirtExplosionActive
+	
 updateDirtParticleDone:
 	RESTORE_AXY
+updateDirtParticleDoneRTS:
 	rts
 
 updateDirtParticleKill:

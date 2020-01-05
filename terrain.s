@@ -282,7 +282,7 @@ compileTerrainDone:
 ; X = Last row to compile (bottom-relative)
 ; A = |X-Y|
 ;
-; Trashes A,Y, SCRATCHL
+; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 compileTerrainChunk:
 ;HARDBRK

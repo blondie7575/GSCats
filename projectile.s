@@ -222,9 +222,6 @@ allocProjectileDone:
 ;
 ;
 fireProjectile:
-	jsr createDirtExplosion
-	rts
-
 	SAVE_AXY
 
 	; Allocate a projectile
@@ -880,7 +877,7 @@ processPlayerImpactDeath:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; processTerrainImpact
 ;
-; Trashes A,Y, SCRATCHL
+; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 processTerrainImpact:
 	ldy projectileActive
@@ -901,10 +898,12 @@ processTerrainImpactNegative:
 
 processTerrainStoreContinue:
 	sta PARAML0
+	pha						; Dirt explosion will need this
 	lda projectileData+GO_POSY,y
 	sec
 	sbc #GAMEOBJECTHEIGHT	; This fudge makes tunneling work better
 	sta PARAML1
+	pha						; Dirt explosion will need this
 
 	lda projectileData+JD_TYPE,y
 	tay
@@ -915,7 +914,7 @@ processTerrainStoreContinue:
 	phy					; We'll need the radius in a moment
 
 	jsr craterTerrain
-
+	
 	jsr unclipTerrain	
 
 	; Recompile the rows affected by the crater
@@ -936,5 +935,11 @@ processTerrainStoreContinue:
 	jsr compileTerrainChunk
 
 	jsr clipTerrain
+
+	pla
+	sta PARAML1
+	pla
+	sta PARAML0
+	jsr createDirtExplosion
 
 	rts

@@ -177,6 +177,8 @@ gameplayLoopVictoryCondition:
 gameplayEndTurnCondition:
 	lda turnRequested
 	beq gameplayLoopEndFrame
+	lda dirtExplosionActive
+	bne gameplayLoopEndFrame
 	jsr endTurn
 
 gameplayLoopEndFrame:
