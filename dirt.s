@@ -266,8 +266,8 @@ updateDirtParticleContinue:
 	beq updateDirtParticleKill			; Offscreen, so we're done
 	lda SHADOWVRAMBANK,x
 	beq updateDirtParticleStillAlive	; All sky, so carry on
-	cmp #$11
-	bne updateDirtParticleKill			; Not dirt, so we're done
+;	cmp #$11
+;	bne updateDirtParticleKill			; Not dirt, so we're done
 	lda dirtParticles+DP_VY,y
 	bmi updateDirtParticleKill			; +Y velocity on dirt, so we're done
 	
