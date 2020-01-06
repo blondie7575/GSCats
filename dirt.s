@@ -195,8 +195,10 @@ updateDirtParticle:
 	SAVE_AXY
 
 	lda dirtParticles+DP_POSX,y
-	bmi updateDirtParticleDone	; Particle is dead
+	bpl updateDirtParticleContinue
+	jmp updateDirtParticleDone	; Particle is dead
 
+updateDirtParticleContinue:
 	; Erase old position
 	lda #dirtParticles		; Calculate pointer to struct
 	sta PARAML0
@@ -258,10 +260,19 @@ updateDirtParticle:
 	lsr
 	sta dirtParticles+DP_POSY,y
 
-	; Draw new position
+	; Check new position
 	jsr vramPtr		; PARAML0 still holds struct pointer
 	cpx #$ffff
-	beq updateDirtParticleKill
+	beq updateDirtParticleKill			; Offscreen, so we're done
+	lda SHADOWVRAMBANK,x
+	beq updateDirtParticleStillAlive	; All sky, so carry on
+	cmp #$11
+	bne updateDirtParticleKill			; Not dirt, so we're done
+	lda dirtParticles+DP_VY,y
+	bmi updateDirtParticleKill			; +Y velocity on dirt, so we're done
+	
+updateDirtParticleStillAlive:
+	; Draw new position
 	lda #$11
 	sta SHADOWVRAMBANK,x
 
