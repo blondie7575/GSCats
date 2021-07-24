@@ -130,9 +130,9 @@ renderGameObject:
 	jsr DrawSpriteBank
 
 	RESTORE_AXY				; DEBUG BOUNDS RENDER
-	lda #11					; DEBUG BOUNDS RENDER
-	clc						; DEBUG BOUNDS RENDER
-	jsr DrawSpriteBank		; DEBUG BOUNDS RENDER
+;	lda #11					; DEBUG BOUNDS RENDER
+;	clc						; DEBUG BOUNDS RENDER
+;	jsr DrawSpriteBank		; DEBUG BOUNDS RENDER
 
 renderGameobjectDone:
 	RESTORE_XY

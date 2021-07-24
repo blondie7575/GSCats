@@ -52,7 +52,9 @@ kbdScanRightArrow:
 	lda mapScrollPos
 	cmp #VISIBLETERRAINWIDTH-VISIBLETERRAINWINDOW
 	beq kbdScanDone
-;	inc
+	inc
+	inc
+	inc
 	inc
 	sta mapScrollRequested
 	rts
@@ -63,7 +65,9 @@ kbdScanLeftArrow:
 	lda mapScrollPos
 	beq kbdScanDone
 	dec
-;	dec
+	dec
+	dec
+	dec
 	sta mapScrollRequested
 	rts
 
