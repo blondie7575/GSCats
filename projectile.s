@@ -26,8 +26,9 @@ projectileData:
 	.word 0		; Facing (0,1) = (+X,-X)
 	.word 0		; Scratch space for subclasses
 	.word 0		; Age (in turns)
+	.word 0		; Deployment delay needed?
 
-	.repeat 102
+	.repeat 100
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 

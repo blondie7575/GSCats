@@ -8,7 +8,7 @@
 FANRANGE = 100	; In pixels
 FANMAGNITUDE = $20		; 12.4 fixed point speed delta, in pixels
 FAN_AGE = 4
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deployFan
 ;
@@ -26,6 +26,9 @@ deployFan:
 	lda #0
 	sta projectileData+JD_VX,y
 	sta projectileData+JD_VY,y
+
+	lda #1
+	sta projectileData+JD_DEPLOYDELAY,y	; Let player admire new fan
 
 	RESTORE_AY
 	rts
@@ -81,7 +84,7 @@ updateFan:
 	sec
 	sbc #GAMEOBJECTHEIGHT
 	sta gameObjectPool+GO_POSY,x
-
+	
 updateFanDone:
 	RESTORE_AXY
 	rts
@@ -147,6 +150,13 @@ renderFan:
 	sta PARAML0
 	lda #14
 	jsr renderGameObject
+
+	; Do deployment delay after first render
+	lda projectileData+JD_DEPLOYDELAY,y
+	beq renderFanDone
+	jsr delayLong
+	lda #0
+	sta projectileData+JD_DEPLOYDELAY,y
 
 renderFanDone:
 	RESTORE_AXY

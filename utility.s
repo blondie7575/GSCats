@@ -180,3 +180,24 @@ delayShortInner:
 
 	RESTORE_AXY
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; delayLong
+; Sleeps for long time (about 1.5 sec, but not calculated as such)
+;
+delayLong:
+	SAVE_AXY
+
+	ldy		#$03	; Loop a bit
+delayLongOuter:
+	ldx		#$ff
+delayLongInner:
+	jsr delayShort
+	dex
+	bne		delayLongInner
+	dey
+	bne		delayLongOuter
+
+	RESTORE_AXY
+	rts
