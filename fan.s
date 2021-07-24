@@ -6,9 +6,9 @@
 ;
 
 FANRANGE = 100	; In pixels
-FANMAGNITUDE = $10		; 12.4 fixed point speed delta, in pixels
+FANMAGNITUDE = $20		; 12.4 fixed point speed delta, in pixels
 FAN_AGE = 4
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deployFan
 ;
