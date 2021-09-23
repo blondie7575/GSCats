@@ -29,7 +29,7 @@ renderInventory:
 	tya
 	clc
 	adc #playerData
-	adc #PD_INVENTORY
+	adc #PD_PRICES
 	sta PARAML1
 
 	; Compute initial VRAM position ($E1-relative)
@@ -114,13 +114,22 @@ renderInventoryItem_unselected:
 	lda (PARAML1),y
 	sta PARAML0
 	jsr intToString
+	
+	; Prepend currency prefix to counter string
+	BITS8A
+	lda intToStringResult
+	inc
+	sta intToStringPrefix
+	lda #':'	; Colon maps to dollar sign in tiny number font
+	sta intToStringResult
+	BITS16
 
 	sec
 	pla
 	sbc #($2000 - 160*2)-1	; Font engine wants VRAM-relative
 	tax
-	lda #intToStringResult
-	jsr DrawNumber
+	lda #intToStringPrefix
+	jsr DrawTinyNumber
 
 renderInventoryItem_done:
 	RESTORE_AXY
@@ -133,3 +142,25 @@ renderInventoryItem_abort:
 renderInventoryItemIndex:
 	.word 0
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; awardTreats
+;
+; PARAML0 = Amount to award
+;
+awardTreats:
+	SAVE_AY
+
+	ldy currentPlayer
+	PLAYERPTR_Y
+
+	clc
+	lda playerData+PD_TREATS,y
+	adc PARAML0
+	sta playerData+PD_TREATS,y
+
+	ldy currentPlayer
+	jsr renderPlayerHeader
+
+	RESTORE_AY
+	rts

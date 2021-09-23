@@ -372,6 +372,7 @@ fire:
 	stz fireRequested
 	ldy currentPlayer
 	jsr playerFire
+	jsr renderPlayerHeader
 	rts
 
 

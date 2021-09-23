@@ -7,6 +7,7 @@
 
 
 playerData:
+	;;;;;;;;;;;; PLAYER 1 ;;;;;;;;;;;;;;
 	; gameobject data
 	.word 0	; X pos in pixels (from left terrain edge)
 	.word 0	; Y pos in pixels (from bottom terrain edge)
@@ -20,13 +21,15 @@ playerData:
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 1				; Base Sprite
-	.word 0,5,5,0,0,0,0,0	; Inventory
+	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
+	.word 7				; Treats
 
-	.repeat 88
+	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
+	;;;;;;;;;;;; PLAYER 2 ;;;;;;;;;;;;;;
 	; gameobject data
 	.word 0	; X pos in pixels (from left terrain edge)
 	.word 0	; Y pos in pixels (from bottom terrain edge)
@@ -35,15 +38,16 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 155		; Angle in degrees from +X
+	.word 155			; Angle in degrees from +X
 	.word 2	; Power
-	.word 100		; Anger
+	.word 100			; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 0				; Base Sprite
-	.word 0,5,5,0,0,0,0,0	; Inventory
+	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
+	.word 7				; Treats
 
-	.repeat 88
+	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
 
@@ -52,8 +56,9 @@ PD_POWER = 134
 PD_ANGER = 136
 PD_NAME = 138
 PD_BASESPRITE = 148
-PD_INVENTORY = 150
+PD_PRICES = 150
 PD_CURRWEAPON = 166
+PD_TREATS = 168
 PD_SIZE = 256
 
 .macro PLAYERPTR_Y
@@ -172,30 +177,32 @@ playerDeltaPowerClampHigh:
 ; playerFire
 ;
 ; Y = Player index
-; Trashes SCRATCHL
+; Trashes SCRATCHL,SCRATCHL2
 ;
 playerFire:
-	SAVE_AX
+	SAVE_AXY
 	PLAYERPTR_Y
 
-	; Check for inventory
+	; Check that we can afford it
 	lda playerData+PD_CURRWEAPON,y
 	pha
 	asl
 	tax
-	beq playerFire_infiniteAmmo		; Weapon 0 is always infinite
 	stx SCRATCHL
-	lda #playerData+PD_INVENTORY
+	lda #playerData+PD_PRICES
 	clc
 	adc SCRATCHL
 	sta SCRATCHL
 	lda (SCRATCHL),y
-	beq playerFire_abort
-	dec								; Consume ammo
-	sta (SCRATCHL),y
-	dec inventoryDirty
+	sta SCRATCHL
 
-playerFire_infiniteAmmo:
+	lda playerData+PD_TREATS,y
+	cmp SCRATCHL
+	bmi playerFire_abort
+
+	sec				; Spend money
+	sbc SCRATCHL
+	sta playerData+PD_TREATS,y
 
 	; Prepare projectile parameters
 	pla
@@ -213,7 +220,7 @@ playerFire_infiniteAmmo:
 	jsr fireProjectile
 
 playerFire_done:
-	RESTORE_AX
+	RESTORE_AXY
 	rts
 
 playerFire_abort:
@@ -358,6 +365,14 @@ renderPlayerHeader:
 	ldx #96 + 321
 	jsr drawNumber
 
+	lda #treatsStr
+	ldx #126 + 321
+	jsr DrawString
+
+	lda playerData+PD_TREATS,y
+	ldx #130 + 321
+	jsr drawNumber
+
 	RESTORE_AXY
 	rts
 
@@ -367,5 +382,7 @@ powerStr:
 	pstring "+:   "
 angerStr:
 	pstring "):   "
+treatsStr:
+	pstring "$    "
 
 

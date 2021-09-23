@@ -104,8 +104,9 @@ projectileTypes:
 	.addr 0			; Render
 	.addr 0			; Cleanup
 	.word 1			; Directional
+	.word 1			; Mining
 
-	.repeat 12
+	.repeat 10
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -120,8 +121,9 @@ projectileTypes:
 	.addr 0			; Render
 	.addr 0			; Cleanup
 	.word 0			; Directional
+	.word 0			; Mining
 
-	.repeat 12
+	.repeat 10
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -136,8 +138,10 @@ projectileTypes:
 	.addr renderFan	; Render
 	.addr deleteFan	; Cleanup
 	.word 1			; Directional
+	.word 0			; Mining
 
-	.repeat 12
+	.repeat 10
+	
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -152,6 +156,7 @@ PT_UPDATE = 12
 PT_RENDER = 14
 PT_CLEANUP = 16
 PT_DIRECTIONAL = 18
+PT_MINING = 20
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
@@ -890,14 +895,14 @@ processTerrainImpact:
 	lda projectileData+GO_POSX,y
 	clc
 	adc #GAMEOBJECTWIDTH/2+1			; A fudge that makes crater location look better in this direction, and tunneling work better
-	bra processTerrainStoreContinue
+	bra processTerrainImpactStoreContinue
 
 processTerrainImpactNegative:
 	lda projectileData+GO_POSX,y
 	clc
 	adc #GAMEOBJECTWIDTH/4-1			; A fudge that makes crater location look better in this direction, and tunneling work better
 
-processTerrainStoreContinue:
+processTerrainImpactStoreContinue:
 	sta PARAML0
 	pha						; Dirt explosion will need this
 	lda projectileData+GO_POSY,y
@@ -916,7 +921,7 @@ processTerrainStoreContinue:
 
 	jsr craterTerrain
 	
-	jsr unclipTerrain	
+	jsr unclipTerrain
 
 	; Recompile the rows affected by the crater
 	clc
@@ -943,4 +948,22 @@ processTerrainStoreContinue:
 	sta PARAML0
 	jsr createDirtExplosion
 
+	; Cash in the dirt if needed
+	ldy projectileActive
+	lda projectileData+JD_TYPE,y
+	tay
+	PROJECTILETYPEPTR_Y
+
+	lda projectileTypes+PT_MINING,y
+	beq processTerrainImpactDone
+	lda craterTerrainAccumulator
+	lsr				; Dirt to treats conversion rate
+	lsr
+	lsr
+	inc				; Ensure minimum one treat
+	sta PARAML0
+	jsr awardTreats
+	
+processTerrainImpactDone:
 	rts
+

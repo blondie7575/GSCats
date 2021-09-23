@@ -96,8 +96,8 @@ intToStringDone:
 	rts
 
 intToStringBCD: .byte 0,0,0
+intToStringPrefix: .byte 0
 intToStringResult: .byte 0,0,0,0,0,0
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; mult16

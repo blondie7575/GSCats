@@ -69,6 +69,7 @@ renderTerrainDone:
 craterTerrain:
 	SAVE_AX
 
+	stz craterTerrainAccumulator
 	lda #TERRAINWIDTH		; Convert X pos to terrain-right byte count
 	sec
 	sbc PARAML0
@@ -108,11 +109,17 @@ craterTerrainLoop:
 	adc PARAML1				; Convert to terrain-space
 	bmi craterTerrainZero
 	sta SCRATCHL2
+	sec
 	lda (PARAML0),y
-	cmp SCRATCHL2
+	sbc SCRATCHL2
 	bmi craterTerrainLoop
 
-	lda SCRATCHL2			; Circle value is lower, so use that
+	; Circle value is lower, so use that
+	clc
+	adc craterTerrainAccumulator	; Track total crater material
+	sta craterTerrainAccumulator
+
+	lda SCRATCHL2				; Replace terrain height with cratered value
 	sta (PARAML0),y
 	bra craterTerrainLoop
 
@@ -128,6 +135,8 @@ craterTerrainDone:
 	RESTORE_AX
 	rts
 
+craterTerrainAccumulator:
+	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; clipTerrain

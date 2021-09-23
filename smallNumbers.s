@@ -12,7 +12,7 @@ F_CURRPOS:	.word 0          ;current top left char position
 F_NUMPTR = $06                 ;pointer to string (including length byte) / DP
 
 
-DrawNumber:
+DrawTinyNumber:
 	SAVE_AXY
 
 	sta F_NUMPTR
@@ -85,6 +85,7 @@ DigitTable:
 	.addr s_7
 	.addr s_8
 	.addr s_9
+	.addr s_SmallDollar	; Use ASCII code for colon
 
 DigitData:
 
@@ -157,4 +158,11 @@ s_9:
 	fontword $FFF0
 	fontword $00F0
 	fontword $00F0
+
+s_SmallDollar:			; Use ASCII code for colon
+	.dbyt $a66a
+	.dbyt $6F66
+	.dbyt $6666
+	.dbyt $a66a
+	.dbyt $aaaa
 

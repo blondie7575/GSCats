@@ -196,12 +196,12 @@ s_Number:
 	qbyte $00F00F00
 
 s_Dollar:
-	qbyte $000F0F00
-	qbyte $00FFFFF0
-	qbyte $0F0F0F00
 	qbyte $00FFFF00
-	qbyte $000F0FF0
-	qbyte $0FFFFF00
+	qbyte $0F000FF0
+	qbyte $0F000FF0
+	qbyte $0FFFFFF0
+	qbyte $00FFFF00
+	qbyte $00000000
 
 s_Percent:
 	qbyte $0FF000F0
