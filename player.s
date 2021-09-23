@@ -23,7 +23,7 @@ playerData:
 	.word 1				; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
-	.word 998				; Treats
+	.word 7				; Treats
 
 	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
