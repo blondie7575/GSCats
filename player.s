@@ -23,7 +23,7 @@ playerData:
 	.word 1				; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
-	.word 7				; Treats
+	.word 998				; Treats
 
 	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
@@ -366,11 +366,11 @@ renderPlayerHeader:
 	jsr drawNumber
 
 	lda #treatsStr
-	ldx #126 + 321
+	ldx #142 + 321
 	jsr DrawString
 
 	lda playerData+PD_TREATS,y
-	ldx #130 + 321
+	ldx #146 + 321
 	jsr drawNumber
 
 	RESTORE_AXY
@@ -383,6 +383,6 @@ powerStr:
 angerStr:
 	pstring "):   "
 treatsStr:
-	pstring "$    "
+	pstring "$   "
 
 

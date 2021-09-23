@@ -157,6 +157,11 @@ awardTreats:
 	clc
 	lda playerData+PD_TREATS,y
 	adc PARAML0
+	cmp #999
+	bmi awardTreatsStore
+	lda #999	; Clamp treats at 3 digits
+
+awardTreatsStore:
 	sta playerData+PD_TREATS,y
 
 	ldy currentPlayer
