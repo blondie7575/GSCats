@@ -10,45 +10,57 @@
 
 
 CL65=cl65
-AC=AppleCommander.jar
-ADDR=800
-
+CAD=./cadius
+VOLNAME=GSAPP
+IMG=DiskImageParts
+EMU=/Applications/GSplus.app/Contents/MacOS/gsplus
+ADDR=0800
+CODEBANK=CODEBANK\#060000
+CODEBANKE1=CODEBANKE1\#060800
+EXEC=$(PGM)\#06$(ADDR)
+	
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
 GENART=Art/Generated
 CHROMA=a4dffb
 PALETTE=a4dffb a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 777777 ff0000 b7b7b7 dddddd 0077bb ffff00 000000 ffffff
 SPRITES=SpriteBank
+SPRITEBANK=$(SPRITES)\#060000
 FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
 REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
 
-all: clean terrain_e1 $(PGM) loader
+all: clean diskimage terrain_e1 $(PGM) loader emulate
 
-
+emulate:
+	# Leading hypen needed because GSPlus maddeningly returns code 1 (error) always and for no reason
+	-/Applications/GSplus.app/Contents/MacOS/gsplus
+	
+diskimage:
+	$(CAD) CREATEVOLUME $(PGM).2mg $(VOLNAME) 800KB
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(IMG)/BITSY.BOOT/BITSY.BOOT#FF2000
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(IMG)/QUIT.SYSTEM/QUIT.SYSTEM#FF2000
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(IMG)/PRODOS/PRODOS#FF0000
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(IMG)/BASIC.SYSTEM/BASIC.SYSTEM#FF2000
+	
 $(PGM):
 	@echo $(REMOTESYMBOLS)
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr 0000 -l$(PGM).lst $(REMOTESYMBOLS) $(PGM).s
-	java -jar $(AC) -d $(PGM).2mg CODEBANK
-	java -jar $(AC) -p $(PGM).2mg CODEBANK BIN 0x0000 < $(PGM)
-	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
-	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin
-	rm -f $(PGM)
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr 0000 -l$(PGM).lst $(REMOTESYMBOLS) $(PGM).s -o $(CODEBANK)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(CODEBANK)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SPRITEBANK)
+	rm -f $(CODEBANK)
 	rm -f $(PGM).o
 	rm -f terrain_e1.map
-	osascript V2Make.scpt $(PROJECT_DIR) $(PGM)
 
 loader:
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -lloader.lst loader.s
-	java -jar $(AC) -d $(PGM).2mg $(PGM)
-	java -jar $(AC) -p $(PGM).2mg $(PGM) BIN 0x$(ADDR) < loader
-	rm -f loader
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -lloader.lst loader.s -o $(EXEC)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(EXEC)
+	rm -f $(EXEC)
 	rm -f loader.o
 
 terrain_e1:
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr $(ADDR) -l -vm -m terrain_e1.map terrain_e1.s
-	java -jar $(AC) -d $(PGM).2mg CODEBANKE1
-	java -jar $(AC) -p $(PGM).2mg CODEBANKE1 BIN 0x800 < terrain_e1
-	rm -f terrain_e1
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr $(ADDR) -l -vm -m terrain_e1.map terrain_e1.s -o $(CODEBANKE1)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(CODEBANKE1)
+	rm -f $(CODEBANKE1)
 	rm -f terrain_e1.o
 
 clean:
@@ -61,7 +73,8 @@ clean:
 	rm -f terrain_e1
 	rm -f Art/*m.gif
 	rm -f $(GENART)/*
-
+	rm -f $(PGM).2mg
+	
 .PHONY: art
 art:
 	rm -f $(GENART)/*
@@ -70,9 +83,7 @@ art:
 	$(MRSPRITE) CODE $(GENART)"/*.gif" $(CHROMA) $(PALETTE)
 	$(MRSPRITE) BANK $(GENART)"/*.txt" $(SPRITES)
 #	$(MRSPRITE) WALLPAPER "Art/*.gif" $(CHROMA) ff0000
-	mv $(GENART)/$(SPRITES)00.bin .
+	mv $(GENART)/$(SPRITES)00.bin ./$(SPRITEBANK)
 	./MerlinToCA65.sh $(GENART)/$(SPRITES)Src.txt > spritebank.s
 	rm $(GENART)/*.txt
 	rm -f Art/*m.gif
-	java -jar $(AC) -d $(PGM).2mg $(SPRITES)00
-	java -jar $(AC) -p $(PGM).2mg $(SPRITES)00 BIN 0x0000 < $(SPRITES)00.bin
