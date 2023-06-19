@@ -24,11 +24,26 @@ main:
 	.addr fileOpenCode
 	bne ioError
 
-	; Load the code into bank 0
+	; Load first half of code into bank 0
 	jsr PRODOS
 	.byte $ca
 	.addr fileRead
 	bne ioError
+	NATIVE
+
+	; Copy code into bank 2
+	ldx fileReadLen
+	lda #2
+	ldy #0
+	jsr copyBytes
+
+	EMULATION
+
+	; Load rest of code into bank 0	(needed if code size exceeds BUFFERSIZE)
+;	jsr PRODOS
+;	.byte $ca
+;	.addr fileRead
+;	bne ioError
 
 	; Close the file
 	jsr PRODOS
@@ -37,11 +52,11 @@ main:
 
 	NATIVE
 
-	; Copy code into bank 2
-	ldx fileReadLen
-	lda #2
-	ldy #0
-	jsr copyBytes
+	; Copy rest code into bank 2 (needed if code size exceeds BUFFERSIZE)
+;	ldx fileReadLen
+;	lda #2
+;	ldy #0
+;	jsr copyBytes
 
 	EMULATION
 
@@ -156,12 +171,18 @@ vramRowInvertedSpanLookupEnd:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; copyBytes
 ; Copy data from read buffer in bank 0 to
-; bottom of any other bank. Must be in native mode.
+; offset any other bank. Must be in native mode.
 ;
 ; X = Length of data in bytes
 ; Y = Origin within bank
 ; A = Bank number of destination
+; loadOffet : offset to start of copy destination
 ;
+
+;TODO: Make this work for copying ALL of a 64k bank of code
+;in chunks, as required by loader (which is using a bank 00 buffer)
+
+
 copyBytes:
 	sty copyBytesDest+1
 	sty copyBytesDest2+1
@@ -187,7 +208,8 @@ copyBytesDest:
 	sta $010000,x
 	dex
 	dex
-	bpl copyBytesLoop
+	cpx #$fffe		; X will wrap when we're done
+	bne copyBytesLoop
 	rts
 
 copyBytesOdd:
@@ -198,6 +220,9 @@ copyBytesDest2:
 	sta $010000,x
 	BITS16
 	bra copyBytesEven
+
+loadOffet:
+	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -239,4 +264,4 @@ codePath:
 codePathE1:
 	pstring "/GSAPP/CODEBANKE1"
 spritePath:
-	pstring "/GSAPP/SPRITEBANK00"
+	pstring "/GSAPP/SPRITEBANK"
