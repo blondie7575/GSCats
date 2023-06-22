@@ -16,7 +16,7 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 25			; Angle in degrees from +X
+	.word 24			; Angle in degrees from +X
 	.word 2				; Power
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
@@ -38,7 +38,7 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 155			; Angle in degrees from +X
+	.word 154			; Angle in degrees from +X
 	.word 2	; Power
 	.word 100			; Anger
 	.byte 8,"TINKER   "	; Name

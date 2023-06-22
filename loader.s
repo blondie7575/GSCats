@@ -40,10 +40,10 @@ main:
 	EMULATION
 
 	; Load rest of code into bank 0	(needed if code size exceeds BUFFERSIZE)
-;	jsr PRODOS
-;	.byte $ca
-;	.addr fileRead
-;	bne ioError
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioError
 
 	; Close the file
 	jsr PRODOS
@@ -52,11 +52,11 @@ main:
 
 	NATIVE
 
-	; Copy rest code into bank 2 (needed if code size exceeds BUFFERSIZE)
-;	ldx fileReadLen
-;	lda #2
-;	ldy #0
-;	jsr copyBytes
+	; Copy rest of code into bank 2 (needed if code size exceeds BUFFERSIZE)
+	ldx fileReadLen
+	lda #2
+	ldy #BUFFERSIZE
+	jsr copyBytes
 
 	EMULATION
 

@@ -51,6 +51,7 @@ quitGame:
 .include "projectile.s"
 .include "inventory.s"
 .include "dirt.s"
+.include "crosshair.s"
 endMainBank2:
 
 

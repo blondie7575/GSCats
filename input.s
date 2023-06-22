@@ -80,13 +80,13 @@ kbdScanQ:
 
 kbdScanA:
 	BITS16
-	lda #1
+	lda #2
 	sta angleDeltaRequested
 	rts
 
 kbdScanZ:
 	BITS16
-	lda #-1
+	lda #-2
 	sta angleDeltaRequested
 	rts
 

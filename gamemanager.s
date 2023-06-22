@@ -84,7 +84,10 @@ gameplayLoop:
 
 	; Check for pause
 	lda paused
-	bne gameplayLoopEndFrame
+	beq gameplayLoopBeginUpdate
+	jmp gameplayLoopEndFrame
+
+gameplayLoopBeginUpdate:
 
 	;;;;;;;;;;;
 	; Update
@@ -110,8 +113,14 @@ gameplayLoopScroll:
 gameplayLoopAngle:
 	; Update aim angle if needed
 	lda angleDeltaRequested
-	beq gameplayLoopPower
+	beq gameplayLoopAim
 	jsr changeAngle
+
+gameplayLoopAim:
+	jsr unrenderCrosshair
+	ldy currentPlayer
+	jsr updateCrosshair
+	jsr renderCrosshair
 
 gameplayLoopPower:
 	; Update power if needed
@@ -123,7 +132,7 @@ gameplayLoopFire:
 	lda fireRequested
 	beq gameplayLoopRender
 	jsr fire
-
+	
 ;	BORDER_COLOR #$2
 
 gameplayLoopRender:

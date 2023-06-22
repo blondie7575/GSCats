@@ -2,18 +2,18 @@
 
 
 DrawSpriteBank :
- 	 ASL 	  	 ; A=Sprite Number ($0000-$000E)
+ 	 ASL 	  	 ; A=Sprite Number ($0000-$000F)
 	  	 TAX 	  	 ; Y=Target Screen Address ($2000-$9D00)
 	  	 LDA 	 SpriteBankNum,X 	 ; Relative Sprite Number Table
 	  	 JMP 	 (SpriteBankBank,X) 	 ; Bank Number Table
 	  	  	  	 
 SpriteBankNum :
- 	 .dbyt 	 $0100,$0000,$0A00,$0500,$0600,$0900,$0D00,$0C00 	 
-	  	 .dbyt 	 $0800,$0700,$0B00,$0E00,$0200,$0300,$0400 	 
+ 	 .dbyt 	 $0100,$0000,$0A00,$0500,$0600,$0900,$0E00,$0D00 	 
+	  	 .dbyt 	 $0800,$0700,$0C00,$0F00,$0200,$0300,$0400,$0B00 	 
 	  	  	  	 
 SpriteBankBank :
  	 .addr 	 SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00 	 
-	  	 .addr 	 SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00 	 
+	  	 .addr 	 SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00,SpriteBankBank00 	 
 	  	  	  	 
 SpriteBankBank00 :
  	 JSL 	 $AA0000 	 
