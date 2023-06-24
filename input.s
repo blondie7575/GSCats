@@ -6,13 +6,13 @@
 ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; kbdScan
+; kbdScanGameplay/Debug
 ; Processes keyboard input
 ;
 ; Trashes A
 ;
 
-kbdScan:
+kbdScanGameplay:
 	BITS8
 	lda KBD
 	bpl kbdScanDone
@@ -34,18 +34,29 @@ kbdScan:
 	beq kbdScanX
 	cmp #(' ' + $80)
 	beq kbdScanSpace
+	cmp #(9 + $80)
+	bne kbdScanDone
+	jmp kbdScanTab
+
+kbdScanDone:
+	BITS16
+	rts
+
+kbdScanDebug:
+	BITS8
+	lda KBD
+	bpl kbdScanDone
+	sta KBDSTROBE
+	
 	cmp #(27 + $80)
 	beq kbdScanESC
 	cmp #(127 + $80)
 	beq kbdScanDEL
 	cmp #('=' + $80)
 	beq kbdScanEquals
-	cmp #(9 + $80)
-	beq kbdScanTab
+	bra kbdScanDone
 
-kbdScanDone:
-	BITS16
-	rts
+
 
 kbdScanRightArrow:
 	BITS16

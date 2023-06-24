@@ -36,7 +36,7 @@ updateCrosshair:
 	; Compute screenspace X
 	sta SCRATCHL
 	clc
-	lda playerData+GO_POSX
+	lda playerData+GO_POSX,y
 	adc SCRATCHL
 	sta crosshairGameObject+GO_POSX
 	bra updateCrosshairCalcY
@@ -48,7 +48,7 @@ updateCrosshairNegX:
 	; Compute screenspace X
 	sta SCRATCHL
 	sec
-	lda playerData+GO_POSX
+	lda playerData+GO_POSX,y
 	sbc SCRATCHL
 	sta crosshairGameObject+GO_POSX
 
@@ -62,7 +62,7 @@ updateCrosshairCalcY:
 
 	; Compute screenspace Y
 	clc
-	lda playerData+GO_POSY
+	lda playerData+GO_POSY,y
 	adc SCRATCHL
 	sta crosshairGameObject+GO_POSY
 
@@ -77,15 +77,14 @@ updateCrosshairDone:
 ;
 ;
 renderCrosshair:
-	SAVE_AXY
-
+	pha
 	lda #crosshairGameObject
 	sta PARAML0
 	lda #15
 	jsr renderGameObject
 
 renderCrosshairDone:
-	RESTORE_AXY
+	pla
 	rts
 
 

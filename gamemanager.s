@@ -76,7 +76,13 @@ beginGameplay:
 ;	jsr clipTerrain
 
 gameplayLoop:
-	jsr kbdScan
+	lda projectileActive
+	bpl gameplayLoopKeyboardSkip
+	jsr kbdScanGameplay
+
+gameplayLoopKeyboardSkip:
+	jsr kbdScanDebug
+
 ;	BORDER_COLOR #$F
 	jsr nextVBL
 
@@ -94,8 +100,10 @@ gameplayLoopBeginUpdate:
 	;
 	lda #1
 	sta projectilesDirty
-	lda projectileActive
-	bpl gameplayLoopShotTracking	; Skip input during shots
+	lda projectileActive			; Skip interactivity during shots, but still allow map scrolling
+	bpl gameplayLoopShotTracking
+	lda dirtExplosionActive
+	bne gameplayLoopRender			; Skip interactivity during dirt explosions
 	bra gameplayLoopScroll
 
 gameplayLoopShotTracking:
@@ -107,8 +115,12 @@ gameplayLoopScroll:
 
 	; Scroll map if needed
 	lda mapScrollRequested
-	bmi gameplayLoopAngle
+	bmi gameplayLoopAngleCheck
 	jsr scrollMap
+
+gameplayLoopAngleCheck:
+	lda projectileActive			; Skip interactivity during shots
+	bpl gameplayLoopRender
 
 gameplayLoopAngle:
 	; Update aim angle if needed
@@ -131,6 +143,7 @@ gameplayLoopPower:
 gameplayLoopFire:
 	lda fireRequested
 	beq gameplayLoopRender
+	jsr unrenderCrosshair
 	jsr fire
 	
 ;	BORDER_COLOR #$2
