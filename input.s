@@ -35,7 +35,7 @@ kbdScanGameplay:
 	cmp #(' ' + $80)
 	beq kbdScanSpace
 	cmp #(9 + $80)
-	bne kbdScanDone
+	bne kbdScanDebugPiggyback
 	jmp kbdScanTab
 
 kbdScanDone:
@@ -47,7 +47,8 @@ kbdScanDebug:
 	lda KBD
 	bpl kbdScanDone
 	sta KBDSTROBE
-	
+
+kbdScanDebugPiggyback:
 	cmp #(27 + $80)
 	beq kbdScanESC
 	cmp #(127 + $80)

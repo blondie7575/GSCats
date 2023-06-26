@@ -103,8 +103,11 @@ gameplayLoopBeginUpdate:
 	lda projectileActive			; Skip interactivity during shots, but still allow map scrolling
 	bpl gameplayLoopShotTracking
 	lda dirtExplosionActive
-	bne gameplayLoopRender			; Skip interactivity during dirt explosions
+	bne gameplayLoopRenderJump			; Skip interactivity during dirt explosions
 	bra gameplayLoopScroll
+
+gameplayLoopRenderJump:
+	jmp gameplayLoopRender
 
 gameplayLoopShotTracking:
 	jsr trackActiveShot
@@ -112,15 +115,19 @@ gameplayLoopShotTracking:
 ;	BORDER_COLOR #$1
 
 gameplayLoopScroll:
-
 	; Scroll map if needed
 	lda mapScrollRequested
 	bmi gameplayLoopAngleCheck
+
 	jsr scrollMap
+
 
 gameplayLoopAngleCheck:
 	lda projectileActive			; Skip interactivity during shots
-	bpl gameplayLoopRender
+	bpl gameplayLoopRenderJmp
+	bra gameplayLoopAngle
+gameplayLoopRenderJmp:
+	jmp gameplayLoopRender
 
 gameplayLoopAngle:
 	; Update aim angle if needed
@@ -328,6 +335,13 @@ scrollMap:
 	jsr unrenderPlayers
 	jsr unrenderProjectiles
 
+	pha
+	lda projectileActive		; Crosshair is visible if projectile isn't
+	beq scrollMapApplyScrolling
+	jsr unrenderCrosshair
+
+scrollMapApplyScrolling:
+	pla
 ;	jsr updateProjectilePhysics	; Good idea?
 
 	sta mapScrollPos
@@ -345,6 +359,7 @@ scrollMap:
 	jsr protectProjectiles
 	jsr renderPlayers
 	jsr renderProjectiles		; Prevents flicker, but ads jitter to shot tracking
+
 	lda #1
 	sta terrainDirty
 	stz projectilesDirty

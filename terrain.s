@@ -206,6 +206,7 @@ clipTerrainLoop:
 ; On first move-left unclip every second row is unclipped incorrectly
 unclipTerrain:
 	SAVE_AXY
+	
 
 	phd
 	lda #(CLIPPEDTERRAINSTACK & $f000)
@@ -220,9 +221,8 @@ unclipTerrain:
 	sec							; Find stopping point for stack-relative addressing
 	lda clippedTerrainStackPtr
 	and #$0fff
-	sbc #7						; 4 bytes past top of stack, +3 for starting offset
+	sbc #3						; -3 for starting offset
 	sta STACKPTR
-
 	lda #$0fff-3	; Start at the bottom of the stack
 	tax
 
@@ -234,7 +234,6 @@ unclipTerrainLoop:
 
 	lda 0,x
 	sta compiledTerrain,y
-
 	tya
 	sec
 	sbc #COMPILEDTERRAINROW+2
@@ -244,7 +243,7 @@ unclipTerrainLoop:
 	dex
 	dex
 	dex
-	cpx STACKPTR  ;#$e6f-7 ;$1000		; When x hits the top of the stack, we're done
+	cpx STACKPTR  			; When x hits the top of the stack, we're done
 	bne unclipTerrainLoop
 
 	pld

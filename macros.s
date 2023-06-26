@@ -242,6 +242,20 @@ done:
 .endmacro
 
 
+.macro MEMCHK	; Check to see when a memory value has been stepped on
+	.local chkdone
+	pha
+	lda $0311CC
+	cmp #$4242
+	bne chkdone
+	lda #1
+	sta $e1c029
+	pla
+	brk
+chkdone:
+	pla
+.endmacro
+
 ;;;;;;;;;;
 ; Stack Macros
 

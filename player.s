@@ -61,6 +61,9 @@ PD_CURRWEAPON = 166
 PD_TREATS = 168
 PD_SIZE = 256
 
+MAX_POWER = 5
+MAX_ANGLE = 180
+
 .macro PLAYERPTR_Y
 	tya		; Pointer to player structure from index
 	asl
@@ -125,7 +128,7 @@ playerDeltaAngle:
 	clc
 	adc playerData+PD_ANGLE,y
 	bmi playerDeltaAngleClampLow
-	cmp #180
+	cmp #MAX_ANGLE
 	bpl playerDeltaAngleClampHigh
 
 playerDeltaAngleStore:
@@ -138,7 +141,7 @@ playerDeltaAngleClampLow:
 	bra playerDeltaAngleStore
 
 playerDeltaAngleClampHigh:
-	lda #180
+	lda #MAX_ANGLE
 	bra playerDeltaAngleStore
 
 
@@ -156,7 +159,7 @@ playerDeltaPower:
 	clc
 	adc playerData+PD_POWER,y
 	beq playerDeltaPowerClampLow
-	cmp #15
+	cmp #MAX_POWER
 	bpl playerDeltaPowerClampHigh
 
 playerDeltaPowerStore:
@@ -169,7 +172,7 @@ playerDeltaPowerClampLow:
 	bra playerDeltaPowerStore
 
 playerDeltaPowerClampHigh:
-	lda #15
+	lda #MAX_POWER
 	bra playerDeltaPowerStore
 
 

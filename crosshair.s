@@ -18,11 +18,11 @@ crosshairGameObject:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; updateCrosshair
 ;
-; Y = Player index to render for
+; Y = Player index to update for
 ; Trashes SCRATCHL, PARAML0, PARAML1
 ;
 updateCrosshair:
-	SAVE_AX
+	SAVE_AXY
 
 	PLAYERPTR_Y
 
@@ -68,19 +68,28 @@ updateCrosshairCalcY:
 
 updateCrosshairDone:
 
-	RESTORE_AX
+	RESTORE_AXY
 	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderCrosshair
 ;
+; Y = Player index to render for
+; Trashes Y,PARAML0,SCRATCHL
 ;
 renderCrosshair:
 	pha
+	PLAYERPTR_Y
+
 	lda #crosshairGameObject
 	sta PARAML0
-	lda #15
+
+	lda playerData+PD_POWER,y		; Choose reticle size for power level
+	sta SCRATCHL
+	lda #14
+	clc
+	adc SCRATCHL
 	jsr renderGameObject
 
 renderCrosshairDone:
@@ -91,6 +100,7 @@ renderCrosshairDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; unrenderCrosshair
 ;
+; Trashes PARAML0
 ;
 unrenderCrosshair:
 	pha
