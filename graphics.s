@@ -231,6 +231,23 @@ drawNumber:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; drawSpriteBankSafe
+;
+; A slightly slower version of Mr Sprite's DrawSpriteBank that
+; preserves all registers and requires no secret flag clearing
+;
+; Y = VRAM position at which to draw
+; A = Sprite Index
+;
+drawSpriteBankSafe:
+	SAVE_AXY
+	clc
+	jsr DrawSpriteBank
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; BORDER_COLOR
 ;
 ; Trashes A

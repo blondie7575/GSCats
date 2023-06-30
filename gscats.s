@@ -39,6 +39,7 @@ quitGame:
 .include "graphics.s"
 .include "font.s"
 .include "smallNumbers.s"
+.include "animation.s"
 .include "player.s"
 .include "terrain.s"
 .include "collision.s"

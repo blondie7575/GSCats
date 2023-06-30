@@ -183,6 +183,23 @@ delayShortInner:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; delayMedium
+; Sleeps for medium time (about 0.25 sec, but not calculated as such)
+;
+delayMedium:
+	SAVE_AX
+
+	ldx		#$50
+delayMediumInner:
+	jsr delayShort
+	dex
+	bne		delayMediumInner
+
+	RESTORE_AX
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; delayLong
 ; Sleeps for long time (about 1.5 sec, but not calculated as such)
 ;

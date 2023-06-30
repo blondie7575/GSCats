@@ -125,11 +125,11 @@ renderGameObject:
 
 	; Call compiled sprite code
 	txy
-	SAVE_AXY				; DEBUG BOUNDS RENDER
+;	SAVE_AXY				; DEBUG BOUNDS RENDER
 	clc
 	jsr DrawSpriteBank
 
-	RESTORE_AXY				; DEBUG BOUNDS RENDER
+;	RESTORE_AXY				; DEBUG BOUNDS RENDER
 ;	lda #11					; DEBUG BOUNDS RENDER
 ;	clc						; DEBUG BOUNDS RENDER
 ;	jsr DrawSpriteBank		; DEBUG BOUNDS RENDER

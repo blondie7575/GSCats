@@ -857,8 +857,17 @@ unrenderProjectileDone:
 ; Y = Offset to projectile structure
 ;
 processPlayerImpact:
+	phy
+	phx
 	PLAYERPTR_X
 
+	; Do hit animation
+	plx
+	txy
+	jsr renderHitAnimation
+
+	; Find projectile data structure
+	ply
 	lda projectileData+JD_TYPE,y
 	tay
 	PROJECTILETYPEPTR_Y
@@ -867,7 +876,7 @@ processPlayerImpact:
 	lda playerData+PD_ANGER,x
 	sec
 	sbc projectileTypes+PT_DAMAGE,y
-
+	
 	; Check for death
 	beq processPlayerImpactDeath
 	bmi processPlayerImpactDeath

@@ -20,11 +20,10 @@ playerData:
 	.word 2				; Power
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
-	.word 1				; Base Sprite
+	.word 26			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
 	.word 7				; Treats
-
 	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
@@ -42,7 +41,7 @@ playerData:
 	.word 2	; Power
 	.word 100			; Anger
 	.byte 8,"TINKER   "	; Name
-	.word 0				; Base Sprite
+	.word 20			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
 	.word 7				; Treats
@@ -326,6 +325,43 @@ unrenderPlayers:
 	jsr unrenderGameObject
 	RESTORE_AXY
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderHitAnimation
+;
+; Y = Player index to render
+; Trashes PARAML0,SCRATCHL
+;
+renderHitAnimation:
+	SAVE_AXY
+	PLAYERPTR_Y
+
+	jsr unrenderPlayers
+	jsr unrenderCrosshair
+
+	lda playerData+GO_POSX,y
+	sta renderHitAnimationPos
+	lda playerData+GO_POSY,y
+	clc
+	adc #GAMEOBJECTHEIGHT
+	sta renderHitAnimationPos+2
+	lda #renderHitAnimationPos
+	sta PARAML0
+	ldx #5
+
+	lda playerData+PD_BASESPRITE,y
+	inc		; Hit animation starts right above base sprite
+	tay
+	jsr renderAnimation
+
+	jsr renderPlayers
+
+RESTORE_AXY
+	rts
+
+renderHitAnimationPos:
+	.word 0,0
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
