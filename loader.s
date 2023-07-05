@@ -138,6 +138,33 @@ loadData:
 	ldy #0
 	jsr copyBytes
 
+	EMULATION
+
+	; Open the sound file
+	jsr PRODOS
+	.byte $c8
+	.addr fileOpenSound
+	bne ioError
+
+	; Load the sound data into bank 0
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioError
+
+	; Close the file
+	jsr PRODOS
+	.byte $cc
+	.addr fileClose
+
+	NATIVE
+
+	; Copy sound data into bank 4
+	ldx fileReadLen
+	lda #4
+	ldy #0
+	jsr copyBytes
+
 	; Set up a long jump into bank 2, and
 	; a way for game code to get back here to exit
 	; properly to ProDOS 8
@@ -259,9 +286,18 @@ fileOpenSprites:
 	.byte 0					; Result (file handle)
 	.byte 0					; Padding
 
+fileOpenSound:
+	.byte 3
+	.addr soundPath
+	.addr $9200				; 1k below BASIC.SYSTEM
+	.byte 0					; Result (file handle)
+	.byte 0					; Padding
+
 codePath:
 	pstring "/GSAPP/CODEBANK"
 codePathE1:
 	pstring "/GSAPP/CODEBANKE1"
 spritePath:
 	pstring "/GSAPP/SPRITEBANK"
+soundPath:
+	pstring "/GSAPP/SOUNDBANK"

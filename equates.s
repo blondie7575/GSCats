@@ -14,6 +14,12 @@ SHADOWVRAMBANK	= $010000
 PRODOS			= $bf00		; MLI entry point
 PRODOSRETURN	= $300		; Indirect jump to get back to ProDOS from any bank
 
+ENSONIQ_CONTROL = $e1c03c		; Ensoniq-related registers/locations
+ENSONIQ_DATA = $e1c03d
+ENSONIQ_ADDRL = $e1c03e
+ENSONIQ_ADDRH = $e1c03f
+SYSTEM_VOLUME = $e100ca
+
 ; Zero page locations we use (unused by Monitor, Applesoft, or ProDOS)
 PARAM0			= $06
 PARAM1			= $07

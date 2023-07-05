@@ -335,6 +335,13 @@ unrenderPlayers:
 ;
 renderHitAnimation:
 	SAVE_AXY
+
+	; Play hit sound
+	phy
+	ldy #SOUND_HOWL
+	jsr playSound
+	ply
+
 	PLAYERPTR_Y
 
 	jsr unrenderPlayers

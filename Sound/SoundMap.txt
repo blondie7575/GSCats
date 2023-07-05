@@ -1,0 +1,2 @@
+$0000	CatHowl	8192 bytes	11264 Hz
+$2000	Meow1	8192 bytes	5513 Hz

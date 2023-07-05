@@ -25,9 +25,12 @@
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
 		708D1B1E27B9A1A600909AFC /* crosshair.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = crosshair.s; sourceTree = "<group>"; };
 		709175C01F60D263008FAFAB /* GenerateCircles.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateCircles.py; sourceTree = "<group>"; };
+		709816A32A53B21800108D9C /* GenerateSoundBank.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = GenerateSoundBank.sh; sourceTree = "<group>"; };
+		709816A42A54E19F00108D9C /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		7099E3841F41022100182A82 /* gameobject.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gameobject.s; sourceTree = "<group>"; };
 		7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMYOffset.py; sourceTree = "<group>"; };
 		70A80FB01F43D7F200BD34C9 /* gamemanager.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gamemanager.s; sourceTree = "<group>"; };
+		70BCB0CE2A4FC92D00B19803 /* sound.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = sound.s; sourceTree = "<group>"; };
 		70BDCBC92006AD5F00CB51F1 /* linkerConfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = linkerConfig; sourceTree = "<group>"; };
 		70BDCBCA200A99F200CB51F1 /* ParseMapFile.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = ParseMapFile.py; sourceTree = "<group>"; };
 		70C073091F5BAA3E009844A9 /* collision.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = collision.s; sourceTree = "<group>"; };
@@ -66,6 +69,8 @@
 				700C39C51F2E5CA800C24F9C /* tables.s */,
 				70E266E31F6F262D005AC7E4 /* circleTable.s */,
 				70F0869F1F413A89002446C3 /* player.s */,
+				70BCB0CE2A4FC92D00B19803 /* sound.s */,
+				709816A32A53B21800108D9C /* GenerateSoundBank.sh */,
 				705456882A4D336200A2B866 /* animation.s */,
 				700B5E6F2069831000B31C00 /* inventory.s */,
 				700F21DF1F4A364600D7007D /* projectile.s */,
@@ -85,6 +90,7 @@
 				705456862A43E03B00A2B866 /* GeneratePixelCircle.py */,
 				709175C01F60D263008FAFAB /* GenerateCircles.py */,
 				70BDCBCA200A99F200CB51F1 /* ParseMapFile.py */,
+				709816A42A54E19F00108D9C /* ReadMe.md */,
 			);
 			sourceTree = "<group>";
 		};
