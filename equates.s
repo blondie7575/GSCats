@@ -63,6 +63,8 @@ terrainData = $f500
 ;	.endrepeat
 terrainDataEnd = terrainData + (TERRAINWIDTH/2 * 2)
 
+; Stash the size of the sound bank at the end of sound memory so loader can pass it to sound system
+soundBankSize=$04fffe
 
 ; projectileData struct offsets
 JD_PRECISEX = 132

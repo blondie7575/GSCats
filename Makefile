@@ -94,5 +94,5 @@ art:
 .PHONY: sound
 sound:
 	rm -f $(GENSOUND)/*
-	./GenerateSoundBank.sh Sound/CatHowl.wav 11264 Sound/Meow1.wav 5513 
+	./GenerateSoundBank.sh Sound/CatHowl.wav 11264 Sound/Meow1.wav 5513 Sound/Meow2.wav 5513 Sound/Meow3.wav 5513 Sound/Meow4.wav 5513
 	rm -f $(GENSOUND)/*

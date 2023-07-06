@@ -20,7 +20,7 @@ playerData:
 	.word 2				; Power
 	.word 100			; Anger
 	.byte 8,"SPROCKET "	; Name
-	.word 26			; Base Sprite
+	.word 29			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
 	.word 7				; Treats
@@ -183,6 +183,7 @@ playerDeltaPowerClampHigh:
 ;
 playerFire:
 	SAVE_AXY
+	sty SCRATCHL2
 	PLAYERPTR_Y
 
 	; Check that we can afford it
@@ -206,14 +207,18 @@ playerFire:
 	sbc SCRATCHL
 	sta playerData+PD_TREATS,y
 
+	; Animate the shooting
+	phy
+	ldy SCRATCHL2
+	jsr renderShootAnimation
+	ply
+
 	; Prepare projectile parameters
 	pla
 	sta projectileParams+8
 	lda playerData+GO_POSX,y
 	sta projectileParams
 	lda playerData+GO_POSY,y
-	clc
-	adc #GAMEOBJECTHEIGHT
 	sta projectileParams+2
 	lda playerData+PD_ANGLE,y
 	sta projectileParams+4
@@ -348,27 +353,70 @@ renderHitAnimation:
 	jsr unrenderCrosshair
 
 	lda playerData+GO_POSX,y
-	sta renderHitAnimationPos
+	sta renderAnimationPos
 	lda playerData+GO_POSY,y
 	clc
 	adc #GAMEOBJECTHEIGHT
-	sta renderHitAnimationPos+2
-	lda #renderHitAnimationPos
+	sta renderAnimationPos+2
+	lda #renderAnimationPos
 	sta PARAML0
 	ldx #5
 
 	lda playerData+PD_BASESPRITE,y
 	inc		; Hit animation starts right above base sprite
 	tay
+	lda #ANIMATION_SIZE_16x32
 	jsr renderAnimation
 
 	jsr renderPlayers
 
-RESTORE_AXY
+	RESTORE_AXY
 	rts
 
-renderHitAnimationPos:
+renderAnimationPos:
 	.word 0,0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderShootAnimation
+;
+; Y = Player index to render
+; Trashes PARAML0,SCRATCHL
+;
+renderShootAnimation:
+	SAVE_AXY
+
+	; Play meow sound
+	phy
+	ldy #SOUND_MEOW1
+	jsr playSound
+	ply
+
+	PLAYERPTR_Y
+
+	jsr unrenderPlayers
+	jsr unrenderCrosshair
+
+	lda playerData+GO_POSX,y
+	sta renderAnimationPos
+	lda playerData+GO_POSY,y
+	sta renderAnimationPos+2
+	lda #renderAnimationPos
+	sta PARAML0
+
+	ldx #3
+
+	lda playerData+PD_BASESPRITE,y
+	clc
+	adc #6	; Shoot animation starts 6 above base sprite
+	tay
+	lda #ANIMATION_SIZE_16x16
+	jsr renderAnimation
+
+	jsr renderPlayers
+
+	RESTORE_AXY
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

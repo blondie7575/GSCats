@@ -6,15 +6,22 @@
 ;
 
 
-NUM_SOUNDS = 2
+NUM_SOUNDS = 5
 
 SOUND_HOWL=0
 SOUND_MEOW1=2
+SOUND_MEOW2=4
+SOUND_MEOW3=6
+SOUND_MEOW4=8
+
 
 soundTable:
 	; Sound Ram Address, Wave Size, Low Frequency
 	.byte $00,WAVE_SIZE_8192,200		; SOUND_HOWL
-	.byte $20,WAVE_SIZE_8192,100		; SOUND_MEOW1
+	.byte $20,WAVE_SIZE_8192,150		; SOUND_MEOW1
+	.byte $40,WAVE_SIZE_8192,200		; SOUND_MEOW2
+	.byte $60,WAVE_SIZE_8192,150		; SOUND_MEOW3
+	.byte $80,WAVE_SIZE_8192,150		; SOUND_MEOW4
 
 
 ; Ensoniq Control Register bit patterns
@@ -123,7 +130,8 @@ initSoundSystem:
 	lda #$0000		; Sound location in bank 4
 	sta PARAML0
 	ldx #$04
-	ldy #11749
+	lda soundBankSize	; Far pointer
+	tay
 	jsr copyToSoundRAM
 
 	; Configure all our oscillators
@@ -133,6 +141,7 @@ initSoundSystem:
 	ldy #0
 	
 initSoundSystemLoop:
+
 	BITS8A
 	lda soundTable,y
 	sta PARAM0
@@ -169,7 +178,6 @@ initSoundSystemReady:
 
 	RESTORE_AXY
 	rts
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; playSound

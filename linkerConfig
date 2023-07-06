@@ -5,7 +5,7 @@ FEATURES {
 MEMORY {
 	ZP:     start = $0080, size = $001A,                 define = yes;
 	HEADER: start = $0000, size = $0004,      file = %O;
-	RAM:    start = %S,    size = $9600 - %S, file = %O, define = yes;
+	RAM:    start = %S,    size = $FFFF - %S, file = %O, define = yes;
 	MOVE:   start = $0000, size = $FFFF,      file = %O, define = yes;
 	LC:     start = $D400, size = $0C00,                 define = yes;
 }

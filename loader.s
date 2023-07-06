@@ -152,6 +152,24 @@ loadData:
 	.addr fileRead
 	bne ioError
 
+	NATIVE
+
+	; Copy sound data into bank 4
+	ldx fileReadLen
+	txa
+	sta soundBankSize	; Note size of sound bank for later copying to Ensoniq RAM
+	lda #4
+	ldy #0
+	jsr copyBytes
+
+	EMULATION
+
+	; Load rest of sound data into bank 0	(needed if sound size exceeds BUFFERSIZE)
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioError
+
 	; Close the file
 	jsr PRODOS
 	.byte $cc
@@ -159,10 +177,14 @@ loadData:
 
 	NATIVE
 
-	; Copy sound data into bank 4
+	; Copy rest of code into bank 2 (needed if code size exceeds BUFFERSIZE)
 	ldx fileReadLen
+	txa
+	clc
+	adc soundBankSize	; Accumulate size of sound bank for later copying to Ensoniq RAM
+	sta soundBankSize
 	lda #4
-	ldy #0
+	ldy #BUFFERSIZE
 	jsr copyBytes
 
 	; Set up a long jump into bank 2, and
