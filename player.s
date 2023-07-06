@@ -386,11 +386,7 @@ renderAnimationPos:
 renderShootAnimation:
 	SAVE_AXY
 
-	; Play meow sound
-	phy
-	ldy #SOUND_MEOW1
-	jsr playSound
-	ply
+	jsr playIterativeMeowSound
 
 	PLAYERPTR_Y
 
@@ -479,4 +475,29 @@ angerStr:
 treatsStr:
 	pstring "$   "
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; playIterativeMeowSound
+;
+playIterativeMeowSound:
+	phy
+
+	ldy meowDex
+	jsr playSound
+	iny
+	iny
+	cpy #SOUND_MEOW4
+	bcc playIterativeMeowSoundDone
+	beq playIterativeMeowSoundDone
+	ldy #SOUND_MEOW1
+
+playIterativeMeowSoundDone:
+	sty meowDex
+	
+	ply
+	rts
+
+meowDex:
+	.word SOUND_MEOW1
 
