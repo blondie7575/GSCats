@@ -67,16 +67,14 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
-;	jsl renderTerrainSpans	; Part of the now disabled fill-mode renderer
 
-;	lda #7
-;	sta PARAML0
-;	lda #50
-;	sta PARAML1
-;	ldy #3
-;	jsr craterTerrain
-;	jsr compileTerrain
-;	jsr clipTerrain
+	; Test font renderer
+;	FASTGRAPHICS
+;	ldy #$3000 ;#$2504
+;	jmp char33
+returnFromTest:
+;	SLOWGRAPHICS
+;	;HARDBRK
 
 gameplayLoop:
 	lda projectileActive
@@ -417,7 +415,7 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0080,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0ff0,$0000,$0fff
+	.word $0aef,$0080,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
 statusBarPalette:
 	.word $0aef,$0fff,$0aef,$0aef,$0aef,$0aef,$0d66,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0000
 

@@ -22,6 +22,8 @@
 		705C54E62124B7F300515A6B /* fan.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = fan.s; sourceTree = "<group>"; };
 		706DF1641F2D39F700AA6680 /* loader.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loader.s; sourceTree = "<group>"; };
 		706DF1651F2D4A8100AA6680 /* terrain.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = terrain.s; sourceTree = "<group>"; };
+		7076E9222A57AED90006E295 /* GenerateFont.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateFont.py; sourceTree = "<group>"; };
+		7076E9232A59113F0006E295 /* font8x8.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = font8x8.s; sourceTree = "<group>"; };
 		7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRenderSpans.py; sourceTree = "<group>"; };
 		708D1B1E27B9A1A600909AFC /* crosshair.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = crosshair.s; sourceTree = "<group>"; };
 		709175C01F60D263008FAFAB /* GenerateCircles.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateCircles.py; sourceTree = "<group>"; };
@@ -83,6 +85,8 @@
 				70BDCBC92006AD5F00CB51F1 /* linkerConfig */,
 				70FE79D21F8814A600E0095C /* MerlinToCA65.sh */,
 				700F72872112428D00225B17 /* RenumberSpriteFiles.sh */,
+				7076E9222A57AED90006E295 /* GenerateFont.py */,
+				7076E9232A59113F0006E295 /* font8x8.s */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,
