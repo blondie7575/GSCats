@@ -10,18 +10,29 @@ CHAR_HEIGHT = 8
 CHAR_FIRST = 32
 CHROMA = 14
 
+def labelFromCharXY(charX, numCharX, charY):
+	charIndex = charY*numCharX + charX
+	currChar = chr(charIndex+CHAR_FIRST)
+	return "char{:d}".format(ord(currChar))
+	
 def main(argv):
 	image = Image.open('Art/Assets/Font8x8.gif')
 	pixels = asarray(image)
 	numCharX = (int)(image.size[0]/CHAR_WIDTH)
 	numCharY = (int)(image.size[1]/CHAR_HEIGHT)
 		
-	for charY in range(0,1): #numCharY):
-		for charX in range(1,2): #numCharX):
-			charIndex = charY*numCharX + charX
-			currChar = chr(charIndex+CHAR_FIRST)
-						
-			print ("char%d:\n" % ord(currChar), end="")
+	# Generate jump table for glyphs
+	print ("characterJumpTable:")
+	for charY in range(0,numCharY):
+		for charX in range(0,numCharX):
+			print ("\t.addr %s" % labelFromCharXY(charX,numCharX,charY))
+	print ("")
+	
+	# Generate code for each glyph
+	for charY in range(0,numCharY):
+		for charX in range(0,numCharX):
+			
+			print ("%s:\n" % labelFromCharXY(charX,numCharX,charY), end="")
 			
 			# Header for each rendering operation
 			print ("\ttya")		# Transfer character VRAM position from Y to stack pointer
@@ -32,7 +43,15 @@ def main(argv):
 			charOriginY = charY*CHAR_HEIGHT
 			
 			for charRow in reversed(range(0,CHAR_HEIGHT)):
-				print ("\t; Line %d" % charRow)
+				print ("\t; Line %d, Pixel values: %x,%x,%x,%x,%x,%x,%x,%x" % (charRow,
+					pixels[charOriginY+charRow][charOriginX+0],
+					pixels[charOriginY+charRow][charOriginX+1],
+					pixels[charOriginY+charRow][charOriginX+2],
+					pixels[charOriginY+charRow][charOriginX+3],
+					pixels[charOriginY+charRow][charOriginX+4],
+					pixels[charOriginY+charRow][charOriginX+5],
+					pixels[charOriginY+charRow][charOriginX+6],
+					pixels[charOriginY+charRow][charOriginX+7]))
 				nextRowDelta = 160
 				for charCol in reversed(range(0,CHAR_WIDTH,4)):
 					nibbles = [pixels[charOriginY+charRow][charOriginX+charCol],
@@ -43,20 +62,27 @@ def main(argv):
 					word = nibbles[2]<<12 | nibbles[3]<<8 | nibbles[0]<<4 | nibbles[1]
 					
 					if (nibbles[0]==CHROMA and nibbles[1]==CHROMA and nibbles[2]==CHROMA and nibbles[3]==CHROMA):
-						pass							# Case 1 : All chroma, so let stack advance with no work
+						print ("\ttsc")					# Case 1 : All chroma, so let stack advance with no work
+						print ("\tdec")
+						print ("\tdec")
+						print ("\ttcs")
+						nextRowDelta-=2
 					elif (nibbles[0]!=CHROMA and nibbles[1]!=CHROMA and nibbles[2]!=CHROMA and nibbles[3]!=CHROMA):
+						print ("\ttsc")					# Advance stack 1 for two byte push
+						print ("\tdec")
+						print ("\ttcs")
 						print ("\tpea $%04x" % word)	# Case 2 : No chroma, so fast push
-						nextRowDelta -= 2
+						nextRowDelta -= 3
 					else:
-						mask = 0						# Case 3 : Mixed chroma, so mask and or
+						mask = 0xFFFF						# Case 3 : Mixed chroma, so mask and or
 						if (nibbles[0]!=CHROMA):
-							mask = mask | 0xFF0F
+							mask = mask & 0xFF0F
 						if (nibbles[1]!=CHROMA):
-							mask = mask | 0xFFF0
+							mask = mask & 0xFFF0
 						if (nibbles[2]!=CHROMA):
-							mask = mask | 0x0FFF
+							mask = mask & 0x0FFF
 						if (nibbles[3]!=CHROMA):
-							mask = mask | 0xF0FF
+							mask = mask & 0xF0FF
 						
 						sprite = word
 						if (nibbles[0]==CHROMA):
@@ -85,7 +111,7 @@ def main(argv):
 				print ("\ttcs")
 					
 			# Footer for each rendering operation
-			print ("\tjmp returnFromTest")
+			print ("\tjmp renderCharJumpReturn\n")
 			
 if __name__ == "__main__":
 	main(sys.argv[1:])

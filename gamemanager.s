@@ -69,12 +69,13 @@ beginGameplay:
 	jsr clipTerrain
 
 	; Test font renderer
-;	FASTGRAPHICS
-;	ldy #$3000 ;#$2504
-;	jmp char33
-returnFromTest:
-;	SLOWGRAPHICS
-;	;HARDBRK
+	lda #testString
+	sta PARAML0
+	ldy #$3000
+	jsl $050000
+	bra gameplayLoop
+testString:
+	pstring "HELLO WORLD!"
 
 gameplayLoop:
 	lda projectileActive

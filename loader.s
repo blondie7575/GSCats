@@ -164,7 +164,7 @@ loadData:
 
 	EMULATION
 
-	; Load rest of sound data into bank 0	(needed if sound size exceeds BUFFERSIZE)
+	; Load rest of sound data into bank 4	(needed if sound size exceeds BUFFERSIZE)
 	jsr PRODOS
 	.byte $ca
 	.addr fileRead
@@ -177,7 +177,7 @@ loadData:
 
 	NATIVE
 
-	; Copy rest of code into bank 2 (needed if code size exceeds BUFFERSIZE)
+	; Copy rest of sound data into bank 4 (needed if sound size exceeds BUFFERSIZE)
 	ldx fileReadLen
 	txa
 	clc
@@ -185,6 +185,28 @@ loadData:
 	sta soundBankSize
 	lda #4
 	ldy #BUFFERSIZE
+	jsr copyBytes
+
+	EMULATION
+
+	; Open the font file
+	jsr PRODOS
+	.byte $c8
+	.addr fileOpenFonts
+	bne ioErrorJmp
+
+	; Load the font data into bank 0
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioErrorJmp
+
+	NATIVE
+
+	; Copy font data into bank 5
+	ldx fileReadLen
+	lda #5
+	ldy #0
 	jsr copyBytes
 
 	; Set up a long jump into bank 2, and
@@ -199,6 +221,9 @@ returnToProDOS:
 	SYNCDBR
 	EMULATION
 	rts
+
+ioErrorJmp:
+	jmp ioError
 
 
 ; This table lives here in the loader because we need to copy
@@ -315,6 +340,13 @@ fileOpenSound:
 	.byte 0					; Result (file handle)
 	.byte 0					; Padding
 
+fileOpenFonts:
+	.byte 3
+	.addr fontPath
+	.addr $9200				; 1k below BASIC.SYSTEM
+	.byte 0					; Result (file handle)
+	.byte 0					; Padding
+
 codePath:
 	pstring "/GSAPP/CODEBANK"
 codePathE1:
@@ -323,3 +355,5 @@ spritePath:
 	pstring "/GSAPP/SPRITEBANK"
 soundPath:
 	pstring "/GSAPP/SOUNDBANK"
+fontPath:
+	pstring "/GSAPP/FONTBANK"

@@ -54,7 +54,6 @@ quitGame:
 .include "inventory.s"
 .include "dirt.s"
 .include "crosshair.s"
-.include "font8x8.s"
 endMainBank2:
 
 

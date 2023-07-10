@@ -18,6 +18,7 @@ CODEBANK=CODEBANK\#060000
 CODEBANKE1=CODEBANKE1\#060800
 EXEC=$(PGM)\#06$(ADDR)
 SOUNDBANK=SOUNDBANK\#060000
+FONTBANK=FONTBANK\#060000
 
 PGM=gscats
 MRSPRITE=../MrSprite/mrsprite
@@ -49,6 +50,7 @@ $(PGM):
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(CODEBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SPRITEBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SOUNDBANK)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(FONTBANK)
 
 	rm -f $(CODEBANK)
 	rm -f $(PGM).o
@@ -96,3 +98,11 @@ sound:
 	rm -f $(GENSOUND)/*
 	./GenerateSoundBank.sh Sound/CatHowl.wav 11264 Sound/Meow1.wav 5513 Sound/Meow2.wav 5513 Sound/Meow3.wav 5513 Sound/Meow4.wav 5513
 	rm -f $(GENSOUND)/*
+
+.PHONY: fonts
+fonts:
+	rm -rf $(FONTBANK)
+	./CompileFont.py > font8x8.s
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -lfonts.lst fontEngine.s -o $(FONTBANK)
+	rm -f fontEngine.o
+	
