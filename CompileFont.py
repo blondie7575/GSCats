@@ -5,18 +5,18 @@ import PIL
 from PIL import Image
 from numpy import asarray
 
-CHAR_WIDTH = 8
-CHAR_HEIGHT = 8
-CHAR_FIRST = 32
-CHROMA = 14
-
-def labelFromCharXY(charX, numCharX, charY):
+def labelFromCharXY(charFirst, charX, numCharX, charY):
 	charIndex = charY*numCharX + charX
-	currChar = chr(charIndex+CHAR_FIRST)
+	currChar = chr(charIndex+charFirst)
 	return "char{:d}".format(ord(currChar))
 	
 def main(argv):
-	image = Image.open('Art/Assets/Font8x8.gif')
+	CHAR_WIDTH = int(argv[0])
+	CHAR_HEIGHT = int(argv[1])
+	CHAR_FIRST = int(argv[2])
+	CHROMA = int(argv[3])
+	image = Image.open(argv[4])
+	
 	pixels = asarray(image)
 	numCharX = (int)(image.size[0]/CHAR_WIDTH)
 	numCharY = (int)(image.size[1]/CHAR_HEIGHT)
@@ -25,14 +25,14 @@ def main(argv):
 	print ("characterJumpTable:")
 	for charY in range(0,numCharY):
 		for charX in range(0,numCharX):
-			print ("\t.addr %s" % labelFromCharXY(charX,numCharX,charY))
+			print ("\t.addr %s" % labelFromCharXY(CHAR_FIRST,charX,numCharX,charY))
 	print ("")
 	
 	# Generate code for each glyph
 	for charY in range(0,numCharY):
 		for charX in range(0,numCharX):
 			
-			print ("%s:\n" % labelFromCharXY(charX,numCharX,charY), end="")
+			print ("%s:\n" % labelFromCharXY(CHAR_FIRST,charX,numCharX,charY), end="")
 			
 			# Header for each rendering operation
 			print ("\ttya")		# Transfer character VRAM position from Y to stack pointer
