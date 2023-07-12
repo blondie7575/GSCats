@@ -67,12 +67,7 @@ def main(argv):
 					requiredStackIndex = charCol/2
 					
 					if (nibbles[0]==CHROMA and nibbles[1]==CHROMA and nibbles[2]==CHROMA and nibbles[3]==CHROMA):
-						print ("\ttsc")					# Case 1 : All chroma, so let stack advance with no work
-						print ("\tdec")
-						print ("\tdec")
-						print ("\ttcs")
-						nextRowDelta-=2
-						rowPushTotal +=2
+						pass								# Case 1 : All chroma, so let stack advance with no work
 					elif (nibbles[0]!=CHROMA and nibbles[1]!=CHROMA and nibbles[2]!=CHROMA and nibbles[3]!=CHROMA):
 						offsetNeeded = (CHAR_WIDTH/2-requiredStackIndex) - rowPushTotal - 2
 						if (offsetNeeded>0):
@@ -80,11 +75,12 @@ def main(argv):
 							print ("\tsec")					# Note that PEA needs a little +1 to put bytes in the place we expect
 							print ("\tsbc #%d" % (offsetNeeded+1))
 							print ("\ttcs")
-						print ("\tpea $%04x" % word)	# Case 2 : No chroma, so fast push
+							nextRowDelta -= offsetNeeded
+						print ("\tpea $%04x" % word)		# Case 2 : No chroma, so fast push
 						nextRowDelta -= 3
 						rowPushTotal += (3+offsetNeeded)
 					else:
-						mask = 0xFFFF					# Case 3 : Mixed chroma, so mask and or
+						mask = 0xFFFF						# Case 3 : Mixed chroma, so mask and or
 						if (nibbles[0]!=CHROMA):
 							mask = mask & 0xFF0F
 						if (nibbles[1]!=CHROMA):
@@ -106,17 +102,18 @@ def main(argv):
 						
 						localStackEntry = [requiredStackIndex,mask,sprite]
 						localStackList.append(localStackEntry)
-						nextRowDelta -= 2
 						
 				# Process any local stack work we accumulated
 				if len(localStackList) > 0:
 					if (rowPushTotal < CHAR_WIDTH/2):			# Get stack pointer to end of row if needed
+						cleanupPush = CHAR_WIDTH/2-rowPushTotal
 						print ("\ttsc")
 						print ("\tsec")
-						print ("\tsbc #%d" % (CHAR_WIDTH/2-rowPushTotal))
+						print ("\tsbc #%d" % cleanupPush)
 						print ("\ttcs")
 						rowPushTotal = CHAR_WIDTH/2
-					
+						nextRowDelta -= cleanupPush
+						
 					extraReach = rowPushTotal - CHAR_WIDTH/2
 					for stackEntry in localStackList:
 						print ("\tlda %d,S" % (stackEntry[0] + extraReach))				# Blend mask, sprite, and background

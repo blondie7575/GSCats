@@ -85,107 +85,43 @@ char32:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -194,16 +130,8 @@ char33:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -241,16 +169,8 @@ char33:
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeea deee
 	tsc
@@ -327,68 +247,28 @@ char34:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: ebae edde
 	tsc
@@ -448,16 +328,8 @@ char35:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: edde ddee
 	tsc
@@ -579,25 +451,13 @@ char36:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$f0ff
@@ -657,12 +517,8 @@ char36:
 	tcs
 	; Line 2, Pixel values: fbea eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$f000
@@ -691,12 +547,8 @@ char36:
 	tcs
 	; Line 0, Pixel values: eeef eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$f0ff
@@ -713,107 +565,43 @@ char37:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -822,107 +610,43 @@ char38:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -931,68 +655,28 @@ char39:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeea aeee
 	tsc
@@ -1052,16 +736,8 @@ char40:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -1082,12 +758,8 @@ char40:
 	tcs
 	; Line 5, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1099,12 +771,8 @@ char40:
 	tcs
 	; Line 4, Pixel values: ebae eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1116,12 +784,8 @@ char40:
 	tcs
 	; Line 3, Pixel values: ebae eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1133,12 +797,8 @@ char40:
 	tcs
 	; Line 2, Pixel values: ebae eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1150,12 +810,8 @@ char40:
 	tcs
 	; Line 1, Pixel values: eebb eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1189,25 +845,13 @@ char41:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1236,12 +880,8 @@ char41:
 	tcs
 	; Line 4, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -1253,12 +893,8 @@ char41:
 	tcs
 	; Line 3, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -1270,12 +906,8 @@ char41:
 	tcs
 	; Line 2, Pixel values: eeee adee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -1304,12 +936,8 @@ char41:
 	tcs
 	; Line 0, Pixel values: eeff eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1326,29 +954,13 @@ char42:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eaed edee
 	tsc
@@ -1437,16 +1049,8 @@ char42:
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -1455,16 +1059,8 @@ char43:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -1570,16 +1166,8 @@ char43:
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -1588,12 +1176,8 @@ char44:
 	tcs
 	; Line 7, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1639,68 +1223,28 @@ char44:
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -1709,55 +1253,23 @@ char45:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: ebaa ddde
 	tsc
@@ -1778,42 +1290,18 @@ char45:
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -1822,16 +1310,8 @@ char46:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -1869,68 +1349,28 @@ char46:
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -1939,25 +1379,13 @@ char47:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: edde eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1969,12 +1397,8 @@ char47:
 	tcs
 	; Line 5, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2003,12 +1427,8 @@ char47:
 	tcs
 	; Line 3, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -2020,12 +1440,8 @@ char47:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -2037,12 +1453,8 @@ char47:
 	tcs
 	; Line 1, Pixel values: eeee eedd
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$00ff
@@ -2054,16 +1466,8 @@ char47:
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -2072,16 +1476,8 @@ char48:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -2203,16 +1599,8 @@ char49:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -2244,12 +1632,8 @@ char49:
 	tcs
 	; Line 4, Pixel values: eead eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2261,12 +1645,8 @@ char49:
 	tcs
 	; Line 3, Pixel values: eeaa eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2278,12 +1658,8 @@ char49:
 	tcs
 	; Line 2, Pixel values: eeaa eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2295,12 +1671,8 @@ char49:
 	tcs
 	; Line 1, Pixel values: ebbb eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00f0
@@ -2312,12 +1684,8 @@ char49:
 	tcs
 	; Line 0, Pixel values: eeff eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2334,16 +1702,8 @@ char50:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddde
 	tsc
@@ -2375,8 +1735,8 @@ char50:
 	tcs
 	; Line 4, Pixel values: fbad eeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $adfb
 	tsc
@@ -2402,12 +1762,8 @@ char50:
 	tcs
 	; Line 2, Pixel values: eeee adde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0f00
@@ -2452,16 +1808,8 @@ char51:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -2493,12 +1841,8 @@ char51:
 	tcs
 	; Line 4, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -2527,12 +1871,8 @@ char51:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -2577,25 +1917,13 @@ char52:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -2669,12 +1997,8 @@ char52:
 	tcs
 	; Line 1, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2686,12 +2010,8 @@ char52:
 	tcs
 	; Line 0, Pixel values: ffee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2708,16 +2028,8 @@ char53:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -2749,12 +2061,8 @@ char53:
 	tcs
 	; Line 4, Pixel values: eeee ddde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0f00
@@ -2780,12 +2088,8 @@ char53:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2830,16 +2134,8 @@ char54:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -2905,12 +2201,8 @@ char54:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2958,16 +2250,8 @@ char55:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eedd deee
 	tsc
@@ -3039,12 +2323,8 @@ char55:
 	tcs
 	; Line 2, Pixel values: eeee adde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0f00
@@ -3089,16 +2369,8 @@ char56:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -3220,16 +2492,8 @@ char57:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -3264,12 +2528,8 @@ char57:
 	tcs
 	; Line 4, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -3348,38 +2608,18 @@ char58:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3391,12 +2631,8 @@ char58:
 	tcs
 	; Line 4, Pixel values: eead eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3408,25 +2644,13 @@ char58:
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeaa eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3438,12 +2662,8 @@ char58:
 	tcs
 	; Line 1, Pixel values: eebb eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3455,16 +2675,8 @@ char58:
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -3473,25 +2685,13 @@ char59:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eedd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3537,16 +2737,8 @@ char59:
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeea aeee
 	tsc
@@ -3584,16 +2776,8 @@ char59:
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -3602,25 +2786,13 @@ char60:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee ddde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0f00
@@ -3649,12 +2821,8 @@ char60:
 	tcs
 	; Line 4, Pixel values: eead eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3666,12 +2834,8 @@ char60:
 	tcs
 	; Line 3, Pixel values: ebae eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -3683,12 +2847,8 @@ char60:
 	tcs
 	; Line 2, Pixel values: eeaa eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3717,12 +2877,8 @@ char60:
 	tcs
 	; Line 0, Pixel values: eeee ffae
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0f00
@@ -3739,42 +2895,18 @@ char61:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: ebad ddde
 	tsc
@@ -3795,16 +2927,8 @@ char61:
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: ebaa adde
 	tsc
@@ -3825,29 +2949,13 @@ char61:
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -3856,25 +2964,13 @@ char62:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00f0
@@ -3903,12 +2999,8 @@ char62:
 	tcs
 	; Line 4, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -3920,12 +3012,8 @@ char62:
 	tcs
 	; Line 3, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -3937,12 +3025,8 @@ char62:
 	tcs
 	; Line 2, Pixel values: eeee adee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -3971,12 +3055,8 @@ char62:
 	tcs
 	; Line 0, Pixel values: efff eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00f0
@@ -3993,16 +3073,8 @@ char63:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -4023,16 +3095,8 @@ char63:
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeed deee
 	tsc
@@ -4053,12 +3117,8 @@ char63:
 	tcs
 	; Line 3, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -4070,12 +3130,8 @@ char63:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -4126,16 +3182,8 @@ char64:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eedd ddee
 	tsc
@@ -4173,12 +3221,8 @@ char64:
 	tcs
 	; Line 4, Pixel values: ebae eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -4263,16 +3307,8 @@ char65:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -4378,12 +3414,8 @@ char65:
 	tcs
 	; Line 0, Pixel values: eeee ffee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -4400,16 +3432,8 @@ char66:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -4472,12 +3496,8 @@ char66:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -4522,16 +3542,8 @@ char67:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -4583,12 +3595,8 @@ char67:
 	tcs
 	; Line 3, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4653,16 +3661,8 @@ char68:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -4728,12 +3728,8 @@ char68:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -4778,16 +3774,8 @@ char69:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddde
 	tsc
@@ -4822,12 +3810,8 @@ char69:
 	tcs
 	; Line 4, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4853,12 +3837,8 @@ char69:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4906,25 +3886,13 @@ char70:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4936,12 +3904,8 @@ char70:
 	tcs
 	; Line 5, Pixel values: faee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4953,12 +3917,8 @@ char70:
 	tcs
 	; Line 4, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -4984,16 +3944,8 @@ char70:
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: fbbb bade
 	tsc
@@ -5030,16 +3982,8 @@ char71:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -5108,12 +4052,8 @@ char71:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5161,16 +4101,8 @@ char72:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -5295,16 +4227,8 @@ char73:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddde
 	tsc
@@ -5432,16 +4356,8 @@ char74:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd deee
 	tsc
@@ -5510,12 +4426,8 @@ char74:
 	tcs
 	; Line 2, Pixel values: eeee adee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -5566,16 +4478,8 @@ char75:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -5630,8 +4534,8 @@ char75:
 	tcs
 	; Line 3, Pixel values: fbaa eeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
 	tsc
@@ -5640,8 +4544,8 @@ char75:
 	tcs
 	; Line 2, Pixel values: fbaa eeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
 	tsc
@@ -5689,16 +4593,8 @@ char76:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddde
 	tsc
@@ -5733,12 +4629,8 @@ char76:
 	tcs
 	; Line 4, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5750,12 +4642,8 @@ char76:
 	tcs
 	; Line 3, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5767,12 +4655,8 @@ char76:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5784,12 +4668,8 @@ char76:
 	tcs
 	; Line 1, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5801,12 +4681,8 @@ char76:
 	tcs
 	; Line 0, Pixel values: ffee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5823,16 +4699,8 @@ char77:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -5954,16 +4822,8 @@ char78:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee ddee
 	tsc
@@ -6085,16 +4945,8 @@ char79:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -6216,25 +5068,13 @@ char80:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6246,12 +5086,8 @@ char80:
 	tcs
 	; Line 5, Pixel values: faee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6263,12 +5099,8 @@ char80:
 	tcs
 	; Line 4, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6294,12 +5126,8 @@ char80:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -6344,16 +5172,8 @@ char81:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd dedd
 	tsc
@@ -6475,16 +5295,8 @@ char82:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -6553,12 +5365,8 @@ char82:
 	tcs
 	; Line 2, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -6603,16 +5411,8 @@ char83:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddee
 	tsc
@@ -6644,12 +5444,8 @@ char83:
 	tcs
 	; Line 4, Pixel values: eeee edde
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$0ff0
@@ -6678,12 +5474,8 @@ char83:
 	tcs
 	; Line 2, Pixel values: fbee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6731,25 +5523,13 @@ char84:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -6761,12 +5541,8 @@ char84:
 	tcs
 	; Line 5, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -6778,12 +5554,8 @@ char84:
 	tcs
 	; Line 4, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -6795,12 +5567,8 @@ char84:
 	tcs
 	; Line 3, Pixel values: eeee ddee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -6812,12 +5580,8 @@ char84:
 	tcs
 	; Line 2, Pixel values: eeee adee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 2,S
 	and #$ff00
@@ -6862,16 +5626,8 @@ char85:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eddd ddee
 	tsc
@@ -6996,16 +5752,8 @@ char86:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eedd deee
 	tsc
@@ -7133,16 +5881,8 @@ char87:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -7264,16 +6004,8 @@ char88:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: adee edde
 	tsc
@@ -7401,16 +6133,8 @@ char89:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeed deee
 	tsc
@@ -7538,16 +6262,8 @@ char90:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddde
 	tsc
@@ -7579,12 +6295,8 @@ char90:
 	tcs
 	; Line 4, Pixel values: ebad eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #2
+	sbc #4
 	tcs
 	lda 0,S
 	and #$00f0
@@ -7663,16 +6375,8 @@ char91:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: ffff fffe
 	tsc
@@ -7779,16 +6483,8 @@ char92:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: fbaa ddde
 	tsc
@@ -7895,16 +6591,8 @@ char93:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: dddd ddde
 	tsc
@@ -8011,16 +6699,8 @@ char94:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: ddda abfe
 	tsc
@@ -8127,16 +6807,8 @@ char95:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: dddd ddde
 	tsc
@@ -8243,16 +6915,8 @@ char96:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: dddd ddde
 	tsc
@@ -8359,16 +7023,8 @@ char97:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: ddda abfe
 	tsc
@@ -8475,16 +7131,8 @@ char98:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: fbaa ddde
 	tsc
@@ -8591,16 +7239,8 @@ char99:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: addd ddde
 	tsc
@@ -8707,16 +7347,8 @@ char100:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: afff fffe
 	tsc
@@ -8823,16 +7455,8 @@ char101:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: fbaa ddde
 	tsc
@@ -8939,16 +7563,8 @@ char102:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: ddda abfe
 	tsc
@@ -9055,107 +7671,43 @@ char103:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9164,107 +7716,43 @@ char104:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9273,107 +7761,43 @@ char105:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9382,107 +7806,43 @@ char106:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9491,107 +7851,43 @@ char107:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9600,107 +7896,43 @@ char108:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9709,107 +7941,43 @@ char109:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9818,107 +7986,43 @@ char110:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
@@ -9927,107 +8031,43 @@ char111:
 	tcs
 	; Line 7, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 6, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 5, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 4, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 3, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 2, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 1, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	; Line 0, Pixel values: eeee eeee
 	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	tsc
 	sec
-	sbc #156
+	sbc #160
 	tcs
 	jmp renderCharJumpReturn
 
