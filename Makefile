@@ -31,7 +31,7 @@ SPRITEBANK=$(SPRITES)\#060000
 FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
 REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
 
-all: clean diskimage terrain_e1 $(PGM) loader emulate
+all: clean diskimage terrain_e1 fonts $(PGM) loader emulate
 
 emulate:
 	# Leading hypen needed because GSPlus maddeningly returns code 1 (error) always and for no reason
@@ -53,6 +53,7 @@ $(PGM):
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(FONTBANK)
 
 	rm -f $(CODEBANK)
+	rm -f $(FONTBANK)
 	rm -f $(PGM).o
 	rm -f terrain_e1.map
 
@@ -67,6 +68,12 @@ terrain_e1:
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(CODEBANKE1)
 	rm -f $(CODEBANKE1)
 	rm -f terrain_e1.o
+
+fonts:
+	rm -rf $(FONTBANK)
+	./CompileFont.py > font8x8.s
+	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -lfonts.lst fontEngine.s -o $(FONTBANK)
+	rm -f fontEngine.o
 
 clean:
 	rm -f $(PGM)
@@ -98,11 +105,4 @@ sound:
 	rm -f $(GENSOUND)/*
 	./GenerateSoundBank.sh Sound/CatHowl.wav 11264 Sound/Meow1.wav 5513 Sound/Meow2.wav 5513 Sound/Meow3.wav 5513 Sound/Meow4.wav 5513
 	rm -f $(GENSOUND)/*
-
-.PHONY: fonts
-fonts:
-	rm -rf $(FONTBANK)
-	./CompileFont.py > font8x8.s
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr 0000 -lfonts.lst fontEngine.s -o $(FONTBANK)
-	rm -f fontEngine.o
 	

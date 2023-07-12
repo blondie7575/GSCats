@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import sys
 import PIL
@@ -38,7 +38,7 @@ def main(argv):
 			print ("\ttya")		# Transfer character VRAM position from Y to stack pointer
 			print ("\ttcs")
 			
-			# Iteratre through all the pixels
+			# Iterate through all the pixels
 			charOriginX = charX*CHAR_WIDTH
 			charOriginY = charY*CHAR_HEIGHT
 			
