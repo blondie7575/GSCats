@@ -83,7 +83,7 @@ characterJumpTable:
 char32:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -96,7 +96,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -109,7 +109,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -122,7 +122,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -135,7 +135,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -148,7 +148,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -161,7 +161,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -174,7 +174,7 @@ char32:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -192,7 +192,7 @@ char32:
 char33:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -205,19 +205,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -226,19 +222,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -247,7 +239,7 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -260,19 +252,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,a,d,e,e,e
+	; Line 3, Pixel values: eeea deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -281,19 +269,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,e,e,e
+	; Line 2, Pixel values: eeea aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -302,19 +286,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -323,19 +303,15 @@ char33:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,f,f,e,e,e
+	; Line 0, Pixel values: eeef feee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00f0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0f00
@@ -349,7 +325,7 @@ char33:
 char34:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -362,7 +338,7 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -375,7 +351,7 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -388,7 +364,7 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -401,7 +377,7 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -414,19 +390,15 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,e,e,d,d,e
+	; Line 2, Pixel values: ebae edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -435,19 +407,15 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,e,e,a,d,e
+	; Line 1, Pixel values: ebbe eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$b00b
@@ -456,19 +424,15 @@ char34:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,f,f,e,e,f,a,e
+	; Line 0, Pixel values: effe efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$f00f
@@ -482,7 +446,7 @@ char34:
 char35:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -495,19 +459,15 @@ char35:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,e,d,d,e,e
+	; Line 6, Pixel values: edde ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$d00d
@@ -516,36 +476,29 @@ char35:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,b,a,e,d,d,e,e
+	; Line 4, Pixel values: ebae ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -554,19 +507,15 @@ char35:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,e,d,d,e,e
+	; Line 3, Pixel values: ebae ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -575,19 +524,15 @@ char35:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,e,a,d,e,e
+	; Line 2, Pixel values: ebae adee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -596,36 +541,29 @@ char35:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,e,f,f,e,e
+	; Line 0, Pixel values: effe ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$f00f
@@ -639,7 +577,7 @@ char35:
 char36:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -652,14 +590,14 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,e,e,e,e
+	; Line 6, Pixel values: eeed eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$f0ff
@@ -669,36 +607,29 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,e,e
+	; Line 5, Pixel values: fadd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,e,d,e,d,d,e
+	; Line 4, Pixel values: eeed edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -707,19 +638,15 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,e,e
+	; Line 3, Pixel values: ebaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -728,14 +655,14 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,a,e,e,e,e
+	; Line 2, Pixel values: fbea eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$f000
@@ -745,19 +672,15 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,b,b,a,d,e
+	; Line 1, Pixel values: ebbb bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$bb0b
@@ -766,14 +689,14 @@ char36:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,f,e,e,e,e
+	; Line 0, Pixel values: eeef eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$f0ff
@@ -788,7 +711,7 @@ char36:
 char37:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -801,7 +724,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -814,7 +737,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -827,7 +750,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -840,7 +763,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -853,7 +776,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -866,7 +789,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -879,7 +802,7 @@ char37:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -897,7 +820,7 @@ char37:
 char38:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -910,7 +833,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -923,7 +846,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -936,7 +859,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -949,7 +872,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -962,7 +885,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -975,7 +898,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -988,7 +911,7 @@ char38:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1006,7 +929,7 @@ char38:
 char39:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1019,7 +942,7 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1032,7 +955,7 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1045,7 +968,7 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1058,7 +981,7 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1071,19 +994,15 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,e,e,e
+	; Line 2, Pixel values: eeea aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -1092,19 +1011,15 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -1113,19 +1028,15 @@ char39:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,f,f,e,e,e
+	; Line 0, Pixel values: eeef feee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00f0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0f00
@@ -1139,7 +1050,7 @@ char39:
 char40:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1152,19 +1063,15 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1173,14 +1080,14 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,d,d,e,e,e,e
+	; Line 5, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1190,14 +1097,14 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,e,e,e,e,e
+	; Line 4, Pixel values: ebae eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1207,14 +1114,14 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,e,e,e,e,e
+	; Line 3, Pixel values: ebae eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1224,14 +1131,14 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,e,e,e,e,e
+	; Line 2, Pixel values: ebae eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -1241,14 +1148,14 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,b,b,e,e,e,e
+	; Line 1, Pixel values: eebb eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1258,19 +1165,15 @@ char40:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,f,f,e,e,e
+	; Line 0, Pixel values: eeef feee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00f0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0f00
@@ -1284,7 +1187,7 @@ char40:
 char41:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1297,14 +1200,14 @@ char41:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,d,d,e,e,e,e
+	; Line 6, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1314,19 +1217,15 @@ char41:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1335,70 +1234,66 @@ char41:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
+	; Line 4, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 3, Pixel values: e,e,e,e,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 3, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
+	sbc #2
+	tcs
+	lda 2,S
+	and #$ff00
+	ora #$00dd
+	sta 2,S
+	tsc
+	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,e,e
+	; Line 2, Pixel values: eeee adee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -1407,14 +1302,14 @@ char41:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,f,f,e,e,e,e
+	; Line 0, Pixel values: eeff eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1429,7 +1324,7 @@ char41:
 char42:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1442,7 +1337,7 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1455,19 +1350,15 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,a,e,d,e,d,e,e
+	; Line 5, Pixel values: eaed edee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$fff0
 	ora #$000d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0f0
 	ora #$0d0a
@@ -1476,19 +1367,15 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,a,d,d,e,e,e
+	; Line 4, Pixel values: eead deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$ad00
@@ -1497,19 +1384,15 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,e,e
+	; Line 3, Pixel values: ebaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -1518,19 +1401,15 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,a,a,a,e,e,e
+	; Line 2, Pixel values: eeaa aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -1539,19 +1418,15 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,e,b,e,a,e,e
+	; Line 1, Pixel values: ebeb eaee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$fff0
 	ora #$000a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0f0
 	ora #$0b0b
@@ -1560,7 +1435,7 @@ char42:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1578,7 +1453,7 @@ char42:
 char43:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1591,19 +1466,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1612,19 +1483,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1633,19 +1500,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,d,d,d,d,e
+	; Line 4, Pixel values: ebad ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ad0b
@@ -1654,19 +1517,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,d,e
+	; Line 3, Pixel values: ebaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -1675,19 +1534,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,e,e,e
+	; Line 2, Pixel values: eeea aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -1696,19 +1551,15 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -1717,7 +1568,7 @@ char43:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1735,14 +1586,14 @@ char43:
 char44:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,d,d,e,e,e,e
+	; Line 7, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -1752,19 +1603,15 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1773,19 +1620,15 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -1794,7 +1637,7 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1807,7 +1650,7 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1820,7 +1663,7 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1833,7 +1676,7 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1846,7 +1689,7 @@ char44:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1864,7 +1707,7 @@ char44:
 char45:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1877,7 +1720,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1890,7 +1733,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1903,7 +1746,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1916,19 +1759,15 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,d,e
+	; Line 3, Pixel values: ebaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -1937,7 +1776,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1950,7 +1789,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1963,7 +1802,7 @@ char45:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1981,7 +1820,7 @@ char45:
 char46:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -1994,19 +1833,15 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -2015,19 +1850,15 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -2036,7 +1867,7 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2049,7 +1880,7 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2062,7 +1893,7 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2075,7 +1906,7 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2088,7 +1919,7 @@ char46:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2106,7 +1937,7 @@ char46:
 char47:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2119,14 +1950,14 @@ char47:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,e,e,e,e,e
+	; Line 6, Pixel values: edde eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -2136,14 +1967,14 @@ char47:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,d,d,e,e,e,e
+	; Line 5, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2153,19 +1984,15 @@ char47:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,d,d,e,e,e
+	; Line 4, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -2174,58 +2001,58 @@ char47:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,d,d,e,e
+	; Line 3, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 1, Pixel values: eeee eedd
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,d,d
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$00ff
 	ora #$dd00
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2243,7 +2070,7 @@ char47:
 char48:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2256,19 +2083,15 @@ char48:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -2277,36 +2100,29 @@ char48:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,a,e,e,d,d,e
+	; Line 4, Pixel values: fbae edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$a0fb
@@ -2315,19 +2131,15 @@ char48:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,a,e,d,d,e
+	; Line 3, Pixel values: fbea edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0afb
@@ -2336,19 +2148,15 @@ char48:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,a,d,d,e
+	; Line 2, Pixel values: fbee adde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -2357,36 +2165,29 @@ char48:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -2400,7 +2201,7 @@ char48:
 char49:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2413,48 +2214,42 @@ char49:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $ddfa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,a,d,e,e,e,e
+	; Line 5, Pixel values: fadd ddee
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $ddfa
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 4, Pixel values: eead eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2464,14 +2259,14 @@ char49:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,a,a,e,e,e,e
+	; Line 3, Pixel values: eeaa eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2481,14 +2276,14 @@ char49:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,a,a,e,e,e,e
+	; Line 2, Pixel values: eeaa eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2498,14 +2293,14 @@ char49:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,b,e,e,e,e
+	; Line 1, Pixel values: ebbb eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00f0
@@ -2515,14 +2310,14 @@ char49:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,f,f,e,e,e,e
+	; Line 0, Pixel values: eeff eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -2537,7 +2332,7 @@ char49:
 char50:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2550,46 +2345,37 @@ char50:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,d,e
+	; Line 6, Pixel values: addd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $ddfa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,a,d,e,e,e,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
+	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 4, Pixel values: fbad eeee
+	tsc
+	dec
 	dec
 	tcs
 	pea $adfb
@@ -2597,19 +2383,15 @@ char50:
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: e,e,a,a,d,d,e,e
+	; Line 3, Pixel values: eeaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -2618,53 +2400,47 @@ char50:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,d,e
+	; Line 2, Pixel values: eeee adde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,e,e
+	; Line 0, Pixel values: ffff ffee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff00
+	ora #$00ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -2674,7 +2450,7 @@ char50:
 char51:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2687,70 +2463,60 @@ char51:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,d,d,e
+	; Line 4, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,e,e
+	; Line 3, Pixel values: ebaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -2759,53 +2525,47 @@ char51:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,e,e
+	; Line 0, Pixel values: ffff ffee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff00
+	ora #$00ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -2815,7 +2575,7 @@ char51:
 char52:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2828,70 +2588,60 @@ char52:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,d,d,e,e
+	; Line 6, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 4, Pixel values: f,b,a,d,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $adfb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: f,b,e,e,d,d,e,e
+	; Line 4, Pixel values: fbad ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $adfb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 3, Pixel values: fbee ddee
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -2900,18 +2650,31 @@ char52:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,a,d,e,e
+	; Line 2, Pixel values: fbee adee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
+	sta 2,S
+	lda 0,S
+	and #$ff00
+	ora #$00fb
 	sta 0,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 1, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
+	tcs
+	tsc
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2921,31 +2684,14 @@ char52:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,e,e,e
+	; Line 0, Pixel values: ffee eeee
 	tsc
 	dec
 	dec
 	tcs
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
 	tsc
 	sec
-	sbc #156
-	tcs
-	; Line 0, Pixel values: f,f,e,e,e,e,e,e
-	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -2960,7 +2706,7 @@ char52:
 char53:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -2973,82 +2719,73 @@ char53:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,e,e,d,d,d,e
+	; Line 4, Pixel values: eeee ddde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -3058,36 +2795,30 @@ char53:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,a,e
+	; Line 0, Pixel values: ffff ffae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$a0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -3097,7 +2828,7 @@ char53:
 char54:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3110,19 +2841,15 @@ char54:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -3131,36 +2858,29 @@ char54:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -3169,31 +2889,28 @@ char54:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -3203,36 +2920,29 @@ char54:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,a,e
+	; Line 0, Pixel values: efff ffae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -3246,7 +2956,7 @@ char54:
 char55:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3259,19 +2969,15 @@ char55:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,d,d,d,e,e,e
+	; Line 6, Pixel values: eedd deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$dd00
@@ -3280,19 +2986,15 @@ char55:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,d,d,d,e,e,e
+	; Line 5, Pixel values: eedd deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$dd00
@@ -3301,19 +3003,15 @@ char55:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,a,d,d,e,e,e
+	; Line 4, Pixel values: eead deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$ad00
@@ -3322,19 +3020,15 @@ char55:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,a,d,d,e,e
+	; Line 3, Pixel values: eeea ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -3343,53 +3037,47 @@ char55:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,d,e
+	; Line 2, Pixel values: eeee adde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,a,e
+	; Line 0, Pixel values: ffff ffae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$a0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -3399,7 +3087,7 @@ char55:
 char56:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3412,19 +3100,15 @@ char56:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -3433,36 +3117,29 @@ char56:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -3471,19 +3148,15 @@ char56:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,e,e
+	; Line 3, Pixel values: ebaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -3492,19 +3165,15 @@ char56:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -3513,36 +3182,29 @@ char56:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -3556,7 +3218,7 @@ char56:
 char57:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3569,19 +3231,15 @@ char57:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -3590,70 +3248,60 @@ char57:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,d,d,e
+	; Line 4, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -3662,36 +3310,29 @@ char57:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -3705,7 +3346,7 @@ char57:
 char58:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3718,7 +3359,7 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3731,14 +3372,14 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,d,d,e,e,e,e
+	; Line 5, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3748,14 +3389,14 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,a,d,e,e,e,e
+	; Line 4, Pixel values: eead eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3765,7 +3406,7 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3778,14 +3419,14 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,a,a,e,e,e,e
+	; Line 2, Pixel values: eeaa eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3795,14 +3436,14 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,b,b,e,e,e,e
+	; Line 1, Pixel values: eebb eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3812,7 +3453,7 @@ char58:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3830,7 +3471,7 @@ char58:
 char59:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3843,14 +3484,14 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,d,d,e,e,e,e
+	; Line 6, Pixel values: eedd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -3860,19 +3501,15 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -3881,19 +3518,15 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,d,d,e,e,e
+	; Line 4, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -3902,7 +3535,7 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3915,19 +3548,15 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,e,e,e
+	; Line 2, Pixel values: eeea aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -3936,19 +3565,15 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -3957,7 +3582,7 @@ char59:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3975,7 +3600,7 @@ char59:
 char60:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -3988,36 +3613,32 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,d,d,d,e
+	; Line 6, Pixel values: eeee ddde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -4026,14 +3647,14 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,a,d,e,e,e,e
+	; Line 4, Pixel values: eead eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -4043,14 +3664,14 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,e,e,e,e,e
+	; Line 3, Pixel values: ebae eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -4060,14 +3681,14 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,a,a,e,e,e,e
+	; Line 2, Pixel values: eeaa eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00ff
@@ -4077,19 +3698,15 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -4098,19 +3715,19 @@ char60:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,f,f,a,e
+	; Line 0, Pixel values: eeee ffae
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0f00
 	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
@@ -4120,7 +3737,7 @@ char60:
 char61:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4133,7 +3750,7 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4146,7 +3763,7 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4159,19 +3776,15 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,d,d,d,d,e
+	; Line 4, Pixel values: ebad ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ad0b
@@ -4180,7 +3793,7 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4193,19 +3806,15 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,a,a,d,d,e
+	; Line 2, Pixel values: ebaa adde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -4214,7 +3823,7 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4227,7 +3836,7 @@ char61:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4245,7 +3854,7 @@ char61:
 char62:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4258,14 +3867,14 @@ char62:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,e,e,e,e
+	; Line 6, Pixel values: eddd eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00f0
@@ -4275,19 +3884,15 @@ char62:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -4296,70 +3901,66 @@ char62:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,d,d,e,e
+	; Line 4, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 3, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 2, Pixel values: eeee adee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,b,b,e,e,e
+	; Line 1, Pixel values: eeeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0b00
@@ -4368,14 +3969,14 @@ char62:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,f,f,f,e,e,e,e
+	; Line 0, Pixel values: efff eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00f0
@@ -4390,7 +3991,7 @@ char62:
 char63:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4403,19 +4004,15 @@ char63:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -4424,7 +4021,7 @@ char63:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4437,19 +4034,15 @@ char63:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,d,d,e,e,e
+	; Line 4, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -4458,53 +4051,49 @@ char63:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,d,d,e,e
+	; Line 3, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,e,e,a,d,e
+	; Line 1, Pixel values: ebbe eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$b00b
@@ -4513,19 +4102,15 @@ char63:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,f,f,f,f,e,e
+	; Line 0, Pixel values: eeff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$ff00
@@ -4539,7 +4124,7 @@ char63:
 char64:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4552,19 +4137,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,d,d,d,d,e,e
+	; Line 6, Pixel values: eedd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$dd00
@@ -4573,19 +4154,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,a,d,e,e,e,d,e
+	; Line 5, Pixel values: eade eede
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0fff
 	ora #$d000
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$d00a
@@ -4594,14 +4171,14 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,e,e,e,e,e
+	; Line 4, Pixel values: ebae eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$0ff0
@@ -4611,19 +4188,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,e,d,d,d,e
+	; Line 3, Pixel values: ebae ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -4632,19 +4205,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,e,a,d,d,e
+	; Line 2, Pixel values: ebae adde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -4653,19 +4222,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,e,e,a,d,e
+	; Line 1, Pixel values: ebbe eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$b00b
@@ -4674,19 +4239,15 @@ char64:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,f,f,f,f,e,e
+	; Line 0, Pixel values: eeff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$ff00
@@ -4700,7 +4261,7 @@ char64:
 char65:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4713,19 +4274,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -4734,19 +4291,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,d,d,e
+	; Line 5, Pixel values: faee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -4755,19 +4308,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,d,d,d,d,e
+	; Line 4, Pixel values: ebad ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ad0b
@@ -4776,19 +4325,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,e,e,d,d,e
+	; Line 3, Pixel values: ebae edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -4797,19 +4342,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,a,a,e,d,d,e
+	; Line 2, Pixel values: eeaa edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -4818,19 +4359,15 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,b,b,b,a,d,e
+	; Line 1, Pixel values: eebb bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$bb00
@@ -4839,19 +4376,19 @@ char65:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,f,f,e,e
+	; Line 0, Pixel values: eeee ffee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
@@ -4861,7 +4398,7 @@ char65:
 char66:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -4874,53 +4411,43 @@ char66:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -4929,70 +4456,61 @@ char66:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,e,e
+	; Line 0, Pixel values: ffff ffee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff00
+	ora #$00ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -5002,7 +4520,7 @@ char66:
 char67:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5015,19 +4533,15 @@ char67:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -5036,35 +4550,45 @@ char67:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
+	sta 2,S
+	lda 0,S
+	and #$ff00
+	ora #$00fb
 	sta 0,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 3, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
+	tcs
+	tsc
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5074,36 +4598,15 @@ char67:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,e,e,e
-	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
+	; Line 2, Pixel values: fbee edde
 	tsc
 	sec
-	sbc #156
+	sbc #4
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5112,36 +4615,29 @@ char67:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -5155,7 +4651,7 @@ char67:
 char68:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5168,53 +4664,43 @@ char68:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5223,19 +4709,15 @@ char68:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,d,d,e
+	; Line 3, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5244,53 +4726,47 @@ char68:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0ff0
-	ora #$d00d
-	sta 0,S
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
+	sbc #2
+	tcs
+	lda 2,S
+	and #$0ff0
+	ora #$d00d
+	sta 2,S
+	tsc
+	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,e,e
+	; Line 0, Pixel values: ffff ffee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff00
+	ora #$00ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -5300,7 +4776,7 @@ char68:
 char69:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5313,19 +4789,15 @@ char69:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,d,e
+	; Line 6, Pixel values: eddd ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -5334,65 +4806,28 @@ char69:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 4, Pixel values: f,b,e,e,e,e,e,e
-	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
-	tsc
-	sec
-	sbc #156
-	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
+	; Line 4, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5402,36 +4837,60 @@ char69:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
 	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $bbfb
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,a,e
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
+	tcs
+	tsc
+	sec
+	sbc #2
 	tcs
 	lda 0,S
-	and #$0f00
-	ora #$a0ff
+	and #$ff00
+	ora #$00fb
 	sta 0,S
 	tsc
-	dec
-	dec
+	sec
+	sbc #156
 	tcs
+	; Line 1, Pixel values: fbbb bade
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 0, Pixel values: efff ffae
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
+	and #$0f00
+	ora #$a0ff
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -5445,7 +4904,7 @@ char69:
 char70:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5458,14 +4917,14 @@ char70:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,e,e,e
+	; Line 6, Pixel values: adee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5475,14 +4934,14 @@ char70:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,e,e,e
+	; Line 5, Pixel values: faee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5492,14 +4951,14 @@ char70:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,e,e,e
+	; Line 4, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -5509,24 +4968,21 @@ char70:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5539,36 +4995,30 @@ char70:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,a,e
+	; Line 0, Pixel values: ffff ffae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$a0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -5578,7 +5028,7 @@ char70:
 char71:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5591,19 +5041,15 @@ char71:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -5612,112 +5058,94 @@ char71:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0ff0
-	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
-	tsc
-	sec
-	sbc #156
-	tcs
-	; Line 3, Pixel values: f,b,e,e,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
-	tsc
-	sec
-	sbc #156
-	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
-	tsc
-	dec
-	dec
-	tcs
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00fb
-	sta 0,S
-	tsc
-	sec
-	sbc #156
-	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $bbfb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 4, Pixel values: fbee edde
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
+	and #$0ff0
+	ora #$d00d
+	sta 2,S
+	lda 0,S
+	and #$ff00
+	ora #$00fb
+	sta 0,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 3, Pixel values: fbee ddde
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
+	and #$0f00
+	ora #$d0dd
+	sta 2,S
+	lda 0,S
+	and #$ff00
+	ora #$00fb
+	sta 0,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
+	tcs
+	tsc
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
-	ora #$00ff
+	ora #$00fb
 	sta 0,S
 	tsc
-	dec
-	dec
+	sec
+	sbc #156
 	tcs
+	; Line 1, Pixel values: fbbb bade
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 0, Pixel values: efff ffee
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
+	and #$ff00
+	ora #$00ff
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -5731,7 +5159,7 @@ char71:
 char72:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5744,19 +5172,15 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -5765,19 +5189,15 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,d,d,e
+	; Line 5, Pixel values: faee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -5786,19 +5206,15 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5807,36 +5223,29 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,e,d,d,e
+	; Line 3, Pixel values: fbaa edde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0ff0
-	ora #$d00d
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0ff0
+	ora #$d00d
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5845,19 +5254,15 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,a,d,e
+	; Line 1, Pixel values: fbee eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -5866,19 +5271,15 @@ char72:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -5892,7 +5293,7 @@ char72:
 char73:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -5905,19 +5306,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,d,e
+	; Line 6, Pixel values: eddd ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -5926,19 +5323,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,a,d,d,d,d,d,e
+	; Line 5, Pixel values: eadd ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0a
@@ -5947,19 +5340,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,d,d,e,e,e
+	; Line 4, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -5968,19 +5357,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,a,d,e,e,e
+	; Line 3, Pixel values: eeea deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -5989,19 +5374,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,e,e,e
+	; Line 2, Pixel values: eeea aeee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00a0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -6010,19 +5391,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,b,b,a,d,e
+	; Line 1, Pixel values: ebbb bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$bb0b
@@ -6031,19 +5408,15 @@ char73:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,a,e
+	; Line 0, Pixel values: efff ffae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -6057,7 +5430,7 @@ char73:
 char74:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6070,19 +5443,15 @@ char74:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,e,e,e
+	; Line 6, Pixel values: eddd deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -6091,36 +5460,29 @@ char74:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,e,e
+	; Line 5, Pixel values: fadd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,d,d,e,e
+	; Line 4, Pixel values: fbee ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -6129,19 +5491,15 @@ char74:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,d,d,e,e
+	; Line 3, Pixel values: fbee ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -6150,36 +5508,32 @@ char74:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,e,e
+	; Line 2, Pixel values: eeee adee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,b,b,a,d,e
+	; Line 1, Pixel values: ebbb bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$bb0b
@@ -6188,19 +5542,15 @@ char74:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,a,e
+	; Line 0, Pixel values: efff ffae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -6214,7 +5564,7 @@ char74:
 char75:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6227,19 +5577,15 @@ char75:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -6248,19 +5594,15 @@ char75:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,d,d,e,e
+	; Line 5, Pixel values: faee ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -6269,19 +5611,15 @@ char75:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,d,d,e,e,e
+	; Line 4, Pixel values: fbed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0dfb
@@ -6290,12 +5628,9 @@ char75:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,e,e,e,e
+	; Line 3, Pixel values: fbaa eeee
 	tsc
 	dec
-	dec
-	tcs
-	tsc
 	dec
 	tcs
 	pea $aafb
@@ -6303,12 +5638,9 @@ char75:
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,a,a,e,e,e,e
+	; Line 2, Pixel values: fbaa eeee
 	tsc
 	dec
-	dec
-	tcs
-	tsc
 	dec
 	tcs
 	pea $aafb
@@ -6316,19 +5648,15 @@ char75:
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: f,b,e,b,b,e,e,e
+	; Line 1, Pixel values: fbeb beee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00b0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0bfb
@@ -6337,19 +5665,15 @@ char75:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,f,f,e,e
+	; Line 0, Pixel values: ffee ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -6363,7 +5687,7 @@ char75:
 char76:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6376,19 +5700,15 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,d,e
+	; Line 6, Pixel values: eddd ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -6397,31 +5717,28 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,e,e,e
+	; Line 4, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6431,14 +5748,14 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,e,e,e
+	; Line 3, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6448,14 +5765,14 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6465,14 +5782,14 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,e,e,e
+	; Line 1, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6482,14 +5799,14 @@ char76:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,e,e,e
+	; Line 0, Pixel values: ffee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -6504,7 +5821,7 @@ char76:
 char77:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6517,19 +5834,15 @@ char77:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -6538,19 +5851,15 @@ char77:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,d,d,e
+	; Line 5, Pixel values: faee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -6559,19 +5868,15 @@ char77:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,d,e,d,d,e
+	; Line 4, Pixel values: fbed edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0dfb
@@ -6580,53 +5885,43 @@ char77:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,a,a,a,d,d,e
+	; Line 2, Pixel values: fbaa adde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: f,b,b,e,b,a,d,e
+	; Line 1, Pixel values: fbbe bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$b0fb
@@ -6635,19 +5930,15 @@ char77:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -6661,7 +5952,7 @@ char77:
 char78:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6674,19 +5965,15 @@ char78:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,d,d,e,e
+	; Line 6, Pixel values: adee ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -6695,19 +5982,15 @@ char78:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,d,d,e,e
+	; Line 5, Pixel values: faee ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -6716,19 +5999,15 @@ char78:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,d,d,d,e,e
+	; Line 4, Pixel values: fbed ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0dfb
@@ -6737,53 +6016,43 @@ char78:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,a,a,a,d,e,e
+	; Line 2, Pixel values: fbaa adee
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: f,b,b,e,b,a,e,e
+	; Line 1, Pixel values: fbbe baee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$b0fb
@@ -6792,19 +6061,15 @@ char78:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,f,f,e,e
+	; Line 0, Pixel values: ffee ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -6818,7 +6083,7 @@ char78:
 char79:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6831,19 +6096,15 @@ char79:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -6852,36 +6113,29 @@ char79:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -6890,19 +6144,15 @@ char79:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,d,d,e
+	; Line 3, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -6911,19 +6161,15 @@ char79:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -6932,36 +6178,29 @@ char79:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -6975,7 +6214,7 @@ char79:
 char80:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -6988,14 +6227,14 @@ char80:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,e,e,e
+	; Line 6, Pixel values: adee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -7005,14 +6244,14 @@ char80:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,e,e,e
+	; Line 5, Pixel values: faee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -7022,14 +6261,14 @@ char80:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,e,e,e
+	; Line 4, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -7039,70 +6278,61 @@ char80:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,e,e
+	; Line 0, Pixel values: ffff ffee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff00
+	ora #$00ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -7112,7 +6342,7 @@ char80:
 char81:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7125,19 +6355,15 @@ char81:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,e,d,d
+	; Line 6, Pixel values: eddd dedd
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$000f
 	ora #$ddd0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -7146,36 +6372,29 @@ char81:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7184,19 +6403,15 @@ char81:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,d,d,e
+	; Line 3, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7205,19 +6420,15 @@ char81:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7226,36 +6437,29 @@ char81:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,e,e
+	; Line 0, Pixel values: efff ffee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -7269,7 +6473,7 @@ char81:
 char82:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7282,19 +6486,15 @@ char82:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -7303,19 +6503,15 @@ char82:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,e,e,e,d,d,e
+	; Line 5, Pixel values: faee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fa
@@ -7324,19 +6520,15 @@ char82:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7345,70 +6537,61 @@ char82:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,e,e
+	; Line 3, Pixel values: fbaa ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,d,d,e
+	; Line 2, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,e,e,e
+	; Line 0, Pixel values: ffff feee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff0f
-	ora #$00f0
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff0f
+	ora #$00f0
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -7418,7 +6601,7 @@ char82:
 char83:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7431,70 +6614,60 @@ char83:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,e,e
+	; Line 6, Pixel values: addd ddee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$ff00
+	ora #$00dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,d,d,e
+	; Line 4, Pixel values: eeee edde
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,b,a,a,d,d,e,e
+	; Line 3, Pixel values: ebaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -7503,14 +6676,14 @@ char83:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,e,e,e
+	; Line 2, Pixel values: fbee eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$ff00
@@ -7520,36 +6693,29 @@ char83:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: e,f,f,f,f,f,a,e
+	; Line 0, Pixel values: efff ffae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ff0f
@@ -7563,7 +6729,7 @@ char83:
 char84:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7576,121 +6742,115 @@ char84:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,d,d,e,e
+	; Line 6, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
-	lda 0,S
+	tsc
+	sec
+	sbc #2
+	tcs
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 5, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 5, Pixel values: e,e,e,e,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 4, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 4, Pixel values: e,e,e,e,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 3, Pixel values: eeee ddee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 3, Pixel values: e,e,e,e,d,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
+	sta 2,S
+	tsc
+	sec
+	sbc #156
+	tcs
+	; Line 2, Pixel values: eeee adee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
 	sec
-	sbc #156
+	sbc #2
 	tcs
-	; Line 2, Pixel values: e,e,e,e,a,d,e,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	tsc
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,e,e
+	; Line 1, Pixel values: fbbb baee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff00
-	ora #$00ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$ff00
+	ora #$00ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,e,e,e
+	; Line 0, Pixel values: ffff feee
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$ff0f
-	ora #$00f0
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$ff0f
+	ora #$00f0
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -7700,7 +6860,7 @@ char84:
 char85:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7713,19 +6873,15 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,d,d,d,d,d,e,e
+	; Line 6, Pixel values: eddd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0d
@@ -7734,36 +6890,29 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,e,e,e,d,d,e
+	; Line 4, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7772,19 +6921,15 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,d,d,e
+	; Line 3, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7793,19 +6938,15 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7814,19 +6955,15 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,a,d,e
+	; Line 1, Pixel values: fbee eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7835,19 +6972,15 @@ char85:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -7861,7 +6994,7 @@ char85:
 char86:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -7874,19 +7007,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,d,d,d,e,e,e
+	; Line 6, Pixel values: eedd deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$dd00
@@ -7895,19 +7024,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,a,d,d,d,d,e,e
+	; Line 5, Pixel values: eadd ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$dd0a
@@ -7916,19 +7041,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,a,e,d,d,d,e
+	; Line 4, Pixel values: fbae ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$a0fb
@@ -7937,19 +7058,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: f,b,e,e,e,d,d,e
+	; Line 3, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7958,19 +7075,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: f,b,e,e,e,d,d,e
+	; Line 2, Pixel values: fbee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -7979,19 +7092,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,a,d,e
+	; Line 1, Pixel values: fbee eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -8000,19 +7109,15 @@ char86:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -8026,7 +7131,7 @@ char86:
 char87:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8039,19 +7144,15 @@ char87:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -8060,19 +7161,15 @@ char87:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,e,d,d,d,e
+	; Line 5, Pixel values: fade ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$d0fa
@@ -8081,53 +7178,43 @@ char87:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: f,b,a,d,d,d,d,e
+	; Line 4, Pixel values: fbad ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $adfb
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,e,a,e,d,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 2, Pixel values: fbea edde
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f000
 	ora #$0afb
@@ -8136,19 +7223,15 @@ char87:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,e,e,e,a,d,e
+	; Line 1, Pixel values: fbee eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00fb
@@ -8157,19 +7240,15 @@ char87:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -8183,7 +7262,7 @@ char87:
 char88:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8196,19 +7275,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,e,e,e,d,d,e
+	; Line 6, Pixel values: adee edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ad
@@ -8217,19 +7292,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: f,a,d,e,d,d,d,e
+	; Line 5, Pixel values: fade ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$d0fa
@@ -8238,19 +7309,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,b,a,d,d,d,e,e
+	; Line 4, Pixel values: ebad ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$ad0b
@@ -8259,19 +7326,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,a,a,d,e,e,e
+	; Line 3, Pixel values: eeaa deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -8280,19 +7343,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,a,a,d,e,e
+	; Line 2, Pixel values: ebaa adee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00f0
 	ora #$aa0b
@@ -8301,19 +7360,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,e,b,a,d,e
+	; Line 1, Pixel values: fbbe bade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0f00
 	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0f00
 	ora #$b0fb
@@ -8322,19 +7377,15 @@ char88:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: f,f,e,e,e,f,a,e
+	; Line 0, Pixel values: ffee efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$ff00
 	ora #$00ff
@@ -8348,7 +7399,7 @@ char88:
 char89:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8361,19 +7412,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,d,d,e,e,e
+	; Line 6, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -8382,19 +7429,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,d,d,e,e,e
+	; Line 5, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -8403,19 +7446,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,d,d,e,e,e
+	; Line 4, Pixel values: eeed deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0d00
@@ -8424,19 +7463,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,a,a,d,d,e,e
+	; Line 3, Pixel values: eeaa ddee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00dd
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -8445,19 +7480,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,b,a,e,e,d,d,e
+	; Line 2, Pixel values: ebae edde
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00d
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$a00b
@@ -8466,19 +7497,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,b,b,e,e,a,d,e
+	; Line 1, Pixel values: ebbe eade
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$d00a
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$b00b
@@ -8487,19 +7514,15 @@ char89:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,f,f,e,e,f,a,e
+	; Line 0, Pixel values: effe efae
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$0ff0
 	ora #$a00f
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$0ff0
 	ora #$f00f
@@ -8513,7 +7536,7 @@ char89:
 char90:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8526,48 +7549,42 @@ char90:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,d,e
+	; Line 6, Pixel values: addd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $ddfa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: e,b,a,d,e,e,e,e
+	; Line 5, Pixel values: fadd ddde
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 4, Pixel values: ebad eeee
 	tsc
 	dec
 	dec
 	tcs
 	tsc
-	dec
-	dec
+	sec
+	sbc #2
 	tcs
 	lda 0,S
 	and #$00f0
@@ -8577,19 +7594,15 @@ char90:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,a,a,d,e,e,e
+	; Line 3, Pixel values: eeaa deee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff0f
 	ora #$00d0
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$00ff
 	ora #$aa00
@@ -8598,19 +7611,15 @@ char90:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,a,a,d,e,e
+	; Line 2, Pixel values: eeea adee
 	tsc
-	dec
-	dec
+	sec
+	sbc #4
 	tcs
-	lda 0,S
+	lda 2,S
 	and #$ff00
 	ora #$00ad
-	sta 0,S
-	tsc
-	dec
-	dec
-	tcs
+	sta 2,S
 	lda 0,S
 	and #$f0ff
 	ora #$0a00
@@ -8619,36 +7628,30 @@ char90:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,a,e
+	; Line 0, Pixel values: ffff ffae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$a0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -8658,7 +7661,7 @@ char90:
 char91:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8671,121 +7674,100 @@ char91:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: f,f,f,f,f,f,f,e
+	; Line 6, Pixel values: ffff fffe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$f0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: b,b,b,b,b,b,b,e
+	; Line 5, Pixel values: bbbb bbbe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$b0bb
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbbb
+	lda 3,S
+	and #$0f00
+	ora #$b0bb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: a,a,a,a,a,a,a,e
+	; Line 4, Pixel values: aaaa aaae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 3, Pixel values: a,a,a,a,a,a,a,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$a0aa
-	sta 0,S
+	sta 3,S
 	tsc
-	dec
+	sec
+	sbc #155
+	tcs
+	; Line 3, Pixel values: aaaa aaae
+	tsc
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
+	lda 3,S
+	and #$0f00
+	ora #$a0aa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: d,d,d,d,d,d,d,e
+	; Line 2, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,d,d,d,d,e
+	; Line 1, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,d,d,d,d,e
+	; Line 0, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -8795,7 +7777,7 @@ char91:
 char92:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8808,121 +7790,100 @@ char92:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: f,b,a,a,d,d,d,e
+	; Line 6, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,b,a,a,d,d,d,e
+	; Line 5, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,a,a,d,d,d,e
+	; Line 4, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,a,a,d,d,d,e
+	; Line 2, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: f,b,a,a,d,d,d,e
+	; Line 1, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,b,a,a,d,d,d,e
+	; Line 0, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -8932,7 +7893,7 @@ char92:
 char93:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -8945,121 +7906,100 @@ char93:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,d,d,d,d,e
+	; Line 6, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,d,d,d,d,d,e
+	; Line 5, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,d,d,d,d,d,e
+	; Line 4, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: a,a,a,a,a,a,a,e
+	; Line 3, Pixel values: aaaa aaae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 2, Pixel values: a,a,a,a,a,a,a,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aaaa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: b,b,b,b,b,b,b,e
+	; Line 2, Pixel values: aaaa aaae
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aaaa
+	lda 3,S
 	and #$0f00
-	ora #$b0bb
-	sta 0,S
+	ora #$a0aa
+	sta 3,S
 	tsc
-	dec
+	sec
+	sbc #155
+	tcs
+	; Line 1, Pixel values: bbbb bbbe
+	tsc
+	sec
+	sbc #3
 	tcs
 	pea $bbbb
+	lda 3,S
+	and #$0f00
+	ora #$b0bb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,f,e
+	; Line 0, Pixel values: ffff fffe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$f0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9069,7 +8009,7 @@ char93:
 char94:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9082,121 +8022,100 @@ char94:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,a,a,b,f,e
+	; Line 6, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,d,a,a,b,f,e
+	; Line 5, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,d,a,a,b,f,e
+	; Line 4, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: d,d,d,a,a,b,f,e
+	; Line 3, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: d,d,d,a,a,b,f,e
+	; Line 2, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,a,a,b,f,e
+	; Line 1, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,a,a,b,f,e
+	; Line 0, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9206,7 +8125,7 @@ char94:
 char95:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9219,121 +8138,100 @@ char95:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,d,d,d,d,e
+	; Line 6, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,d,d,d,d,d,e
+	; Line 5, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,d,d,d,d,d,e
+	; Line 4, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: a,a,a,a,d,d,d,e
+	; Line 3, Pixel values: aaaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: a,a,a,a,d,d,d,e
+	; Line 2, Pixel values: aaaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: b,b,a,a,d,d,d,e
+	; Line 1, Pixel values: bbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aabb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,b,a,a,d,d,d,e
+	; Line 0, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9343,7 +8241,7 @@ char95:
 char96:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9356,121 +8254,100 @@ char96:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,d,d,d,d,e
+	; Line 6, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,d,d,d,d,d,e
+	; Line 5, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,d,d,d,d,d,e
+	; Line 4, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: d,d,d,a,a,a,a,e
+	; Line 3, Pixel values: ddda aaae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 2, Pixel values: d,d,d,a,a,a,a,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,a,a,b,b,e
+	; Line 2, Pixel values: ddda aaae
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$a0aa
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 1, Pixel values: ddda abbe
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $dadd
+	lda 3,S
 	and #$0f00
 	ora #$b0ab
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,a,a,b,f,e
+	; Line 0, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9480,7 +8357,7 @@ char96:
 char97:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9493,121 +8370,100 @@ char97:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,a,a,b,f,e
+	; Line 6, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dadd
+	lda 3,S
 	and #$0f00
 	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,d,a,a,b,b,e
+	; Line 5, Pixel values: ddda abbe
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dadd
+	lda 3,S
 	and #$0f00
 	ora #$b0ab
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,d,a,a,a,a,e
+	; Line 4, Pixel values: ddda aaae
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dadd
+	lda 3,S
 	and #$0f00
 	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: d,d,d,a,a,a,a,e
+	; Line 3, Pixel values: ddda aaae
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dadd
+	lda 3,S
 	and #$0f00
 	ora #$a0aa
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dadd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: d,d,d,d,d,d,d,e
+	; Line 2, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,d,d,d,d,e
+	; Line 1, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,d,d,d,d,e
+	; Line 0, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9617,7 +8473,7 @@ char97:
 char98:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9630,121 +8486,100 @@ char98:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: f,b,a,a,d,d,d,e
+	; Line 6, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: b,b,a,a,d,d,d,e
+	; Line 5, Pixel values: bbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aabb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: a,a,a,a,d,d,d,e
+	; Line 4, Pixel values: aaaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: a,a,a,a,d,d,d,e
+	; Line 3, Pixel values: aaaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aaaa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: d,d,d,d,d,d,d,e
+	; Line 2, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,d,d,d,d,e
+	; Line 1, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,d,d,d,d,e
+	; Line 0, Pixel values: dddd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9754,7 +8589,7 @@ char98:
 char99:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9767,121 +8602,100 @@ char99:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,d,d,d,d,d,d,e
+	; Line 6, Pixel values: addd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddad
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: f,a,d,d,d,d,d,e
+	; Line 5, Pixel values: fadd ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ddfa
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: f,b,a,d,d,d,d,e
+	; Line 4, Pixel values: fbad ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $adfb
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 3, Pixel values: f,b,a,a,d,d,d,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: f,b,a,a,a,d,d,e
+	; Line 3, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 2, Pixel values: fbaa adde
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $aafb
+	lda 3,S
 	and #$0f00
 	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $aafb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: f,b,b,b,b,a,d,e
+	; Line 1, Pixel values: fbbb bade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbfb
+	lda 3,S
+	and #$0f00
+	ora #$d0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,f,f,f,f,f,a,e
+	; Line 0, Pixel values: ffff ffae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffff
+	lda 3,S
+	and #$0f00
+	ora #$a0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -9891,7 +8705,7 @@ char99:
 char100:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -9904,121 +8718,100 @@ char100:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: a,f,f,f,f,f,f,e
+	; Line 6, Pixel values: afff fffe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ff
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $ffaf
+	lda 3,S
+	and #$0f00
+	ora #$f0ff
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,a,b,b,b,b,f,e
+	; Line 5, Pixel values: dabb bbfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0bb
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bbda
+	lda 3,S
+	and #$0f00
+	ora #$f0bb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,d,a,a,a,b,f,e
+	; Line 4, Pixel values: ddaa abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: d,d,d,a,a,b,f,e
+	; Line 3, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
-	tsc
-	sec
-	sbc #155
-	tcs
-	; Line 2, Pixel values: d,d,d,d,a,b,f,e
-	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
+	lda 3,S
 	and #$0f00
 	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dddd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,d,d,d,a,f,e
+	; Line 2, Pixel values: dddd abfe
 	tsc
-	dec
-	dec
+	sec
+	sbc #3
 	tcs
-	lda 0,S
+	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
+	tsc
+	sec
+	sbc #155
+	tcs
+	; Line 1, Pixel values: dddd dafe
+	tsc
+	sec
+	sbc #3
+	tcs
+	pea $dddd
+	lda 3,S
 	and #$0f00
 	ora #$f0da
-	sta 0,S
-	tsc
-	dec
-	tcs
-	pea $dddd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,d,d,d,a,e
+	; Line 0, Pixel values: dddd ddae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dddd
+	lda 3,S
+	and #$0f00
+	ora #$a0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -10028,7 +8821,7 @@ char100:
 char101:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10041,121 +8834,100 @@ char101:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: f,b,a,a,d,d,d,e
+	; Line 6, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: b,f,b,a,a,d,d,e
+	; Line 5, Pixel values: bfba adde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $babf
+	lda 3,S
+	and #$0f00
+	ora #$d0ad
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: a,b,f,b,a,a,d,e
+	; Line 4, Pixel values: abfb aade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0aa
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $fbab
+	lda 3,S
+	and #$0f00
+	ora #$d0aa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: a,a,b,f,b,a,a,e
+	; Line 3, Pixel values: aabf baae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bfaa
+	lda 3,S
+	and #$0f00
+	ora #$a0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: d,a,a,b,f,b,a,e
+	; Line 2, Pixel values: daab fbae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0fb
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $abda
+	lda 3,S
+	and #$0f00
+	ora #$a0fb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: d,d,a,a,b,f,b,e
+	; Line 1, Pixel values: ddaa bfbe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$b0bf
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aadd
+	lda 3,S
+	and #$0f00
+	ora #$b0bf
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: d,d,d,a,a,b,f,e
+	; Line 0, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -10165,7 +8937,7 @@ char101:
 char102:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10178,121 +8950,100 @@ char102:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: d,d,d,a,a,b,f,e
+	; Line 6, Pixel values: ddda abfe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$f0ab
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $dadd
+	lda 3,S
+	and #$0f00
+	ora #$f0ab
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 5, Pixel values: d,d,a,a,b,f,b,e
+	; Line 5, Pixel values: ddaa bfbe
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$b0bf
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aadd
+	lda 3,S
+	and #$0f00
+	ora #$b0bf
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 4, Pixel values: d,a,a,b,f,b,a,e
+	; Line 4, Pixel values: daab fbae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0fb
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $abda
+	lda 3,S
+	and #$0f00
+	ora #$a0fb
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 3, Pixel values: a,a,b,f,b,a,a,e
+	; Line 3, Pixel values: aabf baae
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$a0ba
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $bfaa
+	lda 3,S
+	and #$0f00
+	ora #$a0ba
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 2, Pixel values: a,b,f,b,a,a,d,e
+	; Line 2, Pixel values: abfb aade
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0aa
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $fbab
+	lda 3,S
+	and #$0f00
+	ora #$d0aa
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 1, Pixel values: b,f,b,a,a,d,d,e
+	; Line 1, Pixel values: bfba adde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0ad
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $babf
+	lda 3,S
+	and #$0f00
+	ora #$d0ad
+	sta 3,S
 	tsc
 	sec
 	sbc #155
 	tcs
-	; Line 0, Pixel values: f,b,a,a,d,d,d,e
+	; Line 0, Pixel values: fbaa ddde
 	tsc
-	dec
-	dec
-	tcs
-	lda 0,S
-	and #$0f00
-	ora #$d0dd
-	sta 0,S
-	tsc
-	dec
+	sec
+	sbc #3
 	tcs
 	pea $aafb
+	lda 3,S
+	and #$0f00
+	ora #$d0dd
+	sta 3,S
 	tsc
 	sec
 	sbc #155
@@ -10302,7 +9053,7 @@ char102:
 char103:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10315,7 +9066,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10328,7 +9079,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10341,7 +9092,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10354,7 +9105,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10367,7 +9118,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10380,7 +9131,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10393,7 +9144,7 @@ char103:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10411,7 +9162,7 @@ char103:
 char104:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10424,7 +9175,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10437,7 +9188,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10450,7 +9201,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10463,7 +9214,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10476,7 +9227,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10489,7 +9240,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10502,7 +9253,7 @@ char104:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10520,7 +9271,7 @@ char104:
 char105:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10533,7 +9284,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10546,7 +9297,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10559,7 +9310,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10572,7 +9323,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10585,7 +9336,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10598,7 +9349,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10611,7 +9362,7 @@ char105:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10629,7 +9380,7 @@ char105:
 char106:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10642,7 +9393,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10655,7 +9406,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10668,7 +9419,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10681,7 +9432,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10694,7 +9445,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10707,7 +9458,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10720,7 +9471,7 @@ char106:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10738,7 +9489,7 @@ char106:
 char107:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10751,7 +9502,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10764,7 +9515,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10777,7 +9528,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10790,7 +9541,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10803,7 +9554,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10816,7 +9567,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10829,7 +9580,7 @@ char107:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10847,7 +9598,7 @@ char107:
 char108:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10860,7 +9611,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10873,7 +9624,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10886,7 +9637,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10899,7 +9650,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10912,7 +9663,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10925,7 +9676,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10938,7 +9689,7 @@ char108:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10956,7 +9707,7 @@ char108:
 char109:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10969,7 +9720,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10982,7 +9733,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -10995,7 +9746,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11008,7 +9759,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11021,7 +9772,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11034,7 +9785,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11047,7 +9798,7 @@ char109:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11065,7 +9816,7 @@ char109:
 char110:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11078,7 +9829,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11091,7 +9842,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11104,7 +9855,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11117,7 +9868,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11130,7 +9881,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11143,7 +9894,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11156,7 +9907,7 @@ char110:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11174,7 +9925,7 @@ char110:
 char111:
 	tya
 	tcs
-	; Line 7, Pixel values: e,e,e,e,e,e,e,e
+	; Line 7, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11187,7 +9938,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 6, Pixel values: e,e,e,e,e,e,e,e
+	; Line 6, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11200,7 +9951,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 5, Pixel values: e,e,e,e,e,e,e,e
+	; Line 5, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11213,7 +9964,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 4, Pixel values: e,e,e,e,e,e,e,e
+	; Line 4, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11226,7 +9977,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 3, Pixel values: e,e,e,e,e,e,e,e
+	; Line 3, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11239,7 +9990,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 2, Pixel values: e,e,e,e,e,e,e,e
+	; Line 2, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11252,7 +10003,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 1, Pixel values: e,e,e,e,e,e,e,e
+	; Line 1, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
@@ -11265,7 +10016,7 @@ char111:
 	sec
 	sbc #156
 	tcs
-	; Line 0, Pixel values: e,e,e,e,e,e,e,e
+	; Line 0, Pixel values: eeee eeee
 	tsc
 	dec
 	dec
