@@ -71,7 +71,7 @@ beginGameplay:
 	; Test font renderer
 	lda #testString
 	sta PARAML0
-	ldy #$3000
+	ldy #$4430			; Correct start of line address for 16 wide: $4bc7
 	jsl $050000
 	bra gameplayLoop
 testString:

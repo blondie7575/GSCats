@@ -209,6 +209,28 @@ loadData:
 	ldy #0
 	jsr copyBytes
 
+	EMULATION
+
+	; Load rest of font data into bank 0	(needed if font size exceeds BUFFERSIZE)
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioErrorJmp
+
+	; Close the file
+	jsr PRODOS
+	.byte $cc
+	.addr fileClose
+
+	NATIVE
+
+	; Copy rest of font data into bank 5 (needed if font size exceeds BUFFERSIZE)
+	ldx fileReadLen
+	txa
+	lda #5
+	ldy #BUFFERSIZE
+	jsr copyBytes
+
 	; Set up a long jump into bank 2, and
 	; a way for game code to get back here to exit
 	; properly to ProDOS 8

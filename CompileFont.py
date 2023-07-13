@@ -5,34 +5,35 @@ import PIL
 from PIL import Image
 from numpy import asarray
 
-def labelFromCharXY(charFirst, charX, numCharX, charY):
+def labelFromCharXY(prefix,charFirst, charX, numCharX, charY):
 	charIndex = charY*numCharX + charX
 	currChar = chr(charIndex+charFirst)
-	return "char{:d}".format(ord(currChar))
+	return "{:s}char{:d}".format(prefix,ord(currChar))
 	
 def main(argv):
 	CHAR_WIDTH = int(argv[0])
 	CHAR_HEIGHT = int(argv[1])
 	CHAR_FIRST = int(argv[2])
 	CHROMA = int(argv[3])
-	image = Image.open(argv[4])
+	prefix = argv[4]
+	image = Image.open(argv[5])
 	
 	pixels = asarray(image)
 	numCharX = (int)(image.size[0]/CHAR_WIDTH)
 	numCharY = (int)(image.size[1]/CHAR_HEIGHT)
 		
 	# Generate jump table for glyphs
-	print ("characterJumpTable:")
+	print ("%scharacterJumpTable:" % prefix)
 	for charY in range(0,numCharY):
 		for charX in range(0,numCharX):
-			print ("\t.addr %s" % labelFromCharXY(CHAR_FIRST,charX,numCharX,charY))
+			print ("\t.addr %s" % labelFromCharXY(prefix,CHAR_FIRST,charX,numCharX,charY))
 	print ("")
 	
 	# Generate code for each glyph
 	for charY in range(0,numCharY):
 		for charX in range(0,numCharX):
 			
-			print ("%s:\n" % labelFromCharXY(CHAR_FIRST,charX,numCharX,charY), end="")
+			print ("%s:\n" % labelFromCharXY(prefix,CHAR_FIRST,charX,numCharX,charY), end="")
 			
 			# Header for each rendering operation
 			print ("\ttya")		# Transfer character VRAM position from Y to stack pointer
@@ -43,15 +44,16 @@ def main(argv):
 			charOriginY = charY*CHAR_HEIGHT
 			
 			for charRow in reversed(range(0,CHAR_HEIGHT)):
-				print ("\t; Line %d, Pixel values: %x%x%x%x %x%x%x%x" % (charRow,
-					pixels[charOriginY+charRow][charOriginX+0],
-					pixels[charOriginY+charRow][charOriginX+1],
-					pixels[charOriginY+charRow][charOriginX+2],
-					pixels[charOriginY+charRow][charOriginX+3],
-					pixels[charOriginY+charRow][charOriginX+4],
-					pixels[charOriginY+charRow][charOriginX+5],
-					pixels[charOriginY+charRow][charOriginX+6],
-					pixels[charOriginY+charRow][charOriginX+7]))
+				
+				# Print a comment to make generated source easier to understand
+				print ("\t; Line %d, Pixel values: " % charRow, end="")
+				for grouping in range(0,CHAR_WIDTH,4):
+					print("%x%x%x%x " %
+						(pixels[charOriginY+charRow][charOriginX+0+grouping],
+						pixels[charOriginY+charRow][charOriginX+1+grouping],
+						pixels[charOriginY+charRow][charOriginX+2+grouping],
+						pixels[charOriginY+charRow][charOriginX+3+grouping]), end="")
+				print ("")
 					
 				nextRowDelta = 160
 				localStackList = []
@@ -67,20 +69,27 @@ def main(argv):
 					requiredStackIndex = charCol/2
 					
 					if (nibbles[0]==CHROMA and nibbles[1]==CHROMA and nibbles[2]==CHROMA and nibbles[3]==CHROMA):
-						pass								# Case 1 : All chroma, so let stack advance with no work
+						# Case 1 : All chroma, so let stack advance with no work
+						pass
+						
 					elif (nibbles[0]!=CHROMA and nibbles[1]!=CHROMA and nibbles[2]!=CHROMA and nibbles[3]!=CHROMA):
+						# Case 2 : No chroma, so fast push
 						offsetNeeded = (CHAR_WIDTH/2-requiredStackIndex) - rowPushTotal - 2
+						
 						if (offsetNeeded>0):
 							print ("\ttsc")					# Advance stack to position needed for our two byte push
 							print ("\tsec")					# Note that PEA needs a little +1 to put bytes in the place we expect
-							print ("\tsbc #%d" % (offsetNeeded+1))
+							print ("\tsbc #%d" % (offsetNeeded))
 							print ("\ttcs")
 							nextRowDelta -= offsetNeeded
-						print ("\tpea $%04x" % word)		# Case 2 : No chroma, so fast push
-						nextRowDelta -= 3
-						rowPushTotal += (3+offsetNeeded)
+						else:
+							offsetNeeded=0
+						print ("\tpea $%04x" % word)
+						nextRowDelta -= 2
+						rowPushTotal += (2+offsetNeeded)
 					else:
-						mask = 0xFFFF						# Case 3 : Mixed chroma, so mask and or
+						# Case 3 : Mixed chroma, so mask and or
+						mask = 0xFFFF
 						if (nibbles[0]!=CHROMA):
 							mask = mask & 0xFF0F
 						if (nibbles[1]!=CHROMA):
@@ -114,7 +123,7 @@ def main(argv):
 						rowPushTotal = CHAR_WIDTH/2
 						nextRowDelta -= cleanupPush
 						
-					extraReach = rowPushTotal - CHAR_WIDTH/2
+					extraReach = rowPushTotal - CHAR_WIDTH/2 + 1		# Amount to "reach back" from one byte past end of row so LDA/STA can fill in skipped pixels
 					for stackEntry in localStackList:
 						print ("\tlda %d,S" % (stackEntry[0] + extraReach))				# Blend mask, sprite, and background
 						print ("\tand #$%04x" % stackEntry[1])

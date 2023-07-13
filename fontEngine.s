@@ -41,7 +41,7 @@ renderStringLoop:
 	; Calculate VRAM pointer for position of next character
 	lda SCRATCHL
 	sec
-	sbc #4
+	sbc #8
 	sta SCRATCHL
 	bra renderStringLoop
 
@@ -64,7 +64,7 @@ renderChar:
 	asl
 	tax
 	FASTGRAPHICS
-	jmp (characterJumpTable,x)
+	jmp (font16characterJumpTable,x)
 
 renderCharJumpReturn:	; Compiled glyphs jump back here. Can't rts because stack is turboborked
 	SLOWGRAPHICS
@@ -72,6 +72,7 @@ RESTORE_AXY
 	rts
 
 .include "font8x8.s"
+.include "font16x16.s"
 
 ; Suppress some linker warnings - Must be the last thing in the file
 ; This is because Quinn doesn't really know how to use ca65 properly
