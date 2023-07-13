@@ -420,13 +420,13 @@ font16char34:
 	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8288
 	lda 7,S
@@ -443,13 +443,13 @@ font16char34:
 	tcs
 	; Line 4, Pixel values: 8888 22ee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -466,13 +466,13 @@ font16char34:
 	tcs
 	; Line 3, Pixel values: 8888 822e 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -996,8 +996,8 @@ font16char37:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -1059,13 +1059,13 @@ font16char37:
 	tcs
 	; Line 8, Pixel values: 2222 2e22 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -1082,13 +1082,13 @@ font16char37:
 	tcs
 	; Line 7, Pixel values: 8222 2e22 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2282
 	lda 7,S
@@ -1149,14 +1149,14 @@ font16char37:
 	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -1172,8 +1172,8 @@ font16char37:
 	tcs
 	; Line 3, Pixel values: e888 822e 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -1460,8 +1460,8 @@ font16char40:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1478,8 +1478,8 @@ font16char40:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1500,8 +1500,8 @@ font16char40:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1522,8 +1522,8 @@ font16char40:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1659,8 +1659,8 @@ font16char40:
 	tcs
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1681,8 +1681,8 @@ font16char40:
 	tcs
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1703,8 +1703,8 @@ font16char40:
 	tcs
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1819,8 +1819,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -1837,8 +1837,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -1855,8 +1855,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -1873,8 +1873,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -1891,8 +1891,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -1909,8 +1909,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -1927,8 +1927,8 @@ font16char41:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -2051,8 +2051,8 @@ font16char42:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -2064,14 +2064,14 @@ font16char42:
 	tcs
 	; Line 10, Pixel values: ee22 2222 2222 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -2087,14 +2087,14 @@ font16char42:
 	tcs
 	; Line 9, Pixel values: e222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -2110,8 +2110,8 @@ font16char42:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2126,8 +2126,8 @@ font16char42:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2142,8 +2142,8 @@ font16char42:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2158,8 +2158,8 @@ font16char42:
 	tcs
 	; Line 5, Pixel values: 8882 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2174,14 +2174,14 @@ font16char42:
 	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -2197,8 +2197,8 @@ font16char42:
 	tcs
 	; Line 3, Pixel values: e888 822e 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -2510,8 +2510,8 @@ font16char45:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2522,8 +2522,8 @@ font16char45:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2534,8 +2534,8 @@ font16char45:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2546,8 +2546,8 @@ font16char45:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2558,8 +2558,8 @@ font16char45:
 	tcs
 	; Line 5, Pixel values: 8882 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -2803,8 +2803,8 @@ font16char47:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -2825,8 +2825,8 @@ font16char47:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -2842,14 +2842,14 @@ font16char47:
 	tcs
 	; Line 8, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -2861,14 +2861,14 @@ font16char47:
 	tcs
 	; Line 7, Pixel values: eeee 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -2880,8 +2880,8 @@ font16char47:
 	tcs
 	; Line 6, Pixel values: eeee e222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -2902,8 +2902,8 @@ font16char47:
 	tcs
 	; Line 5, Pixel values: eeee ee22 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -2924,8 +2924,8 @@ font16char47:
 	tcs
 	; Line 4, Pixel values: eeee eee2 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -2946,8 +2946,8 @@ font16char47:
 	tcs
 	; Line 3, Pixel values: eeee eeee 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -3013,8 +3013,8 @@ font16char48:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -3026,14 +3026,14 @@ font16char48:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -3045,14 +3045,14 @@ font16char48:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -3068,14 +3068,14 @@ font16char48:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -3091,13 +3091,13 @@ font16char48:
 	tcs
 	; Line 11, Pixel values: 2222 22ee 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -3177,13 +3177,13 @@ font16char48:
 	tcs
 	; Line 7, Pixel values: 8222 2ee2 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2282
 	lda 7,S
@@ -3200,13 +3200,13 @@ font16char48:
 	tcs
 	; Line 6, Pixel values: 8822 22ee 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2288
 	lda 7,S
@@ -3248,14 +3248,14 @@ font16char48:
 	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -3271,14 +3271,14 @@ font16char48:
 	tcs
 	; Line 3, Pixel values: ee88 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -3294,14 +3294,14 @@ font16char48:
 	tcs
 	; Line 2, Pixel values: eee8 8822 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -3344,8 +3344,8 @@ font16char49:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -3360,8 +3360,8 @@ font16char49:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -3376,8 +3376,8 @@ font16char49:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -3392,8 +3392,8 @@ font16char49:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -3413,8 +3413,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3431,8 +3431,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3449,8 +3449,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3467,8 +3467,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3485,8 +3485,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3503,8 +3503,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3525,8 +3525,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3547,8 +3547,8 @@ font16char49:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3569,8 +3569,8 @@ font16char49:
 	tcs
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3591,8 +3591,8 @@ font16char49:
 	tcs
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3613,8 +3613,8 @@ font16char49:
 	tcs
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3631,8 +3631,8 @@ font16char49:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -3649,8 +3649,8 @@ font16char50:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 344e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -3665,8 +3665,8 @@ font16char50:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -3681,8 +3681,8 @@ font16char50:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -3697,8 +3697,8 @@ font16char50:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -3741,14 +3741,14 @@ font16char50:
 	tcs
 	; Line 9, Pixel values: e222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -3764,14 +3764,14 @@ font16char50:
 	tcs
 	; Line 8, Pixel values: e222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -3787,14 +3787,14 @@ font16char50:
 	tcs
 	; Line 7, Pixel values: ee22 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -3810,14 +3810,14 @@ font16char50:
 	tcs
 	; Line 6, Pixel values: eeee 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -3846,8 +3846,8 @@ font16char50:
 	tcs
 	; Line 4, Pixel values: e888 222e 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -3872,14 +3872,14 @@ font16char50:
 	tcs
 	; Line 3, Pixel values: ee88 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -3895,14 +3895,14 @@ font16char50:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -3918,14 +3918,14 @@ font16char50:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -3964,8 +3964,8 @@ font16char51:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -3977,14 +3977,14 @@ font16char51:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -3996,14 +3996,14 @@ font16char51:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -4019,14 +4019,14 @@ font16char51:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4103,8 +4103,8 @@ font16char51:
 	tcs
 	; Line 8, Pixel values: eeee e222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -4125,8 +4125,8 @@ font16char51:
 	tcs
 	; Line 7, Pixel values: eeee e222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -4147,8 +4147,8 @@ font16char51:
 	tcs
 	; Line 6, Pixel values: eeee e222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -4169,8 +4169,8 @@ font16char51:
 	tcs
 	; Line 5, Pixel values: eeee e222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -4208,14 +4208,14 @@ font16char51:
 	tcs
 	; Line 3, Pixel values: ee88 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4231,14 +4231,14 @@ font16char51:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4254,14 +4254,14 @@ font16char51:
 	tcs
 	; Line 1, Pixel values: ee88 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4277,14 +4277,14 @@ font16char51:
 	tcs
 	; Line 0, Pixel values: ee88 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4373,8 +4373,8 @@ font16char52:
 	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4389,8 +4389,8 @@ font16char52:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4405,8 +4405,8 @@ font16char52:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4421,8 +4421,8 @@ font16char52:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4437,8 +4437,8 @@ font16char52:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4533,8 +4533,8 @@ font16char52:
 	tcs
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -4551,8 +4551,8 @@ font16char52:
 	tcs
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -4569,8 +4569,8 @@ font16char52:
 	tcs
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -4587,8 +4587,8 @@ font16char52:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -4610,8 +4610,8 @@ font16char53:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -4623,14 +4623,14 @@ font16char53:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -4646,14 +4646,14 @@ font16char53:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4669,14 +4669,14 @@ font16char53:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4753,8 +4753,8 @@ font16char53:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4769,8 +4769,8 @@ font16char53:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4785,8 +4785,8 @@ font16char53:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -4806,8 +4806,8 @@ font16char53:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -4840,14 +4840,14 @@ font16char53:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4863,14 +4863,14 @@ font16char53:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4886,14 +4886,14 @@ font16char53:
 	tcs
 	; Line 1, Pixel values: ee88 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4909,14 +4909,14 @@ font16char53:
 	tcs
 	; Line 0, Pixel values: ee88 8888 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4942,8 +4942,8 @@ font16char54:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -4955,14 +4955,14 @@ font16char54:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -4978,14 +4978,14 @@ font16char54:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5001,14 +5001,14 @@ font16char54:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5090,8 +5090,8 @@ font16char54:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -5106,8 +5106,8 @@ font16char54:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -5122,8 +5122,8 @@ font16char54:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -5174,14 +5174,14 @@ font16char54:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5197,14 +5197,14 @@ font16char54:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5220,14 +5220,14 @@ font16char54:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -5270,8 +5270,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5288,8 +5288,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5306,8 +5306,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5324,8 +5324,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5342,8 +5342,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5360,8 +5360,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -5378,8 +5378,8 @@ font16char55:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -5425,8 +5425,8 @@ font16char55:
 	tcs
 	; Line 6, Pixel values: eeee ee22 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -5443,8 +5443,8 @@ font16char55:
 	tcs
 	; Line 5, Pixel values: eeee eee2 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -5465,8 +5465,8 @@ font16char55:
 	tcs
 	; Line 4, Pixel values: eeee eeee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -5483,8 +5483,8 @@ font16char55:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -5499,8 +5499,8 @@ font16char55:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -5515,8 +5515,8 @@ font16char55:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -5531,8 +5531,8 @@ font16char55:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -5557,8 +5557,8 @@ font16char56:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -5570,14 +5570,14 @@ font16char56:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -5589,14 +5589,14 @@ font16char56:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -5612,14 +5612,14 @@ font16char56:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5635,13 +5635,13 @@ font16char56:
 	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -5680,8 +5680,8 @@ font16char56:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -5696,14 +5696,14 @@ font16char56:
 	tcs
 	; Line 8, Pixel values: e222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5719,14 +5719,14 @@ font16char56:
 	tcs
 	; Line 7, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -5742,14 +5742,14 @@ font16char56:
 	tcs
 	; Line 6, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -5765,8 +5765,8 @@ font16char56:
 	tcs
 	; Line 5, Pixel values: e882 222e 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -5816,14 +5816,14 @@ font16char56:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5839,14 +5839,14 @@ font16char56:
 	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5862,14 +5862,14 @@ font16char56:
 	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -5890,8 +5890,8 @@ font16char56:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -5925,8 +5925,8 @@ font16char57:
 	tcs
 	; Line 14, Pixel values: eeee ee22 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	tsc
@@ -5943,8 +5943,8 @@ font16char57:
 	tcs
 	; Line 13, Pixel values: eeee ee22 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	tsc
@@ -5965,8 +5965,8 @@ font16char57:
 	tcs
 	; Line 12, Pixel values: eeee ee22 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	tsc
@@ -5987,8 +5987,8 @@ font16char57:
 	tcs
 	; Line 11, Pixel values: eeee eeee 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -6005,14 +6005,14 @@ font16char57:
 	tcs
 	; Line 10, Pixel values: eeee 2222 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -6024,14 +6024,14 @@ font16char57:
 	tcs
 	; Line 9, Pixel values: ee22 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -6047,14 +6047,14 @@ font16char57:
 	tcs
 	; Line 8, Pixel values: e222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -6070,14 +6070,14 @@ font16char57:
 	tcs
 	; Line 7, Pixel values: e222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -6159,14 +6159,14 @@ font16char57:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -6182,14 +6182,14 @@ font16char57:
 	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -6205,14 +6205,14 @@ font16char57:
 	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -6233,8 +6233,8 @@ font16char57:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -6719,8 +6719,8 @@ font16char61:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -6735,8 +6735,8 @@ font16char61:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -6751,8 +6751,8 @@ font16char61:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -6767,8 +6767,8 @@ font16char61:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -6783,8 +6783,8 @@ font16char61:
 	tcs
 	; Line 11, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6799,8 +6799,8 @@ font16char61:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6820,8 +6820,8 @@ font16char61:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6836,8 +6836,8 @@ font16char61:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6852,8 +6852,8 @@ font16char61:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6868,8 +6868,8 @@ font16char61:
 	tcs
 	; Line 5, Pixel values: 8882 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6884,8 +6884,8 @@ font16char61:
 	tcs
 	; Line 4, Pixel values: 8888 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -6900,8 +6900,8 @@ font16char61:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -7026,8 +7026,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7044,8 +7044,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7062,8 +7062,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7080,8 +7080,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7103,8 +7103,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7121,8 +7121,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -7139,8 +7139,8 @@ font16char63:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -7152,8 +7152,8 @@ font16char63:
 	tcs
 	; Line 7, Pixel values: eeee e222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -7174,8 +7174,8 @@ font16char63:
 	tcs
 	; Line 6, Pixel values: eeee e222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -7196,8 +7196,8 @@ font16char63:
 	tcs
 	; Line 5, Pixel values: eeee eee2 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -7240,8 +7240,8 @@ font16char63:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -7256,14 +7256,14 @@ font16char63:
 	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -7279,14 +7279,14 @@ font16char63:
 	tcs
 	; Line 1, Pixel values: e888 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -7307,8 +7307,8 @@ font16char63:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -7524,8 +7524,8 @@ font16char65:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7540,8 +7540,8 @@ font16char65:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7556,8 +7556,8 @@ font16char65:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7572,8 +7572,8 @@ font16char65:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7657,14 +7657,14 @@ font16char65:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -7680,14 +7680,14 @@ font16char65:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -7703,14 +7703,14 @@ font16char65:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -7726,8 +7726,8 @@ font16char65:
 	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -7764,8 +7764,8 @@ font16char66:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -7780,8 +7780,8 @@ font16char66:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -7796,8 +7796,8 @@ font16char66:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -7812,13 +7812,13 @@ font16char66:
 	tcs
 	; Line 11, Pixel values: 2222 2eee 2222 233e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -7857,13 +7857,13 @@ font16char66:
 	tcs
 	; Line 9, Pixel values: 2222 2eee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -7880,8 +7880,8 @@ font16char66:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7896,8 +7896,8 @@ font16char66:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7912,8 +7912,8 @@ font16char66:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -7924,13 +7924,13 @@ font16char66:
 	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8288
 	lda 7,S
@@ -7947,13 +7947,13 @@ font16char66:
 	tcs
 	; Line 4, Pixel values: 8888 2eee 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -7970,8 +7970,8 @@ font16char66:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -7986,8 +7986,8 @@ font16char66:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -7998,8 +7998,8 @@ font16char66:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -8030,8 +8030,8 @@ font16char67:
 	tcs
 	; Line 15, Pixel values: eeee 2222 2333 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -8041,14 +8041,14 @@ font16char67:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 43ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -8064,14 +8064,14 @@ font16char67:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -8087,14 +8087,14 @@ font16char67:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -8257,14 +8257,14 @@ font16char67:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -8280,14 +8280,14 @@ font16char67:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -8303,14 +8303,14 @@ font16char67:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -8326,8 +8326,8 @@ font16char67:
 	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -8349,8 +8349,8 @@ font16char68:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -8361,8 +8361,8 @@ font16char68:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 43ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -8377,8 +8377,8 @@ font16char68:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -8393,8 +8393,8 @@ font16char68:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -8541,13 +8541,13 @@ font16char68:
 	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8288
 	lda 7,S
@@ -8564,13 +8564,13 @@ font16char68:
 	tcs
 	; Line 4, Pixel values: 8888 2ee2 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -8587,8 +8587,8 @@ font16char68:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -8603,8 +8603,8 @@ font16char68:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -8650,8 +8650,8 @@ font16char69:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 344e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -8666,8 +8666,8 @@ font16char69:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -8682,8 +8682,8 @@ font16char69:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -8698,8 +8698,8 @@ font16char69:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -8830,8 +8830,8 @@ font16char69:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -8846,8 +8846,8 @@ font16char69:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -8862,8 +8862,8 @@ font16char69:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -8878,8 +8878,8 @@ font16char69:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -9071,8 +9071,8 @@ font16char70:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -9087,8 +9087,8 @@ font16char70:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -9103,8 +9103,8 @@ font16char70:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -9119,8 +9119,8 @@ font16char70:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -9145,8 +9145,8 @@ font16char71:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9162,14 +9162,14 @@ font16char71:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9185,14 +9185,14 @@ font16char71:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9208,14 +9208,14 @@ font16char71:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9275,13 +9275,13 @@ font16char71:
 	tcs
 	; Line 9, Pixel values: 2222 2eee 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -9298,13 +9298,13 @@ font16char71:
 	tcs
 	; Line 8, Pixel values: 2222 2eee 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -9321,13 +9321,13 @@ font16char71:
 	tcs
 	; Line 7, Pixel values: 8222 2eee 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2282
 	lda 7,S
@@ -9405,14 +9405,14 @@ font16char71:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9428,14 +9428,14 @@ font16char71:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -9451,14 +9451,14 @@ font16char71:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -9474,8 +9474,8 @@ font16char71:
 	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -9629,8 +9629,8 @@ font16char72:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -9645,8 +9645,8 @@ font16char72:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -9661,8 +9661,8 @@ font16char72:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -9677,8 +9677,8 @@ font16char72:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -9825,8 +9825,8 @@ font16char73:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -9841,8 +9841,8 @@ font16char73:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -9857,8 +9857,8 @@ font16char73:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -9873,8 +9873,8 @@ font16char73:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -9894,8 +9894,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -9912,8 +9912,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -9930,8 +9930,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -9948,8 +9948,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -9966,8 +9966,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -9984,8 +9984,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -10002,8 +10002,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -10020,8 +10020,8 @@ font16char73:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -10033,8 +10033,8 @@ font16char73:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -10049,8 +10049,8 @@ font16char73:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -10065,8 +10065,8 @@ font16char73:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -10081,8 +10081,8 @@ font16char73:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -10107,8 +10107,8 @@ font16char74:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -10120,14 +10120,14 @@ font16char74:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -10139,14 +10139,14 @@ font16char74:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -10162,14 +10162,14 @@ font16char74:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -10185,13 +10185,13 @@ font16char74:
 	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -10342,14 +10342,14 @@ font16char74:
 	tcs
 	; Line 3, Pixel values: eeee 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10361,14 +10361,14 @@ font16char74:
 	tcs
 	; Line 2, Pixel values: eeee 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10380,14 +10380,14 @@ font16char74:
 	tcs
 	; Line 1, Pixel values: eeee 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10399,14 +10399,14 @@ font16char74:
 	tcs
 	; Line 0, Pixel values: eeee 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10464,13 +10464,13 @@ font16char75:
 	tcs
 	; Line 13, Pixel values: 2222 2eee 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -10487,13 +10487,13 @@ font16char75:
 	tcs
 	; Line 12, Pixel values: 2222 2ee2 2232 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -10510,13 +10510,13 @@ font16char75:
 	tcs
 	; Line 11, Pixel values: 2222 2e22 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 3,S
@@ -10619,13 +10619,13 @@ font16char75:
 	tcs
 	; Line 4, Pixel values: 8888 2e22 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 3,S
@@ -10638,13 +10638,13 @@ font16char75:
 	tcs
 	; Line 3, Pixel values: 8888 8ee2 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -10661,13 +10661,13 @@ font16char75:
 	tcs
 	; Line 2, Pixel values: 8888 8eee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -10733,8 +10733,8 @@ font16char76:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 344e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -10749,8 +10749,8 @@ font16char76:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -10765,8 +10765,8 @@ font16char76:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -10781,8 +10781,8 @@ font16char76:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -11102,8 +11102,8 @@ font16char77:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11118,8 +11118,8 @@ font16char77:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11134,8 +11134,8 @@ font16char77:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11150,8 +11150,8 @@ font16char77:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11166,8 +11166,8 @@ font16char77:
 	tcs
 	; Line 5, Pixel values: 8882 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11182,8 +11182,8 @@ font16char77:
 	tcs
 	; Line 4, Pixel values: 8888 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11198,13 +11198,13 @@ font16char77:
 	tcs
 	; Line 3, Pixel values: 8888 822e 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -11368,13 +11368,13 @@ font16char78:
 	tcs
 	; Line 11, Pixel values: 2222 2eee 2222 233e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -11391,13 +11391,13 @@ font16char78:
 	tcs
 	; Line 10, Pixel values: 2222 2ee2 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -11414,13 +11414,13 @@ font16char78:
 	tcs
 	; Line 9, Pixel values: 2222 2e22 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -11437,8 +11437,8 @@ font16char78:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11453,8 +11453,8 @@ font16char78:
 	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11469,8 +11469,8 @@ font16char78:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -11616,8 +11616,8 @@ font16char79:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -11629,14 +11629,14 @@ font16char79:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -11648,14 +11648,14 @@ font16char79:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -11671,14 +11671,14 @@ font16char79:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -11694,13 +11694,13 @@ font16char79:
 	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -11874,14 +11874,14 @@ font16char79:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -11897,14 +11897,14 @@ font16char79:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -11920,14 +11920,14 @@ font16char79:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -11943,8 +11943,8 @@ font16char79:
 	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -12037,8 +12037,8 @@ font16char80:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -12049,8 +12049,8 @@ font16char80:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -12065,8 +12065,8 @@ font16char80:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -12081,13 +12081,13 @@ font16char80:
 	tcs
 	; Line 7, Pixel values: 8222 2eee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2282
 	lda 7,S
@@ -12170,8 +12170,8 @@ font16char80:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -12186,8 +12186,8 @@ font16char80:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -12202,8 +12202,8 @@ font16char80:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -12218,8 +12218,8 @@ font16char80:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -12240,8 +12240,8 @@ font16char81:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -12257,14 +12257,14 @@ font16char81:
 	tcs
 	; Line 14, Pixel values: ee22 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -12280,14 +12280,14 @@ font16char81:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -12303,14 +12303,14 @@ font16char81:
 	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -12326,13 +12326,13 @@ font16char81:
 	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12349,13 +12349,13 @@ font16char81:
 	tcs
 	; Line 10, Pixel values: 2222 22ee 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12372,13 +12372,13 @@ font16char81:
 	tcs
 	; Line 9, Pixel values: 2222 2ee2 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12395,13 +12395,13 @@ font16char81:
 	tcs
 	; Line 8, Pixel values: 2222 2ee2 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12509,14 +12509,14 @@ font16char81:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$0f00
@@ -12532,14 +12532,14 @@ font16char81:
 	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -12555,14 +12555,14 @@ font16char81:
 	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -12578,8 +12578,8 @@ font16char81:
 	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -12642,13 +12642,13 @@ font16char82:
 	tcs
 	; Line 13, Pixel values: 2222 2eee 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12665,13 +12665,13 @@ font16char82:
 	tcs
 	; Line 12, Pixel values: 2222 2ee2 2232 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -12688,13 +12688,13 @@ font16char82:
 	tcs
 	; Line 11, Pixel values: 2222 2e22 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 3,S
@@ -12722,8 +12722,8 @@ font16char82:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -12738,8 +12738,8 @@ font16char82:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -12754,13 +12754,13 @@ font16char82:
 	tcs
 	; Line 7, Pixel values: 8222 2ee2 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2282
 	lda 7,S
@@ -12843,8 +12843,8 @@ font16char82:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -12859,8 +12859,8 @@ font16char82:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -12875,8 +12875,8 @@ font16char82:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -12891,8 +12891,8 @@ font16char82:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -12908,14 +12908,14 @@ font16char83:
 	tcs
 	; Line 15, Pixel values: eee2 2222 2333 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -12927,14 +12927,14 @@ font16char83:
 	tcs
 	; Line 14, Pixel values: e222 2222 3233 43ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -12950,14 +12950,14 @@ font16char83:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -12973,8 +12973,8 @@ font16char83:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -13050,14 +13050,14 @@ font16char83:
 	tcs
 	; Line 8, Pixel values: ee22 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -13073,14 +13073,14 @@ font16char83:
 	tcs
 	; Line 7, Pixel values: e222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -13096,8 +13096,8 @@ font16char83:
 	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -13144,14 +13144,14 @@ font16char83:
 	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -13167,14 +13167,14 @@ font16char83:
 	tcs
 	; Line 2, Pixel values: e888 8822 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -13190,14 +13190,14 @@ font16char83:
 	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -13218,8 +13218,8 @@ font16char83:
 	tcs
 	pea $8888
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -13440,8 +13440,8 @@ font16char84:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -13456,8 +13456,8 @@ font16char84:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -13472,8 +13472,8 @@ font16char84:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -13488,8 +13488,8 @@ font16char84:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888
@@ -13514,8 +13514,8 @@ font16char85:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -13531,14 +13531,14 @@ font16char85:
 	tcs
 	; Line 14, Pixel values: e222 2222 3233 4eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -13554,14 +13554,14 @@ font16char85:
 	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -13577,8 +13577,8 @@ font16char85:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 33ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -13593,8 +13593,8 @@ font16char85:
 	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -13873,8 +13873,8 @@ font16char86:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -13895,8 +13895,8 @@ font16char86:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13927,8 +13927,8 @@ font16char86:
 	tcs
 	; Line 11, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -13939,8 +13939,8 @@ font16char86:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -13955,13 +13955,13 @@ font16char86:
 	tcs
 	; Line 9, Pixel values: 2222 2ee2 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -13978,13 +13978,13 @@ font16char86:
 	tcs
 	; Line 8, Pixel values: 2222 2eee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -14218,13 +14218,13 @@ font16char87:
 	tcs
 	; Line 13, Pixel values: 2222 222e 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -14241,8 +14241,8 @@ font16char87:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -14257,8 +14257,8 @@ font16char87:
 	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -14273,8 +14273,8 @@ font16char87:
 	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -14289,8 +14289,8 @@ font16char87:
 	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -14305,8 +14305,8 @@ font16char87:
 	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
@@ -14564,13 +14564,13 @@ font16char88:
 	tcs
 	; Line 12, Pixel values: 2222 222e 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	lda 7,S
@@ -14587,14 +14587,14 @@ font16char88:
 	tcs
 	; Line 11, Pixel values: e222 2222 2222 23ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -14610,14 +14610,14 @@ font16char88:
 	tcs
 	; Line 10, Pixel values: ee22 2222 2222 3eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -14633,14 +14633,14 @@ font16char88:
 	tcs
 	; Line 9, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -14657,8 +14657,8 @@ font16char88:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14670,14 +14670,14 @@ font16char88:
 	tcs
 	; Line 7, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$f0ff
@@ -14689,14 +14689,14 @@ font16char88:
 	tcs
 	; Line 6, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -14712,14 +14712,14 @@ font16char88:
 	tcs
 	; Line 5, Pixel values: e882 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -14735,13 +14735,13 @@ font16char88:
 	tcs
 	; Line 4, Pixel values: 8888 222e 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $8888
 	lda 7,S
@@ -14920,8 +14920,8 @@ font16char89:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14933,14 +14933,14 @@ font16char89:
 	tcs
 	; Line 9, Pixel values: ee22 2222 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -14952,14 +14952,14 @@ font16char89:
 	tcs
 	; Line 8, Pixel values: e222 2222 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -14975,14 +14975,14 @@ font16char89:
 	tcs
 	; Line 7, Pixel values: e222 2222 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 7,S
 	and #$ff00
@@ -14998,13 +14998,13 @@ font16char89:
 	tcs
 	; Line 6, Pixel values: 8822 222e 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2288
 	lda 7,S
@@ -15153,8 +15153,8 @@ font16char90:
 	tcs
 	; Line 15, Pixel values: 2222 2222 2333 344e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3323
 	pea $2222
@@ -15169,8 +15169,8 @@ font16char90:
 	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3332
 	pea $2222
@@ -15185,8 +15185,8 @@ font16char90:
 	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2322
 	pea $2222
@@ -15201,8 +15201,8 @@ font16char90:
 	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $3222
 	pea $2222
@@ -15239,8 +15239,8 @@ font16char90:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 1,S
 	and #$00ff
@@ -15257,8 +15257,8 @@ font16char90:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -15279,8 +15279,8 @@ font16char90:
 	tcs
 	pea $2222
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	lda 5,S
 	and #$ff00
@@ -15309,8 +15309,8 @@ font16char90:
 	tcs
 	; Line 6, Pixel values: eeee ee22 2222 eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -15327,8 +15327,8 @@ font16char90:
 	tcs
 	; Line 5, Pixel values: eeee eee2 2222 2eee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -15349,8 +15349,8 @@ font16char90:
 	tcs
 	; Line 4, Pixel values: eeee eeee 2222 22ee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	tsc
@@ -15367,8 +15367,8 @@ font16char90:
 	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2282
@@ -15383,8 +15383,8 @@ font16char90:
 	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $2288
@@ -15399,8 +15399,8 @@ font16char90:
 	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8288
@@ -15415,8 +15415,8 @@ font16char90:
 	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $2222
 	pea $8888

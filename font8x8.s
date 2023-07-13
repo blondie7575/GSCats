@@ -350,8 +350,8 @@ font8char35:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -415,8 +415,8 @@ font8char35:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -469,8 +469,8 @@ font8char36:
 	tcs
 	; Line 5, Pixel values: fadd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1498,8 +1498,8 @@ font8char48:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1563,8 +1563,8 @@ font8char48:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -1604,8 +1604,8 @@ font8char49:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -1618,8 +1618,8 @@ font8char49:
 	tcs
 	; Line 5, Pixel values: fadd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1707,8 +1707,8 @@ font8char50:
 	tcs
 	; Line 6, Pixel values: addd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -1721,8 +1721,8 @@ font8char50:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1735,8 +1735,8 @@ font8char50:
 	tcs
 	; Line 4, Pixel values: fbad eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $adfb
 	tsc
@@ -1775,8 +1775,8 @@ font8char50:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -1789,8 +1789,8 @@ font8char50:
 	tcs
 	; Line 0, Pixel values: ffff ffee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -1813,8 +1813,8 @@ font8char51:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -1827,8 +1827,8 @@ font8char51:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1884,8 +1884,8 @@ font8char51:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -1898,8 +1898,8 @@ font8char51:
 	tcs
 	; Line 0, Pixel values: ffff ffee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -1935,8 +1935,8 @@ font8char52:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -1949,8 +1949,8 @@ font8char52:
 	tcs
 	; Line 4, Pixel values: fbad ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $adfb
 	lda 3,S
@@ -2033,8 +2033,8 @@ font8char53:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -2047,8 +2047,8 @@ font8char53:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -2074,8 +2074,8 @@ font8char53:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -2101,8 +2101,8 @@ font8char53:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -2115,8 +2115,8 @@ font8char53:
 	tcs
 	; Line 0, Pixel values: ffff ffae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -2156,8 +2156,8 @@ font8char54:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -2187,8 +2187,8 @@ font8char54:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -2214,8 +2214,8 @@ font8char54:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -2336,8 +2336,8 @@ font8char55:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -2350,8 +2350,8 @@ font8char55:
 	tcs
 	; Line 0, Pixel values: ffff ffae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -2391,8 +2391,8 @@ font8char56:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -2456,8 +2456,8 @@ font8char56:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -2514,8 +2514,8 @@ font8char57:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -2541,8 +2541,8 @@ font8char57:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -2572,8 +2572,8 @@ font8char57:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3437,8 +3437,8 @@ font8char66:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -3451,8 +3451,8 @@ font8char66:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -3482,8 +3482,8 @@ font8char66:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -3509,8 +3509,8 @@ font8char66:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3523,8 +3523,8 @@ font8char66:
 	tcs
 	; Line 0, Pixel values: ffff ffee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -3564,8 +3564,8 @@ font8char67:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -3625,8 +3625,8 @@ font8char67:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3666,8 +3666,8 @@ font8char68:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -3680,8 +3680,8 @@ font8char68:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -3741,8 +3741,8 @@ font8char68:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3755,8 +3755,8 @@ font8char68:
 	tcs
 	; Line 0, Pixel values: ffff ffee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -3796,8 +3796,8 @@ font8char69:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -3823,8 +3823,8 @@ font8char69:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -3850,8 +3850,8 @@ font8char69:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3930,8 +3930,8 @@ font8char70:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -3949,8 +3949,8 @@ font8char70:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -3963,8 +3963,8 @@ font8char70:
 	tcs
 	; Line 0, Pixel values: ffff ffae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -4004,8 +4004,8 @@ font8char71:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -4065,8 +4065,8 @@ font8char71:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -4157,8 +4157,8 @@ font8char72:
 	tcs
 	; Line 3, Pixel values: fbaa edde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -4378,8 +4378,8 @@ font8char74:
 	tcs
 	; Line 5, Pixel values: fadd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -4534,8 +4534,8 @@ font8char75:
 	tcs
 	; Line 3, Pixel values: fbaa eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	tsc
@@ -4544,8 +4544,8 @@ font8char75:
 	tcs
 	; Line 2, Pixel values: fbaa eeee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	tsc
@@ -4615,8 +4615,8 @@ font8char76:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -4755,8 +4755,8 @@ font8char77:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -4769,8 +4769,8 @@ font8char77:
 	tcs
 	; Line 2, Pixel values: fbaa adde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -4878,8 +4878,8 @@ font8char78:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -4892,8 +4892,8 @@ font8char78:
 	tcs
 	; Line 2, Pixel values: fbaa adee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -4967,8 +4967,8 @@ font8char79:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -5032,8 +5032,8 @@ font8char79:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5112,8 +5112,8 @@ font8char80:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -5139,8 +5139,8 @@ font8char80:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5153,8 +5153,8 @@ font8char80:
 	tcs
 	; Line 0, Pixel values: ffff ffee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -5194,8 +5194,8 @@ font8char81:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -5259,8 +5259,8 @@ font8char81:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5351,8 +5351,8 @@ font8char82:
 	tcs
 	; Line 3, Pixel values: fbaa ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -5378,8 +5378,8 @@ font8char82:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5392,8 +5392,8 @@ font8char82:
 	tcs
 	; Line 0, Pixel values: ffff feee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -5416,8 +5416,8 @@ font8char83:
 	tcs
 	; Line 6, Pixel values: addd ddee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -5430,8 +5430,8 @@ font8char83:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -5487,8 +5487,8 @@ font8char83:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5593,8 +5593,8 @@ font8char84:
 	tcs
 	; Line 1, Pixel values: fbbb baee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -5607,8 +5607,8 @@ font8char84:
 	tcs
 	; Line 0, Pixel values: ffff feee 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -5648,8 +5648,8 @@ font8char85:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -5920,8 +5920,8 @@ font8char87:
 	tcs
 	; Line 4, Pixel values: fbad ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $adfb
 	lda 3,S
@@ -5934,8 +5934,8 @@ font8char87:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6267,8 +6267,8 @@ font8char90:
 	tcs
 	; Line 6, Pixel values: addd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -6281,8 +6281,8 @@ font8char90:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -6342,8 +6342,8 @@ font8char90:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -6356,8 +6356,8 @@ font8char90:
 	tcs
 	; Line 0, Pixel values: ffff ffae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -6380,8 +6380,8 @@ font8char91:
 	tcs
 	; Line 6, Pixel values: ffff fffe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -6394,8 +6394,8 @@ font8char91:
 	tcs
 	; Line 5, Pixel values: bbbb bbbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbbb
 	lda 3,S
@@ -6408,8 +6408,8 @@ font8char91:
 	tcs
 	; Line 4, Pixel values: aaaa aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6422,8 +6422,8 @@ font8char91:
 	tcs
 	; Line 3, Pixel values: aaaa aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6436,8 +6436,8 @@ font8char91:
 	tcs
 	; Line 2, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6450,8 +6450,8 @@ font8char91:
 	tcs
 	; Line 1, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6464,8 +6464,8 @@ font8char91:
 	tcs
 	; Line 0, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6488,8 +6488,8 @@ font8char92:
 	tcs
 	; Line 6, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6502,8 +6502,8 @@ font8char92:
 	tcs
 	; Line 5, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6516,8 +6516,8 @@ font8char92:
 	tcs
 	; Line 4, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6530,8 +6530,8 @@ font8char92:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6544,8 +6544,8 @@ font8char92:
 	tcs
 	; Line 2, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6558,8 +6558,8 @@ font8char92:
 	tcs
 	; Line 1, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6572,8 +6572,8 @@ font8char92:
 	tcs
 	; Line 0, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6596,8 +6596,8 @@ font8char93:
 	tcs
 	; Line 6, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6610,8 +6610,8 @@ font8char93:
 	tcs
 	; Line 5, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6624,8 +6624,8 @@ font8char93:
 	tcs
 	; Line 4, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6638,8 +6638,8 @@ font8char93:
 	tcs
 	; Line 3, Pixel values: aaaa aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6652,8 +6652,8 @@ font8char93:
 	tcs
 	; Line 2, Pixel values: aaaa aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6666,8 +6666,8 @@ font8char93:
 	tcs
 	; Line 1, Pixel values: bbbb bbbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbbb
 	lda 3,S
@@ -6680,8 +6680,8 @@ font8char93:
 	tcs
 	; Line 0, Pixel values: ffff fffe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -6704,8 +6704,8 @@ font8char94:
 	tcs
 	; Line 6, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6718,8 +6718,8 @@ font8char94:
 	tcs
 	; Line 5, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6732,8 +6732,8 @@ font8char94:
 	tcs
 	; Line 4, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6746,8 +6746,8 @@ font8char94:
 	tcs
 	; Line 3, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6760,8 +6760,8 @@ font8char94:
 	tcs
 	; Line 2, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6774,8 +6774,8 @@ font8char94:
 	tcs
 	; Line 1, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6788,8 +6788,8 @@ font8char94:
 	tcs
 	; Line 0, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6812,8 +6812,8 @@ font8char95:
 	tcs
 	; Line 6, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6826,8 +6826,8 @@ font8char95:
 	tcs
 	; Line 5, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6840,8 +6840,8 @@ font8char95:
 	tcs
 	; Line 4, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6854,8 +6854,8 @@ font8char95:
 	tcs
 	; Line 3, Pixel values: aaaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6868,8 +6868,8 @@ font8char95:
 	tcs
 	; Line 2, Pixel values: aaaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -6882,8 +6882,8 @@ font8char95:
 	tcs
 	; Line 1, Pixel values: bbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aabb
 	lda 3,S
@@ -6896,8 +6896,8 @@ font8char95:
 	tcs
 	; Line 0, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -6920,8 +6920,8 @@ font8char96:
 	tcs
 	; Line 6, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6934,8 +6934,8 @@ font8char96:
 	tcs
 	; Line 5, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6948,8 +6948,8 @@ font8char96:
 	tcs
 	; Line 4, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -6962,8 +6962,8 @@ font8char96:
 	tcs
 	; Line 3, Pixel values: ddda aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6976,8 +6976,8 @@ font8char96:
 	tcs
 	; Line 2, Pixel values: ddda aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -6990,8 +6990,8 @@ font8char96:
 	tcs
 	; Line 1, Pixel values: ddda abbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7004,8 +7004,8 @@ font8char96:
 	tcs
 	; Line 0, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7028,8 +7028,8 @@ font8char97:
 	tcs
 	; Line 6, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7042,8 +7042,8 @@ font8char97:
 	tcs
 	; Line 5, Pixel values: ddda abbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7056,8 +7056,8 @@ font8char97:
 	tcs
 	; Line 4, Pixel values: ddda aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7070,8 +7070,8 @@ font8char97:
 	tcs
 	; Line 3, Pixel values: ddda aaae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7084,8 +7084,8 @@ font8char97:
 	tcs
 	; Line 2, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7098,8 +7098,8 @@ font8char97:
 	tcs
 	; Line 1, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7112,8 +7112,8 @@ font8char97:
 	tcs
 	; Line 0, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7136,8 +7136,8 @@ font8char98:
 	tcs
 	; Line 6, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -7150,8 +7150,8 @@ font8char98:
 	tcs
 	; Line 5, Pixel values: bbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aabb
 	lda 3,S
@@ -7164,8 +7164,8 @@ font8char98:
 	tcs
 	; Line 4, Pixel values: aaaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -7178,8 +7178,8 @@ font8char98:
 	tcs
 	; Line 3, Pixel values: aaaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aaaa
 	lda 3,S
@@ -7192,8 +7192,8 @@ font8char98:
 	tcs
 	; Line 2, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7206,8 +7206,8 @@ font8char98:
 	tcs
 	; Line 1, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7220,8 +7220,8 @@ font8char98:
 	tcs
 	; Line 0, Pixel values: dddd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7244,8 +7244,8 @@ font8char99:
 	tcs
 	; Line 6, Pixel values: addd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddad
 	lda 3,S
@@ -7258,8 +7258,8 @@ font8char99:
 	tcs
 	; Line 5, Pixel values: fadd ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ddfa
 	lda 3,S
@@ -7272,8 +7272,8 @@ font8char99:
 	tcs
 	; Line 4, Pixel values: fbad ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $adfb
 	lda 3,S
@@ -7286,8 +7286,8 @@ font8char99:
 	tcs
 	; Line 3, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -7300,8 +7300,8 @@ font8char99:
 	tcs
 	; Line 2, Pixel values: fbaa adde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -7314,8 +7314,8 @@ font8char99:
 	tcs
 	; Line 1, Pixel values: fbbb bade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbfb
 	lda 3,S
@@ -7328,8 +7328,8 @@ font8char99:
 	tcs
 	; Line 0, Pixel values: ffff ffae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffff
 	lda 3,S
@@ -7352,8 +7352,8 @@ font8char100:
 	tcs
 	; Line 6, Pixel values: afff fffe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $ffaf
 	lda 3,S
@@ -7366,8 +7366,8 @@ font8char100:
 	tcs
 	; Line 5, Pixel values: dabb bbfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bbda
 	lda 3,S
@@ -7380,8 +7380,8 @@ font8char100:
 	tcs
 	; Line 4, Pixel values: ddaa abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aadd
 	lda 3,S
@@ -7394,8 +7394,8 @@ font8char100:
 	tcs
 	; Line 3, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7408,8 +7408,8 @@ font8char100:
 	tcs
 	; Line 2, Pixel values: dddd abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7422,8 +7422,8 @@ font8char100:
 	tcs
 	; Line 1, Pixel values: dddd dafe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7436,8 +7436,8 @@ font8char100:
 	tcs
 	; Line 0, Pixel values: dddd ddae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dddd
 	lda 3,S
@@ -7460,8 +7460,8 @@ font8char101:
 	tcs
 	; Line 6, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S
@@ -7474,8 +7474,8 @@ font8char101:
 	tcs
 	; Line 5, Pixel values: bfba adde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $babf
 	lda 3,S
@@ -7488,8 +7488,8 @@ font8char101:
 	tcs
 	; Line 4, Pixel values: abfb aade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $fbab
 	lda 3,S
@@ -7502,8 +7502,8 @@ font8char101:
 	tcs
 	; Line 3, Pixel values: aabf baae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bfaa
 	lda 3,S
@@ -7516,8 +7516,8 @@ font8char101:
 	tcs
 	; Line 2, Pixel values: daab fbae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $abda
 	lda 3,S
@@ -7530,8 +7530,8 @@ font8char101:
 	tcs
 	; Line 1, Pixel values: ddaa bfbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aadd
 	lda 3,S
@@ -7544,8 +7544,8 @@ font8char101:
 	tcs
 	; Line 0, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7568,8 +7568,8 @@ font8char102:
 	tcs
 	; Line 6, Pixel values: ddda abfe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $dadd
 	lda 3,S
@@ -7582,8 +7582,8 @@ font8char102:
 	tcs
 	; Line 5, Pixel values: ddaa bfbe 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aadd
 	lda 3,S
@@ -7596,8 +7596,8 @@ font8char102:
 	tcs
 	; Line 4, Pixel values: daab fbae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $abda
 	lda 3,S
@@ -7610,8 +7610,8 @@ font8char102:
 	tcs
 	; Line 3, Pixel values: aabf baae 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $bfaa
 	lda 3,S
@@ -7624,8 +7624,8 @@ font8char102:
 	tcs
 	; Line 2, Pixel values: abfb aade 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $fbab
 	lda 3,S
@@ -7638,8 +7638,8 @@ font8char102:
 	tcs
 	; Line 1, Pixel values: bfba adde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $babf
 	lda 3,S
@@ -7652,8 +7652,8 @@ font8char102:
 	tcs
 	; Line 0, Pixel values: fbaa ddde 
 	tsc
-	sec
-	sbc #2
+	dec
+	dec
 	tcs
 	pea $aafb
 	lda 3,S

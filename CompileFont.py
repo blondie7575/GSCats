@@ -9,6 +9,24 @@ def labelFromCharXY(prefix,charFirst, charX, numCharX, charY):
 	charIndex = charY*numCharX + charX
 	currChar = chr(charIndex+charFirst)
 	return "{:s}char{:d}".format(prefix,ord(currChar))
+
+
+def stackAdvance(bytes):
+	if (bytes==0):
+		return
+		
+	print ("\ttsc")
+	if (bytes==1):
+		print ("\tdec")
+	elif (bytes==2):
+		print ("\tdec")		# For two bytes, a double-DEC is still faster than SEC/SBC
+		print ("\tdec")
+	else:
+		print ("\tsec")
+		print ("\tsbc #%d" % bytes)
+	
+	print ("\ttcs")
+	
 	
 def main(argv):
 	CHAR_WIDTH = int(argv[0])
@@ -73,14 +91,11 @@ def main(argv):
 						pass
 						
 					elif (nibbles[0]!=CHROMA and nibbles[1]!=CHROMA and nibbles[2]!=CHROMA and nibbles[3]!=CHROMA):
-						# Case 2 : No chroma, so fast push
+						# Case 2 : No chroma, so fast push of all four pixels
 						offsetNeeded = (CHAR_WIDTH/2-requiredStackIndex) - rowPushTotal - 2
 						
 						if (offsetNeeded>0):
-							print ("\ttsc")					# Advance stack to position needed for our two byte push
-							print ("\tsec")					# Note that PEA needs a little +1 to put bytes in the place we expect
-							print ("\tsbc #%d" % (offsetNeeded))
-							print ("\ttcs")
+							stackAdvance(offsetNeeded)	# Advance stack to position needed for our two byte push
 							nextRowDelta -= offsetNeeded
 						else:
 							offsetNeeded=0
@@ -88,7 +103,8 @@ def main(argv):
 						nextRowDelta -= 2
 						rowPushTotal += (2+offsetNeeded)
 					else:
-						# Case 3 : Mixed chroma, so mask and or
+						# Case 3 : Mixed chroma, so we need to and-in mask and or-in sprite.
+						#  These pixels are saved until the end of the row, then backfilled with stack-relative addressing
 						mask = 0xFFFF
 						if (nibbles[0]!=CHROMA):
 							mask = mask & 0xFF0F
@@ -112,14 +128,11 @@ def main(argv):
 						localStackEntry = [requiredStackIndex,mask,sprite]
 						localStackList.append(localStackEntry)
 						
-				# Process any local stack work we accumulated
+				# Process any local stack-relative work we accumulated
 				if len(localStackList) > 0:
 					if (rowPushTotal < CHAR_WIDTH/2):			# Get stack pointer to end of row if needed
 						cleanupPush = CHAR_WIDTH/2-rowPushTotal
-						print ("\ttsc")
-						print ("\tsec")
-						print ("\tsbc #%d" % cleanupPush)
-						print ("\ttcs")
+						stackAdvance(cleanupPush)
 						rowPushTotal = CHAR_WIDTH/2
 						nextRowDelta -= cleanupPush
 						
@@ -131,10 +144,7 @@ def main(argv):
 						print ("\tsta %d,S" % (stackEntry[0] + extraReach))
 						
 				# Advance stack pointer to next row
-				print ("\ttsc")
-				print ("\tsec")
-				print ("\tsbc #%d" % nextRowDelta)
-				print ("\ttcs")
+				stackAdvance(nextRowDelta)
 					
 			# Footer for each rendering operation
 			print ("\tjmp renderCharJumpReturn\n")
