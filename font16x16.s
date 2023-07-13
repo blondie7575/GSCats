@@ -60,89 +60,27 @@ font16characterJumpTable:
 	.addr font16char90
 	.addr font16char91
 
+; Chroma Key is $e
+
 font16char32:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char33:
@@ -158,270 +96,166 @@ font16char33:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #318
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char34:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #1602
 	tcs
 	pea $2222
 	tsc
@@ -437,14 +271,10 @@ font16char34:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -460,14 +290,10 @@ font16char34:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 822e 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -483,14 +309,10 @@ font16char34:
 	and #$0f00
 	ora #$2082
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 882e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -508,14 +330,10 @@ font16char34:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 888e ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -533,15 +351,7 @@ font16char34:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char35:
@@ -568,14 +378,10 @@ font16char35:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 222e e233 43ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -593,59 +399,55 @@ font16char35:
 	and #$00ff
 	ora #$2200
 	sta 1,S
+	; Line 13, Pixel values: 2222 2222 2223 3334 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 13, Pixel values: 2222 2222 2223 3334 
 	pea $3433
 	pea $2322
 	pea $2222
 	pea $2222
+	; Line 12, Pixel values: 2222 2222 2232 3343 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 12, Pixel values: 2222 2222 2232 3343 
 	pea $4333
 	pea $3222
 	pea $2222
 	pea $2222
+	; Line 11, Pixel values: 2222 2222 2222 2333 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 11, Pixel values: 2222 2222 2222 2333 
 	pea $3323
 	pea $2222
 	pea $2222
 	pea $2222
+	; Line 10, Pixel values: 2222 2222 2222 3233 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 10, Pixel values: 2222 2222 2222 3233 
 	pea $3332
 	pea $2222
 	pea $2222
 	pea $2222
+	; Line 9, Pixel values: 2222 2222 2222 2223 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 9, Pixel values: 2222 2222 2222 2223 
 	pea $2322
 	pea $2222
 	pea $2222
 	pea $2222
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: ee22 222e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -663,14 +465,10 @@ font16char35:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: ee22 222e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -688,59 +486,55 @@ font16char35:
 	and #$00ff
 	ora #$2200
 	sta 1,S
+	; Line 6, Pixel values: 8822 2222 2222 2222 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 6, Pixel values: 8822 2222 2222 2222 
 	pea $2222
 	pea $2222
 	pea $2222
 	pea $2288
+	; Line 5, Pixel values: 8882 2222 2222 2222 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 5, Pixel values: 8882 2222 2222 2222 
 	pea $2222
 	pea $2222
 	pea $2222
 	pea $8288
+	; Line 4, Pixel values: 8888 2222 2222 2222 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 4, Pixel values: 8888 2222 2222 2222 
 	pea $2222
 	pea $2222
 	pea $2222
 	pea $8888
+	; Line 3, Pixel values: 8888 8222 2222 2222 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 3, Pixel values: 8888 8222 2222 2222 
 	pea $2222
 	pea $2222
 	pea $2282
 	pea $8888
+	; Line 2, Pixel values: 8888 8822 2222 2222 
 	tsc
 	sec
 	sbc #152
 	tcs
-	; Line 2, Pixel values: 8888 8822 2222 2222 
 	pea $2222
 	pea $2222
 	pea $2288
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 888e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -758,14 +552,10 @@ font16char35:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: ee88 888e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -783,44 +573,20 @@ font16char35:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char36:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee ee22 2eee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #808
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -830,14 +596,10 @@ font16char36:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee e2ee e2ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$fff0
@@ -847,40 +609,28 @@ font16char36:
 	and #$fff0
 	ora #$0002
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee e2ee eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$fff0
 	ora #$0002
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e2ee eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$fff0
 	ora #$0002
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee ee2e e2ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$fff0
@@ -890,14 +640,10 @@ font16char36:
 	and #$0fff
 	ora #$2000
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eee2 2eee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -907,75 +653,39 @@ font16char36:
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char37:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
+	; Line 14, Pixel values: eeee eee2 eeee eeee 
+	tsc
+	sec
+	sbc #168
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 13, Pixel values: eeee eee2 eeee eeee 
 	tsc
 	sec
 	sbc #160
 	tcs
-	; Line 14, Pixel values: eeee eee2 eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
 	lda 3,S
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 13, Pixel values: eeee eee2 eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 3,S
-	and #$f0ff
-	ora #$0200
-	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee ee22 2eee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -985,14 +695,10 @@ font16char37:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1003,14 +709,10 @@ font16char37:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 22ee e222 3eee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff0f
@@ -1028,14 +730,10 @@ font16char37:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: e222 2e22 2e22 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -1053,14 +751,10 @@ font16char37:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2e22 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -1076,14 +770,10 @@ font16char37:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2e22 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -1099,14 +789,10 @@ font16char37:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 22e2 2e22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -1121,14 +807,10 @@ font16char37:
 	and #$f000
 	ora #$0222
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 222e e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -1143,14 +825,10 @@ font16char37:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -1166,14 +844,10 @@ font16char37:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 822e 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -1192,14 +866,10 @@ font16char37:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eee8 88ee e222 eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$00f0
@@ -1213,206 +883,78 @@ font16char37:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char38:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char39:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: 8882 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #1606
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 822e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$0f00
 	ora #$2082
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 882e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -1422,14 +964,10 @@ font16char39:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 888e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -1439,15 +977,7 @@ font16char39:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char40:
@@ -1467,14 +997,10 @@ font16char40:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1489,14 +1015,10 @@ font16char40:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1511,14 +1033,10 @@ font16char40:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1533,112 +1051,80 @@ font16char40:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -1648,14 +1134,10 @@ font16char40:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2282
 	tsc
@@ -1670,14 +1152,10 @@ font16char40:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2288
 	tsc
@@ -1692,14 +1170,10 @@ font16char40:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8288
 	tsc
@@ -1714,14 +1188,10 @@ font16char40:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2eee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -1731,10 +1201,6 @@ font16char40:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char41:
@@ -1749,56 +1215,40 @@ font16char41:
 	and #$0f00
 	ora #$2022
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: e222 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -1808,14 +1258,10 @@ font16char41:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1826,14 +1272,10 @@ font16char41:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eee2 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1844,14 +1286,10 @@ font16char41:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eee2 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1862,14 +1300,10 @@ font16char41:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eee2 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1880,14 +1314,10 @@ font16char41:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eee2 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1898,14 +1328,10 @@ font16char41:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eee2 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1916,14 +1342,10 @@ font16char41:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: ee88 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -1934,103 +1356,71 @@ font16char41:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2282
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 882e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$0f00
 	ora #$2088
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 888e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$0f00
 	ora #$8088
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char42:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
+	; Line 14, Pixel values: eeee eee2 eeee eeee 
+	tsc
+	sec
+	sbc #168
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 13, Pixel values: eeee eee2 eeee eeee 
 	tsc
 	sec
 	sbc #160
 	tcs
-	; Line 14, Pixel values: eeee eee2 eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
 	lda 3,S
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 13, Pixel values: eeee eee2 eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 3,S
-	and #$f0ff
-	ora #$0200
-	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee ee22 2eee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff0f
@@ -2040,14 +1430,10 @@ font16char42:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -2058,14 +1444,10 @@ font16char42:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 2222 2222 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2081,14 +1463,10 @@ font16char42:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: e222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2104,14 +1482,10 @@ font16char42:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2120,14 +1494,10 @@ font16char42:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2136,14 +1506,10 @@ font16char42:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2152,14 +1518,10 @@ font16char42:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2168,14 +1530,10 @@ font16char42:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2191,14 +1549,10 @@ font16char42:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 822e 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -2217,14 +1571,10 @@ font16char42:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eee8 88ee e222 eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$00f0
@@ -2238,105 +1588,29 @@ font16char42:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char43:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char44:
@@ -2352,42 +1626,30 @@ font16char44:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -2397,14 +1659,10 @@ font16char44:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: ee22 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -2414,185 +1672,73 @@ font16char44:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char45:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	dec
-	dec
-	tcs
-	pea $2222
-	pea $2222
-	pea $2222
-	tsc
 	sec
-	sbc #152
+	sbc #962
 	tcs
+	pea $2222
+	pea $2222
+	pea $2222
 	; Line 8, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	dec
-	dec
-	tcs
-	pea $2222
-	pea $2222
-	pea $2222
-	tsc
 	sec
-	sbc #152
+	sbc #154
 	tcs
+	pea $2222
+	pea $2222
+	pea $2222
 	; Line 7, Pixel values: 8222 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $2282
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $2288
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $8288
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char46:
@@ -2608,121 +1754,57 @@ font16char46:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char47:
@@ -2738,53 +1820,37 @@ font16char47:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -2792,14 +1858,10 @@ font16char47:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: e222 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -2814,14 +1876,10 @@ font16char47:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: ee22 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -2836,14 +1894,10 @@ font16char47:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2855,14 +1909,10 @@ font16char47:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -2874,14 +1924,10 @@ font16char47:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee e222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -2896,14 +1942,10 @@ font16char47:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee ee22 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -2918,14 +1960,10 @@ font16char47:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eee2 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -2940,14 +1978,10 @@ font16char47:
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: eeee eeee 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -2958,49 +1992,33 @@ font16char47:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eeee eeee e222 222e 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 7,S
-	and #$0f00
-	ora #$2022
-	sta 7,S
-	lda 5,S
-	and #$00f0
-	ora #$2202
-	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 1, Pixel values: eeee eeee ee22 222e 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 7,S
-	and #$0f00
-	ora #$2022
-	sta 7,S
-	lda 5,S
-	and #$00ff
-	ora #$2200
-	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 0, Pixel values: eeee eeee eeee eeee 
 	tsc
 	sec
 	sbc #160
 	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 1, Pixel values: eeee eeee ee22 222e 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 0, Pixel values: eeee eeee eeee eeee 
 	jmp renderCharJumpReturn
 
 font16char48:
@@ -3020,14 +2038,10 @@ font16char48:
 	and #$ff00
 	ora #$0023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -3039,14 +2053,10 @@ font16char48:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -3062,14 +2072,10 @@ font16char48:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -3085,14 +2091,10 @@ font16char48:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -3108,14 +2110,10 @@ font16char48:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 222e e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -3130,14 +2128,10 @@ font16char48:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 ee22 222e 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -3149,14 +2143,10 @@ font16char48:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2e22 2e22 223e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -3171,14 +2161,10 @@ font16char48:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2ee2 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -3194,14 +2180,10 @@ font16char48:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 22ee 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -3217,14 +2199,10 @@ font16char48:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: e882 222e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -3242,14 +2220,10 @@ font16char48:
 	and #$00f0
 	ora #$8208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -3265,14 +2239,10 @@ font16char48:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: ee88 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -3288,14 +2258,10 @@ font16char48:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eee8 8822 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -3311,14 +2277,10 @@ font16char48:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eeee e882 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -3328,15 +2290,7 @@ font16char48:
 	and #$00f0
 	ora #$8208
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char49:
@@ -3354,14 +2308,10 @@ font16char49:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -3370,14 +2320,10 @@ font16char49:
 	and #$ff0f
 	ora #$0040
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -3386,14 +2332,10 @@ font16char49:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -3402,14 +2344,10 @@ font16char49:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3420,14 +2358,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3438,14 +2372,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3456,14 +2386,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3474,14 +2400,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3492,14 +2414,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: e822 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3514,14 +2432,10 @@ font16char49:
 	and #$00f0
 	ora #$2208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: e882 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3536,14 +2450,10 @@ font16char49:
 	and #$00f0
 	ora #$8208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -3558,14 +2468,10 @@ font16char49:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2282
 	tsc
@@ -3580,14 +2486,10 @@ font16char49:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eee8 8822 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2288
 	tsc
@@ -3602,14 +2504,10 @@ font16char49:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eeee 8882 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8288
 	tsc
@@ -3620,14 +2518,10 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee 8888 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -3638,10 +2532,6 @@ font16char49:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char50:
@@ -3659,14 +2549,10 @@ font16char50:
 	and #$0f00
 	ora #$4034
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -3675,14 +2561,10 @@ font16char50:
 	and #$0f00
 	ora #$4043
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -3691,14 +2573,10 @@ font16char50:
 	and #$0f00
 	ora #$3033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -3707,42 +2585,30 @@ font16char50:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: e222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -3758,14 +2624,10 @@ font16char50:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: e222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -3781,14 +2643,10 @@ font16char50:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: ee22 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -3804,14 +2662,10 @@ font16char50:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -3823,14 +2677,10 @@ font16char50:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eeee e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -3840,14 +2690,10 @@ font16char50:
 	and #$00f0
 	ora #$2202
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -3866,14 +2712,10 @@ font16char50:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: ee88 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -3889,14 +2731,10 @@ font16char50:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -3912,14 +2750,10 @@ font16char50:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -3931,14 +2765,10 @@ font16char50:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -3948,10 +2778,6 @@ font16char50:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char51:
@@ -3971,14 +2797,10 @@ font16char51:
 	and #$ff00
 	ora #$0023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -3990,14 +2812,10 @@ font16char51:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -4013,14 +2831,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -4036,14 +2850,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee e222 23ee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -4058,14 +2868,10 @@ font16char51:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -4080,14 +2886,10 @@ font16char51:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4097,14 +2899,10 @@ font16char51:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee e222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -4119,14 +2917,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -4141,14 +2935,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee e222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -4163,14 +2953,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee e222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -4185,14 +2971,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4202,14 +2984,10 @@ font16char51:
 	and #$00f0
 	ora #$2202
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: ee88 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -4225,14 +3003,10 @@ font16char51:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -4248,14 +3022,10 @@ font16char51:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -4271,14 +3041,10 @@ font16char51:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: ee88 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -4294,10 +3060,6 @@ font16char51:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char52:
@@ -4316,14 +3078,10 @@ font16char52:
 	and #$00f0
 	ora #$3303
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee eeee e233 43ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4333,14 +3091,10 @@ font16char52:
 	and #$00f0
 	ora #$3302
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee eeee e223 33ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4350,14 +3104,10 @@ font16char52:
 	and #$00f0
 	ora #$2302
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee eeee e232 33ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4367,14 +3117,10 @@ font16char52:
 	and #$00f0
 	ora #$3202
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4383,14 +3129,10 @@ font16char52:
 	and #$0f00
 	ora #$3023
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4399,14 +3141,10 @@ font16char52:
 	and #$0f00
 	ora #$3032
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4415,14 +3153,10 @@ font16char52:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4431,14 +3165,10 @@ font16char52:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4447,14 +3177,10 @@ font16char52:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: e822 22ee e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4472,14 +3198,10 @@ font16char52:
 	and #$00f0
 	ora #$2208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: ee82 222e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4497,14 +3219,10 @@ font16char52:
 	and #$00ff
 	ora #$8200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: ee88 222e e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -4522,14 +3240,10 @@ font16char52:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: eee8 8222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2282
 	tsc
@@ -4540,14 +3254,10 @@ font16char52:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eee8 8822 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2288
 	tsc
@@ -4558,14 +3268,10 @@ font16char52:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8288
 	tsc
@@ -4576,14 +3282,10 @@ font16char52:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eee8 8888 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -4594,10 +3296,6 @@ font16char52:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char53:
@@ -4617,14 +3315,10 @@ font16char53:
 	and #$0f00
 	ora #$3023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -4640,14 +3334,10 @@ font16char53:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -4663,14 +3353,10 @@ font16char53:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -4686,14 +3372,10 @@ font16char53:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -4708,14 +3390,10 @@ font16char53:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -4730,14 +3408,10 @@ font16char53:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee eeee e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -4747,14 +3421,10 @@ font16char53:
 	and #$00f0
 	ora #$2202
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4763,14 +3433,10 @@ font16char53:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4779,14 +3445,10 @@ font16char53:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -4795,14 +3457,10 @@ font16char53:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: e882 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -4817,14 +3475,10 @@ font16char53:
 	and #$00f0
 	ora #$8208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 2eee eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$ff0f
@@ -4834,14 +3488,10 @@ font16char53:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -4857,14 +3507,10 @@ font16char53:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -4880,14 +3526,10 @@ font16char53:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -4903,14 +3545,10 @@ font16char53:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: ee88 8888 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -4926,10 +3564,6 @@ font16char53:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char54:
@@ -4949,14 +3583,10 @@ font16char54:
 	and #$0f00
 	ora #$3023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -4972,14 +3602,10 @@ font16char54:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -4995,14 +3621,10 @@ font16char54:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -5018,14 +3640,10 @@ font16char54:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -5040,14 +3658,10 @@ font16char54:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -5062,14 +3676,10 @@ font16char54:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee e222 22ee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -5084,14 +3694,10 @@ font16char54:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5100,14 +3706,10 @@ font16char54:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5116,26 +3718,18 @@ font16char54:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $2288
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $8288
@@ -5143,14 +3737,10 @@ font16char54:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 22ee ee22 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5168,14 +3758,10 @@ font16char54:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -5191,14 +3777,10 @@ font16char54:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -5214,14 +3796,10 @@ font16char54:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -5237,14 +3815,10 @@ font16char54:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -5254,10 +3828,6 @@ font16char54:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char55:
@@ -5277,14 +3847,10 @@ font16char55:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee 2222 3eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5295,14 +3861,10 @@ font16char55:
 	and #$ff0f
 	ora #$0030
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5313,14 +3875,10 @@ font16char55:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5331,14 +3889,10 @@ font16char55:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5349,14 +3903,10 @@ font16char55:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5367,14 +3917,10 @@ font16char55:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -5385,14 +3931,10 @@ font16char55:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -5402,14 +3944,10 @@ font16char55:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e222 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -5419,14 +3957,10 @@ font16char55:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee ee22 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5437,14 +3971,10 @@ font16char55:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eee2 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5459,14 +3989,10 @@ font16char55:
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5477,14 +4003,10 @@ font16char55:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -5493,14 +4015,10 @@ font16char55:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -5509,14 +4027,10 @@ font16char55:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -5525,14 +4039,10 @@ font16char55:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -5541,10 +4051,6 @@ font16char55:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char56:
@@ -5564,14 +4070,10 @@ font16char56:
 	and #$ff00
 	ora #$0023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -5583,14 +4085,10 @@ font16char56:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -5606,14 +4104,10 @@ font16char56:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -5629,14 +4123,10 @@ font16char56:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5652,14 +4142,10 @@ font16char56:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -5674,14 +4160,10 @@ font16char56:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5690,14 +4172,10 @@ font16char56:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: e222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5713,14 +4191,10 @@ font16char56:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5736,14 +4210,10 @@ font16char56:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -5759,14 +4229,10 @@ font16char56:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: e882 222e 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5785,14 +4251,10 @@ font16char56:
 	and #$00f0
 	ora #$8208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 22ee e222 22ee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$ff00
@@ -5810,14 +4272,10 @@ font16char56:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -5833,14 +4291,10 @@ font16char56:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -5856,14 +4310,10 @@ font16char56:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -5879,14 +4329,10 @@ font16char56:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee 8888 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -5897,10 +4343,6 @@ font16char56:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char57:
@@ -5919,14 +4361,10 @@ font16char57:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee ee22 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	tsc
@@ -5937,14 +4375,10 @@ font16char57:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee ee22 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	tsc
@@ -5959,14 +4393,10 @@ font16char57:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee ee22 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	tsc
@@ -5981,14 +4411,10 @@ font16char57:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee eeee 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -5999,14 +4425,10 @@ font16char57:
 	and #$ff00
 	ora #$0023
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee 2222 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6018,14 +4440,10 @@ font16char57:
 	and #$0f00
 	ora #$3032
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: ee22 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6041,14 +4459,10 @@ font16char57:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: e222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6064,14 +4478,10 @@ font16char57:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: e222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6087,14 +4497,10 @@ font16char57:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -6109,14 +4515,10 @@ font16char57:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -6131,14 +4533,10 @@ font16char57:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -6153,14 +4551,10 @@ font16char57:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -6176,14 +4570,10 @@ font16char57:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -6199,14 +4589,10 @@ font16char57:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -6222,14 +4608,10 @@ font16char57:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee 8888 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -6240,241 +4622,157 @@ font16char57:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char58:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #326
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: 8222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #318
 	tcs
 	pea $2282
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char59:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #166
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 222e eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: e222 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6484,53 +4782,37 @@ font16char59:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 222e eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 3,S
-	and #$0f00
-	ora #$2022
-	sta 3,S
-	lda 1,S
-	and #$00ff
-	ora #$2200
-	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 9, Pixel values: ee22 222e eeee eeee 
-	tsc
-	sec
-	sbc #8
-	tcs
-	lda 3,S
-	and #$0f00
-	ora #$2022
-	sta 3,S
-	lda 1,S
-	and #$00ff
-	ora #$2200
-	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
-	; Line 8, Pixel values: eeee eeee eeee eeee 
 	tsc
 	sec
 	sbc #160
 	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: ee22 222e eeee eeee 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 8, Pixel values: eeee eeee eeee eeee 
 	; Line 7, Pixel values: ee22 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #320
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6540,14 +4822,10 @@ font16char59:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: ee22 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6557,14 +4835,10 @@ font16char59:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: ee82 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6574,14 +4848,10 @@ font16char59:
 	and #$00ff
 	ora #$8200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: ee88 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6591,14 +4861,10 @@ font16char59:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: ee88 822e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -6608,110 +4874,30 @@ font16char59:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char60:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char61:
@@ -6729,14 +4915,10 @@ font16char61:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -6745,14 +4927,10 @@ font16char61:
 	and #$ff0f
 	ora #$0040
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -6761,14 +4939,10 @@ font16char61:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -6777,14 +4951,10 @@ font16char61:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6793,14 +4963,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 2222 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6809,19 +4975,11 @@ font16char61:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #314
 	tcs
 	pea $2222
 	pea $2222
@@ -6830,14 +4988,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6846,14 +5000,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6862,14 +5012,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6878,14 +5024,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -6894,14 +5036,10 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -6910,110 +5048,30 @@ font16char61:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char62:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char63:
@@ -7033,14 +5091,10 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee 2222 3eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -7051,14 +5105,10 @@ font16char63:
 	and #$ff0f
 	ora #$0030
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -7069,14 +5119,10 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -7087,19 +5133,11 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #316
 	tcs
 	pea $2222
 	tsc
@@ -7110,14 +5148,10 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -7128,14 +5162,10 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -7146,14 +5176,10 @@ font16char63:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7168,14 +5194,10 @@ font16char63:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee e222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7190,14 +5212,10 @@ font16char63:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eee2 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7212,14 +5230,10 @@ font16char63:
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -7234,14 +5248,10 @@ font16char63:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -7250,14 +5260,10 @@ font16char63:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -7273,14 +5279,10 @@ font16char63:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: e888 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -7296,14 +5298,10 @@ font16char63:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eee8 8888 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -7318,95 +5316,27 @@ font16char63:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char64:
 	tya
 	tcs
 	; Line 15, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 14, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 13, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 12, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 11, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 10, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 9, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 8, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 7, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 6, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 5, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 4, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 3, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 2, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 1, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char65:
@@ -7430,14 +5360,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee ee33 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -7452,14 +5378,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee ee23 333e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -7474,14 +5396,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee ee32 334e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -7496,14 +5414,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee ee22 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -7518,14 +5432,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7534,14 +5444,10 @@ font16char65:
 	and #$0f00
 	ora #$3032
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7550,14 +5456,10 @@ font16char65:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7566,14 +5468,10 @@ font16char65:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7582,14 +5480,10 @@ font16char65:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -7604,14 +5498,10 @@ font16char65:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -7626,14 +5516,10 @@ font16char65:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -7651,14 +5537,10 @@ font16char65:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -7674,14 +5556,10 @@ font16char65:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -7697,14 +5575,10 @@ font16char65:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -7720,14 +5594,10 @@ font16char65:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7738,10 +5608,6 @@ font16char65:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char66:
@@ -7758,14 +5624,10 @@ font16char66:
 	and #$0f00
 	ora #$3023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -7774,14 +5636,10 @@ font16char66:
 	and #$ff0f
 	ora #$0040
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -7790,14 +5648,10 @@ font16char66:
 	and #$ff00
 	ora #$0033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -7806,14 +5660,10 @@ font16char66:
 	and #$ff00
 	ora #$0033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee 2222 233e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7829,14 +5679,10 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -7851,14 +5697,10 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7874,14 +5716,10 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7890,14 +5728,10 @@ font16char66:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -7906,26 +5740,18 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $2288
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7941,14 +5767,10 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -7964,14 +5786,10 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -7980,38 +5798,26 @@ font16char66:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	pea $8888
@@ -8019,10 +5825,6 @@ font16char66:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char67:
@@ -8035,14 +5837,10 @@ font16char67:
 	tcs
 	pea $3323
 	pea $2222
-	tsc
-	sec
-	sbc #154
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 43ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #156
 	tcs
 	pea $3332
 	pea $2222
@@ -8058,14 +5856,10 @@ font16char67:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -8081,14 +5875,10 @@ font16char67:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -8104,14 +5894,10 @@ font16char67:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8126,14 +5912,10 @@ font16char67:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8148,70 +5930,50 @@ font16char67:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -8226,14 +5988,10 @@ font16char67:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -8251,14 +6009,10 @@ font16char67:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -8274,14 +6028,10 @@ font16char67:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -8297,14 +6047,10 @@ font16char67:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -8320,14 +6066,10 @@ font16char67:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -8338,10 +6080,6 @@ font16char67:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char68:
@@ -8355,14 +6093,10 @@ font16char68:
 	pea $3323
 	pea $2222
 	pea $2222
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 43ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -8371,14 +6105,10 @@ font16char68:
 	and #$ff00
 	ora #$0043
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -8387,14 +6117,10 @@ font16char68:
 	and #$ff00
 	ora #$0033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -8403,14 +6129,10 @@ font16char68:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8425,14 +6147,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8447,14 +6165,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8469,14 +6183,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee ee22 223e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -8491,14 +6201,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -8513,14 +6219,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -8535,14 +6237,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -8558,14 +6256,10 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2ee2 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -8581,14 +6275,10 @@ font16char68:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -8597,26 +6287,18 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8288
 	pea $8888
@@ -8624,14 +6306,10 @@ font16char68:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	pea $8888
@@ -8639,10 +6317,6 @@ font16char68:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char69:
@@ -8660,14 +6334,10 @@ font16char69:
 	and #$0f00
 	ora #$4034
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -8676,14 +6346,10 @@ font16char69:
 	and #$0f00
 	ora #$4043
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -8692,14 +6358,10 @@ font16char69:
 	and #$0f00
 	ora #$3033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -8708,42 +6370,30 @@ font16char69:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -8751,14 +6401,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -8766,14 +6412,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2282
@@ -8781,14 +6423,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2288
@@ -8796,42 +6434,30 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -8840,14 +6466,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -8856,14 +6478,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -8872,14 +6490,10 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -8888,10 +6502,6 @@ font16char69:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char70:
@@ -8907,84 +6517,60 @@ font16char70:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -8992,14 +6578,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -9007,14 +6589,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2282
@@ -9022,14 +6600,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2288
@@ -9037,42 +6611,30 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -9081,14 +6643,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -9097,14 +6655,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -9113,14 +6667,10 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -9129,10 +6679,6 @@ font16char70:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char71:
@@ -9156,14 +6702,10 @@ font16char71:
 	and #$f000
 	ora #$0323
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -9179,14 +6721,10 @@ font16char71:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -9202,14 +6740,10 @@ font16char71:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -9225,14 +6759,10 @@ font16char71:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9247,14 +6777,10 @@ font16char71:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9269,14 +6795,10 @@ font16char71:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -9292,14 +6814,10 @@ font16char71:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -9315,14 +6833,10 @@ font16char71:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -9338,28 +6852,20 @@ font16char71:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -9374,14 +6880,10 @@ font16char71:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9399,14 +6901,10 @@ font16char71:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -9422,14 +6920,10 @@ font16char71:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -9445,14 +6939,10 @@ font16char71:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -9468,14 +6958,10 @@ font16char71:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -9486,10 +6972,6 @@ font16char71:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char72:
@@ -9513,14 +6995,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee ee33 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9535,14 +7013,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee ee23 333e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9557,14 +7031,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee ee32 334e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9579,14 +7049,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee ee22 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9601,14 +7067,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -9623,14 +7085,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -9639,14 +7097,10 @@ font16char72:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -9655,14 +7109,10 @@ font16char72:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -9671,14 +7121,10 @@ font16char72:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -9687,14 +7133,10 @@ font16char72:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -9709,14 +7151,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -9731,14 +7169,10 @@ font16char72:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -9753,14 +7187,10 @@ font16char72:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -9775,14 +7205,10 @@ font16char72:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -9797,14 +7223,10 @@ font16char72:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -9814,10 +7236,6 @@ font16char72:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char73:
@@ -9835,14 +7253,10 @@ font16char73:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -9851,14 +7265,10 @@ font16char73:
 	and #$ff0f
 	ora #$0040
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -9867,14 +7277,10 @@ font16char73:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -9883,14 +7289,10 @@ font16char73:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9901,14 +7303,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9919,14 +7317,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9937,14 +7331,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9955,14 +7345,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9973,14 +7359,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -9991,14 +7373,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -10009,14 +7387,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -10027,14 +7401,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -10043,14 +7413,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -10059,14 +7425,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -10075,14 +7437,10 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -10091,10 +7449,6 @@ font16char73:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char74:
@@ -10114,14 +7468,10 @@ font16char74:
 	and #$ff00
 	ora #$0023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -10133,14 +7483,10 @@ font16char74:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -10156,14 +7502,10 @@ font16char74:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -10179,14 +7521,10 @@ font16char74:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -10202,14 +7540,10 @@ font16char74:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -10224,14 +7558,10 @@ font16char74:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -10246,14 +7576,10 @@ font16char74:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee ee22 223e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -10268,14 +7594,10 @@ font16char74:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10285,14 +7607,10 @@ font16char74:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10302,14 +7620,10 @@ font16char74:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10319,14 +7633,10 @@ font16char74:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -10336,14 +7646,10 @@ font16char74:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: eeee 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -10355,14 +7661,10 @@ font16char74:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: eeee 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -10374,14 +7676,10 @@ font16char74:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eeee 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -10393,14 +7691,10 @@ font16char74:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -10412,10 +7706,6 @@ font16char74:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char75:
@@ -10436,14 +7726,10 @@ font16char75:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee e233 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -10458,14 +7744,10 @@ font16char75:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	tsc
@@ -10481,14 +7763,10 @@ font16char75:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2ee2 2232 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	tsc
@@ -10504,14 +7782,10 @@ font16char75:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2e22 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -10523,14 +7797,10 @@ font16char75:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -10538,14 +7808,10 @@ font16char75:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -10553,14 +7819,10 @@ font16char75:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -10568,14 +7830,10 @@ font16char75:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2282
@@ -10583,14 +7841,10 @@ font16char75:
 	and #$ff0f
 	ora #$0020
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2288
@@ -10598,14 +7852,10 @@ font16char75:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $8288
@@ -10613,14 +7863,10 @@ font16char75:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2e22 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -10632,14 +7878,10 @@ font16char75:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8ee2 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -10655,14 +7897,10 @@ font16char75:
 	and #$f00f
 	ora #$0280
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -10678,14 +7916,10 @@ font16char75:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -10700,14 +7934,10 @@ font16char75:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -10722,10 +7952,6 @@ font16char75:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char76:
@@ -10743,14 +7969,10 @@ font16char76:
 	and #$0f00
 	ora #$4034
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -10759,14 +7981,10 @@ font16char76:
 	and #$0f00
 	ora #$4043
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -10775,14 +7993,10 @@ font16char76:
 	and #$0f00
 	ora #$3033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -10791,178 +8005,126 @@ font16char76:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char77:
@@ -10986,14 +8148,10 @@ font16char77:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee ee33 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11008,14 +8166,10 @@ font16char77:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee ee23 333e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11030,14 +8184,10 @@ font16char77:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee ee32 334e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11052,14 +8202,10 @@ font16char77:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2ee2 ee22 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11074,14 +8220,10 @@ font16char77:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2e22 2e22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11096,14 +8238,10 @@ font16char77:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11112,14 +8250,10 @@ font16char77:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11128,14 +8262,10 @@ font16char77:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11144,14 +8274,10 @@ font16char77:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11160,14 +8286,10 @@ font16char77:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11176,14 +8298,10 @@ font16char77:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11192,14 +8310,10 @@ font16char77:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 822e 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11215,14 +8329,10 @@ font16char77:
 	and #$0f00
 	ora #$2082
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 88ee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -11237,14 +8347,10 @@ font16char77:
 	and #$ff00
 	ora #$0088
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -11259,20 +8365,12 @@ font16char77:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 eeee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char78:
@@ -11296,14 +8394,10 @@ font16char78:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee ee33 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11318,14 +8412,10 @@ font16char78:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee e223 333e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11340,14 +8430,10 @@ font16char78:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee e232 334e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11362,14 +8448,10 @@ font16char78:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2eee 2222 233e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11385,14 +8467,10 @@ font16char78:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2ee2 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11408,14 +8486,10 @@ font16char78:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2e22 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11431,14 +8505,10 @@ font16char78:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11447,14 +8517,10 @@ font16char78:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11463,14 +8529,10 @@ font16char78:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -11479,14 +8541,10 @@ font16char78:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2222 2e22 222e 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $8288
@@ -11498,14 +8556,10 @@ font16char78:
 	and #$000f
 	ora #$2220
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2222 ee22 222e 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $8888
@@ -11517,14 +8571,10 @@ font16char78:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 822e ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -11539,14 +8589,10 @@ font16char78:
 	and #$0f00
 	ora #$2082
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 88ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -11561,14 +8607,10 @@ font16char78:
 	and #$ff00
 	ora #$0088
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -11583,14 +8625,10 @@ font16char78:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -11600,10 +8638,6 @@ font16char78:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char79:
@@ -11623,14 +8657,10 @@ font16char79:
 	and #$ff00
 	ora #$0023
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -11642,14 +8672,10 @@ font16char79:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -11665,14 +8691,10 @@ font16char79:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -11688,14 +8710,10 @@ font16char79:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11711,14 +8729,10 @@ font16char79:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11733,14 +8747,10 @@ font16char79:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11755,14 +8765,10 @@ font16char79:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee ee22 223e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -11777,14 +8783,10 @@ font16char79:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -11799,14 +8801,10 @@ font16char79:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -11821,14 +8819,10 @@ font16char79:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -11843,14 +8837,10 @@ font16char79:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -11868,14 +8858,10 @@ font16char79:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -11891,14 +8877,10 @@ font16char79:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -11914,14 +8896,10 @@ font16char79:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -11937,14 +8915,10 @@ font16char79:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -11955,10 +8929,6 @@ font16char79:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char80:
@@ -11974,56 +8944,40 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -12031,26 +8985,18 @@ font16char80:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	dec
-	dec
-	tcs
-	pea $2222
-	pea $2222
-	pea $2222
-	tsc
 	sec
-	sbc #152
+	sbc #154
 	tcs
+	pea $2222
+	pea $2222
+	pea $2222
 	; Line 9, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -12059,14 +9005,10 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -12075,14 +9017,10 @@ font16char80:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12098,14 +9036,10 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -12120,14 +9054,10 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -12142,14 +9072,10 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -12164,14 +9090,10 @@ font16char80:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -12180,14 +9102,10 @@ font16char80:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -12196,14 +9114,10 @@ font16char80:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -12212,22 +9126,14 @@ font16char80:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char81:
@@ -12251,14 +9157,10 @@ font16char81:
 	and #$f000
 	ora #$0323
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: ee22 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -12274,14 +9176,10 @@ font16char81:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -12297,14 +9195,10 @@ font16char81:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: e222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -12320,14 +9214,10 @@ font16char81:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 222e 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12343,14 +9233,10 @@ font16char81:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12366,14 +9252,10 @@ font16char81:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2ee2 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12389,14 +9271,10 @@ font16char81:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2ee2 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12412,14 +9290,10 @@ font16char81:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee 2e22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -12434,14 +9308,10 @@ font16char81:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -12456,14 +9326,10 @@ font16char81:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -12478,14 +9344,10 @@ font16char81:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: e888 222e e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -12503,14 +9365,10 @@ font16char81:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -12526,14 +9384,10 @@ font16char81:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: ee88 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -12549,14 +9403,10 @@ font16char81:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: eee8 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -12572,14 +9422,10 @@ font16char81:
 	and #$f0ff
 	ora #$0800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee e888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12590,10 +9436,6 @@ font16char81:
 	and #$00f0
 	ora #$8808
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char82:
@@ -12614,14 +9456,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee e233 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -12636,14 +9474,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2eee 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	tsc
@@ -12659,14 +9493,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2ee2 2232 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	tsc
@@ -12682,14 +9512,10 @@ font16char82:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2e22 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12701,14 +9527,10 @@ font16char82:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -12716,14 +9538,10 @@ font16char82:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -12732,14 +9550,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -12748,14 +9562,10 @@ font16char82:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2ee2 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -12771,14 +9581,10 @@ font16char82:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -12793,14 +9599,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -12815,14 +9617,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -12837,14 +9635,10 @@ font16char82:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -12853,14 +9647,10 @@ font16char82:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -12869,14 +9659,10 @@ font16char82:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -12885,22 +9671,14 @@ font16char82:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
 	pea $8888
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char83:
@@ -12921,14 +9699,10 @@ font16char83:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: e222 2222 3233 43ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -12944,14 +9718,10 @@ font16char83:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -12967,14 +9737,10 @@ font16char83:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -12983,14 +9749,10 @@ font16char83:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 22ee e222 233e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -13005,14 +9767,10 @@ font16char83:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2eee ee22 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -13027,14 +9785,10 @@ font16char83:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee eeee e222 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -13044,14 +9798,10 @@ font16char83:
 	and #$00f0
 	ora #$2202
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: ee22 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -13067,14 +9817,10 @@ font16char83:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: e222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -13090,40 +9836,28 @@ font16char83:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
 	pea $2288
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 3,S
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 22ee e222 22ee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -13138,14 +9872,10 @@ font16char83:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: e888 8222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -13161,14 +9891,10 @@ font16char83:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: e888 8822 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -13184,14 +9910,10 @@ font16char83:
 	and #$00f0
 	ora #$8808
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: ee88 8882 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -13207,14 +9929,10 @@ font16char83:
 	and #$00ff
 	ora #$8800
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee 8888 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $8888
 	tsc
@@ -13225,10 +9943,6 @@ font16char83:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char84:
@@ -13247,14 +9961,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee e222 32ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13264,14 +9974,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13281,14 +9987,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13298,14 +10000,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13315,14 +10013,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13332,14 +10026,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13349,14 +10039,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13366,14 +10052,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13383,14 +10065,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13400,14 +10078,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13417,14 +10091,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee e222 22ee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$ff00
@@ -13434,14 +10104,10 @@ font16char84:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -13450,14 +10116,10 @@ font16char84:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -13466,14 +10128,10 @@ font16char84:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -13482,14 +10140,10 @@ font16char84:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -13498,10 +10152,6 @@ font16char84:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char85:
@@ -13525,14 +10175,10 @@ font16char85:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: e222 2222 3233 4eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -13548,14 +10194,10 @@ font16char85:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 2223 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -13571,14 +10213,10 @@ font16char85:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 33ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -13587,14 +10225,10 @@ font16char85:
 	and #$ff00
 	ora #$0033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -13603,14 +10237,10 @@ font16char85:
 	and #$0f00
 	ora #$3023
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 22ee e222 323e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -13625,14 +10255,10 @@ font16char85:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -13647,14 +10273,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee ee22 223e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -13669,14 +10291,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -13691,14 +10309,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -13713,14 +10327,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -13735,14 +10345,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -13757,14 +10363,10 @@ font16char85:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -13779,14 +10381,10 @@ font16char85:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -13801,14 +10399,10 @@ font16char85:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -13823,14 +10417,10 @@ font16char85:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -13840,10 +10430,6 @@ font16char85:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char86:
@@ -13862,14 +10448,10 @@ font16char86:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: e222 2222 3eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -13884,14 +10466,10 @@ font16char86:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: e222 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -13906,14 +10484,10 @@ font16char86:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 223e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	pea $2222
@@ -13921,26 +10495,18 @@ font16char86:
 	and #$0f00
 	ora #$3022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2222 eeee 
 	tsc
-	dec
-	dec
-	tcs
-	pea $2222
-	pea $2222
-	pea $2222
-	tsc
 	sec
-	sbc #152
+	sbc #154
 	tcs
+	pea $2222
+	pea $2222
+	pea $2222
 	; Line 10, Pixel values: 2222 2222 2222 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -13949,14 +10515,10 @@ font16char86:
 	and #$ff0f
 	ora #$0030
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2ee2 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -13972,14 +10534,10 @@ font16char86:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2eee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -13995,14 +10553,10 @@ font16char86:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2eee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -14017,14 +10571,10 @@ font16char86:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -14039,14 +10589,10 @@ font16char86:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -14061,14 +10607,10 @@ font16char86:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14083,14 +10625,10 @@ font16char86:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14105,14 +10643,10 @@ font16char86:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14127,14 +10661,10 @@ font16char86:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14149,24 +10679,16 @@ font16char86:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee eeee eeee 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 3,S
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char87:
@@ -14190,14 +10712,10 @@ font16char87:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 22ee e233 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -14212,14 +10730,10 @@ font16char87:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 222e 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	tsc
@@ -14235,14 +10749,10 @@ font16char87:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -14251,14 +10761,10 @@ font16char87:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: 2222 2222 2222 233e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14267,14 +10773,10 @@ font16char87:
 	and #$0f00
 	ora #$3023
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: 2222 2222 2222 323e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14283,14 +10785,10 @@ font16char87:
 	and #$0f00
 	ora #$3032
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: 2222 2222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14299,14 +10797,10 @@ font16char87:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: 2222 2222 2222 223e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14315,14 +10809,10 @@ font16char87:
 	and #$0f00
 	ora #$3022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: 8222 2e22 2e22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2282
 	lda 7,S
@@ -14337,14 +10827,10 @@ font16char87:
 	and #$000f
 	ora #$2220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 2ee2 ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2288
 	lda 7,S
@@ -14359,14 +10845,10 @@ font16char87:
 	and #$f00f
 	ora #$0220
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -14381,14 +10863,10 @@ font16char87:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14403,14 +10881,10 @@ font16char87:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14425,14 +10899,10 @@ font16char87:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14447,14 +10917,10 @@ font16char87:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14469,14 +10935,10 @@ font16char87:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14491,10 +10953,6 @@ font16char87:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char88:
@@ -14514,14 +10972,10 @@ font16char88:
 	and #$f0ff
 	ora #$0300
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2eee ee33 434e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -14536,14 +10990,10 @@ font16char88:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 22ee e223 333e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $2222
 	lda 7,S
@@ -14558,14 +11008,10 @@ font16char88:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 222e 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	tsc
@@ -14581,14 +11027,10 @@ font16char88:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: e222 2222 2222 23ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14604,14 +11046,10 @@ font16char88:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 2222 2222 3eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14627,14 +11065,10 @@ font16char88:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14646,14 +11080,10 @@ font16char88:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -14664,14 +11094,10 @@ font16char88:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eee2 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14683,14 +11109,10 @@ font16char88:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: ee22 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14706,14 +11128,10 @@ font16char88:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: e882 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14729,14 +11147,10 @@ font16char88:
 	and #$00f0
 	ora #$8208
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 222e 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -14752,14 +11166,10 @@ font16char88:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 82ee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14774,14 +11184,10 @@ font16char88:
 	and #$ff00
 	ora #$0082
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14796,14 +11202,10 @@ font16char88:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 eeee eee2 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -14814,15 +11216,7 @@ font16char88:
 	and #$f0ff
 	ora #$0200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee eeee eeee 
-	tsc
-	sec
-	sbc #160
-	tcs
 	jmp renderCharJumpReturn
 
 font16char89:
@@ -14841,14 +11235,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: eeee ee22 323e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14858,14 +11248,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: eeee ee22 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14875,14 +11261,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: eeee ee22 223e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14892,14 +11274,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: eeee ee22 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -14909,14 +11287,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: eeee 2222 222e eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -14927,14 +11301,10 @@ font16char89:
 	and #$0f00
 	ora #$2022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: ee22 2222 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14946,14 +11316,10 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: e222 2222 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14969,14 +11335,10 @@ font16char89:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: e222 2222 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2222
@@ -14992,14 +11354,10 @@ font16char89:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: 8822 222e 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -15015,14 +11373,10 @@ font16char89:
 	and #$0f00
 	ora #$2022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: 8882 22ee e222 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8288
 	lda 7,S
@@ -15037,14 +11391,10 @@ font16char89:
 	and #$ff00
 	ora #$0022
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: 8888 2eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -15059,14 +11409,10 @@ font16char89:
 	and #$ff0f
 	ora #$0020
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -15081,14 +11427,10 @@ font16char89:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -15103,14 +11445,10 @@ font16char89:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8eee ee22 222e 
 	tsc
 	sec
-	sbc #6
+	sbc #158
 	tcs
 	pea $8888
 	lda 7,S
@@ -15125,14 +11463,10 @@ font16char89:
 	and #$ff0f
 	ora #$0080
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: eeee eeee ee22 222e 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 7,S
 	and #$0f00
@@ -15142,10 +11476,6 @@ font16char89:
 	and #$00ff
 	ora #$2200
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char90:
@@ -15163,14 +11493,10 @@ font16char90:
 	and #$0f00
 	ora #$4034
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 2222 2222 3233 434e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3332
 	pea $2222
@@ -15179,14 +11505,10 @@ font16char90:
 	and #$0f00
 	ora #$4043
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 13, Pixel values: 2222 2222 2223 333e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2322
 	pea $2222
@@ -15195,14 +11517,10 @@ font16char90:
 	and #$0f00
 	ora #$3033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 12, Pixel values: 2222 2222 2232 334e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $3222
 	pea $2222
@@ -15211,14 +11529,10 @@ font16char90:
 	and #$0f00
 	ora #$4033
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 11, Pixel values: e222 222e eeee eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 3,S
 	and #$0f00
@@ -15228,14 +11542,10 @@ font16char90:
 	and #$00f0
 	ora #$2202
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 10, Pixel values: ee22 2222 eeee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -15246,14 +11556,10 @@ font16char90:
 	and #$00ff
 	ora #$2200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 9, Pixel values: eee2 2222 2eee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -15268,14 +11574,10 @@ font16char90:
 	and #$f0ff
 	ora #$0200
 	sta 1,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 8, Pixel values: eeee 2222 22ee eeee 
 	tsc
 	sec
-	sbc #4
+	sbc #156
 	tcs
 	pea $2222
 	tsc
@@ -15286,14 +11588,10 @@ font16char90:
 	and #$ff00
 	ora #$0022
 	sta 5,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 7, Pixel values: eeee e222 222e eeee 
 	tsc
 	sec
-	sbc #8
+	sbc #160
 	tcs
 	lda 5,S
 	and #$0f00
@@ -15303,14 +11601,10 @@ font16char90:
 	and #$00f0
 	ora #$2202
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 6, Pixel values: eeee ee22 2222 eeee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -15321,14 +11615,10 @@ font16char90:
 	and #$00ff
 	ora #$2200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 5, Pixel values: eeee eee2 2222 2eee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -15343,14 +11633,10 @@ font16char90:
 	and #$f0ff
 	ora #$0200
 	sta 3,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 4, Pixel values: eeee eeee 2222 22ee 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	tsc
@@ -15361,14 +11647,10 @@ font16char90:
 	and #$ff00
 	ora #$0022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 3, Pixel values: 8888 8222 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2282
@@ -15377,14 +11659,10 @@ font16char90:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 2, Pixel values: 8888 8822 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $2288
@@ -15393,14 +11671,10 @@ font16char90:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 1, Pixel values: 8888 8882 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8288
@@ -15409,14 +11683,10 @@ font16char90:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 0, Pixel values: 8888 8888 2222 222e 
 	tsc
-	dec
-	dec
+	sec
+	sbc #154
 	tcs
 	pea $2222
 	pea $8888
@@ -15425,10 +11695,6 @@ font16char90:
 	and #$0f00
 	ora #$2022
 	sta 7,S
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 
 font16char91:
@@ -15439,144 +11705,140 @@ font16char91:
 	pea $4444
 	pea $4444
 	pea $4424
-	tsc
-	sec
-	sbc #152
-	tcs
 	; Line 14, Pixel values: 4244 4444 4444 4424 
-	pea $2444
-	pea $4444
-	pea $4444
-	pea $4442
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $2444
+	pea $4444
+	pea $4444
+	pea $4442
 	; Line 13, Pixel values: 4424 4444 4444 4244 
-	pea $4442
-	pea $4444
-	pea $4444
-	pea $2444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4442
+	pea $4444
+	pea $4444
+	pea $2444
 	; Line 12, Pixel values: 4442 4444 4444 2444 
-	pea $4424
-	pea $4444
-	pea $4444
-	pea $4244
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4424
+	pea $4444
+	pea $4444
+	pea $4244
 	; Line 11, Pixel values: 4444 2444 4442 4444 
-	pea $4444
-	pea $4244
-	pea $4424
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4244
+	pea $4424
+	pea $4444
 	; Line 10, Pixel values: 4444 4244 4424 4444 
-	pea $4444
-	pea $2444
-	pea $4442
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $2444
+	pea $4442
+	pea $4444
 	; Line 9, Pixel values: 4444 4424 4244 4444 
-	pea $4444
-	pea $4442
-	pea $2444
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4442
+	pea $2444
+	pea $4444
 	; Line 8, Pixel values: 4444 4442 2444 4444 
-	pea $4444
-	pea $4424
-	pea $4244
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4424
+	pea $4244
+	pea $4444
 	; Line 7, Pixel values: 4444 4442 2444 4444 
-	pea $4444
-	pea $4424
-	pea $4244
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4424
+	pea $4244
+	pea $4444
 	; Line 6, Pixel values: 4444 4424 4244 4444 
-	pea $4444
-	pea $4442
-	pea $2444
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4442
+	pea $2444
+	pea $4444
 	; Line 5, Pixel values: 4444 4244 4424 4444 
-	pea $4444
-	pea $2444
-	pea $4442
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $2444
+	pea $4442
+	pea $4444
 	; Line 4, Pixel values: 4444 2444 4442 4444 
-	pea $4444
-	pea $4244
-	pea $4424
-	pea $4444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4444
+	pea $4244
+	pea $4424
+	pea $4444
 	; Line 3, Pixel values: 4442 4444 4444 2444 
-	pea $4424
-	pea $4444
-	pea $4444
-	pea $4244
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4424
+	pea $4444
+	pea $4444
+	pea $4244
 	; Line 2, Pixel values: 4424 4444 4444 4244 
-	pea $4442
-	pea $4444
-	pea $4444
-	pea $2444
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $4442
+	pea $4444
+	pea $4444
+	pea $2444
 	; Line 1, Pixel values: 4244 4444 4444 4424 
-	pea $2444
-	pea $4444
-	pea $4444
-	pea $4442
 	tsc
 	sec
 	sbc #152
 	tcs
+	pea $2444
+	pea $4444
+	pea $4444
+	pea $4442
 	; Line 0, Pixel values: 2444 4444 4444 4442 
+	tsc
+	sec
+	sbc #152
+	tcs
 	pea $4244
 	pea $4444
 	pea $4444
 	pea $4424
-	tsc
-	sec
-	sbc #152
-	tcs
 	jmp renderCharJumpReturn
 

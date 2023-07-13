@@ -45,7 +45,7 @@ def main(argv):
 	for charY in range(0,numCharY):
 		for charX in range(0,numCharX):
 			print ("\t.addr %s" % labelFromCharXY(prefix,CHAR_FIRST,charX,numCharX,charY))
-	print ("")
+	print ("\n; Chroma Key is $%x\n" % CHROMA)
 	
 	# Generate code for each glyph
 	for charY in range(0,numCharY):
@@ -60,7 +60,8 @@ def main(argv):
 			# Iterate through all the pixels
 			charOriginX = charX*CHAR_WIDTH
 			charOriginY = charY*CHAR_HEIGHT
-			
+			pendingStackMove = 0
+				
 			for charRow in reversed(range(0,CHAR_HEIGHT)):
 				
 				# Print a comment to make generated source easier to understand
@@ -95,9 +96,12 @@ def main(argv):
 						offsetNeeded = (CHAR_WIDTH/2-requiredStackIndex) - rowPushTotal - 2
 						
 						if (offsetNeeded>0):
-							stackAdvance(offsetNeeded)	# Advance stack to position needed for our two byte push
+							stackAdvance(offsetNeeded+pendingStackMove)	# Advance stack to position needed for our two byte push
+							pendingStackMove = 0
 							nextRowDelta -= offsetNeeded
 						else:
+							stackAdvance(pendingStackMove)		# First thing we did wasn't a stack move, so apply previous row pending first
+							pendingStackMove = 0
 							offsetNeeded=0
 						print ("\tpea $%04x" % word)
 						nextRowDelta -= 2
@@ -132,7 +136,8 @@ def main(argv):
 				if len(localStackList) > 0:
 					if (rowPushTotal < CHAR_WIDTH/2):			# Get stack pointer to end of row if needed
 						cleanupPush = CHAR_WIDTH/2-rowPushTotal
-						stackAdvance(cleanupPush)
+						stackAdvance(cleanupPush + pendingStackMove)
+						pendingStackMove=0
 						rowPushTotal = CHAR_WIDTH/2
 						nextRowDelta -= cleanupPush
 						
@@ -144,8 +149,8 @@ def main(argv):
 						print ("\tsta %d,S" % (stackEntry[0] + extraReach))
 						
 				# Advance stack pointer to next row
-				stackAdvance(nextRowDelta)
-					
+				pendingStackMove += nextRowDelta		# Save this stack move for next row, because we can often combine them
+				
 			# Footer for each rendering operation
 			print ("\tjmp renderCharJumpReturn\n")
 			
