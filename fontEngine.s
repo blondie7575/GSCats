@@ -11,11 +11,10 @@ FIRST_CHAR = 32
 ; Draws a Pascal string
 ;
 ; PARAML0 = Pointer to string
-; PARAML1 = Width of one character in pixels (you can tweak kerning if you like)
 ; X = Font index
 ; Y = VRAM position of lower right corner of string at which to draw
 ;
-; Trashes SCRATCHL, X, Y, A
+; Trashes SCRATCHL,PARAML1,X, Y, A
 ;
 renderString:
 	NATIVE
@@ -29,8 +28,7 @@ renderString:
 	lda fontJumpTable,y
 	sta renderCharBounce+1
 
-	lda PARAML1		; Convert pixel width to bytes
-	lsr
+	lda fontCharWidthTable,y
 	sta PARAML1
 
 	plb				; Temporarily revert to caller's DBR to access their pointer
@@ -97,6 +95,9 @@ fontJumpTable:
 	.addr font8characterJumpTable
 	.addr font16characterJumpTable
 
+fontCharWidthTable:	; In bytes
+	.word 4
+	.word 8
 
 .include "font8x8.s"
 .include "font16x16.s"

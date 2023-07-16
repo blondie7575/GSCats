@@ -19,18 +19,6 @@ beginGameplay:
 	lda #0
 	jsr setPalette
 
-	; Set up palette for status bar
-	lda #statusBarPalette
-	sta PARAML0
-	lda #1
-	jsr setPalette
-
-	lda #1
-	sta PARAML0
-	ldx #0
-	ldy #10
-	jsr setScanlinePalette
-
 	; Set up sprite rendering
 	BITS8
 	lda #3
@@ -67,18 +55,6 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
-
-	; Test font renderer
-	lda #testString
-	sta PARAML0
-	lda #8
-	sta PARAML1
-	ldy #$4430			; Correct start of line address for 16 wide: $4bc7
-	ldx #0
-	jsl $050000
-	bra gameplayLoop
-testString:
-	pstring "HELLO WORLD!"
 
 gameplayLoop:
 	lda projectileActive
@@ -420,9 +396,6 @@ fire:
 
 basePalette:
 	.word $0aef,$0080,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
-statusBarPalette:
-	.word $0aef,$0fff,$0aef,$0aef,$0aef,$0aef,$0d66,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0aef,$0000
-
 
 
 quitRequested:

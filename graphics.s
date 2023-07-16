@@ -222,11 +222,17 @@ setPaletteLoop_SMC:
 ; Trashes PARAML0
 ;
 drawNumber:
+	SAVE_AXY
+
 	sta PARAML0
 	jsr intToString
 	lda #intToStringResult
+	sta PARAML0
+	txy
+	ldx #0
+	jsl renderStringFar
 
-	jsr DrawString
+	RESTORE_AXY
 	rts
 
 

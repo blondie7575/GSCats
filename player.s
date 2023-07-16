@@ -424,56 +424,44 @@ renderPlayerHeader:
 	SAVE_AXY
 	PLAYERPTR_Y
 
-	ldx #0 + 321
 	tya
 	clc
 	adc #playerData
 	adc #PD_NAME
-	jsr DrawString
+	sta PARAML0
+	phy
+	ldy #$25c0
+	ldx #0
+	jsl renderStringFar
+	ply
 
-	ldx #48 + 321
-	lda #angleStr
-	jsr DrawString
+;	lda playerData+PD_ANGLE,y
+;	ldx #56 + $2500
+;	jsr drawNumber
 
-	lda playerData+PD_ANGLE,y
-	ldx #56 + 321
-	jsr drawNumber
+;	lda playerData+PD_POWER,y
+;	ldx #76 + $2500
+;	jsr drawNumber
 
-	ldx #68 + 321
-	lda #powerStr
-	jsr DrawString
+;	ldx #88 + 321
+;	lda #angerStr
+;	jsr DrawString
 
-	lda playerData+PD_POWER,y
-	ldx #76 + 321
-	jsr drawNumber
-
-	ldx #88 + 321
-	lda #angerStr
-	jsr DrawString
-
-	lda playerData+PD_ANGER,y
-	ldx #96 + 321
+	lda playerData+PD_TREATS,y
+	ldx #$25f6
 	jsr drawNumber
 
 	lda #treatsStr
-	ldx #142 + 321
-	jsr DrawString
-
-	lda playerData+PD_TREATS,y
-	ldx #146 + 321
-	jsr drawNumber
+	sta PARAML0
+	ldy #$25f2
+	ldx #0
+	jsl renderStringFar
 
 	RESTORE_AXY
 	rts
 
-angleStr:
-	pstring "*:   "
-powerStr:
-	pstring "+:   "
-angerStr:
-	pstring "):   "
 treatsStr:
-	pstring "$   "
+	pstring "TREATS:$"
 
 
 

@@ -44,6 +44,8 @@ RANDOM			= $ce		; 16 bit random number
 RANDOML			= $ce		; Low byte of random number generator
 RANDOMH			= $cf		; High byte of random number generator
 
+; Far entry points
+renderStringFar	= $050000
 
 ; Terrain constants
 TERRAINWIDTH = 640		; In pixels
