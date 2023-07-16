@@ -38,7 +38,6 @@ quitGame:
 .include "random.s"
 .include "graphics.s"
 .include "sound.s"
-.include "font.s"
 .include "smallNumbers.s"
 .include "animation.s"
 .include "player.s"
