@@ -71,8 +71,9 @@ terrain_e1:
 
 fonts:
 	rm -rf $(FONTBANK)
-	./CompileFont.py 8 8 32 14 "font8" "Art/Assets/Font8x8.gif" > font8x8.s
+	./CompileFont.py 8 8 32 0 "font8" "Art/Assets/Font8x8.gif" > font8x8.s
 	./CompileFont.py 16 16 32 14 "font16" "Art/Assets/Font16x16.gif" > font16x16.s
+	./CompileFont.py 4 5 48 0 "num4" "Art/Assets/TinyNumbers.gif" > tinyNumbers.s
 	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr 0000 -lfonts.lst fontEngine.s -o $(FONTBANK)
 	rm -f fontEngine.o
 

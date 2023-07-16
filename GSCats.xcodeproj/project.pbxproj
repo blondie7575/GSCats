@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		7002647320CD78C40015B184 /* smallNumbers.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = smallNumbers.s; sourceTree = "<group>"; };
 		700B5E6F2069831000B31C00 /* inventory.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = inventory.s; sourceTree = "<group>"; };
 		700C39C51F2E5CA800C24F9C /* tables.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tables.s; sourceTree = "<group>"; };
 		700F21DE1F43E31300D7007D /* input.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = input.s; sourceTree = "<group>"; };
 		700F21DF1F4A364600D7007D /* projectile.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = projectile.s; sourceTree = "<group>"; };
 		700F21E01F4A3A5500D7007D /* GenerateTrigTables.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateTrigTables.py; sourceTree = "<group>"; };
 		700F72872112428D00225B17 /* RenumberSpriteFiles.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = RenumberSpriteFiles.sh; sourceTree = "<group>"; };
+		701E708A2A649A230030C35D /* tinyNumbers.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tinyNumbers.s; sourceTree = "<group>"; };
 		705456862A43E03B00A2B866 /* GeneratePixelCircle.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GeneratePixelCircle.py; sourceTree = "<group>"; };
 		705456882A4D336200A2B866 /* animation.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = animation.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
@@ -62,7 +62,6 @@
 				7099E3841F41022100182A82 /* gameobject.s */,
 				70F011D123B989B800C8873F /* random.s */,
 				706DF1641F2D39F700AA6680 /* loader.s */,
-				7002647320CD78C40015B184 /* smallNumbers.s */,
 				706DF1651F2D4A8100AA6680 /* terrain.s */,
 				705AAFA920040B0D001BB0ED /* terrain_e1.s */,
 				70F011D023B91B2900C8873F /* dirt.s */,
@@ -83,6 +82,7 @@
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8631F2BD95400555C19 /* Makefile */,
 				70BDCBC92006AD5F00CB51F1 /* linkerConfig */,
+				701E708A2A649A230030C35D /* tinyNumbers.s */,
 				7076E9232A59113F0006E295 /* font8x8.s */,
 				7076E9252A5F9F540006E295 /* font16x16.s */,
 				7076E9242A5A4A8E0006E295 /* fontEngine.s */,

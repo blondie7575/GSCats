@@ -3,8 +3,6 @@
 
 .org $0000
 
-FIRST_CHAR = 32
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderString (Far entry point)
 ;
@@ -14,7 +12,7 @@ FIRST_CHAR = 32
 ; X = Font index
 ; Y = VRAM position of lower right corner of string at which to draw
 ;
-; Trashes SCRATCHL,PARAML1,X, Y, A
+; Trashes SCRATCHL,SCRATCHL2,PARAML1,X, Y, A
 ;
 renderString:
 	NATIVE
@@ -22,11 +20,14 @@ renderString:
 
 	sty SCRATCHL	; Cache VRAM position
 
-	txa				; Cache font character table
+	txa				; Cache font character tables
 	asl
 	tay
 	lda fontJumpTable,y
 	sta renderCharBounce+1
+
+	lda fontFirstCharTable,y
+	sta SCRATCHL2
 
 	lda fontCharWidthTable,y
 	sta PARAML1
@@ -72,18 +73,19 @@ renderStringDone:
 ;
 ; A = ASCII code to draw
 ; Y = VRAM position of lower right corner at which to draw
+; SCRATCHL2 = First char in font
 ;
 renderChar:
 	SAVE_AXY
 
-	sec					; Bounce off glyph-rendering jump table
-	sbc #FIRST_CHAR
+	sec
+	sbc SCRATCHL2
 	asl
 	tax
 	FASTGRAPHICS
 
 renderCharBounce:		; Self modifying code. Don't panic
-	jmp (font16characterJumpTable,x)
+	jmp ($1234,x)
 
 renderCharJumpReturn:	; Compiled glyphs jump back here. Can't rts because stack is turboborked
 	SLOWGRAPHICS
@@ -94,11 +96,19 @@ renderCharJumpReturn:	; Compiled glyphs jump back here. Can't rts because stack 
 fontJumpTable:
 	.addr font8characterJumpTable
 	.addr font16characterJumpTable
+	.addr num4characterJumpTable
 
 fontCharWidthTable:	; In bytes
 	.word 4
 	.word 8
+	.word 2
 
+fontFirstCharTable:	; ASCII codes
+	.word 32
+	.word 32
+	.word 48
+
+.include "tinyNumbers.s"
 .include "font8x8.s"
 .include "font16x16.s"
 

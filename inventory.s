@@ -38,7 +38,11 @@ renderInventory:
 
 
 renderInventoryLoop:
+	lda PARAML1		; renderInventory item trashes this so we need to preserve it
+	pha
 	jsr renderInventoryItem
+	pla
+	sta PARAML1
 
 	tya		; Advance VRAM pointer
 	clc
@@ -124,12 +128,15 @@ renderInventoryItem_unselected:
 	sta intToStringResult
 	BITS16
 
-	sec
+	; Render tiny numbers
 	pla
-	sbc #($2000 - 160*2)-1	; Font engine wants VRAM-relative
-	tax
+	clc
+	adc #6*160+4
+	tay
 	lda #intToStringPrefix
-	jsr DrawTinyNumber
+	sta PARAML0
+	ldx #2
+	jsl renderStringFar
 
 renderInventoryItem_done:
 	RESTORE_AXY
