@@ -120,6 +120,7 @@ craterTerrainLoop:
 	sta craterTerrainAccumulator
 
 	lda SCRATCHL2				; Replace terrain height with cratered value
+	bmi craterTerrainZero		; Don't let it be negative
 	sta (PARAML0),y
 	bra craterTerrainLoop
 
@@ -131,7 +132,6 @@ craterTerrainZero:			; Circle went negative so clip to 0
 craterTerrainDone:
 	lda #1
 	sta terrainDirty
-
 	RESTORE_AX
 	rts
 
@@ -288,12 +288,14 @@ compileTerrainDone:
 ;
 ; Y = First row to compile (bottom-relative)
 ; X = Last row to compile (bottom-relative)
-; A = |X-Y|
 ;
 ; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 compileTerrainChunk:
-;HARDBRK
+	tya			; Be extra safe and make sure Y is never negative or we'll spray RAM with terrain data
+	bmi compileTerrainChunkClampZero
+
+compileTerrainChunkResume:
 	stx SCRATCHL
 	sty PARAML0
 
@@ -321,6 +323,10 @@ compileTerrainChunkLoop:
 
 compileTerrainChunkDone:
 	rts
+
+compileTerrainChunkClampZero:
+	ldy #0
+	bra compileTerrainChunkResume
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
