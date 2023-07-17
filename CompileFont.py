@@ -158,6 +158,12 @@ def main(argv):
 			print ("\tjmp renderCharJumpReturn_%s\n" % prefix)
 	return
 
+def scaleForFontWidth(charWidth):
+	output = ""
+	for i in range(0,(int)(charWidth/4)):
+		output = output + "\tasl\n"
+	return output
+	
 def addWrapperCode(prefix, charWidth, firstChar):
 	code = """
 
@@ -167,7 +173,7 @@ def addWrapperCode(prefix, charWidth, firstChar):
 ; Draws a Pascal string for font "{:s}"
 ;
 ; PARAML0 = Pointer to string
-; Y = VRAM position of lower right corner of string at which to draw
+; Y = VRAM position of lower left corner of string at which to draw
 ;
 ; Trashes SCRATCHL,X,Y,A
 ;
@@ -181,6 +187,13 @@ renderString_{:s}:
 	BITS16
 	phb
 
+	; Advance VRAM pointer to end of string
+{:s}
+	clc
+	adc SCRATCHL
+	dec
+	sta SCRATCHL
+	
 renderStringLoop_{:s}:
 
 	; Fetch and render next character in string
@@ -234,7 +247,7 @@ renderCharJumpReturn_{:s}:	; Compiled glyphs jump back here. Can't rts because s
 	RESTORE_AXY
 	rts
 
-""".format(prefix,prefix,prefix,prefix,prefix,prefix,charWidth,prefix,prefix,prefix,prefix,prefix,firstChar,prefix,prefix)
+""".format(prefix,prefix,prefix,scaleForFontWidth(charWidth),prefix,prefix,prefix,charWidth,prefix,prefix,prefix,prefix,prefix,firstChar,prefix,prefix)
 	print (code)
 	return
 

@@ -20,6 +20,14 @@ renderString_tinyNum:
 	BITS16
 	phb
 
+	; Advance VRAM pointer to end of string
+	asl
+
+	clc
+	adc SCRATCHL
+	dec
+	sta SCRATCHL
+	
 renderStringLoop_tinyNum:
 
 	; Fetch and render next character in string
@@ -647,6 +655,15 @@ renderString_font8:
 	BITS16
 	phb
 
+	; Advance VRAM pointer to end of string
+	asl
+	asl
+
+	clc
+	adc SCRATCHL
+	dec
+	sta SCRATCHL
+	
 renderStringLoop_font8:
 
 	; Fetch and render next character in string

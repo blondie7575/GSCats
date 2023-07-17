@@ -438,7 +438,7 @@ renderPlayerHeader:
 	adc #PD_NAME
 	sta PARAML0
 	phy
-	ldy #$25c0
+	ldy #$25a1
 	lda #1
 	jsl renderStringFar
 	ply
@@ -456,12 +456,12 @@ renderPlayerHeader:
 ;	jsr DrawString
 
 	lda playerData+PD_TREATS,y
-	ldx #$25f6
+	ldx #$25f0
 	jsr drawNumber
 
 	lda #treatsStr
 	sta PARAML0
-	ldy #$25f2
+	ldy #$25d0
 	lda #1
 	jsl renderStringFar
 

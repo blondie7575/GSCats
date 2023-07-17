@@ -131,7 +131,7 @@ renderInventoryItem_unselected:
 	; Render tiny numbers
 	pla
 	clc
-	adc #6*160+4
+	adc #6*160+2
 	tay
 	lda #intToStringPrefix
 	sta PARAML0
