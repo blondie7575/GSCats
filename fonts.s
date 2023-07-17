@@ -6,7 +6,7 @@
 ; Draws a Pascal string for font "tinyNum"
 ;
 ; PARAML0 = Pointer to string
-; Y = VRAM position of lower right corner of string at which to draw
+; Y = VRAM position of lower left corner of string at which to draw
 ;
 ; Trashes SCRATCHL,X,Y,A
 ;
@@ -641,7 +641,7 @@ tinyNumchar58:
 ; Draws a Pascal string for font "font8"
 ;
 ; PARAML0 = Pointer to string
-; Y = VRAM position of lower right corner of string at which to draw
+; Y = VRAM position of lower left corner of string at which to draw
 ;
 ; Trashes SCRATCHL,X,Y,A
 ;
