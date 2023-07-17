@@ -384,14 +384,14 @@ num4char55:
 	and #$fff0
 	ora #$000e
 	sta 1,S
-	; Line 2, Pixel values: 0e00 
+	; Line 2, Pixel values: 0ea0 
 	tsc
 	sec
 	sbc #160
 	tcs
 	lda 1,S
-	and #$fff0
-	ora #$000e
+	and #$0ff0
+	ora #$a00e
 	sta 1,S
 	; Line 1, Pixel values: 00e0 
 	tsc
@@ -416,14 +416,14 @@ num4char55:
 num4char56:
 	tya
 	tcs
-	; Line 4, Pixel values: 0e00 
+	; Line 4, Pixel values: aea0 
 	tsc
 	dec
 	dec
 	tcs
 	lda 1,S
-	and #$fff0
-	ora #$000e
+	and #$0f00
+	ora #$a0ae
 	sta 1,S
 	; Line 3, Pixel values: e0e0 
 	tsc
@@ -434,14 +434,14 @@ num4char56:
 	and #$0f0f
 	ora #$e0e0
 	sta 1,S
-	; Line 2, Pixel values: 0e00 
+	; Line 2, Pixel values: aea0 
 	tsc
 	sec
 	sbc #160
 	tcs
 	lda 1,S
-	and #$fff0
-	ora #$000e
+	and #$0f00
+	ora #$a0ae
 	sta 1,S
 	; Line 1, Pixel values: e0e0 
 	tsc
@@ -452,14 +452,14 @@ num4char56:
 	and #$0f0f
 	ora #$e0e0
 	sta 1,S
-	; Line 0, Pixel values: 0e00 
+	; Line 0, Pixel values: aea0 
 	tsc
 	sec
 	sbc #160
 	tcs
 	lda 1,S
-	and #$fff0
-	ora #$000e
+	and #$0f00
+	ora #$a0ae
 	sta 1,S
 	jmp renderCharJumpReturn
 
@@ -484,14 +484,14 @@ num4char57:
 	and #$0fff
 	ora #$e000
 	sta 1,S
-	; Line 2, Pixel values: 0ee0 
+	; Line 2, Pixel values: aee0 
 	tsc
 	sec
 	sbc #160
 	tcs
 	lda 1,S
-	and #$0ff0
-	ora #$e00e
+	and #$0f00
+	ora #$e0ae
 	sta 1,S
 	; Line 1, Pixel values: e0e0 
 	tsc
@@ -502,14 +502,14 @@ num4char57:
 	and #$0f0f
 	ora #$e0e0
 	sta 1,S
-	; Line 0, Pixel values: 0ee0 
+	; Line 0, Pixel values: aee0 
 	tsc
 	sec
 	sbc #160
 	tcs
 	lda 1,S
-	and #$0ff0
-	ora #$e00e
+	and #$0f00
+	ora #$e0ae
 	sta 1,S
 	jmp renderCharJumpReturn
 

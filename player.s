@@ -424,6 +424,14 @@ renderPlayerHeader:
 	SAVE_AXY
 	PLAYERPTR_Y
 
+	; Erase header
+	phy
+	ldx #0000
+	ldy #10
+	jsr colorFill
+	ply
+
+	; Redraw header
 	tya
 	clc
 	adc #playerData
@@ -455,7 +463,7 @@ renderPlayerHeader:
 	sta PARAML0
 	ldy #$25f2
 	ldx #0
-	jsl renderStringFar
+	jsl renderStringFromLeftFar
 
 	RESTORE_AXY
 	rts
