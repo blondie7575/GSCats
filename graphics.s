@@ -229,7 +229,7 @@ drawNumber:
 	lda #intToStringResult
 	sta PARAML0
 	txy
-	ldx #0
+	lda #1
 	jsl renderStringFar
 
 	RESTORE_AXY

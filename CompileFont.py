@@ -40,6 +40,9 @@ def main(argv):
 	numCharX = (int)(image.size[0]/CHAR_WIDTH)
 	numCharY = (int)(image.size[1]/CHAR_HEIGHT)
 		
+	# Generate wrapper code
+	addWrapperCode(prefix,CHAR_WIDTH,CHAR_FIRST)
+	
 	# Generate jump table for glyphs
 	print ("%scharacterJumpTable:" % prefix)
 	for charY in range(0,numCharY):
@@ -152,7 +155,91 @@ def main(argv):
 				pendingStackMove += nextRowDelta		# Save this stack move for next row, because we can often combine them
 				
 			# Footer for each rendering operation
-			print ("\tjmp renderCharJumpReturn\n")
-			
+			print ("\tjmp renderCharJumpReturn_%s\n" % prefix)
+	return
+
+def addWrapperCode(prefix, charWidth, firstChar):
+	code = """
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderString_{:s}
+;
+; Draws a Pascal string for font "{:s}"
+;
+; PARAML0 = Pointer to string
+; Y = VRAM position of lower right corner of string at which to draw
+;
+; Trashes SCRATCHL,X,Y,A
+;
+renderString_{:s}:
+	sty SCRATCHL	; Cache VRAM position
+
+	plb				; Temporarily revert to caller's DBR to access their pointer
+	BITS8
+	lda (PARAML0)
+	tax
+	BITS16
+	phb
+
+renderStringLoop_{:s}:
+
+	; Fetch and render next character in string
+	txy
+	lda #0
+	plb				; Temporarily revert to caller's DBR to access their pointer
+	BITS8A
+	lda (PARAML0),y
+	BITS16
+	phb
+	ldy SCRATCHL
+	jsr renderChar_{:s}
+
+	dex
+	beq renderStringDone_{:s}
+
+	; Calculate VRAM pointer for position of next character
+	lda SCRATCHL
+	sec
+	sbc #{:d}/2					; Width of one char in bytes
+	sta SCRATCHL
+	bra renderStringLoop_{:s}
+
+renderStringDone_{:s}:
+	jmp renderStringReturn
+
+.export renderString_{:s}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderChar_{:s}
+;
+; Draws a single character
+;
+; A = ASCII code to draw
+; Y = VRAM position of lower right corner at which to draw
+;
+renderChar_{:s}:
+	SAVE_AXY
+
+	sec
+	sbc #{:d}		; ASCII code of first char in font sheet
+	asl
+	tax
+	FASTGRAPHICS
+
+	jmp ({:s}characterJumpTable,x)
+
+renderCharJumpReturn_{:s}:	; Compiled glyphs jump back here. Can't rts because stack is turboborked
+	SLOWGRAPHICS
+
+	RESTORE_AXY
+	rts
+
+""".format(prefix,prefix,prefix,prefix,prefix,prefix,charWidth,prefix,prefix,prefix,prefix,prefix,firstChar,prefix,prefix)
+	print (code)
+	return
+
+
 if __name__ == "__main__":
 	main(sys.argv[1:])
+
+

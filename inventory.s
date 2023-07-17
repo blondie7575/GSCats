@@ -135,7 +135,7 @@ renderInventoryItem_unselected:
 	tay
 	lda #intToStringPrefix
 	sta PARAML0
-	ldx #2
+	lda #0
 	jsl renderStringFar
 
 renderInventoryItem_done:

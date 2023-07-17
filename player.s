@@ -439,7 +439,7 @@ renderPlayerHeader:
 	sta PARAML0
 	phy
 	ldy #$25c0
-	ldx #0
+	lda #1
 	jsl renderStringFar
 	ply
 
@@ -462,8 +462,8 @@ renderPlayerHeader:
 	lda #treatsStr
 	sta PARAML0
 	ldy #$25f2
-	ldx #0
-	jsl renderStringFromLeftFar
+	lda #1
+	jsl renderStringFar
 
 	RESTORE_AXY
 	rts

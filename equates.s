@@ -44,9 +44,6 @@ RANDOM			= $ce		; 16 bit random number
 RANDOML			= $ce		; Low byte of random number generator
 RANDOMH			= $cf		; High byte of random number generator
 
-; Far entry points
-renderStringFar	= $050000
-
 ; Terrain constants
 TERRAINWIDTH = 640		; In pixels
 MAXTERRAINHEIGHT = 100	; In pixels
@@ -64,6 +61,9 @@ terrainData = $f500
 ;	.word 0
 ;	.endrepeat
 terrainDataEnd = terrainData + (TERRAINWIDTH/2 * 2)
+
+; Far symbols
+renderStringFar = $050000			; Main entry for font rendering engine
 
 ; Stash the size of the sound bank at the end of sound memory so loader can pass it to sound system
 soundBankSize=$04fffe
