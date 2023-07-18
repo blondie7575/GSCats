@@ -94,7 +94,7 @@ projectileTypes:
 	PT_FAN = 2
 
 	; Spit
-	.word 3			; Damage
+	.word 4			; Damage
 	.word 3 		; Crater radius
 	.word 4			; Frame 0
 	.word 6			; Frame 1

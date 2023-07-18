@@ -62,7 +62,7 @@ setProgressBar:
 ;
 renderProgressBar:
 	SAVE_AXY
-	ldy #2	; Room for left and right borders
+	ldy #0
 	ldx currentProgressBar+CBR_VRAM
 
 	BITS8A
@@ -126,7 +126,7 @@ CBR_VRAM = 6
 
 currentProgressBar:
 	.word	0		; Active
-	.word	0		; Current progress in bytes
+	.word	1		; Current progress in bytes
 	.word	25		; Final progress in bytes
 	.word	$2117	; VRAM position (top left)
 
