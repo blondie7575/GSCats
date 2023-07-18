@@ -128,7 +128,7 @@ projectileTypes:
 	.endrepeat
 
 	; Fan
-	.word 3			; Damage
+	.word 0			; Damage
 	.word 3			; Crater radius
 	.word 12		; Frame 0
 	.word 12		; Frame 1
@@ -858,13 +858,12 @@ unrenderProjectileDone:
 ;
 processPlayerImpact:
 	phy
-	phx
-	PLAYERPTR_X
 
 	; Do hit animation
-	plx
 	txy
 	jsr renderHitAnimation
+	
+	PLAYERPTR_X
 
 	; Find projectile data structure
 	ply

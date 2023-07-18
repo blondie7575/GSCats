@@ -46,6 +46,7 @@ beginGameplay:
 	ldy #1
 	jsr playerCreate
 
+	jsr syncPlayerHeader
 	ldy #0
 	jsr renderPlayerHeader
 
@@ -278,6 +279,7 @@ endTurnRefresh:
 	sta mapScrollRequested
 
 endTurnHeader:
+	jsr syncPlayerHeader
 	jsr renderPlayerHeader
 	jsr renderInventory
 	stz turnRequested

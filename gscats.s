@@ -52,6 +52,8 @@ quitGame:
 .include "inventory.s"
 .include "dirt.s"
 .include "crosshair.s"
+.include "progressBar.s"
+
 endMainBank2:
 
 

@@ -5,6 +5,7 @@
 ;  Created by Quinn Dunki on 8/13/17
 ;
 
+MAX_ANGER = 100
 
 playerData:
 	;;;;;;;;;;;; PLAYER 1 ;;;;;;;;;;;;;;
@@ -18,7 +19,7 @@ playerData:
 
 	.word 24			; Angle in degrees from +X
 	.word 2				; Power
-	.word 100			; Anger
+	.word MAX_ANGER		; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 29			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
@@ -39,7 +40,7 @@ playerData:
 
 	.word 154			; Angle in degrees from +X
 	.word 2	; Power
-	.word 100			; Anger
+	.word MAX_ANGER		; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 20			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
@@ -110,6 +111,8 @@ playerCreate:
 	adc SCRATCHL
 	sta PARAML0
 	jsr placeGameObjectOnTerrain
+
+	jsr createProgressBar
 	rts
 
 
@@ -437,6 +440,7 @@ renderPlayerHeader:
 	adc #playerData
 	adc #PD_NAME
 	sta PARAML0
+
 	phy
 	ldy #$25a1
 	lda #1
@@ -451,10 +455,6 @@ renderPlayerHeader:
 ;	ldx #76 + $2500
 ;	jsr drawNumber
 
-;	ldx #88 + 321
-;	lda #angerStr
-;	jsr DrawString
-
 	lda playerData+PD_TREATS,y
 	ldx #$25f0
 	jsr drawNumber
@@ -465,12 +465,40 @@ renderPlayerHeader:
 	lda #1
 	jsl renderStringFar
 
+	lda #angerStr
+	sta PARAML0
+	ldy #$25ff
+	lda #1
+	jsl renderStringFar
+	jsr renderProgressBar
+
 	RESTORE_AXY
 	rts
 
 treatsStr:
 	pstring "TREATS:$"
+angerStr:
+	pstring "ANGER:"
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; syncPlayerHeader
+;
+syncPlayerHeader:
+	SAVE_AY
+	ldy currentPlayer
+	PLAYERPTR_Y
+
+	; Convert anger to progress bar value
+	sec
+	lda #MAX_ANGER
+	sbc playerData+PD_ANGER,y
+	lsr
+	lsr
+	jsr setProgressBar
+	RESTORE_AY
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
