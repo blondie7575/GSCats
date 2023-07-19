@@ -13,6 +13,8 @@ VRAMBANK		= $e10000
 SHADOWVRAMBANK	= $010000
 PRODOS			= $bf00		; MLI entry point
 PRODOSRETURN	= $300		; Indirect jump to get back to ProDOS from any bank
+BORDERCOLORCACHE= $304		; Save system border color so we can put it back
+TEXTCOLORCACHE 	= $306		; Save system text colors so we can put it back
 
 ENSONIQ_CONTROL = $e1c03c		; Ensoniq-related registers/locations
 ENSONIQ_DATA = $e1c03d

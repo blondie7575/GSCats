@@ -20,12 +20,7 @@ mainBank2:
 	BITS8
 	lda #$f0
 	sta TEXTCOLOR
-	BITS16
-
-	; Set up video
-	jsr initSCBs
-	SHRVIDEO
-	SHADOWMEMORY
+	BITS16	
 
 	jmp beginGameplay
 

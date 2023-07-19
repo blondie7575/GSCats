@@ -6,6 +6,9 @@
 ;  Created by Quinn Dunki on 7/29/17
 ;
 
+.a16
+.i16
+
 .include "equates.s"
 .include "macros.s"
 
@@ -15,8 +18,48 @@ MAINENTRY = $020000
 
 .org $800
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; BORDER_COLOR
+;
+; Trashes A
+;
+.macro BORDER_COLOR color
+	SAVE_AXY
+	BITS8
+	lda BORDERCOLOR
+	and #$f0
+	ora color
+	sta BORDERCOLOR
+	BITS16
+	RESTORE_AXY
+.endmacro
+
+
 main:
-	OP8		; We launch in emulation. Stay there for now
+	BITS16
+	NATIVE
+	SHRVIDEO
+	SHADOWMEMORY
+	
+	; Cache system colors
+	BITS8
+	lda BORDERCOLOR
+	sta BORDERCOLORCACHE
+	lda TEXTCOLOR
+	sta TEXTCOLORCACHE
+	BITS16
+
+	; Throw up a loading screen
+	lda #loaderPalette
+	sta PARAML0
+	lda #0
+	jsr setPalette
+;	jsr initSCBs
+	BORDER_COLOR #$7
+	lda #$1111
+	jsr slowColorFill
+	
+	EMULATION
 
 	; Open the main code file
 	jsr PRODOS
@@ -50,6 +93,11 @@ main:
 	.byte $cc
 	.addr fileClose
 
+	bra mainContinue
+ioError:
+	brk
+
+mainContinue:
 	NATIVE
 
 	; Copy rest of code into bank 2 (needed if code size exceeds BUFFERSIZE)
@@ -60,59 +108,6 @@ main:
 
 	EMULATION
 
-;;;;;;;;;;;;;;;;;;;;;
-
-	; Open the E1 code file
-	jsr PRODOS
-	.byte $c8
-	.addr fileOpenCodeE1
-	bne ioError
-
-	; Load the code into bank 0
-	jsr PRODOS
-	.byte $ca
-	.addr fileRead
-	bne ioError
-
-	; Close the file
-	jsr PRODOS
-	.byte $cc
-	.addr fileClose
-
-	jmp loadData
-	; Note that we skip E1 code bank loading now. This was used for the
-	; fill mode terrain renderer, which is disabled until further notice
-	; There isn't enough safe room in E1 to do everything we wanted and the fill
-	; mode rendering isn't useful enough to keep
-
-	NATIVE
-
-	; Copy code into bank E1
-	ldx fileReadLen
-	lda #$E1
-	ldy #$800		; Must match terrain_e1 .org
-	jsr copyBytes
-
-
-	; Copy vram table into bank E1
-	; Note that there's a GS memory manager jump table at 1680 - 16BB
-	; in E1 that we have to work around. If we step on it, warm reboots and other
-	; critical things start to fail.
-	phb
-	lda #vramRowInvertedSpanLookupEnd-vramRowInvertedSpanLookup-1
-	ldx #vramRowInvertedSpanLookupEnd-1
-	ldy #$16C0 + vramRowInvertedSpanLookupEnd-vramRowInvertedSpanLookup-1 		; Must match terrain_e1 vramRowInvertedSpanLookup
-	mvp $e1,$00		; Note that ca65 reverses src,dest. Grrr.
-	plb
-
-	EMULATION
-
-
-ioError:
-	brk
-
-;;;;;;;;;;;;;;;;;;;;;
-loadData:
 	; Open the sprite bank file
 	jsr PRODOS
 	.byte $c8
@@ -238,30 +233,26 @@ loadData:
 	sta PRODOSRETURN
 
 	jml MAINENTRY
-
+	
 returnToProDOS:
 	SYNCDBR
 	EMULATION
+
+	; Restore system colors
+	lda BORDERCOLOR
+	and #$f0
+	ora BORDERCOLORCACHE
+	sta BORDERCOLOR	
+	lda TEXTCOLORCACHE
+	sta TEXTCOLOR
 	rts
 
 ioErrorJmp:
 	jmp ioError
 
 
-; This table lives here in the loader because we need to copy
-; it to a specific free hole in bank E1
-vramRowInvertedSpanLookup:
-	.word $9d00,$9c60,$9bc0,$9b20,$9a80,$99e0,$9940,$98a0,$9800,$9760,$96c0,$9620,$9580,$94e0,$9440,$93a0,$9300,$9260,$91c0,$9120
-	.word $9080,$8fe0,$8f40,$8ea0,$8e00,$8d60,$8cc0,$8c20,$8b80,$8ae0,$8a40,$89a0,$8900,$8860,$87c0,$8720,$8680,$85e0,$8540,$84a0
-	.word $8400,$8360,$82c0,$8220,$8180,$80e0,$8040,$7fa0,$7f00,$7e60,$7dc0,$7d20,$7c80,$7be0,$7b40,$7aa0,$7a00,$7960,$78c0,$7820
-	.word $7780,$76e0,$7640,$75a0,$7500,$7460,$73c0,$7320,$7280,$71e0,$7140,$70a0,$7000,$6f60,$6ec0,$6e20,$6d80,$6ce0,$6c40,$6ba0
-	.word $6b00,$6a60,$69c0,$6920,$6880,$67e0,$6740,$66a0,$6600,$6560,$64c0,$6420,$6380,$62e0,$6240,$61a0,$6100,$6060,$5fc0,$5f20
-	.word $5e80,$5de0,$5d40,$5ca0,$5c00,$5b60,$5ac0,$5a20,$5980,$58e0,$5840,$57a0,$5700,$5660,$55c0,$5520,$5480,$53e0,$5340,$52a0
-	.word $5200,$5160,$50c0,$5020,$4f80,$4ee0,$4e40,$4da0,$4d00,$4c60,$4bc0,$4b20,$4a80,$49e0,$4940,$48a0,$4800,$4760,$46c0,$4620
-	.word $4580,$44e0,$4440,$43a0,$4300,$4260,$41c0,$4120,$4080,$3fe0,$3f40,$3ea0,$3e00,$3d60,$3cc0,$3c20,$3b80,$3ae0,$3a40,$39a0
-	.word $3900,$3860,$37c0,$3720,$3680,$35e0,$3540,$34a0,$3400,$3360,$32c0,$3220,$3180,$30e0,$3040,$2fa0,$2f00,$2e60,$2dc0,$2d20
-	.word $2c80,$2be0,$2b40,$2aa0,$2a00,$2960,$28c0,$2820,$2780,$26e0,$2640,$25a0,$2500,$2460,$23c0,$2320,$2280,$21e0,$2140,$20a0
-vramRowInvertedSpanLookupEnd:
+loaderPalette:
+	.word $0aef,$06af,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -329,13 +320,6 @@ fileOpenCode:
 	.byte 0					; Result (file handle)
 	.byte 0					; Padding
 
-fileOpenCodeE1:
-	.byte 3
-	.addr codePathE1
-	.addr $9200				; 1k below BASIC.SYSTEM
-	.byte 0					; Result (file handle)
-	.byte 0					; Padding
-
 fileRead:
 	.byte 4
 	.byte 1					; File handle (we know it's gonna be 1)
@@ -371,11 +355,11 @@ fileOpenFonts:
 
 codePath:
 	pstring "/GSAPP/CODEBANK"
-codePathE1:
-	pstring "/GSAPP/CODEBANKE1"
 spritePath:
 	pstring "/GSAPP/SPRITEBANK"
 soundPath:
 	pstring "/GSAPP/SOUNDBANK"
 fontPath:
 	pstring "/GSAPP/FONTBANK"
+
+.include "loaderGraphics.s"

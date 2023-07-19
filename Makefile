@@ -14,13 +14,13 @@ VOLNAME=GSAPP
 IMG=DiskImageParts
 EMU=/Applications/GSplus.app/Contents/MacOS/gsplus
 ADDR=0800
+
 CODEBANK=CODEBANK\#060000
-CODEBANKE1=CODEBANKE1\#060800
 EXEC=$(PGM)\#06$(ADDR)
 SOUNDBANK=SOUNDBANK\#060000
 FONTBANK=FONTBANK\#060000
-
 PGM=gscats
+
 MRSPRITE=../MrSprite/mrsprite
 GENART=Art/Generated
 GENSOUND=Sound/Generated
@@ -29,9 +29,9 @@ PALETTE=a4dffb a4dffb 008800 886611 cc9933 eebb44 dd6666 ff99aa 777777 ff0000 b7
 SPRITES=SpriteBank
 SPRITEBANK=$(SPRITES)\#060000
 FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
-REMOTESYMBOLS=-Wl $(shell ./ParseMapFile.py *.map)
+REMOTESYMBOLS= # -Wl $(shell ./ParseMapFile.py *.map)			<- Use this to share symbols across code banks
 
-all: clean diskimage terrain_e1 fonts $(PGM) loader emulate
+all: clean diskimage fonts $(PGM) loader emulate
 
 emulate:
 	# Leading hypen needed because GSPlus maddeningly returns code 1 (error) always and for no reason
@@ -51,23 +51,15 @@ $(PGM):
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SPRITEBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SOUNDBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(FONTBANK)
-
 	rm -f $(CODEBANK)
 	rm -f $(FONTBANK)
 	rm -f $(PGM).o
-	rm -f terrain_e1.map
-
+	
 loader:
 	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh --cpu 65816 --start-addr $(ADDR) -lloader.lst loader.s -o $(EXEC)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(EXEC)
 	rm -f $(EXEC)
 	rm -f loader.o
-
-terrain_e1:
-	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr $(ADDR) -l -vm -m terrain_e1.map terrain_e1.s -o $(CODEBANKE1)
-	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(CODEBANKE1)
-	rm -f $(CODEBANKE1)
-	rm -f terrain_e1.o
 
 fonts:
 	rm -rf $(FONTBANK)
@@ -82,9 +74,6 @@ clean:
 	rm -f $(PGM).o
 	rm -f loader
 	rm -f loader.o
-	rm -f terrain_e1.o
-	rm -f terrain_e1.map
-	rm -f terrain_e1
 	rm -f Art/*m.gif
 	rm -f $(GENART)/*
 	rm -f $(PGM).2mg
