@@ -109,6 +109,124 @@ setPaletteLoop_SMC:
 	RESTORE_XY
 	rts
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; setPaletteColor
+; Set a single color in a palette
+; PARAML0 = 0:Color index
+; PARAML1 = 0:R:G:B
+; A = Palette index
+;
+setPaletteColor:
+	phx
+	asl
+	asl
+	asl
+	asl
+	asl
+	sta SCRATCHL
+	lda PARAML0
+	asl
+	clc
+	adc SCRATCHL
+	tax
+	lda PARAML1
+	sta $e19e00,x
+	plx
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; getPaletteColor
+; Reads a single color from a palette
+; X = Color index
+; A = Palette index
+; A => Color value 0:R:G:B
+;
+getPaletteColor:
+	phx
+	asl
+	asl
+	asl
+	asl
+	asl
+	sta SCRATCHL
+	txa
+	asl
+	clc
+	adc SCRATCHL
+	tax
+	lda $e19e00,x
+	plx
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; paletteFade
+;
+; PARAML2 = targetPalette
+;
+paletteFade:
+	ldy #$f
+
+paletteFadeTimeLoop:
+	ldx #$f
+
+paletteFadeColorLoop:
+	lda #0
+	jsr getPaletteColor
+	cmp #0
+	beq paletteFadeColorLoopSkipColor
+
+	pha				; Fade red channel
+	and #$0F00
+	beq paletteFadeColorLoopSkipR
+	pla
+	sec
+	sbc #$0100
+	bra paletteFadeColorLoopG
+
+paletteFadeColorLoopSkipR:
+	pla
+
+paletteFadeColorLoopG:
+	pha				; Fade green channel
+	and #$00F0
+	beq paletteFadeColorLoopSkipG
+	pla
+	sec
+	sbc #$0010
+	bra paletteFadeColorLoopB
+
+paletteFadeColorLoopSkipG:
+	pla
+
+paletteFadeColorLoopB:
+	pha				; Fade blue channel
+	and #$000F
+	beq paletteFadeColorLoopSkipB
+	pla
+	dec
+	bra paletteFadeColorLoopStore
+
+paletteFadeColorLoopSkipB:
+	pla
+
+paletteFadeColorLoopStore:
+	stx PARAML0
+	sta PARAML1
+	lda #0
+	jsr setPaletteColor
+
+paletteFadeColorLoopSkipColor:
+	dex
+	bpl paletteFadeColorLoop
+	jsr delayMedium
+	dey
+	bpl paletteFadeTimeLoop
+
+	rts
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Vertical blank checkers
 ;
@@ -162,3 +280,48 @@ waitVBLToStart:
 
 	BITS16
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; delayShort
+; Sleeps for a teeny bit
+;
+delayShort:
+	SAVE_AXY
+
+	ldy		#$01	; Loop a bit
+delayShortOuter:
+	ldx		#$ff
+delayShortInner:
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	dex
+	bne		delayShortInner
+	dey
+	bne		delayShortOuter
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; delayMedium
+; Sleeps for medium time (about 0.25 sec, but not calculated as such)
+;
+delayMedium:
+	SAVE_AX
+
+	ldx		#$50
+delayMediumInner:
+	jsr delayShort
+	dex
+	bne		delayMediumInner
+
+	RESTORE_AX
+	rts
+

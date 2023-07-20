@@ -286,6 +286,8 @@ mainContinue2:
 	lda #returnToProDOS
 	sta PRODOSRETURN
 
+	jsr paletteFade
+
 	jml MAINENTRY
 	
 returnToProDOS:

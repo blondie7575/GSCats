@@ -6,6 +6,8 @@
 ;
 
 BORDER = $FF
+BORDERL = $0F
+BORDERR = $F0
 FILL = $22
 EMPTY = $ee
 
@@ -46,7 +48,7 @@ renderLoadingBar:
 	ldx currentLoadingBar+CBR_VRAM
 
 	BITS8A
-	lda #BORDER				; Left border
+	lda #BORDERL				; Left border
 	sta VRAMBANK,x
 	sta VRAMBANK+160,x
 	sta VRAMBANK+160*2,x
@@ -96,7 +98,7 @@ renderLoadingBarFill:
 	cpy currentLoadingBar+CBR_FINAL
 	bne renderLoadingBarLoop
 
-	lda #BORDER				; Right border
+	lda #BORDERR				; Right border
 	sta VRAMBANK,x
 	sta VRAMBANK+160,x
 	sta VRAMBANK+160*2,x
