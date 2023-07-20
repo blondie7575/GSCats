@@ -16,6 +16,7 @@
 		701E708A2A649A230030C35D /* tinyNumbers.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = tinyNumbers.s; sourceTree = "<group>"; };
 		701E708B2A660CEB0030C35D /* progressBar.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = progressBar.s; sourceTree = "<group>"; };
 		701E708E2A67844B0030C35D /* loaderGraphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loaderGraphics.s; sourceTree = "<group>"; };
+		701E708F2A69CE520030C35D /* loadingBar.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loadingBar.s; sourceTree = "<group>"; };
 		705456862A43E03B00A2B866 /* GeneratePixelCircle.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GeneratePixelCircle.py; sourceTree = "<group>"; };
 		705456882A4D336200A2B866 /* animation.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = animation.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 				700F21DE1F43E31300D7007D /* input.s */,
 				706DF1641F2D39F700AA6680 /* loader.s */,
 				701E708E2A67844B0030C35D /* loaderGraphics.s */,
+				701E708F2A69CE520030C35D /* loadingBar.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70E9D8601F2BD95400555C19 /* graphics.s */,
 				70E9D8621F2BD95400555C19 /* macros.s */,

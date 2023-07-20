@@ -34,6 +34,13 @@ MAINENTRY = $020000
 	RESTORE_AXY
 .endmacro
 
+LOADSTEP = 3
+
+.macro addProgress amount
+	lda #amount
+	jsr advanceLoadingBar
+	jsr renderLoadingBar
+.endmacro
 
 main:
 	BITS16
@@ -50,14 +57,7 @@ main:
 	BITS16
 
 	; Throw up a loading screen
-	lda #loaderPalette
-	sta PARAML0
-	lda #0
-	jsr setPalette
-;	jsr initSCBs
-	BORDER_COLOR #$7
-	lda #$1111
-	jsr slowColorFill
+	jsr showLoadingScreen
 	
 	EMULATION
 
@@ -67,6 +67,10 @@ main:
 	.addr fileOpenCode
 	bne ioError
 
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
+
 	; Load first half of code into bank 0
 	jsr PRODOS
 	.byte $ca
@@ -74,11 +78,15 @@ main:
 	bne ioError
 	NATIVE
 
+	addProgress LOADSTEP
+
 	; Copy code into bank 2
 	ldx fileReadLen
 	lda #2
 	ldy #0
 	jsr copyBytes
+
+	addProgress LOADSTEP
 
 	EMULATION
 
@@ -87,6 +95,10 @@ main:
 	.byte $ca
 	.addr fileRead
 	bne ioError
+
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
 
 	; Close the file
 	jsr PRODOS
@@ -100,11 +112,15 @@ ioError:
 mainContinue:
 	NATIVE
 
+	addProgress LOADSTEP
+
 	; Copy rest of code into bank 2 (needed if code size exceeds BUFFERSIZE)
 	ldx fileReadLen
 	lda #2
 	ldy #BUFFERSIZE
 	jsr copyBytes
+
+	addProgress LOADSTEP
 
 	EMULATION
 
@@ -114,11 +130,19 @@ mainContinue:
 	.addr fileOpenSprites
 	bne ioError
 
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
+
 	; Load the compiled sprites into bank 0
 	jsr PRODOS
 	.byte $ca
 	.addr fileRead
 	bne ioError
+
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
 
 	; Close the file
 	jsr PRODOS
@@ -126,6 +150,7 @@ mainContinue:
 	.addr fileClose
 
 	NATIVE
+	addProgress LOADSTEP
 
 	; Copy sprites into bank 3
 	ldx fileReadLen
@@ -133,21 +158,28 @@ mainContinue:
 	ldy #0
 	jsr copyBytes
 
+	addProgress LOADSTEP
+
 	EMULATION
 
 	; Open the sound file
 	jsr PRODOS
 	.byte $c8
 	.addr fileOpenSound
-	bne ioError
+	bne ioErrorJmp2
+
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
 
 	; Load the sound data into bank 0
 	jsr PRODOS
 	.byte $ca
 	.addr fileRead
-	bne ioError
+	bne ioErrorJmp2
 
 	NATIVE
+	addProgress LOADSTEP
 
 	; Copy sound data into bank 4
 	ldx fileReadLen
@@ -157,13 +189,19 @@ mainContinue:
 	ldy #0
 	jsr copyBytes
 
+	addProgress LOADSTEP
+
 	EMULATION
 
 	; Load rest of sound data into bank 4	(needed if sound size exceeds BUFFERSIZE)
 	jsr PRODOS
 	.byte $ca
 	.addr fileRead
-	bne ioError
+	bne ioErrorJmp2
+
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
 
 	; Close the file
 	jsr PRODOS
@@ -171,6 +209,13 @@ mainContinue:
 	.addr fileClose
 
 	NATIVE
+	bra mainContinue2
+
+ioErrorJmp2:
+	jmp ioError
+
+mainContinue2:
+	addProgress LOADSTEP
 
 	; Copy rest of sound data into bank 4 (needed if sound size exceeds BUFFERSIZE)
 	ldx fileReadLen
@@ -182,6 +227,8 @@ mainContinue:
 	ldy #BUFFERSIZE
 	jsr copyBytes
 
+	addProgress LOADSTEP
+
 	EMULATION
 
 	; Open the font file
@@ -190,6 +237,10 @@ mainContinue:
 	.addr fileOpenFonts
 	bne ioErrorJmp
 
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
+
 	; Load the font data into bank 0
 	jsr PRODOS
 	.byte $ca
@@ -197,12 +248,15 @@ mainContinue:
 	bne ioErrorJmp
 
 	NATIVE
+	addProgress LOADSTEP
 
 	; Copy font data into bank 5
 	ldx fileReadLen
 	lda #5
 	ldy #0
 	jsr copyBytes
+
+	addProgress LOADSTEP
 
 ;	EMULATION
 
@@ -242,7 +296,7 @@ returnToProDOS:
 	lda BORDERCOLOR
 	and #$f0
 	ora BORDERCOLORCACHE
-	sta BORDERCOLOR	
+	sta BORDERCOLOR
 	lda TEXTCOLORCACHE
 	sta TEXTCOLOR
 	rts
@@ -250,9 +304,6 @@ returnToProDOS:
 ioErrorJmp:
 	jmp ioError
 
-
-loaderPalette:
-	.word $0aef,$06af,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -265,11 +316,6 @@ loaderPalette:
 ; A = Bank number of destination
 ; loadOffet : offset to start of copy destination
 ;
-
-;TODO: Make this work for copying ALL of a 64k bank of code
-;in chunks, as required by loader (which is using a bank 00 buffer)
-
-
 copyBytes:
 	sty copyBytesDest+1
 	sty copyBytesDest2+1
@@ -362,4 +408,27 @@ soundPath:
 fontPath:
 	pstring "/GSAPP/FONTBANK"
 
+
+loaderPalette:
+	.word $0aef,$06af,$0800,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; showLoadingScreen
+;
+;
+showLoadingScreen:
+	lda #loaderPalette
+	sta PARAML0
+	lda #0
+	jsr setPalette
+;	jsr initSCBs
+	BORDER_COLOR #$7
+	lda #$1111
+	jsr slowColorFill
+	jsr renderLoadingBar
+	rts
+
+
+
 .include "loaderGraphics.s"
+.include "loadingBar.s"
