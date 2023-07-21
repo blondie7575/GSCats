@@ -6,8 +6,8 @@
 ;
 
 BORDER = $FF
-BORDERL = $0F
-BORDERR = $F0
+BORDERL = $1F
+BORDERR = $F1
 FILL = $22
 EMPTY = $ee
 

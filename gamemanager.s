@@ -12,13 +12,7 @@ beginGameplay:
 	; Initialize random numbers
 	lda #1
 	jsr seedRandom
-
-	; Set up palette for terrain and players
-	lda #basePalette
-	sta PARAML0
-	lda #0
-	jsr setPalette
-
+	
 	; Set up sprite rendering
 	BITS8
 	lda #3
@@ -56,6 +50,11 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
+
+	; Set up palette for terrain and players
+	lda #basePalette
+	sta PARAML2
+	jsr paletteFade
 
 gameplayLoop:
 	lda projectileActive
@@ -397,7 +396,7 @@ fire:
 
 
 basePalette:
-	.word $0aef,$0080,$0080,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
+	.word $06af,$0072,$0072,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0d00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
 
 
 quitRequested:

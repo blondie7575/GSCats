@@ -152,68 +152,6 @@ disableFillMode:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; setPaletteColor
-; Set a single color in a palette
-; PARAML0 = 0:Color index
-; PARAML1 = 0:R:G:B
-; A = Palette index
-;
-; Trashes X
-
-setPaletteColor:
-	asl
-	asl
-	asl
-	asl
-	asl
-	sta SCRATCHL
-	lda PARAML0
-	asl
-	clc
-	adc SCRATCHL
-	tax
-	lda PARAML1
-	sta $e19e00,x
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; setPalette
-; Set all colors in a palette from memory
-; PARAML0 = Pointer to 32 color bytes
-; A = Palette index
-;
-setPalette:
-	SAVE_XY
-
-	asl
-	asl
-	asl
-	asl
-	asl
-	BITS8A
-	sta setPaletteLoop_SMC+1
-	BITS16
-	ldx #0
-	ldy #0
-
-setPaletteLoop:
-	lda (PARAML0),y
-setPaletteLoop_SMC:
-	sta $e19e00,x		; Self-modifying code!
-
-	iny
-	iny
-	inx
-	inx
-	cpx #32
-	bne setPaletteLoop
-
-	RESTORE_XY
-	rts
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; drawNumber
 ;
 ; A = Number to render
@@ -254,25 +192,10 @@ drawSpriteBankSafe:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; BORDER_COLOR
-;
-; Trashes A
-;
-.macro BORDER_COLOR color
-	SAVE_AXY
-	BITS8
-	lda BORDERCOLOR
-	and #$f0
-	ora color
-	sta BORDERCOLOR
-	BITS16
-	RESTORE_AXY
-.endmacro
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Vertical blank checkers
+; Alternate vertical blank checkers
 ;
 
+.if 0
 ; The Brutal Deluxe version, taken from LemminGS
 ;
 nextVBL:
@@ -322,5 +245,6 @@ waitVBLToStart:
 
 	BITS16
 	rts
+.endif
 
 .include "spritebank.s"

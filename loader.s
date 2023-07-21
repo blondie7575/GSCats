@@ -18,22 +18,6 @@ MAINENTRY = $020000
 
 .org $800
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; BORDER_COLOR
-;
-; Trashes A
-;
-.macro BORDER_COLOR color
-	SAVE_AXY
-	BITS8
-	lda BORDERCOLOR
-	and #$f0
-	ora color
-	sta BORDERCOLOR
-	BITS16
-	RESTORE_AXY
-.endmacro
-
 LOADSTEP = 3
 
 .macro addProgress amount
@@ -45,8 +29,6 @@ LOADSTEP = 3
 main:
 	BITS16
 	NATIVE
-	SHRVIDEO
-	SHADOWMEMORY
 	
 	; Cache system colors
 	BITS8
@@ -286,6 +268,8 @@ mainContinue2:
 	lda #returnToProDOS
 	sta PRODOSRETURN
 
+	lda #skyPalette
+	sta PARAML2
 	jsr paletteFade
 
 	jml MAINENTRY
@@ -410,27 +394,6 @@ soundPath:
 fontPath:
 	pstring "/GSAPP/FONTBANK"
 
-
-loaderPalette:
-	.word $0aef,$06af,$0800,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0f00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; showLoadingScreen
-;
-;
-showLoadingScreen:
-	lda #loaderPalette
-	sta PARAML0
-	lda #0
-	jsr setPalette
-;	jsr initSCBs
-	BORDER_COLOR #$7
-	lda #$1111
-	jsr slowColorFill
-	jsr renderLoadingBar
-	rts
-
-
-
+.include "sharedGraphics.s"
 .include "loaderGraphics.s"
 .include "loadingBar.s"

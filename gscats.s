@@ -20,7 +20,7 @@ mainBank2:
 	BITS8
 	lda #$f0
 	sta TEXTCOLOR
-	BITS16	
+	BITS16
 
 	jmp beginGameplay
 
@@ -31,6 +31,7 @@ quitGame:
 
 
 .include "random.s"
+.include "sharedGraphics.s"
 .include "graphics.s"
 .include "sound.s"
 .include "animation.s"
