@@ -18,6 +18,8 @@
 		701E708E2A67844B0030C35D /* loaderGraphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loaderGraphics.s; sourceTree = "<group>"; };
 		701E708F2A69CE520030C35D /* loadingBar.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loadingBar.s; sourceTree = "<group>"; };
 		701E70902A6A23800030C35D /* sharedGraphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = sharedGraphics.s; sourceTree = "<group>"; };
+		701E70912A6DA4D80030C35D /* GenerateRawImage.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateRawImage.py; sourceTree = "<group>"; };
+		701E70922A6DC5910030C35D /* titleScreen.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = titleScreen.s; sourceTree = "<group>"; };
 		705456862A43E03B00A2B866 /* GeneratePixelCircle.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GeneratePixelCircle.py; sourceTree = "<group>"; };
 		705456882A4D336200A2B866 /* animation.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = animation.s; sourceTree = "<group>"; };
 		7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GenerateVRAMTable.py; sourceTree = "<group>"; };
@@ -64,9 +66,10 @@
 				701E708E2A67844B0030C35D /* loaderGraphics.s */,
 				701E708F2A69CE520030C35D /* loadingBar.s */,
 				701E70902A6A23800030C35D /* sharedGraphics.s */,
-				70E9D8601F2BD95400555C19 /* graphics.s */,
+				701E70922A6DC5910030C35D /* titleScreen.s */,
 				70E9D8611F2BD95400555C19 /* gscats.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
+				70E9D8601F2BD95400555C19 /* graphics.s */,
 				7099E3841F41022100182A82 /* gameobject.s */,
 				70F011D123B989B800C8873F /* random.s */,
 				706DF1651F2D4A8100AA6680 /* terrain.s */,
@@ -95,6 +98,7 @@
 				7076E9222A57AED90006E295 /* CompileFont.py */,
 				70FE79D21F8814A600E0095C /* MerlinToCA65.sh */,
 				700F72872112428D00225B17 /* RenumberSpriteFiles.sh */,
+				701E70912A6DA4D80030C35D /* GenerateRawImage.py */,
 				7088096D1F2ECE8D00D4C950 /* GenerateRenderSpans.py */,
 				7059502B1F37A0BE00BBE90F /* GenerateVRAMTable.py */,
 				7099E3851F4107B100182A82 /* GenerateVRAMYOffset.py */,

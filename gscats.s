@@ -22,7 +22,7 @@ mainBank2:
 	sta TEXTCOLOR
 	BITS16
 
-	jmp beginGameplay
+	jmp titleScreen
 
 quitGame:
 	NORMALMEMORY
@@ -49,6 +49,7 @@ quitGame:
 .include "dirt.s"
 .include "crosshair.s"
 .include "progressBar.s"
+.include "titleScreen.s"
 
 endMainBank2:
 

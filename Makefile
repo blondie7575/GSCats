@@ -19,6 +19,7 @@ CODEBANK=CODEBANK\#060000
 EXEC=$(PGM)\#06$(ADDR)
 SOUNDBANK=SOUNDBANK\#060000
 FONTBANK=FONTBANK\#060000
+TITLESCREEN=TITLE\#060000
 PGM=gscats
 
 MRSPRITE=../MrSprite/mrsprite
@@ -31,7 +32,7 @@ SPRITEBANK=$(SPRITES)\#060000
 FLIPLIST=$(wildcard Art/*Fan.gif) $(wildcard Art/*Spit*.gif)
 REMOTESYMBOLS= # -Wl $(shell ./ParseMapFile.py *.map)			<- Use this to share symbols across code banks
 
-all: clean diskimage fonts $(PGM) loader emulate
+all: clean diskimage fonts titlescreen $(PGM) loader emulate
 
 emulate:
 	# Leading hypen needed because GSPlus maddeningly returns code 1 (error) always and for no reason
@@ -51,8 +52,10 @@ $(PGM):
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SPRITEBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(SOUNDBANK)
 	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(FONTBANK)
+	$(CAD) ADDFILE $(PGM).2mg /$(VOLNAME) $(TITLESCREEN)
 	rm -f $(CODEBANK)
 	rm -f $(FONTBANK)
+	rm -f $(TITLESCREEN)
 	rm -f $(PGM).o
 	
 loader:
@@ -62,16 +65,23 @@ loader:
 	rm -f loader.o
 
 fonts:
-	rm -rf $(FONTBANK)
+	rm -f $(FONTBANK)
 	./CompileFont.py 4 5 48 0 "tinyNum" "Art/Assets/TinyNumbers.gif" > fonts.s
 	./CompileFont.py 8 8 32 0 "font8" "Art/Assets/Font8x8.gif" >> fonts.s
 #	./CompileFont.py 16 16 32 14 "font16" "Art/Assets/Font16x16.gif" > font16x16.s
 	@PATH=$(PATH):/usr/local/bin; $(CL65) -t apple2enh -C linkerConfig --cpu 65816 --start-addr 0000 -lfontEngine.lst fontEngine.s -o $(FONTBANK)
 	rm -f fontEngine.o
 
+titlescreen:
+	rm -f $(TITLESCREEN)
+	./GenerateRawImage.py "Art/Assets/TitleScreen.gif" "$(TITLESCREEN)"
+
 clean:
 	rm -f $(PGM)
 	rm -f $(PGM).o
+	rm -f $(CODEBANK)
+	rm -f $(FONTBANK)
+	rm -f $(TITLESCREEN)
 	rm -f loader
 	rm -f loader.o
 	rm -f Art/*m.gif

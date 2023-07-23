@@ -12,8 +12,8 @@
 .include "equates.s"
 .include "macros.s"
 
-LOADBUFFER = $1000		; Clear of this loader code
-BUFFERSIZE = $8200		; About max size we can fit between buffer and this loader code
+LOADBUFFER = $1100		; Clear of this loader code
+BUFFERSIZE = $8000		; About max size we can fit between buffer and this loader code
 MAINENTRY = $020000
 
 .org $800
@@ -240,7 +240,7 @@ mainContinue2:
 
 	addProgress LOADSTEP
 
-;	EMULATION
+	EMULATION
 
 	; Load rest of font data into bank 0	(needed if font size exceeds BUFFERSIZE)
 ;	jsr PRODOS
@@ -249,9 +249,9 @@ mainContinue2:
 ;	bne ioErrorJmp
 
 	; Close the file
-;	jsr PRODOS
-;	.byte $cc
-;	.addr fileClose
+	jsr PRODOS
+	.byte $cc
+	.addr fileClose
 
 ;	NATIVE
 
@@ -261,6 +261,50 @@ mainContinue2:
 ;	lda #5
 ;	ldy #BUFFERSIZE
 ;	jsr copyBytes
+
+	bra mainContinue3
+
+ioErrorJmp:
+	jmp ioError
+
+mainContinue3:
+	
+;	EMULATION
+
+	; Open the title screen file
+	jsr PRODOS
+	.byte $c8
+	.addr fileOpenTitle
+	bne ioErrorJmp
+
+	NATIVE
+	addProgress LOADSTEP
+	EMULATION
+
+	; Load the title screen data into bank 0
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioErrorJmp
+
+	NATIVE
+	addProgress LOADSTEP
+
+	; Copy title screen data into bank 6
+	ldx fileReadLen
+	lda #6
+	ldy #0
+	jsr copyBytes
+
+	EMULATION
+
+	; Close the file
+	jsr PRODOS
+	.byte $cc
+	.addr fileClose
+
+	NATIVE
+	addProgress LOADSTEP
 
 	; Set up a long jump into bank 2, and
 	; a way for game code to get back here to exit
@@ -286,9 +330,6 @@ returnToProDOS:
 	lda TEXTCOLORCACHE
 	sta TEXTCOLOR
 	rts
-
-ioErrorJmp:
-	jmp ioError
 
 
 
@@ -385,6 +426,13 @@ fileOpenFonts:
 	.byte 0					; Result (file handle)
 	.byte 0					; Padding
 
+fileOpenTitle:
+	.byte 3
+	.addr titlePath
+	.addr $9200				; 1k below BASIC.SYSTEM
+	.byte 0					; Result (file handle)
+	.byte 0					; Padding
+
 codePath:
 	pstring "/GSAPP/CODEBANK"
 spritePath:
@@ -393,6 +441,8 @@ soundPath:
 	pstring "/GSAPP/SOUNDBANK"
 fontPath:
 	pstring "/GSAPP/FONTBANK"
+titlePath:
+	pstring "/GSAPP/TITLE"
 
 .include "sharedGraphics.s"
 .include "loaderGraphics.s"

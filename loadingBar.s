@@ -134,7 +134,7 @@ CBR_VRAM = 6
 currentLoadingBar:
 	.word	0		; Active
 	.word	0		; Current progress in bytes
-	.word	57		; Final progress in bytes
+	.word	66		; Final progress in bytes
 	.word	$5eb4	; VRAM position (top left)
 
 

@@ -5,9 +5,44 @@
 ;  Created by Quinn Dunki on 8/15/17
 ;
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; kbdScanTitle
+; Processes keyboard input for title screen
+;
+; Trashes A
+;
+
+kbdScanTitle:
+	BITS8
+	lda KBD
+	bpl kbdScanTitleDone
+	sta KBDSTROBE
+
+	cmp #(8 + $80)
+	beq kbdScanLeftArrowTitle
+
+kbdScanTitleDone:
+	BITS16
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Title Screen Key Handlers
+;
+
+kbdScanLeftArrowTitle:
+	BITS16
+	lda #1
+	sta menuActionRequested
+	rts
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; kbdScanGameplay/Debug
-; Processes keyboard input
+; Processes keyboard input for gameplay
 ;
 ; Trashes A
 ;
@@ -58,6 +93,9 @@ kbdScanDebugPiggyback:
 	bra kbdScanDone
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Gameplay Key Handlers
+;
 
 kbdScanRightArrow:
 	BITS16

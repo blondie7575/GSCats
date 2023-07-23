@@ -13,15 +13,6 @@ beginGameplay:
 	lda #1
 	jsr seedRandom
 	
-	; Set up sprite rendering
-	BITS8
-	lda #3
-	sta SpriteBankBank00+3		; Tell compiled sprites what bank they are in
-	BITS16
-	
-	; Set up audio
-	jsr initSoundSystem
-
 	; Erase the screen
 	ldx #$0000
 	ldy #200
