@@ -294,6 +294,9 @@ compileTerrainDone:
 compileTerrainChunk:
 	tya			; Be extra safe and make sure Y is never negative or we'll spray RAM with terrain data
 	bmi compileTerrainChunkClampZero
+	cpx #MAXTERRAINHEIGHT		; Same caution for top of terrain
+	beq compileTerrainChunkResume
+	bcs compileTerrainChunkClampTop
 
 compileTerrainChunkResume:
 	stx SCRATCHL
@@ -309,7 +312,6 @@ compileTerrainChunkResume:
 
 compileTerrainChunkLoop:
 	sty PARAML1
-;HARDBRK
 	jsr compileTerrainRow
 	iny
 	cpy SCRATCHL
@@ -328,6 +330,9 @@ compileTerrainChunkClampZero:
 	ldy #0
 	bra compileTerrainChunkResume
 
+compileTerrainChunkClampTop:
+	ldx #MAXTERRAINHEIGHT
+	bra compileTerrainChunkResume
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; compileTerrainRow
