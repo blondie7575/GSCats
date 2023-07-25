@@ -21,6 +21,7 @@ MAINENTRY = $020000
 LOADSTEP = 3
 
 .macro addProgress amount
+	jsr nextVBL
 	lda #amount
 	jsr advanceLoadingBar
 	jsr renderLoadingBar

@@ -20,8 +20,14 @@ kbdScanTitle:
 	bpl kbdScanTitleDone
 	sta KBDSTROBE
 
-	cmp #(8 + $80)
-	beq kbdScanLeftArrowTitle
+	cmp #(11 + $80)
+	beq kbdScanUpArrowTitle
+	cmp #(10 + $80)
+	beq kbdScanDownArrowTitle
+	cmp #(13 + $80)
+	beq kbdScanEnterTitle
+	cmp #(32 + $80)
+	beq kbdScanSpaceTitle
 
 kbdScanTitleDone:
 	BITS16
@@ -32,12 +38,29 @@ kbdScanTitleDone:
 ; Title Screen Key Handlers
 ;
 
-kbdScanLeftArrowTitle:
+kbdScanUpArrowTitle:
+	BITS16
+	lda #-1
+	sta menuActionRequested
+	rts
+
+kbdScanDownArrowTitle:
 	BITS16
 	lda #1
 	sta menuActionRequested
 	rts
 
+kbdScanEnterTitle:
+	BITS16
+	lda #2
+	sta menuActionRequested
+	rts
+
+kbdScanSpaceTitle:
+	BITS16
+	lda #2
+	sta menuActionRequested
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
