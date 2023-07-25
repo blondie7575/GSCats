@@ -25,6 +25,7 @@ renderAnimation:
 
 	phx				; Calculate VRAM position
 	jsr vramPtr
+BREAK
 	cpx #$ffff
 	beq renderAnimationSkip
 	stx SCRATCHL2

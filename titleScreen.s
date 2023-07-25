@@ -26,6 +26,7 @@ titleScreen:
 	
 	lda #%10000000		; Set all SCBs to 320, no interrupts, palette 0
 	jsr initSCBs
+	stz leftScreenEdge
 
 	; Copy title screen art from where it was loaded in bank 6
 	; This isn't fast, but doesn't need to be
@@ -120,6 +121,7 @@ titleScreenStillCat2:
 titleScreenKeyboard:
 	; Check for selection
 	jsr kbdScanTitle
+	jsr kbdScanDebug
 	lda menuActionRequested
 	beq titleScreenMainLoopEndFrame
 
@@ -163,6 +165,11 @@ titleScreenMainLoopEndFrame:
 	jmp titleScreenMainLoop
 
 titleScreenBeginGame:
+	; Transition to gameplay
+	stz menuActionRequested
+	lda #skyPalette
+	sta PARAML2
+	jsr paletteFade
 	jmp beginGameplay
 
 titleScreenQuit:
@@ -171,9 +178,9 @@ titleScreenQuit:
 titleAnimationCounter:
 	.word 0
 titleAnimationPos0:
-	.word 130,120
+	.word 114,120
 titleAnimationPos1:
-	.word 208,120
+	.word 192,120
 animationDelay0:
 	.word CAT_DELAY/2
 animationDelay1:

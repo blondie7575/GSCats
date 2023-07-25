@@ -28,6 +28,7 @@ kbdScanTitle:
 	beq kbdScanEnterTitle
 	cmp #(32 + $80)
 	beq kbdScanSpaceTitle
+	bra kbdScanDebugPiggyback
 
 kbdScanTitleDone:
 	BITS16
@@ -80,16 +81,16 @@ kbdScanGameplay:
 	beq kbdScanLeftArrow
 	cmp #(21 + $80)
 	beq kbdScanRightArrow
-	cmp #('q' + $80)
-	beq kbdScanQ
-	cmp #('a' + $80)
-	beq kbdScanA
-	cmp #('z' + $80)
-	beq kbdScanZ
-	cmp #('s' + $80)
-	beq kbdScanS
-	cmp #('x' + $80)
-	beq kbdScanX
+	cmp #(11 + $80)
+	beq kbdScanUpArrow
+	cmp #(10 + $80)
+	beq kbdScanDownArrow
+	cmp #(27 + $80)
+	beq kbdScanESC
+	cmp #(',' + $80)
+	beq kbdScanComma
+	cmp #('.' + $80)
+	beq kbdScanPeriod
 	cmp #(' ' + $80)
 	beq kbdScanSpace
 	cmp #(9 + $80)
@@ -107,8 +108,8 @@ kbdScanDebug:
 	sta KBDSTROBE
 
 kbdScanDebugPiggyback:
-	cmp #(27 + $80)
-	beq kbdScanESC
+	cmp #('`' + $80)
+	beq kbdScanBackQuote
 	cmp #(127 + $80)
 	beq kbdScanDEL
 	cmp #('=' + $80)
@@ -120,7 +121,7 @@ kbdScanDebugPiggyback:
 ; Gameplay Key Handlers
 ;
 
-kbdScanRightArrow:
+kbdScanPeriod:
 	BITS16
 	lda mapScrollPos
 	cmp #VISIBLETERRAINWIDTH-VISIBLETERRAINWINDOW
@@ -132,7 +133,7 @@ kbdScanRightArrow:
 	sta mapScrollRequested
 	rts
 
-kbdScanLeftArrow:
+kbdScanComma:
 	BITS16
 
 	lda mapScrollPos
@@ -144,32 +145,32 @@ kbdScanLeftArrow:
 	sta mapScrollRequested
 	rts
 
-kbdScanQ:
+kbdScanESC:
 	BITS16
 
 	lda #1
 	sta quitRequested
 	rts
 
-kbdScanA:
+kbdScanLeftArrow:
 	BITS16
 	lda #2
 	sta angleDeltaRequested
 	rts
 
-kbdScanZ:
+kbdScanRightArrow:
 	BITS16
 	lda #-2
 	sta angleDeltaRequested
 	rts
 
-kbdScanS:
+kbdScanUpArrow:
 	BITS16
 	lda #1
 	sta powerDeltaRequested
 	rts
 
-kbdScanX:
+kbdScanDownArrow:
 	BITS16
 	lda #-1
 	sta powerDeltaRequested
@@ -181,7 +182,7 @@ kbdScanSpace:
 	sta fireRequested
 	rts
 
-kbdScanESC:
+kbdScanBackQuote:
 	BITS16
 	lda #1
 	sta breakpoint

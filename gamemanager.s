@@ -41,8 +41,12 @@ beginGameplay:
 
 	jsr compileTerrain
 	jsr clipTerrain
+	jsr renderTerrain
 
-	; Set up palette for terrain and players
+	jsr renderInventory
+	jsr renderPlayers
+
+	; Fade in from menu
 	lda #basePalette
 	sta PARAML2
 	jsr paletteFade
@@ -191,7 +195,14 @@ gameplayLoopEndFrame:
 gameplayLoopEndFrameCont:
 	lda quitRequested
 	beq gameplayLoopContinue
-	jmp quitGame
+
+	; Transition back to menu
+	stz quitRequested
+	lda #skyPalette
+	sta PARAML2
+	jsr paletteFade
+	jmp titleScreen
+
 gameplayLoopContinue:
 	jmp gameplayLoop
 
