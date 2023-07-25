@@ -67,19 +67,19 @@ renderProgressBar:
 
 	BITS8A
 	lda #BORDER				; Left border
-	sta VRAMBANK,x
-	sta VRAMBANK+160,x
-	sta VRAMBANK+160*2,x
-	sta VRAMBANK+160*3,x
-	sta VRAMBANK+160*4,x
-	sta VRAMBANK+160*5,x
-	sta VRAMBANK+160*6,x
-	sta VRAMBANK+160*7,x
+	sta SHADOWVRAMBANK,x
+	sta SHADOWVRAMBANK+160,x
+	sta SHADOWVRAMBANK+160*2,x
+	sta SHADOWVRAMBANK+160*3,x
+	sta SHADOWVRAMBANK+160*4,x
+	sta SHADOWVRAMBANK+160*5,x
+	sta SHADOWVRAMBANK+160*6,x
+	sta SHADOWVRAMBANK+160*7,x
 	inx
 renderProgressBarLoop:
 	lda #BORDER
-	sta VRAMBANK,x			; Top border
-	sta VRAMBANK+160*7,x	; Bottom border
+	sta SHADOWVRAMBANK,x			; Top border
+	sta SHADOWVRAMBANK+160*7,x	; Bottom border
 
 	cpy currentProgressBar+CBR_CURRENT
 	bcs renderProgressBarEmpty
@@ -87,12 +87,12 @@ renderProgressBarLoop:
 	lda #FILL
 
 renderProgressBarFill:
-	sta VRAMBANK+160*1,x 	; Bar
-	sta VRAMBANK+160*2,x
-	sta VRAMBANK+160*3,x
-	sta VRAMBANK+160*4,x
-	sta VRAMBANK+160*5,x
-	sta VRAMBANK+160*6,x
+	sta SHADOWVRAMBANK+160*1,x 	; Bar
+	sta SHADOWVRAMBANK+160*2,x
+	sta SHADOWVRAMBANK+160*3,x
+	sta SHADOWVRAMBANK+160*4,x
+	sta SHADOWVRAMBANK+160*5,x
+	sta SHADOWVRAMBANK+160*6,x
 	
 	inx
 	iny
@@ -100,14 +100,14 @@ renderProgressBarFill:
 	bne renderProgressBarLoop
 
 	lda #BORDER				; Right border
-	sta VRAMBANK,x
-	sta VRAMBANK+160,x
-	sta VRAMBANK+160*2,x
-	sta VRAMBANK+160*3,x
-	sta VRAMBANK+160*4,x
-	sta VRAMBANK+160*5,x
-	sta VRAMBANK+160*6,x
-	sta VRAMBANK+160*7,x
+	sta SHADOWVRAMBANK,x
+	sta SHADOWVRAMBANK+160,x
+	sta SHADOWVRAMBANK+160*2,x
+	sta SHADOWVRAMBANK+160*3,x
+	sta SHADOWVRAMBANK+160*4,x
+	sta SHADOWVRAMBANK+160*5,x
+	sta SHADOWVRAMBANK+160*6,x
+	sta SHADOWVRAMBANK+160*7,x
 
 	BITS16
 	RESTORE_AXY

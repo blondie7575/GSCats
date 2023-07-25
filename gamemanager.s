@@ -360,8 +360,8 @@ changeAngle:
 	tax
 	jsr playerDeltaAngle
 
-	ldy currentPlayer
-	jsr renderPlayerHeader
+;	ldy currentPlayer
+;	jsr renderPlayerHeader
 
 	stz angleDeltaRequested
 	rts
@@ -377,8 +377,8 @@ changePower:
 	tax
 	jsr playerDeltaPower
 
-	ldy currentPlayer
-	jsr renderPlayerHeader
+;	ldy currentPlayer
+;	jsr renderPlayerHeader
 
 	stz powerDeltaRequested
 	rts
