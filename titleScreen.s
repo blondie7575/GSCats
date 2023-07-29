@@ -23,7 +23,6 @@ CAT1_VRAM = $5da0
 ; Shows the title screen and main game menu
 ;
 titleScreen:
-	
 	lda #%10000000		; Set all SCBs to 320, no interrupts, palette 0
 	jsr initSCBs
 	stz leftScreenEdge
@@ -52,6 +51,9 @@ titleScreenCopyLoop:
 	; Render menu text
 	jsr titleScreenRenderMenu
 
+	ldx #147
+	jsr setBorderAtScanLine
+
 	; Fade in
 	lda #titlePalette
 	sta PARAML2
@@ -63,44 +65,60 @@ titleScreenCopyLoop:
 titleScreenMainLoop:
 
 	; Track animations
-	jsr nextVBL
+	;jsr syncOverscanBottom
+	jsr syncVBL
+	BORDER_COLOR #$7
+
 	lda titleAnimationCounter
 	inc
 	cmp TITLE_ANIMATION_FRAMES
 	jsr titleScreenResetAnimation
 
-	; Time animations of cats
+	; Update current animation if needed
+	lda animationState+AS_CURRENTFRAME
+	bmi titleScreenIdle
+	jsr tickAnimation
+	bra titleScreenKeyboard
+
+titleScreenIdle:
+
+	; Time start of cat 0 animation
 	lda animationDelay0
 	dec
 	bne titleScreenStillCat
 	lda #CAT_DELAY
 	sta animationDelay0
 
+	; Start new cat 0 animation
 	ldy #CAT0_VRAM
 	jsr unrenderAnimation16x16
 
-	; Render next frame of cats
 	lda #titleAnimationPos0
 	sta PARAML0
 	ldx #TITLE_ANIMATION_FRAMES
 	ldy #30
 	lda #ANIMATION_SIZE_16x32
-	jsr renderAnimation
+	jsr startAnimation
 	bra titleScreenNextCat
 
 titleScreenStillCat:
+
+	; Render idle cat 0
 	sta animationDelay0
 	ldy #CAT0_VRAM
 	lda #29
 	jsr drawSpriteBankSafe
 
 titleScreenNextCat:
+
+	; Time start of cat 1 animation
 	lda animationDelay1
 	dec
 	bne titleScreenStillCat2
 	lda #CAT_DELAY
 	sta animationDelay1
 
+	; Start new cat 1 animation
 	ldy #CAT1_VRAM
 	jsr unrenderAnimation16x16
 
@@ -109,16 +127,19 @@ titleScreenNextCat:
 	ldx #TITLE_ANIMATION_FRAMES
 	ldy #21
 	lda #ANIMATION_SIZE_16x32
-	jsr renderAnimation
+	jsr startAnimation
 	bra titleScreenKeyboard
 
 titleScreenStillCat2:
+
+	; Render idle cat 1
 	sta animationDelay1
 	ldy #CAT1_VRAM
 	lda #20
 	jsr drawSpriteBankSafe
 
 titleScreenKeyboard:
+
 	; Check for selection
 	jsr kbdScanTitle
 	jsr kbdScanDebug

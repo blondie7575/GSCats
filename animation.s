@@ -7,10 +7,114 @@
 
 ANIMATION_SIZE_16x16=0
 ANIMATION_SIZE_16x32=2
+MAX_TICKS = 180
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; startAnimation
+;
+; Starts a stated animation, which allows interactivity, but requires ticking
+;
+; Y = Base sprite index
+; X = Number of frames
+; A = Animation size (use constants above)
+; PARAML0 = Pointer to X,Y (16 bits each, Y is bottom relative)
+;
+; Trashes A,X,Y,PARAML0
+;
+startAnimation:
+	sta animationState+AS_SIZE
+	sty animationState+AS_BASESPRITE
+	sty animationState+AS_CURRENTFRAME
+
+	; Compute final frame
+	stx animationState+AS_FINALFRAME
+	tya
+	clc
+	adc animationState+AS_FINALFRAME
+	sta animationState+AS_FINALFRAME
+
+	jsr vramPtr
+	cpx #$ffff
+	beq startAnimationSkip
+	stx animationState+AS_VRAM
+	
+	lda #MAX_TICKS
+	sta animationState+AS_TICKS
+
+	; Preserve background
+	ldy animationState+AS_VRAM
+	ldx animationState+AS_SIZE
+	jsr (protectionRoutines,x)
+	
+	; Render first animation frame
+	ldy animationState+AS_VRAM
+	lda animationState+AS_CURRENTFRAME
+	jsr drawSpriteBankSafe
+
+startAnimationSkip:
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; tickAnimation
+;
+; Call this once per frame to update the current stated animation
+;
+; A->0 if finished
+;
+tickAnimation:
+	SAVE_XY
+
+	; Advance tick
+	dec animationState+AS_TICKS
+	bne tickAnimationSkip
+
+	; Reset tick count
+	lda #MAX_TICKS
+	sta animationState+AS_TICKS
+	
+	; Advance frame
+	lda animationState+AS_CURRENTFRAME
+	inc
+	cmp animationState+AS_FINALFRAME
+	beq tickAnimationDone
+	sta animationState+AS_CURRENTFRAME
+
+	; Restore background
+	ldy animationState+AS_VRAM
+	ldx animationState+AS_SIZE
+	jsr (unrenderRoutines,x)
+
+	; Render new animation frame
+	ldy animationState+AS_VRAM
+	lda animationState+AS_CURRENTFRAME
+	jsr drawSpriteBankSafe
+	bra tickAnimationSkip
+
+tickAnimationDone:
+
+	; Restore background
+	ldy animationState+AS_VRAM
+	ldx animationState+AS_SIZE
+	jsr (unrenderRoutines,x)
+	
+	lda #$ffff
+	sta animationState+AS_CURRENTFRAME
+	lda #0
+	RESTORE_XY
+	rts
+
+tickAnimationSkip:
+	lda #1
+	RESTORE_XY
+	rts
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; renderAnimation
+;
+; Plays an entire animation statelessly, which is easier if you don't need interactivity
 ;
 ; Y = Base sprite index
 ; X = Number of frames
@@ -25,7 +129,6 @@ renderAnimation:
 
 	phx				; Calculate VRAM position
 	jsr vramPtr
-BREAK
 	cpx #$ffff
 	beq renderAnimationSkip
 	stx SCRATCHL2
@@ -77,6 +180,21 @@ protectionRoutines:
 	.word protectAnimation16x16,protectAnimation16x32
 unrenderRoutines:
 	.word unrenderAnimation16x16,unrenderAnimation16x32
+
+animationState:
+	.word $ffff	; Current frame ff = inactive
+	.word 0		; Total Frames
+	.word 0		; Ticks until next frame
+	.word 0		; Animation size
+	.word 0		; VRAM Position
+	.word 0		; Base Sprite
+
+AS_CURRENTFRAME = 0
+AS_FINALFRAME = 2		; Actually final frame +1
+AS_TICKS = 4
+AS_SIZE = 6
+AS_VRAM = 8
+AS_BASESPRITE = 10
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

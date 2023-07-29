@@ -82,15 +82,211 @@ bottomFillLoop:
 
 initSCBs:
 	lda #0
-	ldx #$0100	;set all $100 scbs to A
+	ldx #200	;set all 200 scbs to A
 
 initSCBsLoop:
 	dex
 	dex
 	sta $e19d00,x
 	bne initSCBsLoop
+
+	jsr setScanLineInterruptVector
+	jsr setVBLInterruptVector
 	rts
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; setScanLineInterruptVector
+;
+; Install scanline interrupt handler
+;
+setScanLineInterruptVector:
+
+	; Save current handler
+	lda $e10029
+	sta scanlineHandlerCache
+	BITS8A
+	lda $e1002b
+	sta scanlineHandlerCache+2
+	BITS16
+
+	; Set our handler
+	lda #scanLineInterruptHandler
+	sta $e10029
+	BITS8A
+	lda #2		; This code bank
+	sta $e1002b
+	BITS16
+	rts
+
+scanlineHandlerCache:
+	.byte 0,0,0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unsetScanLineInterruptVector
+;
+; Remove scanline interrupt handler
+;
+unsetScanLineInterruptVector:
+
+	; Turn off scanline interrupts
+	BITS8A
+	lda $e0c023		; Disable scaline interrupts
+	and #%11111101
+	sta $e0c023
+	BITS16
+
+	; Restore saved handler
+	lda scanlineHandlerCache
+	sta $e10029
+	BITS8A
+	lda scanlineHandlerCache+2
+	sta $e1002b
+	BITS16
+
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; setVBLInterruptVector
+;
+; Install VBL interrupt handler
+;
+setVBLInterruptVector:
+
+	; Save current handler
+	lda $e10031
+	sta vblHandlerCache
+	BITS8A
+	lda $e10033
+	sta vblHandlerCache+2
+	BITS16
+
+	; Set our handler
+	lda #vblInterruptHandler
+	sta $e10031
+	BITS8A
+	lda #2		; This code bank
+	sta $e10033
+	BITS16
+
+	; Enable VBL interrupts
+	lda $e0c041
+	ora #%00001000
+	sta $e0c041
+
+	rts
+
+vblHandlerCache:
+	.byte 0,0,0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unsetVBLInterruptVector
+;
+; Remove VBL handler
+;
+unsetVBLInterruptVector:
+
+	; Turn off VBL interrupts
+	BITS8A
+	lda $e0c041		; Disable VBL interrupts
+	and #%11110111
+	sta $e0c041
+	BITS16
+
+	; Restore saved handler
+	lda vblHandlerCache
+	sta $e10031
+	BITS8A
+	lda vblHandlerCache+2
+	sta $e10033
+	BITS16
+
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; vblInterruptHandler
+;
+; Handler for IRQ.VBL (vector E1/0030-0033)
+;
+vblInterruptHandler:
+	OP8
+	lda #0		; Clear scanline interrupt source
+	sta $e0c047
+
+;	lda BORDERCOLOR
+;	and #$f0
+;	ora #$7			; Set to sky at bottom of screen
+;	sta BORDERCOLOR
+
+	clc
+	rtl
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; setBorderAtScanLine
+;
+; X = Scan Line Number
+;
+; Trashes A
+;
+setBorderAtScanLine:
+	dex				; Scanline interrupts technically fire on the previous line
+
+	BITS8A
+	lda $e19d00,x		; Enable interrupt on requested scanline
+	ora #%01000000
+	sta $e19d00,x
+
+;	lda $e19dc7			; Enable interrupt on scanline 199
+;	ora #%01000000
+;	sta $e19dc7
+
+	lda $e0c023		; Enable scaline interrupts, if needed
+	ora #%00000010
+	sta $e0c023
+
+	BITS16
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; scanLineInterruptHandler
+;
+; Handler for IRQ.SCAN (vector E1/0028-002B)
+;
+scanLineInterruptHandler:
+	OP8
+	lda $e0c032		; Clear scanline interrupt source
+	and #%11011111
+	sta $e0c032
+
+;	lda scanLineColorChangePhaseCounter
+;	beq scanLineInterruptHandler0
+
+;	lda BORDERCOLOR	; Set border color
+;	and #$f0
+;	ora #$7			; Set to sky at bottom of screen
+;	sta BORDERCOLOR
+;	dec scanLineColorChangePhaseCounter
+;	bra scanLineInterruptHandlerDone
+
+scanLineInterruptHandler0:
+	lda BORDERCOLOR	; Set border color to grass at given scanline
+	and #$f0
+	ora #$4
+	sta BORDERCOLOR
+;	inc scanLineColorChangePhaseCounter
+
+scanLineInterruptHandlerDone:
+	clc
+	rtl
+
+scanLineColorChangePhaseCounter:
+	.byte 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; setScanlinePalette
@@ -192,28 +388,25 @@ drawSpriteBankSafe:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Alternate vertical blank checkers
+; syncOverscanBottom
 ;
-
-.if 0
-; The Brutal Deluxe version, taken from LemminGS
-;
-nextVBL:
-	lda #75
-	pha
-nextVBL0:
-	lda $e0c02e
-	and #$7f
-	cmp 1,s
-	blt nextVBL0
-	cmp #100
-	bge nextVBL0
-	pla
-waitVBL:
-	lda $e0c018
-	bpl waitVBL
+; Waits for the bottom edge of the overscan region (give or take)
+syncOverscanBottom:
+	BITS8
+syncOverscanBottom0:
+	ldaA $C02f
+    asl         ; VA is now in the Carry flag
+	ldaA $C02e
+    rol         ; Roll Carry into bit 0
+	cmp #215	; A now contains line number
+	blt syncOverscanBottom0
+	BITS16
 	rts
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Alternate vertical blank checkers
+;
 
 ; The Apple version, taken from GS Tech Note 039
 ;
@@ -245,6 +438,6 @@ waitVBLToStart:
 
 	BITS16
 	rts
-.endif
+
 
 .include "spritebank.s"
