@@ -241,9 +241,9 @@ setBorderAtScanLine:
 	ora #%01000000
 	sta $e19d00,x
 
-;	lda $e19dc7			; Enable interrupt on scanline 199
-;	ora #%01000000
-;	sta $e19dc7
+	lda $e19dc7			; Enable interrupt on scanline 199
+	ora #%01000000
+	sta $e19dc7
 
 	lda $e0c023		; Enable scaline interrupts, if needed
 	ora #%00000010
@@ -264,22 +264,22 @@ scanLineInterruptHandler:
 	and #%11011111
 	sta $e0c032
 
-;	lda scanLineColorChangePhaseCounter
-;	beq scanLineInterruptHandler0
+	lda scanLineColorChangePhaseCounter
+	beq scanLineInterruptHandler0
 
-;	lda BORDERCOLOR	; Set border color
-;	and #$f0
-;	ora #$7			; Set to sky at bottom of screen
-;	sta BORDERCOLOR
-;	dec scanLineColorChangePhaseCounter
-;	bra scanLineInterruptHandlerDone
+	lda BORDERCOLOR	; Set border color
+	and #$f0
+	ora #$7			; Set to sky at bottom of screen
+	sta BORDERCOLOR
+	dec scanLineColorChangePhaseCounter
+	bra scanLineInterruptHandlerDone
 
 scanLineInterruptHandler0:
 	lda BORDERCOLOR	; Set border color to grass at given scanline
 	and #$f0
 	ora #$4
 	sta BORDERCOLOR
-;	inc scanLineColorChangePhaseCounter
+	inc scanLineColorChangePhaseCounter
 
 scanLineInterruptHandlerDone:
 	clc

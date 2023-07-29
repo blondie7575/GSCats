@@ -65,9 +65,9 @@ titleScreenCopyLoop:
 titleScreenMainLoop:
 
 	; Track animations
-	;jsr syncOverscanBottom
+	;jsr syncOverscanBottom	; This looks awesome but makes interactivity terrible
 	jsr syncVBL
-	BORDER_COLOR #$7
+	;BORDER_COLOR #$7
 
 	lda titleAnimationCounter
 	inc
