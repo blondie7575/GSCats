@@ -28,7 +28,7 @@ kbdScanTitle:
 	beq kbdScanEnterTitle
 	cmp #(32 + $80)
 	beq kbdScanSpaceTitle
-	bra kbdScanDebugPiggyback
+	jmp kbdScanDebugPiggyback
 
 kbdScanTitleDone:
 	BITS16
@@ -64,6 +64,22 @@ kbdScanSpaceTitle:
 	rts
 
 
+;;;;;;;
+
+kbdScanApostrophe:
+	BITS16
+	lda #2
+	sta playerMoveRequested
+	rts
+
+kbdScanSemiColon:
+	BITS16
+	lda #-2
+	sta playerMoveRequested
+	rts
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; kbdScanGameplay/Debug
 ; Processes keyboard input for gameplay
@@ -93,6 +109,10 @@ kbdScanGameplay:
 	beq kbdScanPeriod
 	cmp #(' ' + $80)
 	beq kbdScanSpace
+	cmp #(';' + $80)
+	beq kbdScanSemiColon
+	cmp #(39 + $80)
+	beq kbdScanApostrophe
 	cmp #(9 + $80)
 	bne kbdScanDebugPiggyback
 	jmp kbdScanTab
@@ -115,7 +135,6 @@ kbdScanDebugPiggyback:
 	cmp #('=' + $80)
 	beq kbdScanEquals
 	bra kbdScanDone
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Gameplay Key Handlers
@@ -145,13 +164,6 @@ kbdScanComma:
 	sta mapScrollRequested
 	rts
 
-kbdScanESC:
-	BITS16
-
-	lda #1
-	sta quitRequested
-	rts
-
 kbdScanLeftArrow:
 	BITS16
 	lda #2
@@ -174,6 +186,12 @@ kbdScanDownArrow:
 	BITS16
 	lda #-1
 	sta powerDeltaRequested
+	rts
+
+kbdScanESC:
+	BITS16
+	lda #1
+	sta quitRequested
 	rts
 
 kbdScanSpace:

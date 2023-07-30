@@ -125,10 +125,15 @@ gameplayLoopPower:
 
 gameplayLoopFire:
 	lda fireRequested
-	beq gameplayLoopRender
+	beq gameplayLoopMove
 	jsr unrenderCrosshair
 	jsr fire
 	
+gameplayLoopMove:
+	lda playerMoveRequested
+	beq gameplayLoopRender
+	jsr move
+
 ;	BORDER_COLOR #$2
 
 gameplayLoopRender:
@@ -397,6 +402,24 @@ fire:
 	rts
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; move
+;
+; Handles moving a player
+;
+move:
+	jsr unrenderCrosshair
+	jsr unrenderPlayers
+	lda #playerData
+	sta PARAML0
+	ldx playerMoveRequested
+	jsr moveGameObjectOnTerrain
+	stz playerMoveRequested
+	jsr renderPlayers
+	jsr renderCrosshair
+	rts
+
+
 basePalette:
 	.word $06af,$0072,$0072,$0861,$0c93,$0eb4,$0d66,$0f9a,$0777,$0d00,$0bbb,$ddd,$007b,$0a5b,$0000,$0fff
 
@@ -412,6 +435,8 @@ powerDeltaRequested:
 fireRequested:
 	.word $0000
 turnRequested:
+	.word $0000
+playerMoveRequested:
 	.word $0000
 terrainDirty:
 	.word 1
