@@ -913,6 +913,10 @@ processTerrainImpactNegative:
 processTerrainImpactStoreContinue:
 	sta PARAML0
 	pha						; Dirt explosion will need this
+	sta compileTerrainRowStart	; Terrain chunk compiler will need this
+	lda #TERRAINWIDTH
+	sta compileTerrainRowEnd
+
 	lda projectileData+GO_POSY,y
 	sec
 	sbc #GAMEOBJECTHEIGHT	; This fudge makes tunneling work better
@@ -943,9 +947,9 @@ processTerrainImpactStoreContinue:
 	sta SCRATCHL		; Need radius in a memory location for this math
 	txa
 	sec
+	sbc SCRATCHL		; Need to subtract diameter to ensure enough terrain is recompiled. Not 100% sure why?
 	sbc SCRATCHL
 	tay
-	lda SCRATCHL
 	jsr compileTerrainChunk
 
 	jsr clipTerrain

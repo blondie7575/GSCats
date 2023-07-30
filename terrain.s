@@ -263,6 +263,9 @@ compileTerrain:
 	ldy #0
 	lda #compiledTerrain
 	sta PARAML0
+	stz compileTerrainRowStart
+	lda #TERRAINWIDTH
+	sta compileTerrainRowEnd
 
 compileTerrainLoop:
 	sty PARAML1
@@ -288,15 +291,15 @@ compileTerrainDone:
 ;
 ; Y = First row to compile (bottom-relative)
 ; X = Last row to compile (bottom-relative)
+; compileTerrainRowStart = Start column to compile (logical terrainData index)
+; compileTerrainRowEnd = Ending column to compile (logical terrainData index)
 ;
 ; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 compileTerrainChunk:
 	tya			; Be extra safe and make sure Y is never negative or we'll spray RAM with terrain data
 	bmi compileTerrainChunkClampZero
-	cpx #MAXTERRAINHEIGHT		; Same caution for top of terrain
-	beq compileTerrainChunkResume
-	bcs compileTerrainChunkClampTop
+	ldx #MAXTERRAINHEIGHT-1
 
 compileTerrainChunkResume:
 	stx SCRATCHL
@@ -330,15 +333,14 @@ compileTerrainChunkClampZero:
 	ldy #0
 	bra compileTerrainChunkResume
 
-compileTerrainChunkClampTop:
-	ldx #MAXTERRAINHEIGHT
-	bra compileTerrainChunkResume
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; compileTerrainRow
 ;
 ; PARAML0 = Start of compiled row data
 ; PARAML1 = Row index
+; compileTerrainRowStart = Start column to compile (logical terrainData index)
+; compileTerrainRowEnd = Ending column to compile (logical terrainData index)
 ;
 ; Note: DA = PHX = FG/FG
 ;       48 = PHA = FG/BG
@@ -347,8 +349,20 @@ compileTerrainChunkClampTop:
 
 compileTerrainRow:
 	SAVE_AXY
-	ldy #0
-	ldx #0
+	lda compileTerrainRowStart	; Initialize horizontal counters
+	lsr
+	lsr
+	and #%11111100		; Word-align it
+	tay
+	asl					; Logical counter is 4x compiled counter
+	asl
+	tax
+
+	lda compileTerrainRowEnd	; Convert end counter to compiled version
+	lsr
+	lsr
+	and #%11111100
+	sta compileTerrainRowEndCompiled
 
 compileTerrainColumnLoop:
 	stz compileTerrainOpcode
@@ -399,7 +413,7 @@ compileTerrainColumnStore:
 	inx
 	iny
 	iny
-	cpy #VISIBLETERRAINWIDTH
+	cpy compileTerrainRowEndCompiled
 	bne compileTerrainColumnLoop
 
 	RESTORE_AXY
@@ -462,8 +476,12 @@ compileTerrainColumn3BG:
 
 compileTerrainOpcode:
 	.word 0
-
-
+compileTerrainRowStart:
+	.word 0
+compileTerrainRowEnd:
+	.word 640
+compileTerrainRowEndCompiled:
+	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; prepareRowRendering:
@@ -504,7 +522,6 @@ prepareRowRenderingLoopNext:
 	bne prepareRowRenderingLoop
 
 prepareRowRenderingDone:
-;HARDBRK
 	RESTORE_AXY
 	rts
 

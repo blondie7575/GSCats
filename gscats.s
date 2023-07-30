@@ -25,8 +25,6 @@ mainBank2:
 	jmp titleScreen
 
 quitGame:
-	jsr unsetVBLInterruptVector
-	jsr unsetScanLineInterruptVector
 	NORMALMEMORY
 	CLASSICVIDEO
 	jml (PRODOSRETURN)

@@ -187,6 +187,8 @@ titleScreenMainLoopEndFrame:
 
 titleScreenBeginGame:
 	; Transition to gameplay
+	jsr unsetVBLInterruptVector
+	jsr unsetScanLineInterruptVector
 	stz menuActionRequested
 	lda #skyPalette
 	sta PARAML2
