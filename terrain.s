@@ -295,12 +295,19 @@ compileTerrainDone:
 ; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 compileTerrainChunk:
-	ldy #0
-	tya			; Be extra safe and make sure Y is never negative or we'll spray RAM with terrain data
+	
+	; Clamp chunk to left and right terrain edges
+	lda compileTerrainRowStart
 	bmi compileTerrainChunkClampZero
-	ldx #MAXTERRAINHEIGHT-1
+
+compileTerrainChunkClampResume:
+	lda compileTerrainRowEnd
+	cmp #TERRAINWIDTH
+	bcs compileTerrainChunkClampHigh
 
 compileTerrainChunkResume:
+	ldy #0
+	ldx #MAXTERRAINHEIGHT-1
 	stx SCRATCHL
 	sty PARAML0
 
@@ -329,9 +336,13 @@ compileTerrainChunkDone:
 	rts
 
 compileTerrainChunkClampZero:
-	ldy #0
-	bra compileTerrainChunkResume
+	stz compileTerrainRowStart
+	bra compileTerrainChunkClampResume
 
+compileTerrainChunkClampHigh:
+	lda #TERRAINWIDTH-1
+	sta compileTerrainRowEnd
+	bra compileTerrainChunkResume
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; compileTerrainRow

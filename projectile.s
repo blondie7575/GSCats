@@ -939,7 +939,7 @@ processTerrainImpactStoreContinue:
 	adc projectileTypes+PT_RADIUS,y
 	adc #GAMEOBJECTWIDTH
 	sta compileTerrainRowEnd
-;don't forget to clamp these to terrain edges'
+
 	lda projectileTypes+PT_RADIUS,y
 	tay
 	phy					; We'll need the radius in a moment
