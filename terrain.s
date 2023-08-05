@@ -289,14 +289,13 @@ compileTerrainDone:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; compileTerrainChunk
 ;
-; Y = First row to compile (bottom-relative)
-; X = Last row to compile (bottom-relative)
 ; compileTerrainRowStart = Start column to compile (logical terrainData index)
 ; compileTerrainRowEnd = Ending column to compile (logical terrainData index)
 ;
 ; Trashes A,Y, SCRATCHL, PARAML0, PARAML1
 ;
 compileTerrainChunk:
+	ldy #0
 	tya			; Be extra safe and make sure Y is never negative or we'll spray RAM with terrain data
 	bmi compileTerrainChunkClampZero
 	ldx #MAXTERRAINHEIGHT-1

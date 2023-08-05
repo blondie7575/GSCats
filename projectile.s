@@ -914,7 +914,6 @@ processTerrainImpactStoreContinue:
 	sta PARAML0
 	pha						; Dirt explosion will need this
 	sta compileTerrainRowStart	; Terrain chunk compiler will need this
-	lda #TERRAINWIDTH
 	sta compileTerrainRowEnd
 
 	lda projectileData+GO_POSY,y
@@ -927,6 +926,20 @@ processTerrainImpactStoreContinue:
 	tay
 	PROJECTILETYPEPTR_Y
 
+	sec						; Quick sidebar to calculate crater compiling extents while we have the pointers
+	lda #TERRAINWIDTH
+	sbc compileTerrainRowStart
+	sbc projectileTypes+PT_RADIUS,y
+	sbc projectileTypes+PT_RADIUS,y
+	sta compileTerrainRowStart
+	sec
+	lda #TERRAINWIDTH
+	sbc compileTerrainRowEnd
+	clc
+	adc projectileTypes+PT_RADIUS,y
+	adc #GAMEOBJECTWIDTH
+	sta compileTerrainRowEnd
+;don't forget to clamp these to terrain edges'
 	lda projectileTypes+PT_RADIUS,y
 	tay
 	phy					; We'll need the radius in a moment
