@@ -390,6 +390,12 @@ titleScreenRenderHelp:
 
 	lda #helpText8
 	sta PARAML0
+	ldy #$8435
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText9
+	sta PARAML0
 	ldy #$90b7
 	lda #1
 	jsl renderStringFar
@@ -426,4 +432,6 @@ helpText6:
 helpText7:
 	pstring "cd SCROLL"
 helpText8:
+	pstring "g QUIT"
+helpText9:
 	pstring "PRESS ANY KEY"
