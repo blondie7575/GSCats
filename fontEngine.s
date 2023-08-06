@@ -29,6 +29,7 @@ renderStringReturn:
 fontJumpTable:
 	.addr renderString_tinyNum
 	.addr renderString_font8
+	.addr renderString_font16
 
 
 .include "fonts.s"

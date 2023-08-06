@@ -6226,3 +6226,13929 @@ font8char111:
 	; Line 0, Pixel values: 0000 0000 
 	jmp renderCharJumpReturn_font8
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderString_font16
+;
+; Draws a Pascal string for font "font16"
+;
+; PARAML0 = Pointer to string
+; Y = VRAM position of lower left corner of string at which to draw
+;
+; Trashes SCRATCHL,X,Y,A
+;
+renderString_font16:
+	sty SCRATCHL	; Cache VRAM position
+
+	plb				; Temporarily revert to caller's DBR to access their pointer
+	BITS8
+	lda (PARAML0)
+	tax
+	BITS16
+	phb
+
+	; Advance VRAM pointer to end of string
+	asl
+	asl
+	asl
+
+	clc
+	adc SCRATCHL
+	dec
+	sta SCRATCHL
+	
+renderStringLoop_font16:
+
+	; Fetch and render next character in string
+	txy
+	lda #0
+	plb				; Temporarily revert to caller's DBR to access their pointer
+	BITS8A
+	lda (PARAML0),y
+	BITS16
+	phb
+	ldy SCRATCHL
+	jsr renderChar_font16
+
+	dex
+	beq renderStringDone_font16
+
+	; Calculate VRAM pointer for position of next character
+	lda SCRATCHL
+	sec
+	sbc #16/2					; Width of one char in bytes
+	sta SCRATCHL
+	bra renderStringLoop_font16
+
+renderStringDone_font16:
+	jmp renderStringReturn
+
+.export renderString_font16
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderChar_font16
+;
+; Draws a single character
+;
+; A = ASCII code to draw
+; Y = VRAM position of lower right corner at which to draw
+;
+renderChar_font16:
+	SAVE_AXY
+
+	sec
+	sbc #32		; ASCII code of first char in font sheet
+	asl
+	tax
+	FASTGRAPHICS
+
+	jmp (font16characterJumpTable,x)
+
+renderCharJumpReturn_font16:	; Compiled glyphs jump back here. Can't rts because stack is turboborked
+	SLOWGRAPHICS
+
+	RESTORE_AXY
+	rts
+
+
+font16characterJumpTable:
+	.addr font16char32
+	.addr font16char33
+	.addr font16char34
+	.addr font16char35
+	.addr font16char36
+	.addr font16char37
+	.addr font16char38
+	.addr font16char39
+	.addr font16char40
+	.addr font16char41
+	.addr font16char42
+	.addr font16char43
+	.addr font16char44
+	.addr font16char45
+	.addr font16char46
+	.addr font16char47
+	.addr font16char48
+	.addr font16char49
+	.addr font16char50
+	.addr font16char51
+	.addr font16char52
+	.addr font16char53
+	.addr font16char54
+	.addr font16char55
+	.addr font16char56
+	.addr font16char57
+	.addr font16char58
+	.addr font16char59
+	.addr font16char60
+	.addr font16char61
+	.addr font16char62
+	.addr font16char63
+	.addr font16char64
+	.addr font16char65
+	.addr font16char66
+	.addr font16char67
+	.addr font16char68
+	.addr font16char69
+	.addr font16char70
+	.addr font16char71
+	.addr font16char72
+	.addr font16char73
+	.addr font16char74
+	.addr font16char75
+	.addr font16char76
+	.addr font16char77
+	.addr font16char78
+	.addr font16char79
+	.addr font16char80
+	.addr font16char81
+	.addr font16char82
+	.addr font16char83
+	.addr font16char84
+	.addr font16char85
+	.addr font16char86
+	.addr font16char87
+	.addr font16char88
+	.addr font16char89
+	.addr font16char90
+	.addr font16char91
+	.addr font16char92
+	.addr font16char93
+	.addr font16char94
+	.addr font16char95
+	.addr font16char96
+	.addr font16char97
+	.addr font16char98
+	.addr font16char99
+	.addr font16char100
+	.addr font16char101
+	.addr font16char102
+	.addr font16char103
+	.addr font16char104
+	.addr font16char105
+	.addr font16char106
+	.addr font16char107
+	.addr font16char108
+	.addr font16char109
+	.addr font16char110
+	.addr font16char111
+
+; Chroma Key is $0
+
+font16char32:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char33:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #318
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char34:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 8882 2000 2222 2000 
+	tsc
+	sec
+	sbc #1602
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8288
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 8888 8220 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	; Line 2, Pixel values: 0888 8820 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2088
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0088 8880 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$8088
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char35:
+	tya
+	tcs
+	; Line 15, Pixel values: 0022 2220 0333 3400 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0034
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3303
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 14, Pixel values: 0022 2220 0233 4300 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0043
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3302
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 2222 2222 2223 3334 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $3433
+	pea $2322
+	pea $2222
+	pea $2222
+	; Line 12, Pixel values: 2222 2222 2232 3343 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4333
+	pea $3222
+	pea $2222
+	pea $2222
+	; Line 11, Pixel values: 2222 2222 2222 2333 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 10, Pixel values: 2222 2222 2222 3233 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 9, Pixel values: 2222 2222 2222 2223 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 8, Pixel values: 0022 2220 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 7, Pixel values: 0022 2220 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 6, Pixel values: 8822 2222 2222 2222 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	pea $2288
+	; Line 5, Pixel values: 8882 2222 2222 2222 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	pea $8288
+	; Line 4, Pixel values: 8888 2222 2222 2222 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	pea $8888
+	; Line 3, Pixel values: 8888 8222 2222 2222 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	pea $8888
+	; Line 2, Pixel values: 8888 8822 2222 2222 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	pea $8888
+	; Line 1, Pixel values: 0088 8880 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$8088
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0088 8880 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$8088
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char36:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0022 2000 0000 
+	tsc
+	sec
+	sbc #808
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 9, Pixel values: 0000 0200 0200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$fff0
+	ora #$0002
+	sta 5,S
+	lda 3,S
+	and #$fff0
+	ora #$0002
+	sta 3,S
+	; Line 8, Pixel values: 0000 0200 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$fff0
+	ora #$0002
+	sta 3,S
+	; Line 7, Pixel values: 0000 0200 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$fff0
+	ora #$0002
+	sta 3,S
+	; Line 6, Pixel values: 0000 0020 0200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$fff0
+	ora #$0002
+	sta 5,S
+	lda 3,S
+	and #$0fff
+	ora #$2000
+	sta 3,S
+	; Line 5, Pixel values: 0000 0002 2000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char37:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0002 0000 0000 
+	tsc
+	sec
+	sbc #168
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 13, Pixel values: 0000 0002 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 12, Pixel values: 0000 0022 2000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 11, Pixel values: 0000 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 10, Pixel values: 0022 2200 0222 3000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0222 2022 2022 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 8, Pixel values: 2222 2022 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 7, Pixel values: 8222 2022 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 6, Pixel values: 8822 2202 2022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$f000
+	ora #$0222
+	sta 3,S
+	; Line 5, Pixel values: 8882 2220 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8220 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0008 8800 0222 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0088
+	sta 3,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char38:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char39:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 8882 2000 0000 0000 
+	tsc
+	sec
+	sbc #1606
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 8888 8220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	; Line 2, Pixel values: 0888 8820 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2088
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0088 8880 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$8088
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char40:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0030
+	sta 5,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char41:
+	tya
+	tcs
+	; Line 15, Pixel values: 2220 0000 0000 0000 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 1,S
+	and #$0f00
+	ora #$2022
+	sta 1,S
+	; Line 14, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 11, Pixel values: 0222 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 10, Pixel values: 0022 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0002 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 8, Pixel values: 0002 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 7, Pixel values: 0002 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 6, Pixel values: 0002 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 5, Pixel values: 0002 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 4, Pixel values: 0088 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 3, Pixel values: 8888 8222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2282
+	pea $8888
+	; Line 2, Pixel values: 8888 8820 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$0f00
+	ora #$2088
+	sta 3,S
+	; Line 1, Pixel values: 8888 8880 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$0f00
+	ora #$8088
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char42:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0002 0000 0000 
+	tsc
+	sec
+	sbc #168
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 13, Pixel values: 0000 0002 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 12, Pixel values: 0000 0022 2000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 11, Pixel values: 0000 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 10, Pixel values: 0022 2222 2222 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 5, Pixel values: 8882 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 4, Pixel values: 0888 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8220 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0008 8800 0222 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0088
+	sta 3,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char43:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char44:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 13, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 12, Pixel values: 0222 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 0022 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char45:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 2222 2222 2222 0000 
+	tsc
+	sec
+	sbc #962
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 8, Pixel values: 2222 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 7, Pixel values: 8222 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	; Line 6, Pixel values: 8822 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	; Line 5, Pixel values: 8882 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8288
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char46:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char47:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 13, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	; Line 11, Pixel values: 2222 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 10, Pixel values: 0222 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 9, Pixel values: 0022 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 8, Pixel values: 0002 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 7, Pixel values: 0000 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 6, Pixel values: 0000 0222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 5, Pixel values: 0000 0022 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 4, Pixel values: 0000 0002 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 3, Pixel values: 0000 0000 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 0000 0000 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 1, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char48:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2300 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2200 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2220 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 0022 2220 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 8, Pixel values: 2222 2022 2022 2230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 7, Pixel values: 8222 2002 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 6, Pixel values: 8822 2200 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 5, Pixel values: 0882 2220 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8208
+	sta 1,S
+	; Line 4, Pixel values: 0888 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0088 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 2, Pixel values: 0008 8822 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 1, Pixel values: 0000 0882 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$8208
+	sta 3,S
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char49:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 11, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 10, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 9, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 8, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 7, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 6, Pixel values: 0822 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2208
+	sta 1,S
+	; Line 5, Pixel values: 0882 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$8208
+	sta 1,S
+	; Line 4, Pixel values: 0888 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0008 8822 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 1, Pixel values: 0000 8882 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 0, Pixel values: 0000 8888 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char50:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3440 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 0222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 8, Pixel values: 0222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 7, Pixel values: 0022 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 6, Pixel values: 0000 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 5, Pixel values: 0000 0000 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 4, Pixel values: 0888 2220 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0088 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char51:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2300 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2200 0222 2300 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 8, Pixel values: 0000 0222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 7, Pixel values: 0000 0222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 6, Pixel values: 0000 0222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 5, Pixel values: 0000 0222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 4, Pixel values: 0000 0000 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 3, Pixel values: 0088 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0088 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0088 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char52:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0333 3400 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0034
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3303
+	sta 5,S
+	; Line 14, Pixel values: 0000 0000 0233 4300 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0043
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3302
+	sta 5,S
+	; Line 13, Pixel values: 0000 0000 0223 3300 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2302
+	sta 5,S
+	; Line 12, Pixel values: 0000 0000 0232 3300 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3202
+	sta 5,S
+	; Line 11, Pixel values: 2222 2222 2222 2330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	; Line 10, Pixel values: 2222 2222 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 0822 2200 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2208
+	sta 1,S
+	; Line 5, Pixel values: 0082 2220 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8200
+	sta 1,S
+	; Line 4, Pixel values: 0088 2220 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 3, Pixel values: 0008 8222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 2, Pixel values: 0008 8822 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0008 8888 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char53:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2330 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2200 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 0000 0000 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 8, Pixel values: 2222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 5, Pixel values: 0882 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$8208
+	sta 1,S
+	; Line 4, Pixel values: 0888 2000 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0088 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0088 8888 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char54:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2330 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2200 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0222 2200 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	; Line 5, Pixel values: 8882 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $8288
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 4, Pixel values: 0888 2200 0022 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char55:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 14, Pixel values: 0000 2222 3000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0030
+	sta 5,S
+	; Line 13, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 12, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 11, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 10, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 9, Pixel values: 0000 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 8, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 7, Pixel values: 0000 0222 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 6, Pixel values: 0000 0022 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 5, Pixel values: 0000 0002 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 4, Pixel values: 0000 0000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 3, Pixel values: 8888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char56:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2300 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 0222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 7, Pixel values: 0022 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 6, Pixel values: 0022 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 5, Pixel values: 0882 2220 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8208
+	sta 1,S
+	; Line 4, Pixel values: 0888 2200 0222 2200 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0888 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0088 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0000 8888 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char57:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0022 2300 0000 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 14, Pixel values: 0000 0022 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 13, Pixel values: 0000 0022 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 12, Pixel values: 0000 0022 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 11, Pixel values: 0000 0000 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	; Line 10, Pixel values: 0000 2222 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	; Line 9, Pixel values: 0022 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 8, Pixel values: 0222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 7, Pixel values: 0222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 6, Pixel values: 8822 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 0888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0888 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0088 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0000 8888 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char58:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #326
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 8222 2000 0000 0000 
+	tsc
+	sec
+	sbc #318
+	tcs
+	pea $2282
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char59:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #166
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2220 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 11, Pixel values: 0222 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 10, Pixel values: 0022 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0022 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0022 2220 0000 0000 
+	tsc
+	sec
+	sbc #320
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 6, Pixel values: 0022 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 5, Pixel values: 0082 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8200
+	sta 1,S
+	; Line 4, Pixel values: 0088 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 3, Pixel values: 0088 8220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char60:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char61:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 11, Pixel values: 2222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 10, Pixel values: 2222 2222 2222 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 2222 2222 2222 2000 
+	tsc
+	sec
+	sbc #314
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 5, Pixel values: 8882 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8288
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 4, Pixel values: 8888 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 3, Pixel values: 8888 8222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char62:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char63:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 14, Pixel values: 0000 2222 3000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0030
+	sta 5,S
+	; Line 13, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 12, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #316
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 9, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 8, Pixel values: 0000 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 7, Pixel values: 0000 0222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 6, Pixel values: 0000 0222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 5, Pixel values: 0000 0002 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 0888 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0888 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 0, Pixel values: 0008 8888 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char64:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char65:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0033 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0023 3330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0032 3340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 0022 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2222 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char66:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2330 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$3023
+	sta 5,S
+	; Line 14, Pixel values: 2222 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2000 2222 2330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	; Line 5, Pixel values: 8882 2000 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8288
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	; Line 1, Pixel values: 8888 8882 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	; Line 0, Pixel values: 8888 8888 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	pea $8888
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char67:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2333 0000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	; Line 14, Pixel values: 0022 2222 3233 4300 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0043
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char68:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 0000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	; Line 14, Pixel values: 2222 2222 3233 4300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0043
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2000 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0022 2230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8288
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2002 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	; Line 1, Pixel values: 8888 8882 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8288
+	pea $8888
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 0, Pixel values: 8888 8888 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	pea $8888
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char69:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3440 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 8, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 7, Pixel values: 8222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2282
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 6, Pixel values: 8822 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2288
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 5, Pixel values: 8882 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char70:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 14, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 13, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 11, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 8, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 7, Pixel values: 8222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2282
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 6, Pixel values: 8822 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2288
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 5, Pixel values: 8882 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char71:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2303 3440 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$f000
+	ora #$0323
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char72:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0033 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0023 3330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0032 3340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 0022 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char73:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 11, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 10, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 9, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 8, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 7, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 6, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 5, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 4, Pixel values: 0000 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 3, Pixel values: 8888 8222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char74:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2300 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0022 2230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 6, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 5, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 4, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 3, Pixel values: 0000 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 0000 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 0000 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 0000 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char75:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3444 
+	pea $4434
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0233 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3302
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2002 2232 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 11, Pixel values: 2222 2022 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 10, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 9, Pixel values: 2222 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 8, Pixel values: 2222 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 7, Pixel values: 8222 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2282
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	; Line 6, Pixel values: 8822 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2288
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 5, Pixel values: 8882 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $8288
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 4, Pixel values: 8888 2022 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 3, Pixel values: 8888 8002 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0280
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char76:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3440 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char77:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0033 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0023 3330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0032 3340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2002 0022 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 10, Pixel values: 2222 2022 2022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 5, Pixel values: 8882 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 4, Pixel values: 8888 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 3, Pixel values: 8888 8220 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	; Line 2, Pixel values: 8888 8800 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0088
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 0000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	jmp renderCharJumpReturn_font16
+
+font16char78:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0033 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0223 3330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2302
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0232 3340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2000 2222 2330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 10, Pixel values: 2222 2002 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 9, Pixel values: 2222 2022 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 6, Pixel values: 8822 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 5, Pixel values: 8882 2222 2022 2220 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	; Line 4, Pixel values: 8888 2222 0022 2220 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	; Line 3, Pixel values: 8888 8220 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2082
+	sta 3,S
+	; Line 2, Pixel values: 8888 8800 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0088
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char79:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2300 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0022 2230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char80:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 11, Pixel values: 2222 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 10, Pixel values: 2222 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 9, Pixel values: 2222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2282
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	jmp renderCharJumpReturn_font16
+
+font16char81:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 2222 2303 3440 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$f000
+	ora #$0323
+	sta 5,S
+	; Line 14, Pixel values: 0022 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 0222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 11, Pixel values: 2222 2220 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2200 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2002 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 8, Pixel values: 2222 2002 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 2022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 0888 2220 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 3, Pixel values: 0888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0088 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 1, Pixel values: 0008 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$f0ff
+	ora #$0800
+	sta 1,S
+	; Line 0, Pixel values: 0000 0888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00f0
+	ora #$8808
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char82:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3444 
+	pea $4434
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2000 0233 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3302
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2000 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 12, Pixel values: 2222 2002 2232 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 11, Pixel values: 2222 2022 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 10, Pixel values: 2222 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 9, Pixel values: 2222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2002 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2282
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	jmp renderCharJumpReturn_font16
+
+font16char83:
+	tya
+	tcs
+	; Line 15, Pixel values: 0002 2222 2333 0000 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 14, Pixel values: 0222 2222 3233 4300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0043
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2200 0222 2330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 10, Pixel values: 2222 2000 0022 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 9, Pixel values: 0000 0000 0222 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	; Line 8, Pixel values: 0022 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 7, Pixel values: 0222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 6, Pixel values: 8822 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2288
+	; Line 5, Pixel values: 8882 2000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2200 0222 2200 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 3, Pixel values: 0888 8222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 2, Pixel values: 0888 8822 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8808
+	sta 1,S
+	; Line 1, Pixel values: 0088 8882 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$8800
+	sta 1,S
+	; Line 0, Pixel values: 0000 8888 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $8888
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char84:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0222 2300 0000 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0023
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 14, Pixel values: 0000 0222 3200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0032
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 13, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 12, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 11, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 10, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 9, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 8, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 7, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 6, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 5, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 4, Pixel values: 0000 0222 2200 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char85:
+	tya
+	tcs
+	; Line 15, Pixel values: 0002 2222 2330 0000 
+	tsc
+	sec
+	sbc #4
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3023
+	sta 5,S
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 14, Pixel values: 0222 2222 3233 4000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0040
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2223 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 2222 2222 2232 3300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2222 2222 2330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	; Line 10, Pixel values: 2222 2200 0222 3230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 9, Pixel values: 2222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 0022 2230 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char86:
+	tya
+	tcs
+	; Line 15, Pixel values: 0002 2220 0000 0000 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 14, Pixel values: 0222 2222 3000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0030
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 13, Pixel values: 0222 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 12, Pixel values: 2222 2222 2230 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	pea $2222
+	lda 5,S
+	and #$0f00
+	ora #$3022
+	sta 5,S
+	; Line 11, Pixel values: 2222 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	; Line 10, Pixel values: 2222 2222 2222 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	; Line 9, Pixel values: 2222 2002 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 8, Pixel values: 2222 2000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 7, Pixel values: 8222 2000 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 6, Pixel values: 8822 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0000 0000 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char87:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2000 0033 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 14, Pixel values: 2222 2200 0233 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$3302
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 13, Pixel values: 2222 2220 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 2222 2222 2222 2330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3023
+	sta 7,S
+	; Line 10, Pixel values: 2222 2222 2222 3230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3032
+	sta 7,S
+	; Line 9, Pixel values: 2222 2222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 8, Pixel values: 2222 2222 2222 2230 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3022
+	sta 7,S
+	; Line 7, Pixel values: 8222 2022 2022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2282
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$000f
+	ora #$2220
+	sta 5,S
+	lda 3,S
+	and #$000f
+	ora #$2220
+	sta 3,S
+	; Line 6, Pixel values: 8822 2002 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$f00f
+	ora #$0220
+	sta 3,S
+	; Line 5, Pixel values: 8882 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	jmp renderCharJumpReturn_font16
+
+font16char88:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 0000 0003 3440 
+	tsc
+	sec
+	sbc #6
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	lda 5,S
+	and #$f0ff
+	ora #$0300
+	sta 5,S
+	; Line 14, Pixel values: 2222 2000 0033 4340 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$3300
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 13, Pixel values: 2222 2200 0223 3330 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2302
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 12, Pixel values: 2222 2220 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 11, Pixel values: 0222 2222 2222 2300 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0023
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 10, Pixel values: 0022 2222 2222 3000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0030
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0002 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 8, Pixel values: 0000 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 7, Pixel values: 0002 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 6, Pixel values: 0022 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 5, Pixel values: 0882 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$8208
+	sta 1,S
+	; Line 4, Pixel values: 8888 2220 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 3, Pixel values: 8888 8200 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0082
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 0000 0002 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$f0ff
+	ora #$0200
+	sta 5,S
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char89:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0022 2330 0000 
+	tsc
+	sec
+	sbc #8
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3023
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 14, Pixel values: 0000 0022 3230 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3032
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 13, Pixel values: 0000 0022 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 12, Pixel values: 0000 0022 2230 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$3022
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 11, Pixel values: 0000 0022 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 10, Pixel values: 0000 2222 2220 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	; Line 9, Pixel values: 0022 2222 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 8, Pixel values: 0222 2222 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 7, Pixel values: 0222 2222 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 6, Pixel values: 8822 2220 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	pea $2288
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	; Line 5, Pixel values: 8882 2200 0222 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8288
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00f0
+	ora #$2202
+	sta 5,S
+	lda 3,S
+	and #$ff00
+	ora #$0022
+	sta 3,S
+	; Line 4, Pixel values: 8888 2000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0020
+	sta 3,S
+	; Line 3, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 2, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 1, Pixel values: 8888 8000 0022 2220 
+	tsc
+	sec
+	sbc #158
+	tcs
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	lda 3,S
+	and #$ff0f
+	ora #$0080
+	sta 3,S
+	; Line 0, Pixel values: 0000 0000 0022 2220 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	lda 5,S
+	and #$00ff
+	ora #$2200
+	sta 5,S
+	jmp renderCharJumpReturn_font16
+
+font16char90:
+	tya
+	tcs
+	; Line 15, Pixel values: 2222 2222 2333 3440 
+	tsc
+	dec
+	dec
+	tcs
+	pea $3323
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4034
+	sta 7,S
+	; Line 14, Pixel values: 2222 2222 3233 4340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3332
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4043
+	sta 7,S
+	; Line 13, Pixel values: 2222 2222 2223 3330 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2322
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$3033
+	sta 7,S
+	; Line 12, Pixel values: 2222 2222 2232 3340 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $3222
+	pea $2222
+	pea $2222
+	lda 7,S
+	and #$0f00
+	ora #$4033
+	sta 7,S
+	; Line 11, Pixel values: 0222 2220 0000 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 3,S
+	and #$0f00
+	ora #$2022
+	sta 3,S
+	lda 1,S
+	and #$00f0
+	ora #$2202
+	sta 1,S
+	; Line 10, Pixel values: 0022 2222 0000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00ff
+	ora #$2200
+	sta 1,S
+	; Line 9, Pixel values: 0002 2222 2000 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff0f
+	ora #$0020
+	sta 5,S
+	lda 1,S
+	and #$f0ff
+	ora #$0200
+	sta 1,S
+	; Line 8, Pixel values: 0000 2222 2200 0000 
+	tsc
+	sec
+	sbc #156
+	tcs
+	pea $2222
+	tsc
+	dec
+	dec
+	tcs
+	lda 5,S
+	and #$ff00
+	ora #$0022
+	sta 5,S
+	; Line 7, Pixel values: 0000 0222 2220 0000 
+	tsc
+	sec
+	sbc #160
+	tcs
+	lda 5,S
+	and #$0f00
+	ora #$2022
+	sta 5,S
+	lda 3,S
+	and #$00f0
+	ora #$2202
+	sta 3,S
+	; Line 6, Pixel values: 0000 0022 2222 0000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 3,S
+	and #$00ff
+	ora #$2200
+	sta 3,S
+	; Line 5, Pixel values: 0000 0002 2222 2000 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff0f
+	ora #$0020
+	sta 7,S
+	lda 3,S
+	and #$f0ff
+	ora #$0200
+	sta 3,S
+	; Line 4, Pixel values: 0000 0000 2222 2200 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	tsc
+	sec
+	sbc #4
+	tcs
+	lda 7,S
+	and #$ff00
+	ora #$0022
+	sta 7,S
+	; Line 3, Pixel values: 8888 8222 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2282
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 2, Pixel values: 8888 8822 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $2288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 1, Pixel values: 8888 8882 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8288
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	; Line 0, Pixel values: 8888 8888 2222 2220 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $2222
+	pea $8888
+	pea $8888
+	lda 7,S
+	and #$0f00
+	ora #$2022
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char91:
+	tya
+	tcs
+	; Line 15, Pixel values: 2444 4444 4444 4442 
+	pea $4244
+	pea $4444
+	pea $4444
+	pea $4424
+	; Line 14, Pixel values: 4244 4444 4444 4424 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2444
+	pea $4444
+	pea $4444
+	pea $4442
+	; Line 13, Pixel values: 4424 4444 4444 4244 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4442
+	pea $4444
+	pea $4444
+	pea $2444
+	; Line 12, Pixel values: 4442 4444 4444 2444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4424
+	pea $4444
+	pea $4444
+	pea $4244
+	; Line 11, Pixel values: 4444 2444 4442 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4244
+	pea $4424
+	pea $4444
+	; Line 10, Pixel values: 4444 4244 4424 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $2444
+	pea $4442
+	pea $4444
+	; Line 9, Pixel values: 4444 4424 4244 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4442
+	pea $2444
+	pea $4444
+	; Line 8, Pixel values: 4444 4442 2444 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4424
+	pea $4244
+	pea $4444
+	; Line 7, Pixel values: 4444 4442 2444 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4424
+	pea $4244
+	pea $4444
+	; Line 6, Pixel values: 4444 4424 4244 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4442
+	pea $2444
+	pea $4444
+	; Line 5, Pixel values: 4444 4244 4424 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $2444
+	pea $4442
+	pea $4444
+	; Line 4, Pixel values: 4444 2444 4442 4444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4444
+	pea $4244
+	pea $4424
+	pea $4444
+	; Line 3, Pixel values: 4442 4444 4444 2444 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4424
+	pea $4444
+	pea $4444
+	pea $4244
+	; Line 2, Pixel values: 4424 4444 4444 4244 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4442
+	pea $4444
+	pea $4444
+	pea $2444
+	; Line 1, Pixel values: 4244 4444 4444 4424 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $2444
+	pea $4444
+	pea $4444
+	pea $4442
+	; Line 0, Pixel values: 2444 4444 4444 4442 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $4244
+	pea $4444
+	pea $4444
+	pea $4424
+	jmp renderCharJumpReturn_font16
+
+font16char92:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 6, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 5, Pixel values: abbb beee eebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbee
+	pea $eebe
+	pea $bbab
+	; Line 4, Pixel values: babb bbee ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $eebb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char93:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 10, Pixel values: babb bbee ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $eebb
+	pea $bbba
+	; Line 9, Pixel values: abbb beee eebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbee
+	pea $eebe
+	pea $bbab
+	; Line 8, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 6, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char94:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbbb bebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbe
+	pea $bbbb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbb beeb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $ebbe
+	pea $bbbb
+	pea $bbba
+	; Line 7, Pixel values: abbe eeee eeee bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $eeee
+	pea $eeee
+	pea $beab
+	; Line 6, Pixel values: babb bbbb beeb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $ebbe
+	pea $bbbb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbb bebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbe
+	pea $bbbb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char95:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bebb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbe
+	pea $bbab
+	; Line 8, Pixel values: babb eebb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbee
+	pea $bbba
+	; Line 7, Pixel values: abbe eeee eeee bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $eeee
+	pea $eeee
+	pea $beab
+	; Line 6, Pixel values: babb eebb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbee
+	pea $bbba
+	; Line 5, Pixel values: abbb bebb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbe
+	pea $bbab
+	; Line 4, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char96:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aaaa 
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 6, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abab 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $abab
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char97:
+	tya
+	tcs
+	; Line 15, Pixel values: aaaa aaaa aaaa aaaa 
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	; Line 14, Pixel values: aaaa aaaa aaaa aaaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	; Line 13, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 12, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 11, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 10, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 9, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 8, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 7, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 6, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 5, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 4, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 3, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 2, Pixel values: bbbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 1, Pixel values: baba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baba
+	; Line 0, Pixel values: abab abab abab abab 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $abab
+	pea $abab
+	pea $abab
+	pea $abab
+	jmp renderCharJumpReturn_font16
+
+font16char98:
+	tya
+	tcs
+	; Line 15, Pixel values: aaaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	; Line 14, Pixel values: aaaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	; Line 13, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 12, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 11, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 10, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 9, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 8, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 7, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 6, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 5, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 4, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 3, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 2, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 1, Pixel values: baba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baba
+	; Line 0, Pixel values: abab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	pea $abab
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char99:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbe ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bebb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbb ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bbbb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbbb bebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbe
+	pea $bbbb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbb ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bbbb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 6, Pixel values: babb bbeb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $ebbb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbb ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bbbb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbb bebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbe
+	pea $bbbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char100:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbe ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bebb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbe ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bebb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbeb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $ebbb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbb ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bbbb
+	pea $bbab
+	; Line 6, Pixel values: babb bbbb bebb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbe
+	pea $bbbb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbb ebbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbeb
+	pea $bbbb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bebb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbeb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $ebbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char101:
+	tya
+	tcs
+	; Line 15, Pixel values: 0aaa aaaa aaaa aaaa 
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00f0
+	ora #$aa0a
+	sta 1,S
+	; Line 14, Pixel values: bbaa aaaa aaaa aaaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	pea $aabb
+	; Line 13, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 12, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 11, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 10, Pixel values: babb bbbb bbbe ebbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbeb
+	pea $bebb
+	pea $bbbb
+	pea $bbba
+	; Line 9, Pixel values: abbb bbbb bbeb bebe 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bebe
+	pea $ebbb
+	pea $bbbb
+	pea $bbab
+	; Line 8, Pixel values: babb bbbb bbeb bbbe 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bebb
+	pea $ebbb
+	pea $bbbb
+	pea $bbba
+	; Line 7, Pixel values: abbb bbbb bbeb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $ebbb
+	pea $bbbb
+	pea $bbab
+	; Line 6, Pixel values: babb bbbb bbee ebbe 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $beeb
+	pea $eebb
+	pea $bbbb
+	pea $bbba
+	; Line 5, Pixel values: abbb bbbb bbeb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $ebbb
+	pea $bbbb
+	pea $bbab
+	; Line 4, Pixel values: babb bbbb bbeb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $ebbb
+	pea $bbbb
+	pea $bbba
+	; Line 3, Pixel values: abbb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbab
+	; Line 2, Pixel values: babb bbbb bbbb bbbb 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	pea $bbba
+	; Line 1, Pixel values: ffba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baff
+	; Line 0, Pixel values: 0fab abab abab abab 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $abab
+	pea $abab
+	pea $abab
+	tsc
+	dec
+	dec
+	tcs
+	lda 1,S
+	and #$00f0
+	ora #$ab0f
+	sta 1,S
+	jmp renderCharJumpReturn_font16
+
+font16char102:
+	tya
+	tcs
+	; Line 15, Pixel values: aaaa aaaa aaaa aae0 
+	tsc
+	dec
+	dec
+	tcs
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	lda 7,S
+	and #$0f00
+	ora #$e0aa
+	sta 7,S
+	; Line 14, Pixel values: aaaa aaaa aaaa aaee 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $eeaa
+	pea $aaaa
+	pea $aaaa
+	pea $aaaa
+	; Line 13, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 12, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 11, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 10, Pixel values: eebb beeb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $ebbe
+	pea $bbee
+	; Line 9, Pixel values: bbeb ebbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $beeb
+	pea $ebbb
+	; Line 8, Pixel values: eeeb ebbe bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $beeb
+	pea $ebee
+	; Line 7, Pixel values: bbeb eeeb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $ebee
+	pea $ebbb
+	; Line 6, Pixel values: eebb ebbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbeb
+	pea $bbee
+	; Line 5, Pixel values: bbbb ebbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbeb
+	pea $bbbb
+	; Line 4, Pixel values: bbbb ebbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbeb
+	pea $bbbb
+	; Line 3, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 2, Pixel values: bbbb bbbb bbbb bbaa 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $aabb
+	pea $bbbb
+	pea $bbbb
+	pea $bbbb
+	; Line 1, Pixel values: baba baba baba baba 
+	tsc
+	sec
+	sbc #152
+	tcs
+	pea $baba
+	pea $baba
+	pea $baba
+	pea $baba
+	; Line 0, Pixel values: abab abab abab abb0 
+	tsc
+	sec
+	sbc #154
+	tcs
+	pea $abab
+	pea $abab
+	pea $abab
+	lda 7,S
+	and #$0f00
+	ora #$b0ab
+	sta 7,S
+	jmp renderCharJumpReturn_font16
+
+font16char103:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char104:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char105:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char106:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char107:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char108:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char109:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char110:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+
+font16char111:
+	tya
+	tcs
+	; Line 15, Pixel values: 0000 0000 0000 0000 
+	; Line 14, Pixel values: 0000 0000 0000 0000 
+	; Line 13, Pixel values: 0000 0000 0000 0000 
+	; Line 12, Pixel values: 0000 0000 0000 0000 
+	; Line 11, Pixel values: 0000 0000 0000 0000 
+	; Line 10, Pixel values: 0000 0000 0000 0000 
+	; Line 9, Pixel values: 0000 0000 0000 0000 
+	; Line 8, Pixel values: 0000 0000 0000 0000 
+	; Line 7, Pixel values: 0000 0000 0000 0000 
+	; Line 6, Pixel values: 0000 0000 0000 0000 
+	; Line 5, Pixel values: 0000 0000 0000 0000 
+	; Line 4, Pixel values: 0000 0000 0000 0000 
+	; Line 3, Pixel values: 0000 0000 0000 0000 
+	; Line 2, Pixel values: 0000 0000 0000 0000 
+	; Line 1, Pixel values: 0000 0000 0000 0000 
+	; Line 0, Pixel values: 0000 0000 0000 0000 
+	jmp renderCharJumpReturn_font16
+

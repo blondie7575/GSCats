@@ -51,7 +51,6 @@ titleScreenCopyLoop:
 	; Render menu text
 	jsr titleScreenRenderMenu
 
-	ldx #147
 	jsr setBorderAtScanLine
 
 	; Fade in
@@ -178,6 +177,8 @@ titleScreenKeyboardMenuDown:
 titleScreenKeyboardMenuGo:
 	lda menuSelection
 	beq titleScreenBeginGame
+	cmp #1
+	beq titleScreenHelp
 	cmp #2
 	beq titleScreenQuit
 
@@ -187,8 +188,7 @@ titleScreenMainLoopEndFrame:
 
 titleScreenBeginGame:
 	; Transition to gameplay
-	jsr unsetVBLInterruptVector
-	jsr unsetScanLineInterruptVector
+	jsr titleScreenRemoveBorderEffect
 	stz menuActionRequested
 	lda #skyPalette
 	sta PARAML2
@@ -196,7 +196,24 @@ titleScreenBeginGame:
 	jmp beginGameplay
 
 titleScreenQuit:
+	jsr titleScreenRemoveBorderEffect
 	jmp quitGame
+
+titleScreenHelp:
+	jsr titleScreenRemoveBorderEffect
+	stz menuActionRequested
+
+	; Fade out
+	lda #skyPalette
+	sta PARAML2
+	jsr paletteFade
+	jmp titleScreenRenderHelp
+
+titleScreenRemoveBorderEffect:
+	jsr unsetVBLInterruptVector
+	jsr unsetScanLineInterruptVector
+	rts
+
 
 titleAnimationCounter:
 	.word 0
@@ -307,3 +324,106 @@ titleScreenUnRenderSelection:
 	lda #1
 	jsl renderStringFar
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; titleScreenRenderHelp
+;
+; Render the help menu
+;
+titleScreenRenderHelp:
+	SAVE_AXY
+
+	; Clear screen
+	ldx #0
+	ldy #200
+	jsr colorFill
+
+	; Draw help text
+	lda #helpText0
+	sta PARAML0
+	ldy #$2c8a
+	lda #1
+	jsl renderStringFar
+
+	lda #helpText1
+	sta PARAML0
+	ldy #$32ca
+	lda #1
+	jsl renderStringFar
+
+	lda #helpText2
+	sta PARAML0
+	ldy #$390a
+	lda #1
+	jsl renderStringFar
+
+	lda #helpText3
+	sta PARAML0
+	ldy #$4bed
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText4
+	sta PARAML0
+	ldy #$572d
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText5
+	sta PARAML0
+	ldy #$6265
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText6
+	sta PARAML0
+	ldy #$6dad
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText7
+	sta PARAML0
+	ldy #$78ed
+	lda #2
+	jsl renderStringFar
+
+	lda #helpText8
+	sta PARAML0
+	ldy #$90b7
+	lda #1
+	jsl renderStringFar
+
+	; Fade in
+	lda #titlePalette
+	sta PARAML2
+	jsr paletteFade
+
+	jsr kbdWaitForAnyKey
+
+	; Fade out
+	lda #skyPalette
+	sta PARAML2
+	jsr paletteFade
+
+	RESTORE_AXY
+	jmp titleScreen
+
+helpText0:
+	pstring "SPROCKET AND TINKER DO NOT GET ALONG!"
+helpText1:
+	pstring "YOUR GOAL IS TO ANGER THE OTHER CAT"
+helpText2:
+	pstring "SO MUCH THAT SHE PEES AND RUNS OFF."
+helpText3:
+	pstring "_^ AIM"
+helpText4:
+	pstring "\] POWER"
+helpText5:
+	pstring "`ab FIRE"
+helpText6:
+	pstring "ef WEAPON"
+helpText7:
+	pstring "cd SCROLL"
+helpText8:
+	pstring "PRESS ANY KEY"

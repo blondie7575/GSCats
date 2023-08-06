@@ -239,3 +239,20 @@ kbdScanTab_store:
 breakpoint:
 	.word 0
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; kbdWaitForAnyKey
+;
+; Waits for any keypress
+;
+; Trashes A
+;
+kbdWaitForAnyKey:
+	BITS8
+
+kbdWaitForAnyKeyLoop:
+	lda KBD
+	bpl kbdWaitForAnyKeyLoop
+	sta KBDSTROBE
+	BITS16
+	rts

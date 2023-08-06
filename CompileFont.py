@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+import math
 import PIL
 from PIL import Image
 from numpy import asarray
@@ -160,7 +161,8 @@ def main(argv):
 
 def scaleForFontWidth(charWidth):
 	output = ""
-	for i in range(0,(int)(charWidth/4)):
+	shiftCount = math.log(charWidth/2,2)
+	for i in range(0,(int)(shiftCount)):
 		output = output + "\tasl\n"
 	return output
 	

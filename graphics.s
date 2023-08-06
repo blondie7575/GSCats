@@ -229,17 +229,14 @@ vblInterruptHandler:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; setBorderAtScanLine
 ;
-; X = Scan Line Number
-;
 ; Trashes A
 ;
 setBorderAtScanLine:
-	dex				; Scanline interrupts technically fire on the previous line
 
 	BITS8A
-	lda $e19d00,x		; Enable interrupt on requested scanline
+	lda $e19d92			; Enable interrupt on scanline 146
 	ora #%01000000
-	sta $e19d00,x
+	sta $e19d92
 
 	lda $e19dc7			; Enable interrupt on scanline 199
 	ora #%01000000
@@ -264,14 +261,17 @@ scanLineInterruptHandler:
 	and #%11011111
 	sta $e0c032
 
-	lda scanLineColorChangePhaseCounter
-	beq scanLineInterruptHandler0
+	lda $e0C02f
+    asl         ; VA is now in the Carry flag
+	lda $e0C02e
+    rol         ; Roll Carry into bit 0. A now contains line number
+	cmp #155
+	bcc scanLineInterruptHandler0
 
 	lda BORDERCOLOR	; Set border color
 	and #$f0
 	ora #$7			; Set to sky at bottom of screen
 	sta BORDERCOLOR
-	dec scanLineColorChangePhaseCounter
 	bra scanLineInterruptHandlerDone
 
 scanLineInterruptHandler0:
@@ -279,14 +279,10 @@ scanLineInterruptHandler0:
 	and #$f0
 	ora #$4
 	sta BORDERCOLOR
-	inc scanLineColorChangePhaseCounter
 
 scanLineInterruptHandlerDone:
 	clc
 	rtl
-
-scanLineColorChangePhaseCounter:
-	.byte 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; setScanlinePalette

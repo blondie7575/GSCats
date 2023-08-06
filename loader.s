@@ -244,24 +244,23 @@ mainContinue2:
 	EMULATION
 
 	; Load rest of font data into bank 0	(needed if font size exceeds BUFFERSIZE)
-;	jsr PRODOS
-;	.byte $ca
-;	.addr fileRead
-;	bne ioErrorJmp
+	jsr PRODOS
+	.byte $ca
+	.addr fileRead
+	bne ioErrorJmp
 
 	; Close the file
 	jsr PRODOS
 	.byte $cc
 	.addr fileClose
 
-;	NATIVE
+	NATIVE
 
 	; Copy rest of font data into bank 5 (needed if font size exceeds BUFFERSIZE)
-;	ldx fileReadLen
-;	txa
-;	lda #5
-;	ldy #BUFFERSIZE
-;	jsr copyBytes
+	ldx fileReadLen
+	lda #5
+	ldy #BUFFERSIZE
+	jsr copyBytes
 
 	bra mainContinue3
 
@@ -270,7 +269,7 @@ ioErrorJmp:
 
 mainContinue3:
 	
-;	EMULATION
+	EMULATION
 
 	; Open the title screen file
 	jsr PRODOS
