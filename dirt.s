@@ -273,7 +273,7 @@ updateDirtParticleContinue:
 	
 updateDirtParticleStillAlive:
 	; Draw new position
-	lda #$11
+	lda #$33
 	sta SHADOWVRAMBANK,x
 
 	; Let everyone know we did work
