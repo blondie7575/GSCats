@@ -96,7 +96,8 @@ gameplayLoopScroll:
 	bmi gameplayLoopAngleCheck
 
 	jsr scrollMap
-
+	jsr updateCrosshair
+	jsr protectCrosshair
 
 gameplayLoopAngleCheck:
 	lda projectileActive			; Skip interactivity during shots
@@ -115,6 +116,7 @@ gameplayLoopAim:
 	jsr unrenderCrosshair
 	ldy currentPlayer
 	jsr updateCrosshair
+	jsr protectCrosshair
 	jsr renderCrosshair
 
 gameplayLoopPower:
@@ -289,6 +291,8 @@ endTurnHeader:
 	jsr renderPlayerHeader
 	jsr renderInventory
 	stz turnRequested
+
+	jsr protectCrosshair
 	rts
 
 endTurnFocusPlayer0:
@@ -337,7 +341,7 @@ scrollMapApplyScrolling:
 	asl
 	sta leftScreenEdge
 	clc
-	adc #160-GAMEOBJECTWIDTH/4-1
+	adc #160-GAMEOBJECTWIDTH/4-2
 	sta rightScreenEdge
 
 	jsr clipTerrain
@@ -408,15 +412,53 @@ fire:
 ; Handles moving a player
 ;
 move:
+	SAVE_AY
+
+	; Unrender everything
 	jsr unrenderCrosshair
 	jsr unrenderPlayers
-	lda #playerData
+
+	; Find active player game object data
+	ldy currentPlayer
+	PLAYERPTR_Y
+	tya
+	clc
+	adc #playerData
 	sta PARAML0
+
+	; Prepare parameters of move
 	ldx playerMoveRequested
+	lda currentPlayer
+	beq moveParamsPlayer0
+	lda #-1
+	sta placeGameObjectRightOffset
+	lda #GAMEOBJECTWIDTH-7
+	sta placeGameObjectLeftOffset
+
+movePerformMove:
 	jsr moveGameObjectOnTerrain
+	bra moveCleanup
+
+moveParamsPlayer0:
+	lda #-6
+	sta placeGameObjectRightOffset
+	lda #GAMEOBJECTWIDTH-2
+	sta placeGameObjectLeftOffset
+	bra movePerformMove
+
+moveCleanup:
+	; Handle side effects caused by move
 	stz playerMoveRequested
+	ldy currentPlayer
+	jsr updateCrosshair
+
+	; Re-render everything
+	jsr protectPlayers
 	jsr renderPlayers
+	jsr protectCrosshair
 	jsr renderCrosshair
+
+	RESTORE_AY
 	rts
 
 
@@ -465,6 +507,6 @@ mapScrollPos:
 	.word 0
 ;leftScreenEdge = $6E		; Moved to zero page for speed and cross-bank convenience
 ;	.word 0
-rightScreenEdge:
-	.word 160-GAMEOBJECTWIDTH/4-1
+rightScreenEdge:			; Right edge minus one game object width, for easy render clipping
+	.word 160-GAMEOBJECTWIDTH/4-2
 

@@ -50,9 +50,28 @@ terrainHeightAtGameObjectPos:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; placeGameObjectOnTerrainDefault
+;
+; PARAML0 = Pointer to gameobject data
+;
+; Trashes SCRATCHL,SCRATCHL2
+;
+placeGameObjectOnTerrainDefault:
+	stz placeGameObjectRightOffset
+	pha
+	lda #GAMEOBJECTWIDTH
+	sta placeGameObjectLeftOffset
+	pla
+	jmp placeGameObjectOnTerrain
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; placeGameObjectOnTerrain
 ;
 ; PARAML0 = Pointer to gameobject data
+; placeGameObjectLeftOffset = Left edge of height to check (default=GAMEOBJECTWIDTH)
+; placeGameObjectRightOffset = Right edge of height to check (default=0)
+;
 ; Trashes SCRATCHL,SCRATCHL2
 ;
 placeGameObjectOnTerrain:
@@ -61,6 +80,9 @@ placeGameObjectOnTerrain:
 	; Check forwardmost position
 	ldy #GO_POSX
 	lda (PARAML0),y
+	clc
+	adc placeGameObjectRightOffset
+
 	jsr terrainHeightAtGameObjectPos
 	sta SCRATCHL2
 
@@ -68,7 +90,8 @@ placeGameObjectOnTerrain:
 	ldy #GO_POSX
 	lda (PARAML0),y
 	sec
-	sbc #GAMEOBJECTWIDTH
+	sbc placeGameObjectLeftOffset
+
 	jsr terrainHeightAtGameObjectPos
 	cmp SCRATCHL2			; Take higher value
 	bcc placeGameObjectOnTerrainRear
@@ -87,7 +110,10 @@ placeGameObjectOnTerrainRear:
 	bra placeGameObjectOnTerrainDone
 	
 
-	
+placeGameObjectLeftOffset:
+	.word GAMEOBJECTWIDTH
+placeGameObjectRightOffset:
+	.word 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; moveGameObjectOnTerrain
@@ -161,11 +187,17 @@ moveGameObjectOnTerrainTooFar:
 	bra moveGameObjectOnTerrainTooDone
 
 
+moveGameObjectLeftOffset:
+	.word 0
+moveGameObjectRightOffset:
+	.word GAMEOBJECTWIDTH
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; vramPtr
 ;
 ; PARAML0 = Pointer to X,Y (16 bits each, Y is bottom relative)
-; X => Offset to upper left corner of VRAM, or ffff if offscreen
+; X => Offset to upper left corner of VRAM, or $ffff if offscreen
 ;
 ; Trashes SCRATCHL
 ;

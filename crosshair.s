@@ -98,6 +98,29 @@ renderCrosshairDone:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; protectCrosshair
+;
+; Trashes PARAML0
+;
+protectCrosshair:
+	pha
+
+	lda #crosshairGameObject
+	sta PARAML0
+	jsr vramPtr
+	cpx #$ffff
+	beq protectCrosshairDone
+
+	lda #crosshairGameObject+GO_BACKGROUND
+	sta PARAML0
+	jsr protectGameObject
+
+protectCrosshairDone:
+	pla
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; unrenderCrosshair
 ;
 ; Trashes PARAML0

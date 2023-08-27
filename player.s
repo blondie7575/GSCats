@@ -110,7 +110,7 @@ playerCreate:
 	clc
 	adc SCRATCHL
 	sta PARAML0
-	jsr placeGameObjectOnTerrain
+	jsr placeGameObjectOnTerrainDefault
 
 	jsr createProgressBar
 	rts
