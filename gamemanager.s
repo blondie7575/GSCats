@@ -96,7 +96,6 @@ gameplayLoopScroll:
 
 	jsr scrollMap
 	jsr updateCrosshair
-	jsr protectCrosshair
 
 gameplayLoopAngleCheck:
 	lda projectileActive			; Skip interactivity during shots
@@ -156,6 +155,8 @@ gameplayLoopRender:
 	beq gameplayLoopRenderPlayersAnyway
 	jsr unrenderPlayers
 	jsr protectPlayers
+	jsr unrenderCrosshair
+	jsr protectCrosshair
 
 gameplayLoopRenderPlayersAnyway:
 	jsr renderPlayers
@@ -357,6 +358,7 @@ scrollMapApplyScrolling:
 	sta playersDirty
 	sta projectilesDirty
 	sta terrainDirty
+	sta crosshairDirty
 	rts
 
 
@@ -484,6 +486,8 @@ playerMoveRequested:
 terrainDirty:
 	.word 1
 playersDirty:
+	.word 0
+crosshairDirty:
 	.word 0
 projectilesDirty:
 	.word 1
