@@ -8,8 +8,6 @@
 GAMEOBJECTWIDTH = 16
 GAMEOBJECTHEIGHT = 16
 MAXGAMEOBJECTS = 6		; Size of general purpose object pool
-MAXCLIMB = 16			; Highest pixel cliff we can climb
-
 
 ; Base class sample:
 ;gameobjectData:
@@ -132,49 +130,20 @@ moveGameObjectOnTerrain:
 	lda (PARAML0),y
 	clc
 	adc SCRATCHL2		; Apply X delta
-
-	clc					; Map into reversed terrain X space
-	adc #GAMEOBJECTWIDTH
-	sta SCRATCHL
-	lda #TERRAINWIDTH
-	sec
-	sbc SCRATCHL
-	sta SCRATCHL		; Desired X position
-
-	ldy #GO_POSY
-	lda (PARAML0),y
-	sec
-	sbc #GAMEOBJECTHEIGHT
-	sta SCRATCHL2		; Current Y position
-
-	lda SCRATCHL		; Check terrain height at new position
 	pha
-	jsr terrainHeightAtGameObjectPos
+
+	; Check for impassable gaps
 	sec
-	sbc SCRATCHL2
-	bmi moveGameObjectOnTerrainStepDown
+	sbc #GAMEOBJECTWIDTH/2
 
 moveGameObjectOnTerrainCheckHeight:
-	cmp #MAXCLIMB
-	bcs moveGameObjectOnTerrainTooFar
-	bra moveGameObjectOnTerrainStore
-
-moveGameObjectOnTerrainStepDown:
-	dec
-	eor #$ffff
-	bra moveGameObjectOnTerrainCheckHeight
+	jsr terrainHeightAtGameObjectPos
+	cmp #0
+	beq moveGameObjectOnTerrainTooFar
 
 moveGameObjectOnTerrainStore:
-	pla
-	sta SCRATCHL
-
-	; Reverse X position again
-	lda #TERRAINWIDTH
-	sec
-	sbc #GAMEOBJECTWIDTH
-	sbc SCRATCHL
-
 	ldy #GO_POSX
+	pla
 	sta (PARAML0),y
 	jsr placeGameObjectOnTerrain
 
@@ -185,7 +154,6 @@ moveGameObjectOnTerrainTooDone:
 moveGameObjectOnTerrainTooFar:
 	pla
 	bra moveGameObjectOnTerrainTooDone
-
 
 moveGameObjectLeftOffset:
 	.word 0
