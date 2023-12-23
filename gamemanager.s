@@ -35,8 +35,6 @@ beginGameplay:
 	ldy #0
 	jsr renderPlayerHeader
 
-	jsr protectPlayers
-	jsr protectProjectiles
 	jsr prepareRowRendering
 
 	jsr compileTerrain
@@ -44,6 +42,7 @@ beginGameplay:
 	jsr renderTerrain
 
 	jsr renderInventory
+	jsr protectPlayers
 	jsr renderPlayers
 
 	; Fade in from menu
@@ -153,6 +152,12 @@ gameplayLoopRender:
 	stz terrainDirty
 
 	; Render players
+	lda playersDirty		; Check if terrain moved since last protect
+	beq gameplayLoopRenderPlayersAnyway
+	jsr unrenderPlayers
+	jsr protectPlayers
+
+gameplayLoopRenderPlayersAnyway:
 	jsr renderPlayers
 
 gameplayLoopExplosions:
@@ -348,14 +353,10 @@ scrollMapApplyScrolling:
 	lda #$ffff
 	sta mapScrollRequested
 
-	jsr protectPlayers
-	jsr protectProjectiles
-	jsr renderPlayers
-	jsr renderProjectiles		; Prevents flicker, but ads jitter to shot tracking
-
 	lda #1
+	sta playersDirty
+	sta projectilesDirty
 	sta terrainDirty
-	stz projectilesDirty
 	rts
 
 
@@ -482,6 +483,8 @@ playerMoveRequested:
 	.word $0000
 terrainDirty:
 	.word 1
+playersDirty:
+	.word 0
 projectilesDirty:
 	.word 1
 inventoryDirty:
