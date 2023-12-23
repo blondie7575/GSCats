@@ -435,7 +435,7 @@ move:
 	beq moveParamsPlayer0
 	lda #-1
 	sta placeGameObjectRightOffset
-	lda #GAMEOBJECTWIDTH-7
+	lda #GAMEOBJECTWIDTH-(GAMEOBJECTWIDTH/2-1)
 	sta placeGameObjectLeftOffset
 
 movePerformMove:
@@ -443,7 +443,7 @@ movePerformMove:
 	bra moveCleanup
 
 moveParamsPlayer0:
-	lda #-6
+	lda #-(GAMEOBJECTWIDTH/2-2)
 	sta placeGameObjectRightOffset
 	lda #GAMEOBJECTWIDTH-2
 	sta placeGameObjectLeftOffset
