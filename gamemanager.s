@@ -134,6 +134,7 @@ gameplayLoopPower:
 	beq gameplayLoopFire
 	jsr changePower
 	jsr unrenderCrosshair
+	ldy currentPlayer
 	jsr renderCrosshair
 
 gameplayLoopFire:
@@ -172,6 +173,7 @@ gameplayLoopRender:
 	lda dirtExplosionActive	; Crosshair is dirty if map scrolled and dirt is finished
 	bne gameplayLoopRenderPlayersAnyway
 	jsr protectCrosshair
+	ldy currentPlayer
 	jsr renderCrosshair
 
 gameplayLoopRenderPlayersAnyway:
@@ -474,6 +476,7 @@ moveCleanup:
 	jsr protectPlayers
 	jsr renderPlayers
 	jsr protectCrosshair
+	ldy currentPlayer
 	jsr renderCrosshair
 
 	RESTORE_AY
