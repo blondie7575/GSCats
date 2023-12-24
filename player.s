@@ -6,6 +6,8 @@
 ;
 
 MAX_ANGER = 100
+START_POWER = 2
+START_TREATS = 7
 
 playerData:
 	;;;;;;;;;;;; PLAYER 1 ;;;;;;;;;;;;;;
@@ -17,14 +19,14 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 24			; Angle in degrees from +X
-	.word 2				; Power
-	.word MAX_ANGER		; Anger
+	.word 0				; Angle in degrees from +X
+	.word 0				; Power
+	.word 0				; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 29			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
-	.word 7				; Treats
+	.word 0				; Treats
 	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
 	.endrepeat
@@ -38,14 +40,14 @@ playerData:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
-	.word 154			; Angle in degrees from +X
-	.word 2	; Power
-	.word MAX_ANGER		; Anger
+	.word 0				; Angle in degrees from +X
+	.word 0				; Power
+	.word 0				; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 20			; Base Sprite
 	.word 0,5,7,0,0,0,0,0	; Prices
 	.word 0				; Current weapon
-	.word 7				; Treats
+	.word 0				; Treats
 
 	.repeat 86
 	.byte 0		; Padding to 256-byte boundary
@@ -105,12 +107,46 @@ playerCreate:
 	sty SCRATCHL
 	pla
 
+	; Starting position
 	sta playerData+GO_POSX,y
 	lda #playerData
 	clc
 	adc SCRATCHL
 	sta PARAML0
 	jsr placeGameObjectOnTerrainDefault
+
+	; Starting aim
+	lda playerData+GO_POSX,y
+	cmp #TERRAINWIDTH/2
+	bcc playerCreateLeft
+	lda #154
+	bra playerCreateInit
+playerCreateLeft:
+	lda #24
+
+playerCreateInit:
+	sta playerData+PD_ANGLE,y
+
+	; Initialize standard values
+	lda #START_POWER
+	sta playerData+PD_POWER,y
+	lda #START_TREATS
+	sta playerData+PD_TREATS,y
+	lda #MAX_ANGER
+	sta playerData+PD_ANGER,y
+	lda #0
+	sta playerData+PD_CURRWEAPON,y
+	lda #1
+	sta playersDirty
+	sta terrainDirty
+	sta projectilesDirty
+	sta inventoryDirty
+
+	lda #-1
+	sta gameOver
+	sta projectileActive
+
+	stz currentPlayer
 
 	jsr createProgressBar
 	rts

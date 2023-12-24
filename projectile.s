@@ -630,6 +630,9 @@ endProjectile:
 ; Trashes A
 ;
 deleteProjectile:
+	lda projectileData+GO_POSX,y
+	bmi deleteProjectileDone	; Already deleted
+
 	lda #-1
 	sta projectileData+GO_POSX,y
 
@@ -643,6 +646,25 @@ deleteProjectile:
 	JSRA
 
 deleteProjectileDone:
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deleteAllProjectiles
+;
+deleteAllProjectiles:
+	SAVE_AXY
+
+	ldx #0
+deleteAllProjectilesLoop:
+	txy
+	PROJECTILEPTR_Y
+	jsr deleteProjectile
+	inx
+	cpx #4
+	bne deleteAllProjectilesLoop
+
+	RESTORE_AXY
 	rts
 
 

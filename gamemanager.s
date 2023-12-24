@@ -7,6 +7,18 @@
 
 NUMPLAYERS = 2
 
+initGameplay:
+	; Create players
+	lda #56
+	ldy #0
+	jsr playerCreate
+
+	lda #568
+	ldy #1
+	jsr playerCreate
+
+	jsr deleteAllProjectiles
+	rts
 
 beginGameplay:
 	; Initialize random numbers
@@ -19,18 +31,14 @@ beginGameplay:
 	jsr colorFill
 
 	; Generate, compile, and clip terrain
+	stz mapScrollPos
 	stz leftScreenEdge
+	lda #160-GAMEOBJECTWIDTH/4-2
+	sta rightScreenEdge
 	jsr generateTerrain
 
-	; Create players
-	lda #56
-	ldy #0
-	jsr playerCreate
-
-	lda #568
-	ldy #1
-	jsr playerCreate
-
+	jsr initGameplay
+	
 	jsr syncPlayerHeader
 	ldy #0
 	jsr renderPlayerHeader
@@ -125,6 +133,8 @@ gameplayLoopPower:
 	lda powerDeltaRequested
 	beq gameplayLoopFire
 	jsr changePower
+	jsr unrenderCrosshair
+	jsr renderCrosshair
 
 gameplayLoopFire:
 	lda fireRequested
@@ -489,9 +499,9 @@ turnRequested:
 playerMoveRequested:
 	.word $0000
 terrainDirty:
-	.word 1
+	.word 0
 playersDirty:
-	.word 1
+	.word 0
 projectilesDirty:
 	.word 1
 inventoryDirty:
