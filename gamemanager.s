@@ -44,6 +44,8 @@ beginGameplay:
 	jsr renderInventory
 	jsr protectPlayers
 	jsr renderPlayers
+	ldy #0
+	jsr updateCrosshair
 
 	; Fade in from menu
 	lda #basePalette
@@ -95,8 +97,9 @@ gameplayLoopScroll:
 	bmi gameplayLoopAngleCheck
 
 	jsr scrollMap
+	ldy currentPlayer
 	jsr updateCrosshair
-
+	
 gameplayLoopAngleCheck:
 	lda projectileActive			; Skip interactivity during shots
 	bpl gameplayLoopRenderJmp
@@ -107,7 +110,7 @@ gameplayLoopRenderJmp:
 gameplayLoopAngle:
 	; Update aim angle if needed
 	lda angleDeltaRequested
-	beq gameplayLoopAim
+	beq gameplayLoopPower
 	jsr changeAngle
 
 gameplayLoopAim:
@@ -155,8 +158,11 @@ gameplayLoopRender:
 	beq gameplayLoopRenderPlayersAnyway
 	jsr unrenderPlayers
 	jsr protectPlayers
-	jsr unrenderCrosshair
+
+	lda dirtExplosionActive	; Crosshair is dirty if map scrolled and dirt is finished
+	bne gameplayLoopRenderPlayersAnyway
 	jsr protectCrosshair
+	jsr renderCrosshair
 
 gameplayLoopRenderPlayersAnyway:
 	jsr renderPlayers
@@ -297,8 +303,6 @@ endTurnHeader:
 	jsr renderPlayerHeader
 	jsr renderInventory
 	stz turnRequested
-
-	jsr protectCrosshair
 	rts
 
 endTurnFocusPlayer0:
@@ -338,6 +342,8 @@ scrollMap:
 	lda projectileActive		; Crosshair is visible if projectile isn't
 	beq scrollMapApplyScrolling
 	jsr unrenderCrosshair
+	lda #1
+	sta crosshairBackgroundStale
 
 scrollMapApplyScrolling:
 	pla
@@ -358,7 +364,6 @@ scrollMapApplyScrolling:
 	sta playersDirty
 	sta projectilesDirty
 	sta terrainDirty
-	sta crosshairDirty
 	rts
 
 
@@ -486,9 +491,7 @@ playerMoveRequested:
 terrainDirty:
 	.word 1
 playersDirty:
-	.word 0
-crosshairDirty:
-	.word 0
+	.word 1
 projectilesDirty:
 	.word 1
 inventoryDirty:

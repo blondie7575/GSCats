@@ -14,6 +14,9 @@ crosshairGameObject:
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	.word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
+crosshairBackgroundStale:
+	.word 0
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; updateCrosshair
@@ -115,6 +118,8 @@ protectCrosshair:
 	sta PARAML0
 	jsr protectGameObject
 
+	stz crosshairBackgroundStale
+
 protectCrosshairDone:
 	pla
 	rts
@@ -127,6 +132,9 @@ protectCrosshairDone:
 ;
 unrenderCrosshair:
 	pha
+
+	lda crosshairBackgroundStale
+	bne unrenderCrosshairDone
 
 	lda #crosshairGameObject
 	sta PARAML0

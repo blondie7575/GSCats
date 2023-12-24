@@ -180,8 +180,8 @@
 	pha
 	lda breakpoint
 	beq nobrk
-	lda #1
-	sta $e1c029
+;	lda #1
+;	sta $e1c029
 	pla
 	brk
 nobrk:
