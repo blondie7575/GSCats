@@ -67,6 +67,7 @@ updateFan:
 	; Once fan is in place, make it static
 	lda projectileData+GO_POSY,y
 	inc
+	inc
 	sta projectileData+GO_POSY,y
 	lda #1
 	sta projectileData+JD_STATIC,y
