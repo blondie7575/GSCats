@@ -192,7 +192,9 @@ gameplayLoopProjectiles:
 
 	jsr unrenderProjectiles
 	jsr updateProjectilesPhysics
+	jsr unrenderPlayers			; This extra unrender...
 	jsr protectProjectiles
+	jsr renderPlayers			; ... rerender cycle makes fan stands overlapping cats render properly. Messy, but the engine doesn't handle overlapping sprites well
 	jsr renderProjectiles
 
 gameplayLoopProjectilesSkip:
