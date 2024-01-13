@@ -165,6 +165,57 @@ renderFanDone:
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; unrenderFan
+;
+; Y = Offset to projectile structure
+;
+unrenderFan:
+	SAVE_AXY
+
+	; Unrender the stand under the fan
+	lda projectileData+JD_SCRATCH,y
+	sta PARAML0
+	clc
+	lda #gameObjectPool
+	adc PARAML0
+	sta PARAML0
+	jsr unrenderGameObject
+
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; protectFan
+;
+; Y = Offset to projectile structure
+;
+protectFan:
+	SAVE_AXY
+
+	; Protect the stand under the fan
+	lda projectileData+JD_SCRATCH,y
+	sta PARAML0
+	clc
+	lda #gameObjectPool
+	adc PARAML0
+	sta PARAML0
+	jsr vramPtr
+	cpx #$ffff
+	beq protectFanDone
+
+	lda PARAML0
+	clc
+	adc #GO_BACKGROUND
+	sta PARAML0
+	jsr protectGameObject
+
+protectFanDone:
+	RESTORE_AXY
+	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; deleteFan
 ;
 ; Y = Offset to projectile structure

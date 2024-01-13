@@ -102,11 +102,13 @@ projectileTypes:
 	.addr 0			; Deploy
 	.addr 0			; Update
 	.addr 0			; Render
+	.addr 0			; Unrender
+	.addr 0			; Protect
 	.addr 0			; Cleanup
 	.word 1			; Directional
 	.word 1			; Mining
 
-	.repeat 10
+	.repeat 6
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -119,11 +121,13 @@ projectileTypes:
 	.addr 0			; Deploy
 	.addr 0			; Update
 	.addr 0			; Render
+	.addr 0			; Unrender
+	.addr 0			; Protect
 	.addr 0			; Cleanup
 	.word 0			; Directional
 	.word 0			; Mining
 
-	.repeat 10
+	.repeat 6
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
@@ -136,11 +140,13 @@ projectileTypes:
 	.addr deployFan ; Deploy
 	.addr updateFan	; Update
 	.addr renderFan	; Render
+	.addr unrenderFan ; Unrender
+	.addr protectFan ; Protect
 	.addr deleteFan	; Cleanup
 	.word 1			; Directional
 	.word 0			; Mining
 
-	.repeat 10
+	.repeat 6
 	
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
@@ -154,9 +160,11 @@ PT_FRAME2 = 8
 PT_DEPLOY = 10
 PT_UPDATE = 12
 PT_RENDER = 14
-PT_CLEANUP = 16
-PT_DIRECTIONAL = 18
-PT_MINING = 20
+PT_UNRENDER = 16
+PT_PROTECT = 18
+PT_CLEANUP = 20
+PT_DIRECTIONAL = 22
+PT_MINING = 24
 
 .macro PROJECTILEPTR_Y
 	tya		; Pointer to projectile structure from index
@@ -708,6 +716,16 @@ protectProjectilesGotOne:
 	adc PARAML0
 	sta PARAML0
 	jsr protectGameObject
+
+	; Check for special deployment code
+	lda projectileData+JD_TYPE,y
+	tax
+	PROJECTILETYPEPTR_X
+	lda projectileTypes+PT_PROTECT,x
+	beq protectProjectilesNotSpecial
+	JSRA
+
+protectProjectilesNotSpecial:
 	plx
 	bra protectProjectilesContinue
 
@@ -846,7 +864,8 @@ unrenderProjectilesSkip:
 ; Y = Offset to projectile structure
 ;
 unrenderProjectile:
-	pha
+	SAVE_AX
+
 	lda projectileData+GO_POSX,y
 	bpl unrenderProjectileActive
 	jmp unrenderProjectileDone
@@ -867,8 +886,16 @@ unrenderProjectileDoIt:
 	sta PARAML0
 	jsr unrenderGameObject
 
+	; Check for special deployment code
+	lda projectileData+JD_TYPE,y
+	tax
+	PROJECTILETYPEPTR_X
+	lda projectileTypes+PT_UNRENDER,x
+	beq unrenderProjectileDone
+	JSRA
+
 unrenderProjectileDone:
-	pla
+	RESTORE_AX
 	rts
 
 
