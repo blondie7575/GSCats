@@ -151,6 +151,46 @@ projectileTypes:
 	.byte 0 		; Padding to 32-byte boundary
 	.endrepeat
 
+	; Move Left
+	.word 0			; Damage
+	.word 0			; Crater radius
+	.word 0			; Frame 0
+	.word 38		; Frame 1
+	.word 0			; Frame 2
+	.addr 0 		; Deploy
+	.addr 0			; Update
+	.addr 0			; Render
+	.addr 0 		; Unrender
+	.addr 0 		; Protect
+	.addr 0			; Cleanup
+	.word 0			; Directional
+	.word 0			; Mining
+
+	.repeat 6
+	
+	.byte 0 		; Padding to 32-byte boundary
+	.endrepeat
+
+	; Move Right
+	.word 0			; Damage
+	.word 0			; Crater radius
+	.word 0			; Frame 0
+	.word 39		; Frame 1
+	.word 0			; Frame 2
+	.addr 0 		; Deploy
+	.addr 0			; Update
+	.addr 0			; Render
+	.addr 0 		; Unrender
+	.addr 0 		; Protect
+	.addr 0			; Cleanup
+	.word 0			; Directional
+	.word 0			; Mining
+
+	.repeat 6
+	
+	.byte 0 		; Padding to 32-byte boundary
+	.endrepeat
+
 
 PT_DAMAGE = 0		; Byte offsets into projectile type data structure
 PT_RADIUS = 2

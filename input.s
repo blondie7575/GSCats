@@ -109,10 +109,10 @@ kbdScanGameplay:
 	beq kbdScanPeriod
 	cmp #(' ' + $80)
 	beq kbdScanSpace
-	cmp #(';' + $80)
-	beq kbdScanSemiColon
-	cmp #(39 + $80)
-	beq kbdScanApostrophe
+;	cmp #(';' + $80)			; For debugging cat movement
+;	beq kbdScanSemiColon		;
+;	cmp #(39 + $80)				;
+;	beq kbdScanApostrophe		;
 	cmp #(9 + $80)
 	bne kbdScanDebugPiggyback
 	jmp kbdScanTab

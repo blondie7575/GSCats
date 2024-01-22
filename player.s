@@ -24,7 +24,7 @@ playerData:
 	.word 0				; Anger
 	.byte 8,"SPROCKET "	; Name
 	.word 29			; Base Sprite
-	.word 0,5,7,0,0,0,0,0	; Prices
+	.word 0,5,7,1,1,0,0,0	; Prices
 	.word 0				; Current weapon
 	.word 0				; Treats
 	.repeat 86
@@ -45,7 +45,7 @@ playerData:
 	.word 0				; Anger
 	.byte 8,"TINKER   "	; Name
 	.word 20			; Base Sprite
-	.word 0,5,7,0,0,0,0,0	; Prices
+	.word 0,5,7,1,1,0,0,0	; Prices
 	.word 0				; Current weapon
 	.word 0				; Treats
 
@@ -246,6 +246,13 @@ playerFire:
 	sbc SCRATCHL
 	sta playerData+PD_TREATS,y
 
+	; Check for movement
+	lda playerData+PD_CURRWEAPON,y
+	cmp #3
+	beq playerFireMoveLeft
+	cmp #4
+	beq playerFireMoveRight
+
 	; Animate the shooting
 	phy
 	ldy SCRATCHL2
@@ -272,6 +279,16 @@ playerFire_done:
 playerFire_abort:
 	pla		; Balance stack
 	bra playerFire_done
+
+playerFireMoveLeft:
+	lda #-2
+	sta playerMoveRequested
+	bra playerFire_abort
+
+playerFireMoveRight:
+	lda #2
+	sta playerMoveRequested
+	bra playerFire_abort
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
