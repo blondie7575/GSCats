@@ -132,7 +132,7 @@ playerCreateInit:
 	sta playerData+PD_POWER,y
 	lda #START_TREATS
 	sta playerData+PD_TREATS,y
-	lda #MAX_ANGER
+	lda #0
 	sta playerData+PD_ANGER,y
 	lda #0
 	sta playerData+PD_CURRWEAPON,y
@@ -248,9 +248,9 @@ playerFire:
 
 	; Check for movement
 	lda playerData+PD_CURRWEAPON,y
-	cmp #3
+	cmp #PT_MOVELEFT
 	beq playerFireMoveLeft
-	cmp #4
+	cmp #PT_MOVERIGHT
 	beq playerFireMoveRight
 
 	; Animate the shooting
@@ -544,9 +544,7 @@ syncPlayerHeader:
 	PLAYERPTR_Y
 
 	; Convert anger to progress bar value
-	sec
-	lda #MAX_ANGER
-	sbc playerData+PD_ANGER,y
+	lda playerData+PD_ANGER,y
 	lsr
 	lsr
 	jsr setProgressBar

@@ -92,6 +92,8 @@ projectileTypes:
 	PT_SPIT = 0
 	PT_BOMB = 1
 	PT_FAN = 2
+	PT_MOVELEFT = 3
+	PT_MOVERIGHT = 3
 
 	; Spit
 	.word 4			; Damage
@@ -678,6 +680,7 @@ endProjectile:
 ; Trashes A
 ;
 deleteProjectile:
+	phx
 	lda projectileData+GO_POSX,y
 	bmi deleteProjectileDone	; Already deleted
 
@@ -694,6 +697,7 @@ deleteProjectile:
 	JSRA
 
 deleteProjectileDone:
+	plx
 	rts
 
 
@@ -709,7 +713,7 @@ deleteAllProjectilesLoop:
 	PROJECTILEPTR_Y
 	jsr deleteProjectile
 	inx
-	cpx #4
+	cpx #3
 	bne deleteAllProjectilesLoop
 
 	RESTORE_AXY
@@ -962,12 +966,12 @@ processPlayerImpact:
 
 	; Apply damage
 	lda playerData+PD_ANGER,x
-	sec
-	sbc projectileTypes+PT_DAMAGE,y
-	
+	clc
+	adc projectileTypes+PT_DAMAGE,y
+
 	; Check for death
-	beq processPlayerImpactDeath
-	bmi processPlayerImpactDeath
+	cmp #MAX_ANGER
+	bcs processPlayerImpactDeath
 	sta playerData+PD_ANGER,x
 	rts
 
