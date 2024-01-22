@@ -278,6 +278,7 @@ playerFire_done:
 
 playerFire_abort:
 	pla		; Balance stack
+	jsr renderCrosshair		; Keep crosshair from disappearing on abort. Kinda hacky
 	bra playerFire_done
 
 playerFireMoveLeft:
