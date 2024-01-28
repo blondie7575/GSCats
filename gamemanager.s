@@ -334,8 +334,28 @@ endTurnWrap:
 ; Handles someone winning
 ;
 endGame:
+	SAVE_AXY
+
+	lda currentPlayer
+	beq endGame0
+
+	lda #victoryText1
+	bra endGameRender
+
+endGame0:
+	lda #victoryText0
+
+endGameRender:
+	sta PARAML0
+	ldy #$48b7
+	lda #2
+	jsl renderStringFar
+
+	jsr kbdWaitForAnyKey
 	lda #1
 	sta quitRequested
+
+	RESTORE_AXY
 	rts
 
 
@@ -535,3 +555,7 @@ mapScrollPos:
 rightScreenEdge:			; Right edge minus one game object width, for easy render clipping
 	.word 160-GAMEOBJECTWIDTH/4-2
 
+victoryText0:
+	pstring "SPROCKET WINS!"
+victoryText1:
+	pstring " TINKER WINS!"
