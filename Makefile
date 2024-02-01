@@ -10,7 +10,7 @@
 
 CL65=cl65
 CAD=./cadius
-VOLNAME=GSAPP
+VOLNAME=CATFIGHT
 IMG=DiskImageParts
 EMU=/Applications/GSplus.app/Contents/MacOS/gsplus
 ADDR=0800
@@ -20,7 +20,7 @@ EXEC=$(PGM)\#06$(ADDR)
 SOUNDBANK=SOUNDBANK\#060000
 FONTBANK=FONTBANK\#060000
 TITLESCREEN=TITLE\#060000
-PGM=gscats
+PGM=catfight
 
 MRSPRITE=../MrSprite/mrsprite
 GENART=Art/Generated

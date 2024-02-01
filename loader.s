@@ -434,15 +434,15 @@ fileOpenTitle:
 	.byte 0					; Padding
 
 codePath:
-	pstring "/GSAPP/CODEBANK"
+	pstring "/CATFIGHT/CODEBANK"
 spritePath:
-	pstring "/GSAPP/SPRITEBANK"
+	pstring "/CATFIGHT/SPRITEBANK"
 soundPath:
-	pstring "/GSAPP/SOUNDBANK"
+	pstring "/CATFIGHT/SOUNDBANK"
 fontPath:
-	pstring "/GSAPP/FONTBANK"
+	pstring "/CATFIGHT/FONTBANK"
 titlePath:
-	pstring "/GSAPP/TITLE"
+	pstring "/CATFIGHT/TITLE"
 
 .include "sharedGraphics.s"
 .include "loaderGraphics.s"

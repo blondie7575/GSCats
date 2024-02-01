@@ -44,7 +44,7 @@
 		70E554C41F807ADB00F3C871 /* spritebank.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = spritebank.s; sourceTree = "<group>"; };
 		70E9D85F1F2BD95400555C19 /* equates.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = equates.s; sourceTree = "<group>"; };
 		70E9D8601F2BD95400555C19 /* graphics.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = graphics.s; sourceTree = "<group>"; };
-		70E9D8611F2BD95400555C19 /* gscats.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = gscats.s; sourceTree = "<group>"; };
+		70E9D8611F2BD95400555C19 /* catfight.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = catfight.s; sourceTree = "<group>"; };
 		70E9D8621F2BD95400555C19 /* macros.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = macros.s; sourceTree = "<group>"; };
 		70E9D8631F2BD95400555C19 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		70F011D023B91B2900C8873F /* dirt.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = dirt.s; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 				701E708F2A69CE520030C35D /* loadingBar.s */,
 				701E70902A6A23800030C35D /* sharedGraphics.s */,
 				701E70922A6DC5910030C35D /* titleScreen.s */,
-				70E9D8611F2BD95400555C19 /* gscats.s */,
+				70E9D8611F2BD95400555C19 /* catfight.s */,
 				70A80FB01F43D7F200BD34C9 /* gamemanager.s */,
 				70E9D8601F2BD95400555C19 /* graphics.s */,
 				7099E3841F41022100182A82 /* gameobject.s */,
