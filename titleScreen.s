@@ -420,7 +420,7 @@ helpText0:
 helpText1:
 	pstring "YOUR GOAL IS TO ANGER THE OTHER CAT"
 helpText2:
-	pstring "SO MUCH THAT SHE PEES AND RUNS OFF."
+	pstring "SO MUCH THAT SHE PEES."
 helpText3:
 	pstring "_^ AIM"
 helpText4:

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple game in the style of Apple II Artilley, Scorched Earth, or Worms– but with cats and nobody gets hurt. The goal is simply to make the other cat so angry that they leave.
+This is a simple game in the style of Apple II Artilley, Scorched Earth, or Worms– but with cats and nobody gets hurt. The goal is simply to make the other cat so angry that they pee themselves (based on the true story of Tinker and Sprocket's first encounter).
 
 This was written as an exercise for me to learn the fundamentals of Apple IIgs game programming, and I certainly won't claim there's anything special here technically. The neatest part is probably the terrain, which is deformable and scrolls at 60fps on stock hardware. Well, sometimes it does, anyway, depending on how you hold your nose. The GS is hard. Also it no longer does it at 60fps since I built a whole game on top of that engine. It was neat for a while, okay? I did a whole KansasFest presentation about it. There's a video. Google it yourself. I'm not your mother.
 
