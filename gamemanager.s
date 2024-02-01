@@ -33,6 +33,7 @@ beginGameplay:
 	; Generate, compile, and clip terrain
 	stz mapScrollPos
 	stz leftScreenEdge
+	stz mapScrollRequested
 	lda #160-GAMEOBJECTWIDTH/4-2
 	sta rightScreenEdge
 	jsr generateTerrain
@@ -331,7 +332,7 @@ endTurnWrap:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; endGame
 ;
-; Handles someone winning
+; Handles someone winning. Assumes "someone" is current player
 ;
 endGame:
 	SAVE_AXY
@@ -351,6 +352,25 @@ endGameRender:
 	lda #2
 	jsl renderStringFar
 
+	; Play pee animation under loser (non-current player)
+	lda currentPlayer
+	eor #1
+	tay
+	PLAYERPTR_Y
+	lda playerData+GO_POSX,y
+	sta endGamePeePos
+	lda playerData+GO_POSY,y
+	dec
+	dec
+	sta endGamePeePos+2
+	lda #endGamePeePos
+	sta PARAML0
+	ldy #40
+	ldx #5
+	lda #ANIMATION_SIZE_16x16
+	jsr renderAnimationFreeze
+	
+	; Wait for keypress
 	jsr kbdWaitForAnyKey
 	lda #1
 	sta quitRequested
@@ -358,6 +378,8 @@ endGameRender:
 	RESTORE_AXY
 	rts
 
+endGamePeePos:
+	.word 0,0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; scrollMap

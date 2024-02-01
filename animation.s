@@ -154,6 +154,16 @@ renderAnimationLoop:
 
 	jsr delayMedium
 
+	; On last frame, freeze if needed
+	lda renderAnimationFreezeFrame
+	beq renderAnimationContinue
+	inx
+	cpx PARAML0
+	beq renderAnimationDone
+	dex
+
+renderAnimationContinue:
+
 	; Restore background
 	phx
 	ldy SCRATCHL2
@@ -168,11 +178,35 @@ renderAnimationLoop:
 	bne renderAnimationLoop
 
 renderAnimationDone:
+	stz renderAnimationFreezeFrame
 	rts
 
 renderAnimationSkip:
 	plx
 	bra renderAnimationDone
+
+renderAnimationFreezeFrame:
+	.word 0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; renderAnimationFreeze
+;
+; Plays an entire animation statelessly, and freezes on the last frame
+;
+; Y = Base sprite index
+; X = Number of frames
+; A = Animation size (use constants above)
+; PARAML0 = Pointer to X,Y (16 bits each, Y is bottom relative)
+;
+; Trashes A,X,Y,PARAML0,PARAML1,PARAML2,SCRATCHL2
+;
+renderAnimationFreeze:
+	pha
+	lda #1
+	sta renderAnimationFreezeFrame
+	pla
+	jmp renderAnimation
 
 
 ; Jump tables for various animation sizes

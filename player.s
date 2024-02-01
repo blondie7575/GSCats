@@ -134,7 +134,6 @@ playerCreateInit:
 	sta playerData+PD_TREATS,y
 	lda #0
 	sta playerData+PD_ANGER,y
-	lda #0
 	sta playerData+PD_CURRWEAPON,y
 	lda #1
 	sta playersDirty
