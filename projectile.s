@@ -93,7 +93,7 @@ projectileTypes:
 	PT_BOMB = 1
 	PT_FAN = 2
 	PT_MOVELEFT = 3
-	PT_MOVERIGHT = 3
+	PT_MOVERIGHT = 4
 
 	; Spit
 	.word 4			; Damage
