@@ -51,7 +51,7 @@ titleScreenCopyLoop:
 	; Render menu text
 	jsr titleScreenRenderMenu
 
-	jsr setBorderAtScanLine
+;	jsr setBorderAtScanLine
 
 	; Fade in
 	lda #titlePalette
