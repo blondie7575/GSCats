@@ -97,11 +97,13 @@ The sound bank (SOUNDBANK) is a 64k file that is already in the internal format 
 
 I did my best to make this sufficiently bug free to play. I'm not aware of any open bugs. If there are any, they will mostly likely be rendering artifacts. For example, you might see half a floating cat head or a stray crosshair when the map scrolls. That sort of thing. The sprite rendering is admitedly not very robust, and doesn't handle overlaps well. I fixed all the cases I could find, but I would not be surprised if there are others.
 
+There was originally a nifty border effect on the title screen where the terrain extends into the border. This works perfectly on all emulators but is horribly unstable on real hardware for reasons I have not yet figured out. It's disabled in the current version until I figure it out. Just imagine how cool it is, and wonder with me about why GS emulators are all so approximate.
+
 The game may or may not actually be fun. It has had no playtesting or balancing work done. After seven years of working on this, I decided I just needed to finish it and it is what it is. It will not start some new revolution of retro-gaming enthusiasm on the GS.
 
 The game has been tested on:
 - The GSPlus emulator (v0.14)
-- The KEGS emulator (v1.34)
+- The KEGS emulator (v1.34) Works, except sound is playing too slowly, which is a KEGS bug
 - A ROM01 GS at 2.8MHz
 - A ROM01 GS with Transwarp at 7MHz
 
