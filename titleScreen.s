@@ -23,8 +23,8 @@ CAT1_VRAM = $5da0
 ; Shows the title screen and main game menu
 ;
 titleScreen:
-	lda #%10000000		; Set all SCBs to 320, no interrupts, palette 0
-	jsr initSCBs
+	jsr setScanLineInterruptVector
+	;jsr setVBLInterruptVector
 	stz leftScreenEdge
 
 	; Copy title screen art from where it was loaded in bank 6

@@ -9,12 +9,16 @@ loaderPalette:
 showLoadingScreen:
 	lda #$0000
 	jsr slowColorFill
+
 	SHRVIDEO
 	SHADOWMEMORY
+
+	jsr initSCBs
 	lda #loaderPalette
 	sta PARAML0
 	lda #0
 	jsr setPalette
+
 	BORDER_COLOR #$7
 	lda #$1111
 	jsr slowColorFill
@@ -55,3 +59,24 @@ slowColorFillLoop:
 
 slowColorFillLoopDone:
 	rts
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; initSCBs
+; Initialize all scanline control bytes
+;
+; Trashes A,X
+
+initSCBs:
+	BITS8
+	lda #0
+	ldx #200	;set all 200 scbs to A
+
+initSCBsLoop:
+	dex
+	sta $e19d00,x
+	cpx #0
+	bne initSCBsLoop
+	BITS16
+	rts
+
