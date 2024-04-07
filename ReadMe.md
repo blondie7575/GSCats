@@ -10,10 +10,13 @@ This was written as an exercise for me to learn the fundamentals of Apple IIgs g
 
 If nothing else, I do think this project serves as a solid starting point for anyone interested in writing GS games. The basics are all here- an art pipeline with compiled sprites, a VBL-synced game loop, input handling, fonts, animation system, and sound. All the things you need on a GS, and all things that are hard on the GS. I'll describe these systems in more detail below.
 
+![Screenshot](Screenshot2.png)
 
 ## Running The Game
 
 The included 800k disk image should load fine in any emulator or on real hardware. It should run on any GS with 512k or more of RAM, and no acceleration is required. The game runs of ProDOS 8 and can in theory be copied to a hard drive, but at the moment the volume name is hardcoded in the loader. Sorry, it's lame, I know. The image boots Bitsy Bye, and the game is called CATFIGHT. Run that and enjoy spitting at your opponent all the live long day.
+
+![Screenshot](Screenshot3.png)
 
 
 ## Acknowledgements
