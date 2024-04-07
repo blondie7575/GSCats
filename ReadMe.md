@@ -1,5 +1,7 @@
 # Cat Fight
 
+![Screenshot](Screenshot1.png)
+
 ## Introduction
 
 This is a simple game in the style of Apple II Artilley, Scorched Earth, or Worms– but with cats and nobody gets hurt. The goal is simply to make the other cat so angry that they pee themselves (based on the true story of Tinker and Sprocket's first encounter).
@@ -97,7 +99,7 @@ The sound bank (SOUNDBANK) is a 64k file that is already in the internal format 
 
 I did my best to make this sufficiently bug free to play. I'm not aware of any open bugs. If there are any, they will mostly likely be rendering artifacts. For example, you might see half a floating cat head or a stray crosshair when the map scrolls. That sort of thing. The sprite rendering is admitedly not very robust, and doesn't handle overlaps well. I fixed all the cases I could find, but I would not be surprised if there are others.
 
-There was originally a nifty border effect on the title screen where the terrain extends into the border. This works perfectly on all emulators but is horribly unstable on real hardware for reasons I have not yet figured out. It's disabled in the current version until I figure it out. Just imagine how cool it is, and wonder with me about why GS emulators are all so approximate.
+There was originally a nifty border effect on the title screen where the terrain extends into the border. It's commented out because while it was stable on emulators, GS emulators are entirely too forgiving on things like scanline interrupts. The code I wrote isn't correct for reasons that we sussed out through a long discussion on the Apple II Slack. The short version is that my fast rendering code disables and re-enables interrupts blindly, rather that properly preserving the interrupt state of the machine with PHP/PLP. This causes occasional unhandled interrupts which accumulate in ProDOS 8, which is the last line of defence since I boot into that for this game. Once 255 of those interrupts accumulate, the machine falls over. Emulators let this slide. However, since it's unstable on real hardware, I have removed it.
 
 The game may or may not actually be fun. It has had no playtesting or balancing work done. After seven years of working on this, I decided I just needed to finish it and it is what it is. It will not start some new revolution of retro-gaming enthusiasm on the GS.
 
